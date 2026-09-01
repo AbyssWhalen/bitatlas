@@ -2091,3 +2091,11 @@
 - `tests/e2e/code-only-mode.spec.ts` 新增品牌文字与 SVG 实际加载合同；复用固定 preview 的 Chrome 1440/1366/390 三视口为 `3/3 passed`。人工检查 `output/playwright/brand/bitatlas-brand-block-1440.png`、`bitatlas-dashboard-1440.png` 和 `apps/web/public/pwa-512.png`，未发现图标模糊、文字挤压或布局重叠。
 - 本轮按减少测试约束没有重跑全仓 Vitest、release、content 或默认 189 项全量 E2E。默认全量最新完整事实仍为 `187/189 passed`，两个并发冷启动/actionability 失败不能写成全绿；当前定向 `.last-run.json` 不覆盖该事实。
 - 变更范围独立复审 P0/P1 为 `0`：备份只改下载文件名前缀，图标和显示名不参与导入校验、IndexedDB 或题目语义。未修改 Q44 的 `parallel-5 / split-6` 与 `needs-review` 边界、`408-user` schema v1/v2/v3、旧图片、旧测试或旧 `cpu-explorer`；未提交、推送或部署。
+
+## 2026-09-02 - 自定义域名接入（进行中）
+
+- 已在 Cloudflare `fytjut.com` 区域新增 `408.fytjut.com CNAME abysswhalen.github.io`，代理状态为“仅 DNS”，TTL 自动；Cloudflare 表格回读与公共 `Resolve-DnsName` 均确认 CNAME 生效，公共 TTL 为 `300`。
+- GitHub Pages 当前仍托管 `AbyssWhalen/bitatlas`，Actions run `33524976596` 已成功。Pages API 已接受 `cname: 408.fytjut.com`；证书已从 `new` 进入 `approved`，有效期至 `2026-11-30`，并已启用 `https_enforced: true`。正式地址为 `https://408.fytjut.com/`；下一步只做根路径、深链接、PWA 与三视口有限验收。
+- 首次 Actions 日志确认部署产物为 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`，同时暴露 workflow 的 Node 20 与当前锁定依赖引擎不一致。已将根 engine 与公开文档统一为 `^22.20.0 || >=24.12.0`，workflow 改用 Node 22；待新 run 证明 `npm ci` 不再出现这三项 `EBADENGINE` warning。
+- 初步线上检查已通过根路径、`/lab`、`/knowledge`、Q34 网络与 Q24 OS 深链接；390px 首页和 Q34 页面均无横向溢出或遮挡。manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均为 HTTP 200；浏览器没有 console error，Knowledge 仅保留既有 Cytoscape wheel sensitivity warning。
+- 本步骤没有修改题库、实验语义、`408-user` schema v1/v2/v3、Q44 边界或私有内容，也没有重跑默认 189 项全量 E2E。其最新完整事实仍为 `187/189 passed`，不能声称全绿。

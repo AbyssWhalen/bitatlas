@@ -55,7 +55,7 @@ BitAtlas 是面向个人考研复习的 local-first 计算机科学学习与可�
 
 ## 本地运行
 
-要求 Node.js `20.19+` 或 `22.12+`（包括更新的 LTS/Current 版本）和 npm。所有依赖安装在项目目录内，不需要全局安装。
+要求 Node.js `22.20+` 或 `24.12+`（包括更新的兼容版本）和 npm。所有依赖安装在项目目录内，不需要全局安装。
 
 ```powershell
 git clone <repository-url>
@@ -72,7 +72,7 @@ npm run dev
 
 公开仓库只包含可再分发的源码、实验逻辑、文档和无题包启动所需资源。版权状态不明确的 2009 题包、来源页图、PDF 和本地学习数据不会上传；没有安装本地题包时，实验室、资料库、设置和备份仍可用，题库相关入口会显示明确空状态。
 
-GitHub Actions 从 `main` 构建 `apps/web/dist` 并发布到 Pages。自定义域名由仓库根目录的 `CNAME` 文件声明，DNS 记录由域名服务商维护。
+GitHub Actions 从 `main` 构建 `apps/web/dist` 并发布到 Pages。自定义域名由 `apps/web/public/CNAME` 声明，构建时复制到 Pages 根目录；DNS 记录由域名服务商维护。
 
 ## 验证
 
@@ -103,11 +103,13 @@ npm run test:e2e
 
 - lint 与全部 workspace typecheck 通过。
 - 全仓 Vitest 为 `97 files / 1090 tests passed`。
-- production build 为 `1920 modules / 198 static-copy / 87 PWA entries (2770.12 KiB)`。
+- production build 为 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`。
 - release 工具测试为 `10/10 passed`；内容为 `47 questions / 19 assets`，状态仍是 `needs-review; verified 0/47`。
 - 公开代码无私有题包模式的真实 Chrome 合同在 1440、1366、390 三视口为 `3/3 passed`。
 - 默认 `8 workers / 3 projects` 全量 E2E 最近一次为 `187/189 passed`。失败是 chromium-1440 的 CSMA/CD 与 chromium-1366 的完全二叉树实验冷启动/actionability 超时，不能声称全量通过。
 - 当前 `.last-run.json` 可能来自后续定向运行，只代表对应集合，不覆盖上述默认全量结果。
+- GitHub Pages Actions run `33524976596` 构建与部署成功；`408.fytjut.com` 的 CNAME、Pages 证书和 HTTPS 强制均已启用。
+- 线上根路径、`/lab`、`/knowledge`、Q34 网络深链接和 Q24 操作系统深链接已完成桌面与 390px 有限验收，PWA manifest、favicon、`registerSW.js`、`sw.js` 和两张安装图标均返回成功。
 
 本次没有为已知并发冷启动问题无界重跑默认全量 E2E。
 

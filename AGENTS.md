@@ -66,7 +66,7 @@ npm run content:validate
 - 不抓取或绕过 408os.cn 的登录与接口限制。
 - 不把 AI 生成答案直接标记为已审核。
 - 不通过注释错误、降低校验门槛或删除失败测试来让构建通过。
-- 不在本阶段修改、下线或 iframe 嵌入 `cpu-explorer`。
+- 不删除 Git 历史中保留的旧 `cpu-explorer` 提交，不恢复或 iframe 嵌入旧站点。
 - 未经用户授权不得删除文件、修改密钥/CI、提交、推送或公开部署。
 - Q44 只保留来源支持的 `parallel-5` 与 `split-6`，保持 `needs-review`；不宣称穷尽所有合法答案，也不实现任意微操作评分器。
 

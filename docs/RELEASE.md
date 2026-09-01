@@ -2,20 +2,14 @@
 
 本文定义 BitAtlas 代码仓库封板与公开托管条件，不代表 2009 题包已经通过人工审核。
 
-## 当前阻塞决策
+## 已完成决策与剩余许可边界
 
-公开前由维护者明确决定：
+- 原公开仓库已由 `AbyssWhalen/cpu-explorer` 改名为 `AbyssWhalen/bitatlas`，保持 PUBLIC，默认分支为 `main`。
+- BitAtlas 代码通过 merge 接入并保留旧 `cpu-explorer` Git 历史；不得删除这些历史提交或恢复旧站点覆盖当前 Pages。
+- Pages 使用 `.github/workflows/deploy.yml` 构建并上传 `apps/web/dist`，正式地址为 `https://408.fytjut.com/`。应用使用无 `basename` 的 `createBrowserRouter`，PWA `id/scope/start_url` 均为 `/`，与自定义域名根路径一致。
+- 仓库仍没有 `LICENSE`。公开可访问不等于授予源码复制、修改或再分发许可；许可证必须由维护者另行选择，不能擅自假定 MIT 或其他授权。
 
-1. GitHub 目标仓库或需要替换的原仓库。
-2. 仓库可见性与最终 slug。公开显示名与仓库名均为 `BitAtlas`；GitHub 上已有无关的 `bitatlas-group/bitatlas` 项目，但不影响 `AbyssWhalen/bitatlas` 的所有权和访问路径。
-3. 代码许可证。当前仓库没有 `LICENSE`，不得擅自假定 MIT 或其他授权。
-4. 是否保留原仓库历史，还是建立全新历史后替换远端默认分支。
-
-创建远端、覆盖原项目、提交、推送和公开发布都属于外部写操作；本次用户已明确授权替换 `cpu-explorer`、公开仓库和配置 `408.fytjut.com`。
-
-只读审计显示，账号下唯一功能上接近的旧仓库是公开的 `AbyssWhalen/cpu-explorer`。它没有许可证，默认分支为未保护的 `main`，并通过 `.github/workflows/deploy.yml` 发布到 `https://abysswhalen.github.io/cpu-explorer/`。项目既有约束要求保留旧 `cpu-explorer`；只有用户明确点名覆盖它并授权删除旧文件、修改 CI 和替换公开站点时，才能把它作为目标。
-
-旧 Pages workflow 运行 `npm run build` 后上传根目录 `dist`，而 BitAtlas 的产物位于 `apps/web/dist`。本次部署使用自定义域名根路径 `408.fytjut.com`，因此不需要项目子路径适配；应用使用无 `basename` 的 `createBrowserRouter`，PWA `id/scope/start_url` 均为 `/`，与自定义域名根路径一致。
+本次仓库替换、CI、推送和公开部署已经获得用户明确授权并完成。后续新的仓库破坏性操作、权限调整或部署目标变更仍需单独授权。
 
 ## 可提交内容
 
@@ -33,7 +27,7 @@
 
 ## 封板门禁
 
-使用 Node.js `^20.19.0 || >=22.12.0`。`.gitattributes` 将源码和文档统一为 LF，并保留 Windows shell 脚本的 CRLF；图片、字体、PDF 和压缩包按二进制处理。
+使用 Node.js `^22.20.0 || >=24.12.0`。该范围覆盖当前锁定依赖的最高 Node 引擎要求，Pages workflow 使用 Node 22。`.gitattributes` 将源码和文档统一为 LF，并保留 Windows shell 脚本的 CRLF；图片、字体、PDF 和压缩包按二进制处理。
 
 窄改动先运行相关测试。准备提交时至少运行一次：
 
@@ -68,7 +62,13 @@ git grep -n -I -E "(api[_-]?key|secret|token|password)"
 
 - 目标仓库：`https://github.com/AbyssWhalen/bitatlas`
 - Pages 自定义域名：`https://408.fytjut.com/`
+- Cloudflare DNS：`408.fytjut.com CNAME abysswhalen.github.io`，仅 DNS，TTL 自动
+- Pages 状态：证书 `approved`，`https_enforced: true`
 - 构建目录：`apps/web/dist`
 - 深链接回退：`apps/web/public/404.html` 将未知 Pages 路径交回应用路由
 - 域名声明：`apps/web/public/CNAME`，内容为 `408.fytjut.com`
 - 公开边界：不上传 `local-data/`、`apps/web/public/content/`、`output/`、`tmp/`、依赖目录或密钥
+- 首次部署：Actions run `33524976596` 成功，`1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`
+- 线上验收：根路径、`/lab`、`/knowledge`、Q34 网络深链接、Q24 操作系统深链接与 390px 移动端通过；manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均返回 HTTP 200
+- 浏览器日志：上述页面无 console error；`/knowledge` 仍有一条既有 Cytoscape 自定义滚轮敏感度 warning
+- 未重跑默认 189 项全量 E2E；最近一次完整事实保持 `187/189 passed`
