@@ -1,0 +1,33 @@
+{
+  "name": "@408os/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@408os/content-schema": "*",
+    "@408os/cpu-core": "^0.1.0",
+    "@408os/domain": "*",
+    "@408os/lab-core": "*",
+    "@408os/storage": "*",
+    "cytoscape": "^3.34.0",
+    "dexie": "^4.2.1",
+    "dexie-react-hooks": "^1.1.7",
+    "katex": "^0.16.27",
+    "lucide-react": "^0.562.0",
+    "pdfjs-dist": "^6.2.108",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router-dom": "^7.12.0",
+    "vite-plugin-pwa": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.8",
+    "vite-plugin-static-copy": "^4.1.1"
+  }
+}

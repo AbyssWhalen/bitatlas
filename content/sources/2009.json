@@ -1,0 +1,27 @@
+{
+  "createdAt": "2026-08-05T00:00:00.000Z",
+  "question": {
+    "publisher": "厦门工学院",
+    "title": "2009年计算机408统考真题",
+    "url": "https://www.xit.edu.cn/_upload/article/files/c1/ce/26986f79493495bbaacba9738587/66ce0023-8b4c-4398-8ff0-eb8dcd06f1d3.pdf",
+    "fileName": "2009-questions.pdf",
+    "localPath": "local-data/sources/2009-questions.pdf",
+    "sha256": "5f949038c29fe74d6f7d8a6d4e4c6455939935835333ead646cd902339d90592"
+  },
+  "answer": {
+    "publisher": "厦门工学院",
+    "title": "2009年计算机408统考真题解析",
+    "url": "https://www.xit.edu.cn/_upload/article/files/c1/ce/26986f79493495bbaacba9738587/618b4fe5-ead0-448e-acbf-062f10b213e5.pdf",
+    "fileName": "2009-answers.pdf",
+    "localPath": "local-data/sources/2009-answers.pdf",
+    "sha256": "272682ace37062a3824a857c9b363ada30c491cbab18bc330995ea9702b71e0d"
+  },
+  "crosscheck": {
+    "publisher": "408历年真题",
+    "title": "2009年408计算机统考真题 Markdown",
+    "url": "https://408.foreverlink.love/raw/2009",
+    "fileName": "2009-crosscheck.md",
+    "localPath": "local-data/sources/2009-crosscheck.md",
+    "sha256": "9b4a2d65ad1e730d5456ca064b6a30fb594d6102e837cef1ebc6e0d67ee6051a"
+  }
+}

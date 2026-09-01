@@ -1,0 +1,16 @@
+{
+  "name": "@408os/content-importer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@408os/content-schema": "*",
+    "@408os/domain": "*"
+  },
+  "scripts": {
+    "build:2009": "tsx src/build-2009.mjs",
+    "release:2009": "tsx src/release-2009.mjs",
+    "test:release": "tsx --test src/release-2009.node-test.mjs",
+    "validate": "tsx src/validate.mjs"
+  }
+}

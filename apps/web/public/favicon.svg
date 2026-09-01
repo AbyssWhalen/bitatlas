@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BitAtlas logo">
+  <rect width="64" height="64" rx="13" fill="#111713"/>
+  <g data-mark="atlas-route">
+    <path d="M13.5 17.5 25.5 13.5 38.5 17.5 50.5 13.5v33l-12 4-13-4-12 4z" fill="#f4f6f1"/>
+    <path d="M25.5 13.5v33m13-29v33" fill="none" stroke="#111713" stroke-width="2.4"/>
+    <path d="m18.5 40 8.5-11.5 9 7 9.5-13" fill="none" stroke="#d84c35" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="18.5" cy="40" r="2.8" fill="#e3ad33"/>
+    <circle cx="45.5" cy="22.5" r="3" fill="#d84c35" stroke="#f4f6f1" stroke-width="1.5"/>
+  </g>
+</svg>

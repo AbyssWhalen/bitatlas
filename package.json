@@ -1,0 +1,48 @@
+{
+  "name": "408os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @408os/web",
+    "build": "npm run build -w @408os/web",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "test:release": "npm run test:release -w @408os/content-importer",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "content:validate": "npm run validate -w @408os/content-importer",
+    "release:2009": "tsx tools/content-importer/src/release-2009.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "fake-indexeddb": "^6.2.5",
+    "globals": "^16.5.0",
+    "jsdom": "^27.3.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0",
+    "tsx": "^4.21.0",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
+  }
+}

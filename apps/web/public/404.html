@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111713" />
+    <title>BitAtlas</title>
+  </head>
+  <body>
+    <p>正在打开 BitAtlas…</p>
+    <script>
+      (() => {
+        const path = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+        if (path === '/') return;
+        sessionStorage.setItem('bitatlas-redirect', path);
+        window.location.replace('/');
+      })();
+    </script>
+  </body>
+</html>
