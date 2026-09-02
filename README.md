@@ -2,11 +2,11 @@
 
 BitAtlas 是面向个人考研复习的 local-first 计算机科学学习与可视化实验平台。当前版本聚焦 408 四科，定位为 **2009 工程 Beta**：应用、学习数据闭环和四科实验室可以在本机使用，但题目内容仍处于人工复核阶段，不是正式发布题库。
 
-## 公开仓库模式
+## 题包发布模式
 
-公开代码不附带版权状态不明确的真题、解析、来源页图或 PDF。干净克隆首次启动时会进入无题包模式：实验室、本地 PDF、设置和备份能力仍可使用；真题浏览、练习、模考和内容复核会显示明确空状态，不会让整个应用崩溃。
+经维护者 2026-09-02 决定，2009 题包随公开仓库发布：`apps/web/public/content/` 中的题库 JSON 与来源页扫描图会一起部署到站点，克隆后即可浏览与练习。题目仍处于 `needs-review` 人工复核阶段，不是正式审核题库；原始 PDF、OCR 中间产物与 `local-data/` 仍不公开。
 
-需要完整的 2009 学习流程时，请在本机准备合法来源材料并按 [本地内容说明](docs/LOCAL_CONTENT.md) 生成题包。`local-data/` 与 `apps/web/public/content/` 已被 Git 忽略。
+若部署产物缺少题包（`/content/2009.json` 显式 HTTP 缺失），应用进入无题包模式：实验室、本地 PDF、设置和备份能力仍可使用；真题浏览、练习、模考和内容复核会显示明确空状态，不会让整个应用崩溃。
 
 ## 当前可用功能
 
@@ -70,7 +70,7 @@ npm run dev
 
 项目通过 GitHub Pages 构建和托管，公开地址为 [https://408.fytjut.com/](https://408.fytjut.com/)。站点使用 `BitAtlas` 品牌，支持桌面浏览器、移动浏览器和可安装 PWA。
 
-公开仓库只包含可再分发的源码、实验逻辑、文档和无题包启动所需资源。版权状态不明确的 2009 题包、来源页图、PDF 和本地学习数据不会上传；没有安装本地题包时，实验室、资料库、设置和备份仍可用，题库相关入口会显示明确空状态。
+公开仓库包含可再分发的源码、实验逻辑、文档，以及经维护者决定（2026-09-02）随仓库发布的 2009 题包与来源页图；原始 PDF、OCR 中间产物和本地学习数据不上传。如果部署产物缺少题包，实验室、资料库、设置和备份仍可用，题库相关入口会显示明确空状态。
 
 GitHub Actions 从 `main` 构建 `apps/web/dist` 并发布到 Pages。自定义域名由 `apps/web/public/CNAME` 声明，构建时复制到 Pages 根目录；DNS 记录由域名服务商维护。
 
@@ -85,7 +85,7 @@ npm run test
 npm run build
 ```
 
-本机安装了私有 2009 题包后，再运行内容与浏览器门禁：
+仓库自带 2009 题包，内容与浏览器门禁可直接运行：
 
 ```powershell
 npm run test:release
@@ -93,7 +93,7 @@ npm run content:validate
 npm run test:e2e
 ```
 
-`npm run test:e2e` 使用 8 个真实 Chrome worker 验证桌面和移动端流程，并会生成 `apps/web/dist/` 与 `output/playwright/` 产物。窄改动优先运行直接相关测试，阶段封板再执行相应全量门禁。干净克隆没有私有题包时，使用 `tests/e2e/code-only-mode.spec.ts` 验证公开代码模式。
+`npm run test:e2e` 使用 8 个真实 Chrome worker 验证桌面和移动端流程，并会生成 `apps/web/dist/` 与 `output/playwright/` 产物。窄改动优先运行直接相关测试，阶段封板再执行相应全量门禁。`tests/e2e/code-only-mode.spec.ts` 通过拦截 `/content/2009.json` 模拟无题包部署，验证空状态合同。
 
 架构与运行模式见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，本地题包工作流见 [docs/LOCAL_CONTENT.md](docs/LOCAL_CONTENT.md)，公开发布检查见 [docs/RELEASE.md](docs/RELEASE.md)。项目约束、当前检查点和决策记录分别见 [AGENTS.md](AGENTS.md)、[HANDOFF.md](HANDOFF.md) 与 [notes.md](notes.md)。
 

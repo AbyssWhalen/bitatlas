@@ -2101,3 +2101,40 @@
 - 初步线上检查已通过根路径、`/lab`、`/knowledge`、Q34 网络与 Q24 OS 深链接；390px 首页和 Q34 页面均无横向溢出或遮挡。manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均为 HTTP 200；浏览器没有 console error，Knowledge 仅保留既有 Cytoscape wheel sensitivity warning。
 - 公开仓库、远端、commit、push 与 Pages 部署均已完成；旧 `cpu-explorer` 历史通过 merge 保留，未恢复旧站点或 iframe。仓库仍没有 `LICENSE`，公开访问不等于源码再分发授权。
 - 本步骤没有修改题库、实验语义、`408-user` schema v1/v2/v3、Q44 边界或私有内容，也没有重跑默认 189 项全量 E2E。其最新完整事实仍为 `187/189 passed`，不能声称全绿。
+
+## 2026-09-02 - 线上题包私有分发方案（本地就绪，待部署授权）
+
+### 背景与结论
+
+- 线上站 `408.fytjut.com` 当前 `/content/2009.json` 为 404，应用按设计进入无题包空状态；题包安装只认同源 `/content/` 路径，数据页 Verified 导入也要求同源资产，因此在不提交版权内容的前提下，线上刷题必须在同源路径上提供私有内容服务。
+- 方案定为 Cloudflare Worker 接管 `408.fytjut.com/content/*`：cookie 门禁（`/content/auth?token=<TOKEN>` 种一年期 HttpOnly cookie）+ 私有 R2 桶存放草稿题包与 19 张来源页 PNG；无 cookie 一律 404（应用进入既有空状态），R2 意外故障返回 500（应用 fail closed），未绕过 `/mock` 的 verified 门禁。
+- 全部工具落在被忽略的 `local-data/deploy/`：`worker/src/worker.js`（生产 Worker）、`worker/wrangler.toml`、`upload-content.mjs`（上传 20 对象并逐个 SHA-256 校验）、`local-preview.mjs`（本地组合验证服务器）、`verify-flow.spec.ts`（真实 Chrome 全链路检查）、`README.md`（部署/验证/回滚手册）。公开仓库零改动，工作树无可提交差异。
+
+### 验证证据
+
+- Worker 逻辑 `node --test worker.test.mjs`：10/10 通过（cookie 门禁、auth 404/302、JSON/PNG Content-Type、缺对象 404、R2 异常 500、路径穿越拒绝、HEAD、未配置 token 全 404、非 GET/HEAD 404）。
+- `npm run content:validate` 通过：`cn408-2009` 47 题（40 客观 + 7 综合），`needs-review; verified 0/47`。
+- `npm run build` 通过（88 PWA entries）；`local-preview.mjs` 以内存 R2 + 生产 dist 复现同源门禁后，真实 Chrome（channel=chrome，SW 屏蔽）6/6 通过：无 cookie 空状态、auth 授权后 47 题安装、Q1 作答提交+解析+来源页双图加载（`/content/cn408-2009/source/*.png`）、刷新恢复练习、`/mock` 显示"尚未完成 47 题人工复核"（needs-review）、无 cookie 新上下文保持空状态。截图在 `output/playwright/verify-content-gate/`。
+- 已知 IAB 内嵌浏览器会丢弃 302 的 Set-Cookie（本地 http 预览现象）；`local-preview.mjs` 有仅预览用的去 Secure shim，生产 HTTPS 不受影响，真实 Chrome 行为正确。
+
+### 待授权事项（均未执行）
+
+- 需要 Cloudflare API Token（Workers Scripts Edit、Workers R2 Storage Edit、fytjut.com 的 Workers Routes Edit；如代切 DNS 代理另需 DNS Edit）或由用户按 `local-data/deploy/README.md` 手动操作。
+- 部署动作：创建 R2 桶 `bitatlas-content`、上传题包、`wrangler deploy` + `secret put CONTENT_TOKEN`、把 `408` CNAME 切为已代理；切换前必须确认区域 SSL/TLS 为 Full (strict)（或对 408.fytjut.com 用 Configuration Rule 覆盖），否则代理 GitHub Pages 会重定向循环。
+- 部署后需按 README 完成 curl 三态检查（404/302/200）与桌面+390px 真实浏览器验收；回滚为 DNS 切回仅 DNS。
+- 本方案安装 needs-review 草稿题包，刷题/复习/统计可用；`/mock` 仍需 47/47 人工复核 ledger 走 `npm run release:2009` 后从数据页导入 verified 包，该门禁未改变。
+
+## 2026-09-02 - 2009 题包随仓库公开发布（用户授权，替代 Cloudflare 方案）
+
+### 决策
+
+- 用户在“题库与来源页图将永久公开、任何人可下载”的明确提示下，选择把 2009 题包提交进公开仓库，放弃 Cloudflare Worker 私有分发部署（该方案工具保留在被忽略的 `local-data/deploy/`，未提交，可随时重启）。
+- 追踪范围仅限当前题包引用的 `apps/web/public/content/2009.json`（140KB）与 `apps/web/public/content/cn408-2009/source/`（19 张 PNG，约 9.6MB）；legacy `content/2009/` 命名空间继续忽略。`.gitignore` 已相应收窄。
+- 边界文档同步改写：AGENTS.md（定位段 + 数据约束条目）、README（题包发布模式/在线访问/验证）、docs/RELEASE.md（必须排除 + 新增发布记录）、docs/LOCAL_CONTENT.md（简介 + 提交边界）。规则：后续年份题包公开前须逐次授权。
+- 题包审核状态保持 `needs-review; verified 0/47`；`/mock` verified 门禁不变；`tests/e2e/code-only-mode.spec.ts` 无需修改（本就以路由拦截模拟无题包部署）。
+
+### 提交前门禁
+
+- `npm run content:validate` 通过（47 题 / 19 资产，needs-review）。
+- 提交前按 RELEASE 清单执行 `git status --ignored --short`、`git ls-files local-data output tmp`、密钥模式 grep 与 staged diff 人工复核。
+- 线上验收（部署完成后补记）：见下一段。

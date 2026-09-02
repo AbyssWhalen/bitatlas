@@ -2764,3 +2764,34 @@
 - Actions run `33531382206` 在 Node 22 下构建和部署成功，三项依赖引擎 warning 已消失。该 run 仍报告旧 action 自身的 Node 20 runtime 弃用；对照官方仓库当前 release 和 `action.yml` 后，将 action 主版本更新为 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`，这些版本使用 Node 24 runtime 或组合 `upload-artifact@v7`。
 - 最终 run `33574067291` 在 Node `22.23.2` 下再次成功，且未出现 `EBADENGINE` 或旧 action Node 20 runtime 提示；部署动作日志保留一条其依赖触发的 `punycode` 弃用提示，不影响成功结果。
 - 本阶段不运行默认 189 项全量 E2E；其最新完整事实保持 `187/189 passed`，不写成全绿。没有修改题包、审核状态、Q44 `parallel-5 / split-6`、`408-user` schema v1/v2/v3 或私有内容，也没有删除旧历史、图片或测试。
+
+## 2026-09-02 - 线上题包私有分发（Worker + R2 + cookie 门禁）方案就绪
+
+### 决策与实现
+
+- 用户目标：让线上 `408.fytjut.com` 可以刷 2009 真题，同时不把版权状态不明确的题包/来源页图提交进公开仓库或公开 URL。
+- 架构事实：应用启动只认同源 `/content/2009.json` 与 `/content/cn408-2009/source/*.png`（`apps/web/src/app/storage.ts` 的 `LOCAL_PACK_PATH` 与 `AssetRef.path`）；Verified 导入（`installVerifiedContentPack`）同样按同源路径 staging 资产并校验 SHA-256。因此任何"线上刷题"方案都必须在同源路径提供内容，且必须带访问控制。
+- 选型：Cloudflare Worker（路由 `408.fytjut.com/content/*`）+ 私有 R2 桶 + token 派生 cookie 门禁。无 cookie 404 → 应用进入既有"显式 HTTP 缺失"空状态；R2 异常 500 → 应用 fail closed；`/content/auth?token=` 种一年期 HttpOnly+Secure+SameSite=Lax cookie（值为 SHA-256("bitatlas-content-gate:v1:"+token)，换 token 即全网吊销）。应用代码与公开仓库零改动。
+- 工具全部在被忽略的 `local-data/deploy/`：worker（含 wrangler.toml）、upload-content.mjs（20 对象上传+逐对象 SHA-256 校验）、local-preview.mjs（内存 R2 + 生产 dist 的同源组合验证服务器）、verify-flow.spec.ts（真实 Chrome 6 项全链路检查）、README.md（含 SSL Full(strict) 警告、curl 三态检查、回滚、吊销、与 47/47 人工复核 release 流程的衔接）。
+
+### 验证结果
+
+- `node --test worker.test.mjs`：10/10 通过。
+- `npm run content:validate`：47 题（40 客观 + 7 综合）needs-review；verified 0/47。
+- `npm run build`：88 PWA entries，构建通过。
+- 真实 Chrome（channel=chrome，serviceWorkers 屏蔽）6/6：无 cookie 空状态；auth 后 47 题安装；Q1 作答/提交/解析/来源页双 PNG 加载；刷新恢复；`/mock` 保持"尚未完成 47 题人工复核"关闭态；无 cookie 新上下文空状态。截图 `output/playwright/verify-content-gate/`。
+- IAB 内嵌浏览器丢弃 302 Set-Cookie（含去 Secure shim 后仍丢弃），属内嵌环境限制；curl 与真实 Chrome 均正确。生产 HTTPS 下 worker 保持 Secure。
+
+### 风险与未解问题
+
+- 切换 `408` CNAME 为已代理属区域级流量变更：必须先确认 fytjut.com 区域 SSL/TLS 模式为 Full (strict)，否则会与 GitHub Pages 的 HTTPS 强制形成重定向循环；若区域还有其他被代理子域，需评估或改用 hostname 级 Configuration Rule。
+- Worker 路由只接管 `/content/*`；`/content/auth` 端点路径对应用无冲突（应用只请求 `/content/2009.json` 与 pack 内资产路径）。
+- 云端对象为私有桶，r2.dev 公开访问必须保持关闭；token 泄露的处置是 `wrangler secret put CONTENT_TOKEN` 换新。
+- 未执行任何 Cloudflare/部署动作，等待用户授权（API Token 或按 README 手动操作）；`/mock` verified 门禁与本方案无关，保持不变。
+
+## 2026-09-02 - 用户决定：题包直接进公开仓库
+
+- 面对三选一（公开仓库 / Cloudflare 私有分发 / 暂不动线上），用户选择公开仓库方案，已知悉内容永久公开与版权灰色地带（教育部考试中心真题、可能收到 DMCA 的风险已书面告知）。
+- 变更：`.gitignore` 仅忽略 `apps/web/public/content/2009/`（legacy）；提交 `2009.json` + `cn408-2009/source/*.png`（19 张，约 9.7MB）；AGENTS/README/RELEASE/LOCAL_CONTENT 边界说明改写；`needs-review; verified 0/47` 状态不变，`/mock` 门禁不变。
+- 同日早前的 Cloudflare Worker + R2 + cookie 门禁方案已完成开发与本地验证（worker 单测 10/10、真实 Chrome 6/6），因用户选择仓库方案而未部署；工具留在被忽略的 `local-data/deploy/`，`local-data/deploy/README.md` 仍可作为未来切换私有分发的操作手册。
+- 线上部署与验收结果在后续条目补记。

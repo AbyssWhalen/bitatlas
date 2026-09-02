@@ -20,10 +20,12 @@
 
 ## 必须排除
 
-- `local-data/` 与 `apps/web/public/content/`
+- `local-data/`、`output/`、`tmp/` 与 legacy 命名空间 `apps/web/public/content/2009/`
 - `.env*`（仅 `.env.example` 可追踪）和任何密钥
-- `node_modules/`、`.venv/`、`dist/`、`output/`、`tmp/`
+- `node_modules/`、`.venv/`、`dist/`
 - `.playwright-cli/`、`graphify-out/` 和其他生成缓存
+
+`apps/web/public/content/` 中的 2009 题包（`2009.json` 与 `cn408-2009/`）经维护者 2026-09-02 明确授权随仓库公开发布；其余年份题包公开前须逐次授权。
 
 ## 封板门禁
 
@@ -44,6 +46,8 @@ npm run build
 npm run test:release
 npm run content:validate
 ```
+
+2009 题包已随仓库发布（2026-09-02），上述内容门禁在干净克隆上同样可运行。
 
 用户流程变更必须有桌面和移动端真实浏览器证据。默认全量 E2E 若运行，应记录准确通过数和失败 ID；不得把定向 `.last-run.json` 写成全量通过，也不得无界重跑。
 
@@ -72,3 +76,9 @@ git grep -n -I -E "(api[_-]?key|secret|token|password)"
 - 线上验收：根路径、`/lab`、`/knowledge`、Q34 网络深链接、Q24 操作系统深链接与 390px 移动端通过；manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均返回 HTTP 200
 - 浏览器日志：上述页面无 console error；`/knowledge` 仍有一条既有 Cytoscape 自定义滚轮敏感度 warning。Pages deploy action 日志另有其依赖触发的 `punycode` 弃用提示，不影响 run 成功。
 - 未重跑默认 189 项全量 E2E；最近一次完整事实保持 `187/189 passed`
+
+## 2026-09-02 题包随仓库发布
+
+- 维护者在知晓“题库与来源页图将永久公开、任何人可下载”的前提下，明确选择把 2009 题包提交进公开仓库，替代此前准备的 Cloudflare 私有分发方案（相关工具保留在被忽略的 `local-data/deploy/`，未提交）。
+- 追踪范围仅限当前题包引用的 `apps/web/public/content/2009.json` 与 `apps/web/public/content/cn408-2009/source/`（19 张 PNG）；legacy `content/2009/` 命名空间继续被忽略。原始 PDF、OCR 中间产物与 `local-data/` 仍不公开。
+- 题包审核状态保持 `needs-review; verified 0/47`；`/mock` 的 verified 门禁不变。

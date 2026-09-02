@@ -1,6 +1,6 @@
 # 本地内容工作流
 
-公开仓库故意不包含 2009 真题、解析、来源图片和原始 PDF。只有在你拥有合法使用权时，才应在本机生成并使用这些材料。
+2009 题包经维护者 2026-09-02 决定随公开仓库发布（仅 `2009.json` 与 `cn408-2009/source/`）；重建题包仍在本机完成，只有确认要发布的新版本才应提交。后续年份的材料只有在你拥有合法使用权时，才应在本机生成并使用。
 
 ## 本地输入
 
@@ -49,8 +49,10 @@ npm run release:2009 -- --ledger <path-to-ledger.json>
 不得提交以下内容：
 
 - `local-data/`
-- `apps/web/public/content/`
+- legacy 命名空间 `apps/web/public/content/2009/`
 - 原始或裁切的真题图片、PDF、OCR 结果
 - `output/`、`tmp/`、构建目录和浏览器验收产物
+
+`apps/web/public/content/` 其余文件（当前题包 JSON 与 `cn408-2009/` 资产）经维护者授权随仓库发布；再次提交题包更新前无需重复授权，但首次新增年份题包须逐次授权。
 
 提交前应使用 `git status --ignored` 和 `git check-ignore -v <path>` 复核；不要靠人工挑选文件来维持版权边界。

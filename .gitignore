@@ -13,7 +13,8 @@ output/
 graphify-out/
 tmp/
 local-data/
-apps/web/public/content/
+# legacy 本地命名空间，未被当前题包引用；cn408-2009 题包经维护者授权随仓库发布（2026-09-02）
+apps/web/public/content/2009/
 *.log
 *.tsbuildinfo
 .env
