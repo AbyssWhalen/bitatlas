@@ -2092,11 +2092,12 @@
 - 本轮按减少测试约束没有重跑全仓 Vitest、release、content 或默认 189 项全量 E2E。默认全量最新完整事实仍为 `187/189 passed`，两个并发冷启动/actionability 失败不能写成全绿；当前定向 `.last-run.json` 不覆盖该事实。
 - 变更范围独立复审 P0/P1 为 `0`：备份只改下载文件名前缀，图标和显示名不参与导入校验、IndexedDB 或题目语义。未修改 Q44 的 `parallel-5 / split-6` 与 `needs-review` 边界、`408-user` schema v1/v2/v3、旧图片、旧测试或旧 `cpu-explorer`；未提交、推送或部署。
 
-## 2026-09-02 - 自定义域名接入（进行中）
+## 2026-09-02 - 自定义域名接入（已完成）
 
 - 已在 Cloudflare `fytjut.com` 区域新增 `408.fytjut.com CNAME abysswhalen.github.io`，代理状态为“仅 DNS”，TTL 自动；Cloudflare 表格回读与公共 `Resolve-DnsName` 均确认 CNAME 生效，公共 TTL 为 `300`。
-- GitHub Pages 当前仍托管 `AbyssWhalen/bitatlas`，Actions run `33524976596` 已成功。Pages API 已接受 `cname: 408.fytjut.com`；证书已从 `new` 进入 `approved`，有效期至 `2026-11-30`，并已启用 `https_enforced: true`。正式地址为 `https://408.fytjut.com/`；下一步只做根路径、深链接、PWA 与三视口有限验收。
-- 首次 Actions 日志确认部署产物为 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`，同时暴露 workflow 的 Node 20 与当前锁定依赖引擎不一致。已将根 engine 与公开文档统一为 `^22.20.0 || >=24.12.0`，workflow 改用 Node 22；待新 run 证明 `npm ci` 不再出现这三项 `EBADENGINE` warning。
-- Actions run `33531382206` 已在 Node 22 下成功，三项 `EBADENGINE` warning 消失；该 run 随后提示旧 action 自身的 Node 20 runtime 已弃用。官方 action 版本已更新为 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`，待最终 run 验证无 annotation。
+- GitHub Pages 当前托管公开仓库 `AbyssWhalen/bitatlas`，最终提交 `f15eea0` 对应 Actions run `33574067291` 已成功。Pages API 已接受 `cname: 408.fytjut.com`；证书状态为 `approved`，有效期至 `2026-11-30`，并已启用 `https_enforced: true`。正式地址为 `https://408.fytjut.com/`。
+- 首次 Actions 日志确认部署产物为 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`，并暴露 workflow 的 Node 20 与锁定依赖引擎不一致；根 engine、公开文档和 workflow 已统一为 Node 22（`^22.20.0 || >=24.12.0`）。
+- 最终 Actions run `33574067291` 在 Node `22.23.2` 下成功构建和部署，产物仍为 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`；三项 `EBADENGINE` 与旧 action Node 20 runtime 提示均已消失。workflow 现使用 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`；部署动作日志仍有其依赖触发的 `punycode` 弃用提示，但不影响成功结果。
 - 初步线上检查已通过根路径、`/lab`、`/knowledge`、Q34 网络与 Q24 OS 深链接；390px 首页和 Q34 页面均无横向溢出或遮挡。manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均为 HTTP 200；浏览器没有 console error，Knowledge 仅保留既有 Cytoscape wheel sensitivity warning。
+- 公开仓库、远端、commit、push 与 Pages 部署均已完成；旧 `cpu-explorer` 历史通过 merge 保留，未恢复旧站点或 iframe。仓库仍没有 `LICENSE`，公开访问不等于源码再分发授权。
 - 本步骤没有修改题库、实验语义、`408-user` schema v1/v2/v3、Q44 边界或私有内容，也没有重跑默认 189 项全量 E2E。其最新完整事实仍为 `187/189 passed`，不能声称全绿。

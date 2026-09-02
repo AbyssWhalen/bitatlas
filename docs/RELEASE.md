@@ -68,7 +68,7 @@ git grep -n -I -E "(api[_-]?key|secret|token|password)"
 - 深链接回退：`apps/web/public/404.html` 将未知 Pages 路径交回应用路由
 - 域名声明：`apps/web/public/CNAME`，内容为 `408.fytjut.com`
 - 公开边界：不上传 `local-data/`、`apps/web/public/content/`、`output/`、`tmp/`、依赖目录或密钥
-- 首次部署：Actions run `33524976596` 成功，`1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`
+- 最终部署：Actions run `33574067291`（提交 `f15eea0`）成功，Node `22.23.2`，`1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`；workflow 使用 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`。
 - 线上验收：根路径、`/lab`、`/knowledge`、Q34 网络深链接、Q24 操作系统深链接与 390px 移动端通过；manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均返回 HTTP 200
-- 浏览器日志：上述页面无 console error；`/knowledge` 仍有一条既有 Cytoscape 自定义滚轮敏感度 warning
+- 浏览器日志：上述页面无 console error；`/knowledge` 仍有一条既有 Cytoscape 自定义滚轮敏感度 warning。Pages deploy action 日志另有其依赖触发的 `punycode` 弃用提示，不影响 run 成功。
 - 未重跑默认 189 项全量 E2E；最近一次完整事实保持 `187/189 passed`

@@ -2757,9 +2757,10 @@
 
 ## 2026-09-02 - GitHub Pages 自定义域名接入
 
-- `AbyssWhalen/cpu-explorer` 已改名为公开仓库 `AbyssWhalen/bitatlas`，BitAtlas 代码通过 merge 接入并保留旧仓库历史；远端 `main` 的部署基线为 `762474d`。首次 Pages Actions run `33524976596` 成功，日志给出 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`。
+- `AbyssWhalen/cpu-explorer` 已改名为公开仓库 `AbyssWhalen/bitatlas`，BitAtlas 代码通过 merge 接入并保留旧仓库历史；远端 `main` 当前为 `f15eea0`。最终 Pages Actions run `33574067291` 成功，日志给出 `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`。
 - Cloudflare 新增 `408.fytjut.com CNAME abysswhalen.github.io`，代理关闭、TTL 自动。Cloudflare 表格、系统解析器和 `1.1.1.1` 均回读同一 CNAME；GitHub Pages 证书状态为 `approved`、有效期至 `2026-11-30`，并已启用 `https_enforced: true`。
 - 线上有限验收覆盖根路径、`/lab`、`/knowledge`、Q34 网络深链接与 Q24 OS 深链接。桌面页面和 390x844 首页/Q34 页面正常，无横向溢出或遮挡；manifest、favicon、`registerSW.js`、`sw.js`、192/512 PNG 均返回 HTTP 200。浏览器无 console error，Knowledge 只有既有 Cytoscape wheel sensitivity warning。
 - 首次 Actions 的 `npm ci` 在 Node `20.20.2` 下出现三项 `EBADENGINE` warning。当前锁定依赖的最高约束要求 Node `^22.20 || ^24.12 || >=25`，因此根 engine 和公开文档统一为 `^22.20.0 || >=24.12.0`，Pages workflow 改用 Node 22。`npm install --package-lock-only --ignore-scripts --offline` 通过，审计 584 packages、`0 vulnerabilities`；本地 `npm run build` 再次得到 `1920 / 198 / 88 (2780.31 KiB)`。
 - Actions run `33531382206` 在 Node 22 下构建和部署成功，三项依赖引擎 warning 已消失。该 run 仍报告旧 action 自身的 Node 20 runtime 弃用；对照官方仓库当前 release 和 `action.yml` 后，将 action 主版本更新为 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`，这些版本使用 Node 24 runtime 或组合 `upload-artifact@v7`。
+- 最终 run `33574067291` 在 Node `22.23.2` 下再次成功，且未出现 `EBADENGINE` 或旧 action Node 20 runtime 提示；部署动作日志保留一条其依赖触发的 `punycode` 弃用提示，不影响成功结果。
 - 本阶段不运行默认 189 项全量 E2E；其最新完整事实保持 `187/189 passed`，不写成全绿。没有修改题包、审核状态、Q44 `parallel-5 / split-6`、`408-user` schema v1/v2/v3 或私有内容，也没有删除旧历史、图片或测试。
