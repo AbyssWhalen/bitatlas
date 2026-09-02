@@ -27,7 +27,7 @@
 
 ## 封板门禁
 
-使用 Node.js `^22.20.0 || >=24.12.0`。该范围覆盖当前锁定依赖的最高 Node 引擎要求，Pages workflow 使用 Node 22。`.gitattributes` 将源码和文档统一为 LF，并保留 Windows shell 脚本的 CRLF；图片、字体、PDF 和压缩包按二进制处理。
+使用 Node.js `^22.20.0 || >=24.12.0`。该范围覆盖当前锁定依赖的最高 Node 引擎要求，Pages workflow 使用 Node 22；GitHub 官方 action 使用当前 Node 24 运行时主版本。`.gitattributes` 将源码和文档统一为 LF，并保留 Windows shell 脚本的 CRLF；图片、字体、PDF 和压缩包按二进制处理。
 
 窄改动先运行相关测试。准备提交时至少运行一次：
 

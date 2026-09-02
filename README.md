@@ -99,7 +99,7 @@ npm run test:e2e
 
 ## 当前验证基线
 
-截至 2026-09-01，本地封板检查的最新事实如下：
+截至 2026-09-02，本地封板检查的最新事实如下：
 
 - lint 与全部 workspace typecheck 通过。
 - 全仓 Vitest 为 `97 files / 1090 tests passed`。
