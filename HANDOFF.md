@@ -2191,3 +2191,17 @@
 1. 逐年在 fragments 上补解析形态（优先 2018 只差 5 题、2012 差 9 题）；必要时按 2009 先例走 rapidocr OCR 路线重建答案表。
 2. 每年仍须过“重构答案 == csgraduates 40/40”门禁后才能生成题包；生成后 content:validate、构建、部署、真实浏览器验收与文档记录同 2010 流程。
 3. 工具改动（build-year/extract/test/validate）尚未提交；工作树含本轮全部未提交变更。
+
+## 2026-09-02 - 2009-2025 全量题包完成 + Pages 网络故障记录
+
+### 内容完成
+
+- 2011-2025 共 15 套题包全部通过"重构答案键 ∪ 几何/OCR 解析 与 csgraduates 快照重叠 100% 一致（≥15 题重叠）"门禁并构建成功。关键改动：answer-ocr-fragments.json（rapidocr 扫描答案页兜底，2019/2021/2024/2025 为扫描答案卷）、OCR 数字/字母分离配对规则（裸"N."+裸字母）、连排"字母 N."规则、综合题分值两阶段推导（缺一个标记按 70-其余 推导，覆盖 2015 Q46 与 2025"（本题 N 分）"格式）、解释文本尽力而为（无干净标记用"见来源页"占位）。
+- content:validate 17/17 PASS（2009-2025 各 47 题，共 799 题；全部 needs-review；verified 0/47×17）。全仓 Vitest 1090 通过、lint/typecheck/build 通过。
+- 提交 `b801132`（343 files，content 总量 78MB）部署成功（Actions ✓）。2026 不收录（仅回忆版）。
+
+### Pages 网络故障（与本次改动无关）
+
+- 部署完成后，408.fytjut.com 与 abysswhalen.github.io（未改动的站点）自本机与外部探测网络均无法连接 185.199.108-111.153（GitHub Pages anycast），HTTPS/HTTP/直连 IP 全部超时；github.com、githubstatus.com 正常；GitHub 状态页 Pages 显示 Operational（疑似状态滞后）。已持续观测 15+ 分钟。
+- 结论：GitHub Pages 网络层故障，非本次发布问题。恢复后需补做线上验收：17 个年份 JSON 与扫描图抽检 HTTP 200、真实浏览器年份切换（默认 2009）+ 抽检练习（2015/2019 图示题占位选项）+ 记录到本文档。
+- 可选缓解（需用户授权）：408.fytjut.com 开启 Cloudflare 代理（橙云），可同时改善国内可达性与对 github.io 网络故障的韧性；切换前确认区域 SSL/TLS 为 Full (strict)。
