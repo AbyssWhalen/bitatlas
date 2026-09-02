@@ -2170,3 +2170,9 @@
 
 - 全仓 Vitest 通过（含新增 build-year 5 项与 web 全部单测）；lint、typecheck、production build 通过；`content:validate` 双题包 PASS。
 - 线上部署与 2010 浏览器验收：见下一条记录。
+
+### 2010 线上验收（2026-09-02）
+
+- 提交 `fa55840` 部署成功；`/content/2010.json` 与扫描图 HTTP 200。
+- 真实 Chrome：默认 2009 视图 47 题、年份筛选含 2010/2009、切换 2010 后 47 题、Q1 选 D（答案键）回答正确、来源页扫描图加载、返回 2009 正常、无资源级错误。2011-2025 的 404 探测为 installExtraContent 设计行为（未发布=未安装）。
+- 批量推进：2011-2025 每年需 `extract-year-pdf.py --year N` + 下载 csgraduates 快照至 `local-data/sources/csg/N.html` + `build:year --year N`（内含 40/40 答案门禁）+ `content:validate` + 提交；2026 为回忆版暂不收录。
