@@ -2211,3 +2211,9 @@
 - 部署提交 `b801132` 后直连 185.199.x.x（GitHub Pages anycast）在多网络不可达；走用户本机 V2RayN 代理（127.0.0.1:10808）后站点正常——确认内容部署无误，阻断在国内直连 github.io 线路（与发布无关）。
 - 真实 Chrome（代理 + SW 屏蔽）验收通过：默认 2009 视图 47 题；年份筛选 17 个年份（2009-2025）；2015 Q1 练习判定；2019 Q24 图示选项题（题干内嵌原卷页面图加载、占位选项文案正确）；2025 综合题草稿+自评；模考门禁关闭；2011-2025 全部年份 JSON 与扫描图 HTTP 200。
 - 截图：`output/playwright/verify-live-17years/`。待办：用户授权后可开启 Cloudflare 代理改善国内直连可达性（需确认 SSL Full strict）。
+
+### Cloudflare 代理开启与直连验收（2026-09-02，已完成）
+
+- 用户在 Cloudflare 后台开启 408.fytjut.com 代理（橙云）。权威 DNS 确认解析已切至 Cloudflare 边缘（104.21.35.89 / 172.67.216.59），SSL 模式正常无重定向循环，国内直连 HTTPS 200。
+- 真实 Chrome 直连验收（不加代理，IPv4 解析固定 + 90s 超时）：6/6 通过——默认 2009 视图 47 题、17 个年份筛选、2015 练习判定、2019 Q24 图示选项题（题干内嵌原卷图 + 占位选项）、2025 综合题自评、模考门禁关闭。截图 `output/playwright/verify-live-17years/`。
+- 现状：408.fytjut.com 2009-2025 全量 799 题可刷（全部 needs-review，模考门禁不变）；国内直连可达性已由 Cloudflare 代理解决；验收脚本 `local-data/deploy/verify-live-17years.spec.ts`。
