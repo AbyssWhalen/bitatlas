@@ -2217,3 +2217,16 @@
 - 用户在 Cloudflare 后台开启 408.fytjut.com 代理（橙云）。权威 DNS 确认解析已切至 Cloudflare 边缘（104.21.35.89 / 172.67.216.59），SSL 模式正常无重定向循环，国内直连 HTTPS 200。
 - 真实 Chrome 直连验收（不加代理，IPv4 解析固定 + 90s 超时）：6/6 通过——默认 2009 视图 47 题、17 个年份筛选、2015 练习判定、2019 Q24 图示选项题（题干内嵌原卷图 + 占位选项）、2025 综合题自评、模考门禁关闭。截图 `output/playwright/verify-live-17years/`。
 - 现状：408.fytjut.com 2009-2025 全量 799 题可刷（全部 needs-review，模考门禁不变）；国内直连可达性已由 Cloudflare 代理解决；验收脚本 `local-data/deploy/verify-live-17years.spec.ts`。
+
+### 下一对话开场 prompt（goal 模式：持续测试与优化）
+
+继续 D:\CodexProject\personal-projects\408OS（BitAtlas，https://408.fytjut.com 已上线）。先读 AGENTS.md 与 HANDOFF.md 最新检查点（2026-09-02 各节），不要从头重做。
+
+当前状态：2009-2025 共 17 套题包（各 47 题，共 799 题）已上线并通过直连验收（提交 b801132 / 080a9be / 4ef7c6e）；Cloudflare 代理（橙云）已由用户开启，国内直连可达；全部题包 needs-review（verified 0/47×17）；/mock 门禁未动；2026 未收录（仅回忆版）。验收脚本：local-data/deploy/verify-live-17years.spec.ts（可加 --host-resolver-rules 直连）。
+
+第一批优先级：
+1) 15 套新题包加入后尚未跑默认全量 E2E——先跑 npm run test:e2e，按实际通过数报告，修复真实回归；不得无界重跑、不得改弱断言、不得用定向 .last-run.json 覆盖全量事实。
+2) 逐年题面质量抽查并建 P1/P2 清单：重点 2011/2019 的图示选项题（占位选项 + 页面图，2019 有 24 道）、2014/2015/2018 等年份的“解析见来源页”占位、重构版正文已知错字（如“大千/大于”类）。
+3) 性能与可达性巡检：Cloudflare 直连稳定性、PWA 离线、78MB 内容资产的缓存策略与首屏。
+
+边界：408-user schema v1/v2/v3、Q44（parallel-5/split-6 + needs-review）、人工复核门禁、2026 收录政策不变。授权范围（用户已在开场确认）：通过全部门禁的改动可提交、推送并部署到 Pages，部署后必须真实浏览器验收并记录；除此之外的破坏性操作仍须逐次请示。每完成关键步骤更新 HANDOFF.md，结束前给出实际验证结果清单与未解问题。
