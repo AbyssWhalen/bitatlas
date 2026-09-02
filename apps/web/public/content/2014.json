@@ -1,0 +1,6209 @@
+{
+ "manifest": {
+  "id": "cn408-2014",
+  "schemaVersion": 1,
+  "contentVersion": "2014.0-draft.1",
+  "title": "2014 年计算机学科专业基础综合试题",
+  "year": 2014,
+  "questionCount": 47,
+  "createdAt": "2026-09-02T14:19:06.242Z",
+  "sha256": "c0bd23bb0c7847151090c800f2df35c54251a322ba5e8348f7f7e71e56560056",
+  "reviewStatus": "needs-review"
+ },
+ "questions": [
+  {
+   "id": "cn408-2014-q01",
+   "year": 2014,
+   "number": 1,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列程序段的时间复杂度是        。 \ncount=0; \nfor (k=1; k<=n;k*=2) \nfor (j=1; j<=n; j++) \ncount++;"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(log2n)"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n)"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(nlog2n)"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n2)"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q1-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 1 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q01"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 1"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 1"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q02",
+   "year": 2014,
+   "number": 2,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假设栈初始为空，将中缀表达式a/b＋(c*d－e*f)/g转换为等价的后缀表达式的过程中，当扫描到\nf 时，栈中的元素依次是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "＋ ( * －"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "＋ ( － *"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "/ ＋ ( * － *"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "/ ＋ － *"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q2-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 2 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q02"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 2"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 2"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q03",
+   "year": 2014,
+   "number": 3,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "循环队列放在一维数组A[0…M－1]中，end1 指向队头元素，end2 指向队尾元素的后一个位置。\n假设队列两端均可进行入队和出队操作，队列中最多能容纳M－1 个元素。初始时为空。下列判\n断队空和队满的条件中，正确．．的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "队空：end1 == end2;  队满：end1 == (end2 + 1) mod M"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "队空：end1 == end2;   队满：end2 == (end1 + 1) mod (M－1)"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "队空：end2 == (end1 + 1) mod M; 队满：end1 == (end2 + 1) mod M"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "队空：end1 == (end2 + 1) mod M; 队满：end2 == (end1 + 1) mod (M－1)"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q3-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 3 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q03"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 3"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 3"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q04",
+   "year": 2014,
+   "number": 4,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若对如下的二叉树进行中序线索化，则结点x的左、右线索指向的结点分别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "e、c"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "e、a"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "d、c"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "b、a"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q4-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 4 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q04"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 4"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 4"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q05",
+   "year": 2014,
+   "number": 5,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "将森林F 转换为对应的二叉树T，F中叶结点的个数等于        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "T中叶结点的个数"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "T中度为 1 的结点个数"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "T中左孩子指针为空的结点个数"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "T中右孩子指针为空的结点个数"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q5-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 5 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q05"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 5"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 5"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q06",
+   "year": 2014,
+   "number": 6,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "5 个字符有如下 4 种编码方案，不是．．前缀编码的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "01, 0000, 0001, 001, 1"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "011, 000, 001, 010, 1"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "000, 001, 010, 011, 100"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "0, 100, 110, 1110, 1100"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q6-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 6 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q06"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 6"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 6"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q07",
+   "year": 2014,
+   "number": 7,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "对如下所示的有向图进行拓扑排序，得到的拓扑序列可能是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "3, 1, 2, 4, 5, 6"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "3, 1, 2, 4, 6, 5"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "3, 1, 4, 2, 5, 6"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "3, 1, 4, 2, 6, 5"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q7-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 7 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q07"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 7"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 7"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q08",
+   "year": 2014,
+   "number": 8,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "用哈希（散列）方法处理冲突（碰撞）时可能出现堆积（聚集）现象。下列选项中，会受堆积现\n象直接影响的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "存储效率"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "散列函数"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "装填（装载）因子"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "平均查找长度 \n\n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 2 页（共 11 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q8-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 8 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q08"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      1,
+      2
+     ],
+     "locator": "PDF page 1, 2; question 8"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 8"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q09",
+   "year": 2014,
+   "number": 9,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在一棵具有 15 个关键字的 4 阶B树中，含关键字的结点个数最多是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "6"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "10"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "15"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q9-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 9 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q09"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 9"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 9"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q10",
+   "year": 2014,
+   "number": 10,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "用希尔排序方法对一个数据序列进行排序时，若第 1 趟排序结果为 9, 1, 4, 13, 7, 8, 20, 23, 15，则\n该趟排序采用的增量（间隔）可能是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "2"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "3"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "4"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q10-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 10 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q10"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 10"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 10"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q11",
+   "year": 2014,
+   "number": 11,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，不可能是快速排序第 2 趟排序结果的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "2, 3, 5, 4, 6, 7, 9"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "2, 7, 5, 6, 4, 3, 9"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "3, 2, 5, 4, 7, 6, 9"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "4, 2, 3, 5, 7, 6, 9"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q11-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 11 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q11"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 11"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 11"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q12",
+   "year": 2014,
+   "number": 12,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "程序P在机器M上的执行时间是 20 秒，编译优化后，P执行的指令数减少到原来的 70%，而\nCPI增加到原来的 1.2 倍，则P在M上的执行时间是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "8.4 秒"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "11.7 秒"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "14 秒"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "16.8 秒"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q12-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 12 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q12"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 12"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 12"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q13",
+   "year": 2014,
+   "number": 13,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若x=103, y =－25, 则下列表达式采用 8 位定点补码运算实现时，会发生溢出的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "x＋y"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "－x＋y"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "x －y"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "－x－y"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q13-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 13 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q13"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 13"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 13"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q14",
+   "year": 2014,
+   "number": 14,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "float型数据常用IEEE754 单精度浮点格式表示。假设两个float型变量x和y分别存放在 32 位寄\n存器f1和f2中，若(f1)=CC90 0000H, (f2)= B0C0 0000H, 则x和y之间的关系为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "x < y且符号相同"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "x < y 且符号不同"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "x > y 且符号相同"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "x > y 且符号不同"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q14-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 14 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q14"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 14"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 14"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q15",
+   "year": 2014,
+   "number": 15,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某容量为 256MB 的存储器由若干 4Mx8 位的DRAM芯片构成，该DRAM芯片的地址引脚和数\n据引脚总数是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "19"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "22"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "30"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "36"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q15-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 15 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q15"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 15"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 15"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q16",
+   "year": 2014,
+   "number": 16,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "采用指令Cache与数据Cache分离的主要目的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "降低Cache的缺失损失"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "提高Cache的命中率"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "降低CPU平均访存时间"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "减少指令流水线资源冲突"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q16-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 16 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q16"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 16"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 16"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q17",
+   "year": 2014,
+   "number": 17,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某计算机有 16 个通用寄存器，采用 32 位定长指令字，操作码字段（含寻址方式位）为 8 位，\nStore指令的源操作数和目的操作数分别采用寄存器直接寻址和基址寻址方式。若基址寄存器可\n使用任一通用寄存器，且偏移量用补码表示，则Store指令中偏移量的取值范围是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "－32768～＋32767"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "－32767～＋32768"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "－65536～＋65535"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "－65535～＋65536"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q17-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 17 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q17"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 17"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 17"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q18",
+   "year": 2014,
+   "number": 18,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某计算机采用微程序控制器，共有 32 条指令，公共的取指令微程序包含 2 条微指令，各指令对\n应的微程序平均由 4 条微指令组成，采用断定法（下地址字段法）确定下条微指令地址，则微指\n令中下地址字段的位数至少是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "6"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "8"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "9"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q18-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 18 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q18"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 18"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 18"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q19",
+   "year": 2014,
+   "number": 19,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某同步总线采用数据线和地址线复用方式，其中地址/数据线有 32 根，总线时钟频率为 66MHz， \n每个时钟周期传送两次数据（上升沿和下降沿各传送一次数据） ，该总线的最大数据传输率（总\n线带宽）是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "132MB/s"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "264MB/s"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "528MB/s"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "1056MB/s"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q19-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 19 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q19"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 19"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 19"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q20",
+   "year": 2014,
+   "number": 20,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "一次总线事务中，主设备只需给出一个首地址，从设备就能从首地址开始的若干连续单元读出或\n写入多个数据。这种总线事务方式称为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "并行传输"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "串行传输"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "突发传输"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "同步传输"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q20-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 20 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q20"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 20"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 20"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q21",
+   "year": 2014,
+   "number": 21,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列有关I/O接口的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "状态端口和控制端口可以合用同一个寄存器"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "I/O接口中CPU可访问的寄存器称为I/O端口"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "采用独立编址方式时，I/O端口地址和主存地址可能相同"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "采用统一编址方式时，CPU不能用访存指令访问I/O端口"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q21-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 21 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q21"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 21"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 21"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q22",
+   "year": 2014,
+   "number": 22,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若某设备中断请求的响应和处理时间为 100ns，每 400ns发出一次中断请求，中断响应所允许的\n最长延迟时间为 50ns，则在该设备持续工作过程中，CPU用于该设备的I/O时间占整个CPU时\n间的百分比至少是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "12.5%"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "25%"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "37.5%"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "50%"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q22-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 22 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q22"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 22"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 22"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q23",
+   "year": 2014,
+   "number": 23,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列调度算法中，不可能导致饥饿现象的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "时间片轮转"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "静态优先数调度 \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 3 页（共 11 页）"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "非抢占式短作业优先"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "抢占式短作业优先"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q23-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 23 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q23"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      2,
+      3
+     ],
+     "locator": "PDF page 2, 3; question 23"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 23"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q24",
+   "year": 2014,
+   "number": 24,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某系统有n台互斥使用的同类设备，三个并发进程分别需要 3、4、5 台设备，可确保系统不发生\n死锁的设备数n最小为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "9"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "10"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "11"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "12"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q24-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 24 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q24"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 24"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 24"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q25",
+   "year": 2014,
+   "number": 25,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列指令中，不能在用户态执行的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "trap指令"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "跳转指令"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "压栈指令"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "关中断指令"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q25-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 25 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q25"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 25"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 25"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q26",
+   "year": 2014,
+   "number": 26,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "一个进程的读磁盘操作完成后，操作系统针对该进程必做的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "修改进程状态为就绪态"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "降低进程优先级"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "给进程分配用户内存空间"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "增加进程时间片大小"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q26-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 26 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q26"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 26"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 26"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q27",
+   "year": 2014,
+   "number": 27,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "现有一个容量为 10GB的磁盘分区， 磁盘空间以簇（Cluster）为单位进行分配，簇的大小为\n4KB，若采用位图法管理该分区的空闲空间，即用一位（bit）标识一个簇是否被分配，则存放该\n位图所需簇的个数为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "80"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "320"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "80K"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "320K"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q27-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 27 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q27"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 27"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 27"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q28",
+   "year": 2014,
+   "number": 28,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列措施中，能加快虚实地址转换的是        。 \nI. 增大块表（TLB）容量 II. 让页表常驻内存 III. 增大交换区（swap）"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q28-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 28 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q28"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 28"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 28"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q29",
+   "year": 2014,
+   "number": 29,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在一个文件被用户进程首次打开的过程中，操作系统需要做的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "将文件内容读到内存中"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "将文件控制块读到内存中"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "修改文件控制块中的读写权限"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "将文件的数据缓冲区首指针返回给用户进程"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q29-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 29 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q29"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 29"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 29"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q30",
+   "year": 2014,
+   "number": 30,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在页式虚拟存储管理系统中，采用某些页面置换算法，会出现Belady异常现象，即进程的缺页\n次数会随着分配给该进程的页框个数的增加而增加。下列算法中，可能出现Belady异常现象的\n是        。 \nI. LRU算法 II. FIFO算法 III. OPT算法"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q30-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 30 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q30"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 30"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 30"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q31",
+   "year": 2014,
+   "number": 31,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于管道（Pipe）通信的叙述中，正确的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "一个管道可实现双向数据传输"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "管道的容量仅受磁盘容量大小限制"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "进程对管道进行读操作和写操作都可能被阻塞"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "一个管道只能有一个读进程或一个写进程对其操作"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q31-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 31 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q31"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 31"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 31"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q32",
+   "year": 2014,
+   "number": 32,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，属于多级页表优点的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "加快地址变换速度"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "减少缺页中断次数"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "减少页表项所占字节数"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "减少页表所占的连续内存空间"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q32-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 32 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q32"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 32"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 32"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q33",
+   "year": 2014,
+   "number": 33,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在OSI参考模型中，直接为会话层提供服务的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "应用层"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "表示层"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "传输层"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "网络层"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q33-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 33 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q33"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 33"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 33"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q34",
+   "year": 2014,
+   "number": 34,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某以太网拓扑及交换机当前转发表如下图所示，主机 00-e1-d5-00-23-a1 向主机 00-e1-d5-00-23-c1\n发送 1 个数据帧，主机 00-e1-d5-00-23-c1 收到该帧后，向主机 00-e1-d5-00-23-a1 发送 1 个确认\n帧，交换机对这两个帧的转发端口分别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "{3}和{1}"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "{2, 3}和{1}"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "{2,3}和{1, 2}"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "{1, 2, 3}和{1}"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q34-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 34 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q34"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 34"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 34"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q35",
+   "year": 2014,
+   "number": 35,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列因素中，不会影响信道数据传输速率的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "信噪比"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "频率宽带"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "调制速率"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "信号传播速度 \n\n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 4 页（共 11 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q35-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 35 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q35"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      3,
+      4
+     ],
+     "locator": "PDF page 3, 4; question 35"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 35"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q36",
+   "year": 2014,
+   "number": 36,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "主机甲与主机乙之间使用后退N帧协议（GBN）传输数据，甲的发送窗口尺寸为 1000，数据帧\n长为 1000 字节，信道带宽为 100Mbps，乙每收到一个数据帧立即利用一个短帧（忽略其传输延\n迟）进行确认，若甲、乙之间的单向传播延迟是 50ms，则甲可以达到的最大平均数据传输速率\n约为"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "10Mbps"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "20Mbps"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "80Mbps"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "100Mbps"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q36-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 36 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q36"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 36"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 36"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q37",
+   "year": 2014,
+   "number": 37,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "站点A、B、C通过CDMA共享链路，A、B、C的码片序列（chipping sequence）分别是(1, 1, 1, \n1)、(1,－1, 1, －1)和(1, 1, －1, －1)。若C从链路上收到的序列是(2, 0, 2, 0, 0, －2, 0, －2, 0, 2, \n0, 2), 则C收到A发送的数据是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "000"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "101"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "110"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "111"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q37-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 37 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q37"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 37"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 37"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q38",
+   "year": 2014,
+   "number": 38,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "主机甲和主机乙已建立了TCP连接，甲始终以MSS = 1KB大小的段发送数据，并一直有数据发\n送；乙每收到一个数据段都会发出一个接收窗口为 10KB的确认段。若甲在t时刻发生超时时拥\n塞窗口为 8KB，则从t时刻起，不再发生超时的情况下，经过 10 个RTT后，甲的发送窗口\n是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "10KB"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "12KB"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "14KB"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "15KB"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q38-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 38 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q38"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 38"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 38"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q39",
+   "year": 2014,
+   "number": 39,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于UDP协议的叙述中，正确的是        。 \nI. 提供无连接服务 II. 提供复用/分用服务 III. 通过差错校验，保障可靠数据传输"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "I 、II、III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q39-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 39 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q39"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 39"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 39"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q40",
+   "year": 2014,
+   "number": 40,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "使用浏览器访问某大学Web网站主页时， 不可能使用到的协议是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "PPP"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "ARP"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "UDP"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "SMTP \n \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 5 页（共 11 页） \n二、综合应用题（第41～47小题，共70分）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q40-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 40 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q40"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      4,
+      5
+     ],
+     "locator": "PDF page 4, 5; question 40"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 40"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q41",
+   "year": 2014,
+   "number": 41,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（13分）二叉树的带权路径长度 （WPL）是二叉树中所有叶结点的带权路径长度之和。给定一棵\n二叉树T ,采用二叉链表存储， 结点结构如下： \nleft weight right \n其中叶结点的weight域保存该结点的非负权值。设root为指向T的根结点的指针，请设计求T\n的WPL的算法，要求： \n（1）给出算法的基本设计思想。 \n（2）使用C或C++语言，给出二叉树结点的数据类型定义。 \n（3）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 6 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 13,
+    "rubric": [
+     {
+      "id": "q41-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 13
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q41-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 41 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q41"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      5,
+      6
+     ],
+     "locator": "PDF page 5, 6; question 41"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 41"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q42",
+   "year": 2014,
+   "number": 42,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（10 分）某网络中的路由器运行OSPF路由协议，题 42 表是路由器R1 维护的主要链路状态信\n息（LSI）,题 42 图是根据题 42 表及R1 的接口名构造出来的网络拓扑。 \n题42表 R1所维护的LSI \n R1的LSI R2的LSI R3的LSI R4的LSI 备注 \nRouter ID 10.1.1.1 10.1.1.2 10.1.1.5 10.1.1.6 表示路由器的IP地址 \nLink1 \nID 10.1.1.2 10.1.1.1 10.1.1.6 10.1.1.5 所连路由器的Router ID \nIP 10.1.1.1 10.1.1.2 10.1.1.5 10.1.1.6 Link1 的本地IP地址 \nMetric 3 3 6 6 Link1 的费用 \nLink2 \nID 10.1.1.5 10.1.1.6 10.1.1.1 10.1.1.2 所选路由器的Router ID \nIP 10.1.1.9 10.1.1.13 10.1.1.10 10.1.1.14 Link2 的本地IP地址 \nMetric 2 4 2 4 Link2 的费用 \nNet1 Prefix 192.1.1.0/24 192.1.6.0/24 192.1.5.0/24 192.1.7.0/24 直连网络Net1 的网络前缀 \nMetric 1 1 1 1 到达直连网络Net1 的费用 \n \n题42 图R1构造的网络拓扑 \n请回答下列问题。 \n1）本题中的网络可抽象为数据结构中的哪种逻辑结构？ \n2）针对题 42 表中的内容，设计合理的链式存储结构，以保存题 42 表中的链路状态信息\n（LSI） 。要求给出链式存储结构的数据类型定义，并画出对应题 42 表的链式存储结构示意图\n（示意图中可仅以ID标识结点） 。 \n3）按照迪杰斯特拉（Dijkstra）算法的策略，依次给出R1 到达题 42 图中子网 192.1.x.x的最短\n路径及费用。 \n  \n\n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 10,
+    "rubric": [
+     {
+      "id": "q42-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 10
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q42-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 42 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2014-q42"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      6,
+      7
+     ],
+     "locator": "PDF page 6, 7; question 42"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 42"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q43",
+   "year": 2014,
+   "number": 43,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（9 分）请根据题 42 描述的网络， 继续回答下列问题。 \n（1）假设路由表结构如下表所示， 请给出题 42 图中R1 的路由表， 要求包括到达题 42 图中\n子网 192.1.x.x的路由，且路由表中的路由项尽可能少。 \n目的网络 下一跳 接口 \n（2）当主机 192.1.1.130 向主机 192.1.7.211 发送一个TTL = 64 的IP分组时，R1 通过哪个接口转\n发该IP分组？主机 192.1.7.211 收到的IP分组TTL是多少？ \n（3）若R1 增加一条Metric为 10 的链路连接Internet, 则题 42 表中R1 的LSI需要增加哪些信\n息？ \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 8 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 9,
+    "rubric": [
+     {
+      "id": "q43-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 9
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q43-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 43 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q43"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      7,
+      8
+     ],
+     "locator": "PDF page 7, 8; question 43"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 43"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q44",
+   "year": 2014,
+   "number": 44,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（12 分）某程序中有如下循环代码段P： “for(int i = 0; i < N; i++) sum+=A[i];” 。假设编译时变量\nsum和i分别分配在寄存器R1 和R2 中。常量N在寄存器R6 中，数组A的首地址在寄存器R3\n中。程序段P起始地址为 0804 8100H，对应的汇编代码和机器代码如下表所示。 \n编号 地址 机器代码 汇编代码 注释 \n1 08048100H 00022080H loop: sll R 4, R2, 2 (R 2) << 2 → R4 \n2 08048104H 00083020H add R 4, R4, R3 (R 4) + (R3) →R4 \n3 08048108H 8C850000H load R 5, 0(R4) ((R 4) + 0) →R5 \n4 0804810CH 00250820H add R 1, R1, R5 (R 1) + (R5) → R1 \n5 08048110H 20420001H add R 2, R2, 1 (R 2) + 1 → R2 \n6 08048114H 1446FFFAH bne R 2, R6, loop if(R 2)!=(R6) goto loop \n执行上述代码的计算机M采用 32 位定长指令字，其中分支指令bne采用如下格式 \n31 26 25 21 20 16 15 0 \nOP Rs Rd OFFSET  \nOP为操作码；Rs和Rd为寄存器编号；OFFSET为偏移量，用补码表示。请回答下列问题，并说\n明理由。 \n（1）M的存储器编址单位是什么？ \n（2）已知sll指令实现左移功能，数组A中每个元素占多少位？ \n（3）表中bne指令的OFFSET字段的值是多少？已知bne指令采用相对寻址方式，当前PC内容\n为bne指令地址，通过分析表中指令地址和bne指令内容，推断出bne指令的转移目标地址计算\n公式。 \n（4）若M采用如下“按序发射、按序完成”的 5 级指令流水线：IF （取值）、ID （译码及取数）、\nEXE （执行）、MEM （访存）、WB （写回寄存器），且硬件不采取任何转发措施，分支指令的执行\n均引起 3 个时钟周期的阻塞，则P中哪些指令的执行会由于数据相关而发生流水线阻塞？哪条指\n令的执行会发生控制冒险？为什么指令 1 的执行不会因为与指令 5 的数据相关而发生阻塞？ \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 9 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 12,
+    "rubric": [
+     {
+      "id": "q44-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 12
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q44-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 44 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2014-q44"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      8,
+      9
+     ],
+     "locator": "PDF page 8, 9; question 44"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 44"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q45",
+   "year": 2014,
+   "number": 45,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（11 分）假设对于 44 题中的计算机M和程序P的机器代码， M采用页式虚拟存储管理； P开\n始执行时，(R1)=(R2)=0，(R6)=1000，其机器代码已调入主存但不在Cache中；数组A未调入主\n存，且所有数组元素在同一页，并存储在磁盘同一个扇区。请回答下列问题并说明理由。 \n（1）P执行结束时，R2 的内容是多少？ \n（2）M的指令Cache和数据Cache分离。若指令Cache共有 16 行，Cache和主存交换的块大小\n为 32 字节，则其数据区的容量是多少？若仅考虑程序段P 的执行，则指令Cache 的命中率为多\n少？ \n（3）P在执行过程中，哪条指令的执行可能发生溢出异常？哪条指令的执行可能产生缺页异常？\n对于数组A的访问，需要读磁盘和TLB至少各多少次？ \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 10 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 11,
+    "rubric": [
+     {
+      "id": "q45-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 11
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q45-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 45 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q45"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      9,
+      10
+     ],
+     "locator": "PDF page 9, 10; question 45"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 45"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q46",
+   "year": 2014,
+   "number": 46,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（7 分）文件F由 200 条记录组成，记录从 1 开始编号。用户打开文件后，欲将内存中的一条记\n录插入到文件F中，作为其第 30 条记录。请回答下列问题，并说明理由。 \n（1）若文件系统采用连续分配方式，每个磁盘块存放一条记录，文件F存储区域前后均有足够的\n空闲磁盘空间， 则完成上述插入操作最少需要访问多少次磁盘块? F的文件控制块内容会发生哪些\n改变？ \n（2）若文件系统采用链接分配方式，每个磁盘块存放一条记录和一个链接指针，则完成上述插入\n操作需要访问多少次磁盘块？若每个存储块大小为 1KB，其中 4 字节存放链接指针，则该文件系\n统支持的文件最大长度是多少？ \n  \n2014 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 11 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 7,
+    "rubric": [
+     {
+      "id": "q46-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 7
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q46-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 46 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2014-q46"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      10,
+      11
+     ],
+     "locator": "PDF page 10, 11; question 46"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 46"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2014-q47",
+   "year": 2014,
+   "number": 47,
+   "subject": "computer-networks",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（8 分）系统中有多个生产者进程和多个消费者进程，共享一个能存放 1000 件产品的环形缓冲区\n（初始为空） 。当缓冲区未满时，生产者进程可以放入其生产的一件产品，否则等待；当缓冲区未\n空时，消费者进程可以从缓冲区取走一件产品，否则等待。要求一个消费者进程从缓冲区连续取\n出 10 件产品后，其他消费者进程才可以取产品。请使用信号量P，V （或wait(), signal())操作实现\n进程间的互斥与同步，要求写出完整的过程，并说明所用信号量的含义和初值。"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 8,
+    "rubric": [
+     {
+      "id": "q47-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 8
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q47-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 47 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2014-q47"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2014 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2014.pdf",
+     "fileName": "2014.pdf",
+     "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+     "pages": [
+      11
+     ],
+     "locator": "PDF page 11; question 47"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2014 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2014-answer.pdf",
+     "fileName": "2014-answer.pdf",
+     "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 47"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2014 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2014/",
+      "fileName": "csg-2014.html",
+      "sha256": "5e82aef16ee7da0c3c22dbafd250f8c16e4ecee9701685f0f9e3a47eb5b28d5e",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2014.0-draft.1",
+   "reviewStatus": "needs-review"
+  }
+ ],
+ "knowledgePoints": [
+  {
+   "id": "subject-data-structures",
+   "subject": "data-structures",
+   "name": "数据结构"
+  },
+  {
+   "id": "subject-computer-organization",
+   "subject": "computer-organization",
+   "name": "计算机组成原理"
+  },
+  {
+   "id": "subject-operating-systems",
+   "subject": "operating-systems",
+   "name": "操作系统"
+  },
+  {
+   "id": "subject-computer-networks",
+   "subject": "computer-networks",
+   "name": "计算机网络"
+  },
+  {
+   "id": "topic-2014-q01",
+   "subject": "data-structures",
+   "name": "第 1 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q02",
+   "subject": "data-structures",
+   "name": "第 2 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q03",
+   "subject": "data-structures",
+   "name": "第 3 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q04",
+   "subject": "data-structures",
+   "name": "第 4 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q05",
+   "subject": "data-structures",
+   "name": "第 5 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q06",
+   "subject": "data-structures",
+   "name": "第 6 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q07",
+   "subject": "data-structures",
+   "name": "第 7 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q08",
+   "subject": "data-structures",
+   "name": "第 8 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q09",
+   "subject": "data-structures",
+   "name": "第 9 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q10",
+   "subject": "data-structures",
+   "name": "第 10 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q11",
+   "subject": "data-structures",
+   "name": "第 11 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q12",
+   "subject": "computer-organization",
+   "name": "第 12 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q13",
+   "subject": "computer-organization",
+   "name": "第 13 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q14",
+   "subject": "computer-organization",
+   "name": "第 14 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q15",
+   "subject": "computer-organization",
+   "name": "第 15 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q16",
+   "subject": "computer-organization",
+   "name": "第 16 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q17",
+   "subject": "computer-organization",
+   "name": "第 17 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q18",
+   "subject": "computer-organization",
+   "name": "第 18 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q19",
+   "subject": "computer-organization",
+   "name": "第 19 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q20",
+   "subject": "computer-organization",
+   "name": "第 20 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q21",
+   "subject": "computer-organization",
+   "name": "第 21 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q22",
+   "subject": "computer-organization",
+   "name": "第 22 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q23",
+   "subject": "operating-systems",
+   "name": "第 23 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q24",
+   "subject": "operating-systems",
+   "name": "第 24 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q25",
+   "subject": "operating-systems",
+   "name": "第 25 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q26",
+   "subject": "operating-systems",
+   "name": "第 26 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q27",
+   "subject": "operating-systems",
+   "name": "第 27 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q28",
+   "subject": "operating-systems",
+   "name": "第 28 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q29",
+   "subject": "operating-systems",
+   "name": "第 29 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q30",
+   "subject": "operating-systems",
+   "name": "第 30 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q31",
+   "subject": "operating-systems",
+   "name": "第 31 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q32",
+   "subject": "operating-systems",
+   "name": "第 32 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q33",
+   "subject": "computer-networks",
+   "name": "第 33 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q34",
+   "subject": "computer-networks",
+   "name": "第 34 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q35",
+   "subject": "computer-networks",
+   "name": "第 35 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q36",
+   "subject": "computer-networks",
+   "name": "第 36 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q37",
+   "subject": "computer-networks",
+   "name": "第 37 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q38",
+   "subject": "computer-networks",
+   "name": "第 38 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q39",
+   "subject": "computer-networks",
+   "name": "第 39 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q40",
+   "subject": "computer-networks",
+   "name": "第 40 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2014-q41",
+   "subject": "data-structures",
+   "name": "第 41 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q42",
+   "subject": "data-structures",
+   "name": "第 42 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2014-q43",
+   "subject": "computer-organization",
+   "name": "第 43 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q44",
+   "subject": "computer-organization",
+   "name": "第 44 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2014-q45",
+   "subject": "operating-systems",
+   "name": "第 45 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q46",
+   "subject": "operating-systems",
+   "name": "第 46 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2014-q47",
+   "subject": "computer-networks",
+   "name": "第 47 题",
+   "parentId": "subject-computer-networks"
+  }
+ ],
+ "assets": [
+  {
+   "id": "cn408-2014-source-questions-page-1",
+   "path": "/content/cn408-2014/source/paper-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e4a038e62eaf24c2c13fd389f2679d4bead6ef12f1362087bf1b4c2dc6a9542f",
+   "sourcePage": 1,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-2",
+   "path": "/content/cn408-2014/source/paper-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "264e48c9c1ada25fc3fc0e648e680e9ef6d5907ae1989c9444f867067607ab11",
+   "sourcePage": 2,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-3",
+   "path": "/content/cn408-2014/source/paper-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "2ed3ab685dc5219b494755233c357459996bdfd1f2df7d86b78b2e944f1a98d0",
+   "sourcePage": 3,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-4",
+   "path": "/content/cn408-2014/source/paper-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "0b633d819c1f89f80370353c01d9de2d5a9d6ca20679f207368faa30c3668dd8",
+   "sourcePage": 4,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-5",
+   "path": "/content/cn408-2014/source/paper-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "471aadaac4d43ec960d8a595677de2bfb403ba254550d198c177237bcbf84c4a",
+   "sourcePage": 5,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-6",
+   "path": "/content/cn408-2014/source/paper-6.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "f542150f631698922535a05355117676a4456d3d4f8e09769706003f10a90f83",
+   "sourcePage": 6,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-7",
+   "path": "/content/cn408-2014/source/paper-7.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "fc61f994c17f86d6fd794e4c9a3e98adcc82e15bb6d40233601d7e023cb409bd",
+   "sourcePage": 7,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-8",
+   "path": "/content/cn408-2014/source/paper-8.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "d499485685682d14bc7a11eae03f4cd4c0fe0885f8d5f9b13b76d6c2115bf424",
+   "sourcePage": 8,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-9",
+   "path": "/content/cn408-2014/source/paper-9.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "7bd108e4aad5e539370724925f9116fcfec9be2a2bbb3673b903dadd36c1835d",
+   "sourcePage": 9,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-10",
+   "path": "/content/cn408-2014/source/paper-10.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "da4a3ad8359807588b99b61187a72f8d120f394cc24f03b2ba27c706faa303a6",
+   "sourcePage": 10,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-questions-page-11",
+   "path": "/content/cn408-2014/source/paper-11.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "2d15843f56acea8adfbd09b8aaafb9975e6fa4ebf33da19b7e22a3a600d66b5f",
+   "sourcePage": 11,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2014-source-answers-page-1",
+   "path": "/content/cn408-2014/source/answers-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "1fab19c22f6690fc71ad9cb3f357df2834c17c5e24dd07495dc16fd81174f709",
+   "sourcePage": 1,
+   "width": 828,
+   "height": 1193
+  },
+  {
+   "id": "cn408-2014-source-answers-page-2",
+   "path": "/content/cn408-2014/source/answers-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "5213bf501dcbc1b217ff40c3faca016c1081b50aa82908d21b94c17abc358c25",
+   "sourcePage": 2,
+   "width": 831,
+   "height": 1190
+  },
+  {
+   "id": "cn408-2014-source-answers-page-3",
+   "path": "/content/cn408-2014/source/answers-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "4d50021a59262bcc14a5b04845e7208b790acfd4b4507b865df9dec28855b04f",
+   "sourcePage": 3,
+   "width": 829,
+   "height": 1194
+  },
+  {
+   "id": "cn408-2014-source-answers-page-4",
+   "path": "/content/cn408-2014/source/answers-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "0056f9c1cf640f42ecc279f40a1294e33996817ea3a98e5c82ca67df42197014",
+   "sourcePage": 4,
+   "width": 827,
+   "height": 1190
+  },
+  {
+   "id": "cn408-2014-source-answers-page-5",
+   "path": "/content/cn408-2014/source/answers-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "031324b663041446911fce6883c345b0e6f5bf48f1d9cc9934eee98b17ef0b4d",
+   "sourcePage": 5,
+   "width": 826,
+   "height": 1192
+  },
+  {
+   "id": "cn408-2014-source-answers-page-6",
+   "path": "/content/cn408-2014/source/answers-6.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "6b31adb274ca6d857c3dba8032d073d4366ecacd68e9ecf22491a897fb47b6f2",
+   "sourcePage": 6,
+   "width": 830,
+   "height": 1189
+  },
+  {
+   "id": "cn408-2014-source-answers-page-7",
+   "path": "/content/cn408-2014/source/answers-7.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "0939b4b7de79993a90b9f7d1e20b5dbf3189e23f4c36e58c564fe229b864c3d9",
+   "sourcePage": 7,
+   "width": 830,
+   "height": 1194
+  },
+  {
+   "id": "cn408-2014-source-answers-page-8",
+   "path": "/content/cn408-2014/source/answers-8.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "3b777164de55d5c736ad01121c1f19947bd6c730efd5e62a34f83241f2619fef",
+   "sourcePage": 8,
+   "width": 826,
+   "height": 1191
+  },
+  {
+   "id": "cn408-2014-source-answers-page-9",
+   "path": "/content/cn408-2014/source/answers-9.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "8b09a15f0c3f5bd23fbb7844e6a6279a02004062fa8c3a36574edbb395e8db55",
+   "sourcePage": 9,
+   "width": 828,
+   "height": 1193
+  },
+  {
+   "id": "cn408-2014-source-answers-page-10",
+   "path": "/content/cn408-2014/source/answers-10.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "0740a5cea4cfec7fb3ccf97d35f897f046a1d342ccb3e91f0b2b8fb506851373",
+   "sourcePage": 10,
+   "width": 830,
+   "height": 1191
+  },
+  {
+   "id": "cn408-2014-source-answers-page-11",
+   "path": "/content/cn408-2014/source/answers-11.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "f32d68c12ce79a33540b32dbf8b7d29778f47c6fb49d29fae82f37d3eb6c7c7f",
+   "sourcePage": 11,
+   "width": 831,
+   "height": 1193
+  },
+  {
+   "id": "cn408-2014-source-answers-page-12",
+   "path": "/content/cn408-2014/source/answers-12.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "4609a9372eb5b70071100390afc1221ab846da40f02a9d8665c5258bfee71ae6",
+   "sourcePage": 12,
+   "width": 834,
+   "height": 1193
+  },
+  {
+   "id": "cn408-2014-source-answers-page-13",
+   "path": "/content/cn408-2014/source/answers-13.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "8ef6642404d3c5d7cbb03d4e94c525b66a702a93d4015589f9fd6c4b30dc28ae",
+   "sourcePage": 13,
+   "width": 834,
+   "height": 1196
+  },
+  {
+   "id": "cn408-2014-source-answers-page-14",
+   "path": "/content/cn408-2014/source/answers-14.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "ac5d63d1c31ca6e80b8d58f949129d14589f2c2faf46cbfb7322cad0c8334001",
+   "sourcePage": 14,
+   "width": 829,
+   "height": 1188
+  }
+ ]
+}

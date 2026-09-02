@@ -1,0 +1,6138 @@
+{
+ "manifest": {
+  "id": "cn408-2025",
+  "schemaVersion": 1,
+  "contentVersion": "2025.0-draft.1",
+  "title": "2025 年计算机学科专业基础综合试题",
+  "year": 2025,
+  "questionCount": 47,
+  "createdAt": "2026-09-02T14:22:00.093Z",
+  "sha256": "df0780b579defbc976d4363658630442b5811ee7a487c848c3ad5fbd65bb43c1",
+  "reviewStatus": "needs-review"
+ },
+ "questions": [
+  {
+   "id": "cn408-2025-q01",
+   "year": 2025,
+   "number": 1,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列程序段的时间复杂度是        。 \nint count=0, i, j; \nfor(i=1; i*i<=n; i++) \n  for(j=1; j<=i; j++) \n    count ++;"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(log n)"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n)"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n log n)"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n2)"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q1-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 1 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q01"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 1"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 1"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q02",
+   "year": 2025,
+   "number": 2,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知算法A用于检查字符串中各类括号是否匹配，A执行过程中使用初始为空的栈保存遇到的括\n号。若栈的容量是 3，则下列选项中，A不能．．处理的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "(a + [b + (c + d) / e] + f) + g – h"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "[a * ((b + c) / (d – e) + f / g) - h]"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "[a * (b – (c – d) * e / (f + g)) – h]"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "[a – (b + [c * (d + e) – f] + g + h)]"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q2-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 2 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q02"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 2"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 2"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q03",
+   "year": 2025,
+   "number": 3,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若二叉树的结点值均为正整数，采用顺序存储方式保存在数组R中，用－1 表示结点不存在，则\n下列数组中，不能．．表示一棵二叉树的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "R[]={20, 15, 40, －1, －1, 35}"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "R[]={ 15, 40, 10, 18, 35, －1, －1}"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "R[]={15, 40, 10, －1, －1, －1, 12}"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "R[]={ 17, 20, 35, －1, 18, 45, －1, －1, 19, 27}"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q3-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 3 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q03"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 3"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 3"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q04",
+   "year": 2025,
+   "number": 4,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于二叉树及森林的叙述中，正确的是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "完全二叉树中不存在度为 1 的结点"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "任意一个森林都可以转换为一棵二叉树"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "二叉树的分支结点个数比叶结点个数少"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "表达式树的根中保存的是最先计算的运算符"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q4-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 4 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q04"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 4"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 4"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q05",
+   "year": 2025,
+   "number": 5,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "设字符集S包含 7 个字符，各字符出现的频次分别为 2, 3, 4, 6, 8, 10, 11。现为S中的各字符构造\n哈夫曼编码，编码长度不小于．．．3 的字符个数是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "2"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "3"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "4"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q5-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 5 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q05"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 5"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 5"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q06",
+   "year": 2025,
+   "number": 6,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于图的叙述中，正确的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "有向图必存在入度为 0 的顶点"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "有向无环图的拓扑有序序列存在且唯一"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "各顶点的度均大于等于 2 的无向图必有回路"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "可用 BFS算法求出带权图中每一对顶点间的最短路径"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q6-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 6 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q06"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 6"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 6"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q07",
+   "year": 2025,
+   "number": 7,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知查找表中有 400 个元素， 查找每个元素的概率相同。 采用分块查找法进行查找， 且均匀分块。\n若采用顺序查找法确定元素所在的块，且块内也采用顺序查找法，为使查找效率最高，则每块包\n含的元素个数应为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "8"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "10"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "20"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "25"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q7-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 7 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q07"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 7"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 7"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q08",
+   "year": 2025,
+   "number": 8,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "给定 7 个不同的关键字，能够构造的不同 4 阶B树的个数最多是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "7"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "8"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "9"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "10"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q8-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 8 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q08"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 8"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 8"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q09",
+   "year": 2025,
+   "number": 9,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于散列方法处理冲突的叙述中，正确的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "只要散列表不满，线性探查再散列一定能找到一个空闲位置"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "只要散列表不满，二次探查再散列一定能找到一个空闲位置"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "线性探查再散列处理的冲突，一定是发生在同义词之间的冲突"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "二次探查再散列处理的冲突，一定是发生在非同义词之间的冲突"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q9-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 9 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q09"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 9"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 9"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q10",
+   "year": 2025,
+   "number": 10,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列排序算法中，最坏情况下元素移动次数最少的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "起泡排序"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "直接插入排序"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "快速排序"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "简单选择排序 \n \n \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 2 页（共 12 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q10-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 10 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q10"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      1,
+      2
+     ],
+     "locator": "PDF page 1, 2; question 10"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 10"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q11",
+   "year": 2025,
+   "number": 11,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "对含 9 个关键字的初始序列进行排序，若序列的变化情况如下表所示，则下列排序算法中，采用\n的是        。 \n初始序列 5, 25, 40, 30, 10, 20, 45, 15, 35 \n第 1 趟排序后的序列 5, 10, 20, 30, 15, 35, 45, 25, 40 \n第 2 趟排序后的序列 5, 10, 15, 25, 20, 30, 40, 35, 45"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "希尔排序"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "基数排序"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "归并排序"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "折半插入排序"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q11-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 11 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q11"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 11"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 11"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q12",
+   "year": 2025,
+   "number": 12,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在 32 位计算机上执行下列C语言代码段后，ui的值是        。 \nshort si=-32767; \nunsigned int ui=si;"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "215 – 1"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "215 + 1"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "232 – 215 – 1"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "232 – 215 + 1"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q12-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 12 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q12"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 12"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 12"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q13",
+   "year": 2025,
+   "number": 13,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知float型变量用IEEE 754 单精度浮点数格式表示。若float型变量x的机器数为 4730 0000H，\n则x的值是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.375×214"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "1.375×214"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.375×215"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "1.375×215"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q13-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 13 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q13"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 13"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 13"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q14",
+   "year": 2025,
+   "number": 14,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假设 8 位字长的计算机中，两个带符号整数x和y的补码表示分别为[x]补=A3H、[y]补=75H，则通\n过补码加减运算器得到的x – y的值及OF标志分别为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "24, 0"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "24, 1"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "46, 0"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "46, 1"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q14-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 14 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q14"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 14"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 14"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q15",
+   "year": 2025,
+   "number": 15,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某 32 位计算机按字节编址，采用小端方式存放数据，编译器按边界对齐方式为下列C语言结构\n型数组变量employee分配存储空间。 \nstruct record{ \n  int id; \n  char name[10]; \n  int salary; \n} employee[200]; \n若employee的首地址为 0000 A0B0H，employee[1].id的机器数为 1234 5678H，则该机器数中的\n56H所在存储单元的地址是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "0000 A0C3H"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "0000 A0C4H"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "0000 A0C5H"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "0000 A0C6H"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q15-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 15 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q15"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 15"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 15"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q16",
+   "year": 2025,
+   "number": 16,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，由指令集体系结构（ISA）规定的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "是否采用阵列乘法器"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "是否采用定长指令字格式"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "是否采用微程序控制器"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "是否采用单总线数据通路"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q16-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 16 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q16"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 16"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 16"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q17",
+   "year": 2025,
+   "number": 17,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于RISC的叙述中，错误．．的是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "多采用硬连线方式实现控制器"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "通常采用 Load/Store 型指令设计风格"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "难以采用流水线数据通路实现微架构"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "多采用寄存器传递过程调用时的参数"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q17-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 17 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q17"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 17"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 17"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q18",
+   "year": 2025,
+   "number": 18,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于CPI和CPU时钟周期的叙述中，错误．．的是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "不同类型指令的CPI可能不一样"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "程序的CPI与Cache缺失率无关"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "单周期CPU的时钟周期以最耗时指令所用时间为准"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "流水线CPU的时钟周期以最长流水段所用时间为准"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q18-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 18 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q18"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 18"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 18"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q19",
+   "year": 2025,
+   "number": 19,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于CPU中的数据通路和控制器的叙述中，错误．．的是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "通用寄存器组中应该包含程序计数器"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "控制器中一定包含指令操作码的译码电路"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "单周期CPU中的控制器比多周期CPU中的更简单"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "流水线CPU需解决数据相关和控制相关等冒险问题"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q19-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 19 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q19"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 19"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 19"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q20",
+   "year": 2025,
+   "number": 20,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某处理器总线采用同步、并行传输方式，每个总线时钟周期传送 4 次数据（quadpumped技术） 。\n若该总线的工作频率为 1333MHz（实际单位是MT/s，表示每秒传送 1333M次） ，总线宽度为 64\n位，则总线带宽约为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "10.66 GB/s"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "42.66 GB/s"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "85.31 GB/s"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "341.25 GB/s \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 3 页（共 12 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q20-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 20 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q20"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      2,
+      3
+     ],
+     "locator": "PDF page 2, 3; question 20"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 20"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q21",
+   "year": 2025,
+   "number": 21,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列设备中，适合采用DMA输入/输出方式的是        。 \nI. 键盘 II. 网卡 III. 固态硬盘 IV . 针式打印机"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、IV"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅III、IV"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q21-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 21 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q21"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 21"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 21"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q22",
+   "year": 2025,
+   "number": 22,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，会触发外部中断请求的事件是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "DMA传送结束"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "总线事务结束"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "页故障处理结束"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "执行断点指令"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q22-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 22 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q22"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 22"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 22"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q23",
+   "year": 2025,
+   "number": 23,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在采用页式虚拟存储管理方式的系统中，当发生进程上下文切换时，下列寄存器中，操作系统不．\n需要．．更新的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "通用寄存器"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "页表基址寄存器"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "程序计数器"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "内核中断向量表基址寄存器"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q23-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 23 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q23"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 23"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 23"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q24",
+   "year": 2025,
+   "number": 24,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于虚拟化技术的叙述中，错误．．的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "操作系统可以运行在虚拟机上"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "虚拟化技术支持在一台计算机上构建多个虚拟机"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "虚拟机监控程序（VMM）与操作系统的特权级相同"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "虚拟化技术支持在一台计算机上模拟不同的指令集体系结构"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q24-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 24 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q24"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 24"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 24"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q25",
+   "year": 2025,
+   "number": 25,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某基于优先权的进程调度程序中，进程就绪队列采用优先权由高到低的有序单链表实现。若就绪\n队列长度为n，则就绪队列的插入操作和从就绪队列中选出将要执行进程的操作的时间复杂度分\n别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(1)，O(1)"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(1)，O(n)"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n)，O(1)"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n)，O(n)"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q25-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 25 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q25"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 25"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 25"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q26",
+   "year": 2025,
+   "number": 26,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某页式虚拟存储管理系统采用固定分配局部置换的LRU算法。若系统为进程P分配了 3 个页框，\nP从某时刻开始的页访问序列为 0, 1, 2, 0, 5, 1, 4, 3, 0, 2, 3, 2, 0，且 0, 1, 2 三个页已在内存中，则\n完成上述页序列的访问时，系统执行缺页异常处理程序的次数为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "6"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "7"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "8"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q26-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 26 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q26"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 26"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 26"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q27",
+   "year": 2025,
+   "number": 27,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在页式虚拟存储管理系统中，确定进程正常运行所需的最少页框数时，下列因素中需要考虑的\n是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "代码段长度"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "进程的虚拟地址空间大小"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "物理内存大小"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "指令系统支持的寻址方式"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q27-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 27 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q27"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 27"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 27"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q28",
+   "year": 2025,
+   "number": 28,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于虚拟文件系统（VFS）的叙述中，正确的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "VFS是在虚拟内存中建立的文件系统"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "VFS能提高不同文件系统中文件的访问速度"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "VFS定义了可以访间不同文件系统的统一接口"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "通过VFS只能访问本地文件，不能访问网络文件"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q28-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 28 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q28"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 28"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 28"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q29",
+   "year": 2025,
+   "number": 29,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某文件系统采用目录和索引节点管理文件，当用户在目录中新建文件F时，下列操作中，文件系\n统不会．．做的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "对F的索引节点进行初始化"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "在目录文件中写入F的索引节点号"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "在目录文件中写入F的访问权限信息"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "在目录文件中增加一条F对应的目录项"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q29-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 29 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q29"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 29"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 29"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q30",
+   "year": 2025,
+   "number": 30,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于内存映射文件（memory-mapped files）机制的叙述中，正确的是        。 \nI. 可实现进程之间的通信 II. 可实现页到磁盘块的映射 \nIII. 将文件映射到进程的虚拟地址空间 IV . 将文件映射到系统的物理地址空间"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、IV"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II、III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q30-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 30 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q30"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 30"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 30"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q31",
+   "year": 2025,
+   "number": 31,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，文件系统可用于记录外存空闲空间使用情况的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "目录"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "系统打开文件表"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "文件分配表（FAT）"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "文件控制块（FCB）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q31-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 31 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q31"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 31"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 31"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q32",
+   "year": 2025,
+   "number": 32,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，文件系统需要为温彻斯特硬盘和固态硬盘都提供的功能是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "划分扇区"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "确定盘块大小"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "降低寻道时间"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "实现均衡磨损 \n \n \n \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 4 页（共 12 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q32-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 32 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q32"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      3,
+      4
+     ],
+     "locator": "PDF page 3, 4; question 32"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 32"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q33",
+   "year": 2025,
+   "number": 33,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某网络拓扑及各链路带宽如题 33 图所示。网络按电路交换方式运行时，主机H1 与H2 建立一条\n带宽为 10Mb/s的电路，建立电路时间为 32μs；按分组交换方式运行时，分组长度为 400B，忽略\n分组首部开销。现H1 向H2 发送一个 2MB（1M = 106）的文件，分别采用电路交换、报文交换、\n分组交换方式时，H2 至少需要TCS、TMS、TPS时间才能接收到全部文件内容，则TCS、TMS、TPS满\n足的关系是 \n \n题 33 图"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "TCS > TMS > TPS"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "TMS > TPS > TCS"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "TMS > TCS > TPS"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "TPS > TMS > TCS"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q33-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 33 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q33"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 33"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 33"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q34",
+   "year": 2025,
+   "number": 34,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若某差错编码的编码集为{1001 1010, 0101 1100, 1111 0000, 0000 1111}，则该差错编码的检错和纠\n错能力是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "不超过 2 位错的 100%检错、不超过 1 位错的纠错"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "不超过 2 位错的 100%检错、不超过 2 位错的纠错"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "不超过 3 位错的 100%检错、不超过 1 位错的纠错"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "不超过 3 位错的 100%检错、不超过 2 位错的纠错"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q34-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 34 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q34"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 34"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 34"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q35",
+   "year": 2025,
+   "number": 35,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在某个 10BaseT以太网的冲突域内，若主机甲向主机乙发送数据帧时发生了连续 11 次冲突，则甲\n再次尝试发送该数据帧的最大间隔时间是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.512ms"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.5632ms"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "52.3776ms"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "104.8064ms"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q35-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 35 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q35"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 35"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 35"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q36",
+   "year": 2025,
+   "number": 36,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "一台新接入网络的主机H通过DHCP服务器动态请求IP地址过程中， 与DHCP服务器交换DHCP\n报文的部分过程如题 36 图所示。封装DHCPREQUEST报文的IP数据报的目的IP地址和源IP地\n址分别是 \n \n题 36 图"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "192.168.5.1, 0.0.0.0"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "192.168.5.1, 192.168.5.9"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "255.255.255.255, 0.0.0.0"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "255.255.255.255, 192.168.5.9"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q36-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 36 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q36"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 36"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 36"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q37",
+   "year": 2025,
+   "number": 37,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假设路由器实现NAT功能， 内网中主机H的IP地址为 192.168.1.5/24。 若H运行某应用向Internet \n发送了一个UDP报文段，则路由器在转发封装该UDP报文段的IP数据报的过程中，UDP报文\n段的首部字段会被修改的是 \nI. 源端口号 II. 目的端口号 III. 总长度 IV . 校验和"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、IV"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、IV \n \n\n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 5 页（共 12 页）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q37-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 37 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q37"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      4,
+      5
+     ],
+     "locator": "PDF page 4, 5; question 37"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 37"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q38",
+   "year": 2025,
+   "number": 38,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "主机甲通过TCP向主机乙发送数据的部分过程如题 38 图所示，seq为序号，ack_seq为确认序号，\nrcvwnd为接收窗口。甲在t0时刻的拥塞窗口和发送窗口均为 2000B，拥塞控制值为 8000B，\nMSS=1000B，甲始终以MSS发送TCP段。若甲在t1时刻收到如图所示的确认段，则甲在未收到\n新的确认段之前，还可以继续向乙发送的TCP段数是 \n \n题 38 图"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "2"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "3"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "4"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q38-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 38 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q38"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; question 38"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 38"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q39",
+   "year": 2025,
+   "number": 39,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "Time是一个提供时间查询服务的C/S架构网络应用，支持客户通过UDP或TCP向Time服务器\n请求时间服务。若某客户与某Time服务器通信的往返时间RTT=8ms，则该客户分别通过UDP和 \nTCP向该服务器请求服务，所需的最少时间分别是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "8ms, 8ms"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "8ms, 16ms"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "16ms, 8ms"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "16ms, 16ms"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q39-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 39 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q39"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; question 39"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 39"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q40",
+   "year": 2025,
+   "number": 40,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于POP3 协议的叙述中，正确的是 \nI. 支持用户代理从邮件服务器读取邮件 II. 支持用户代理向邮件服务器发送邮件 \nIII. 支持邮件服务器之间发送与接收邮件 IV . 支持通过一条TCP连接收取多封邮件"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、IV"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III、IV \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 6 页（共 12 页） \n二、综合应用题（第41～47小题，共70分）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q40-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 40 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q40"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      5,
+      6
+     ],
+     "locator": "PDF page 5, 6; question 40"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 40"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q41",
+   "year": 2025,
+   "number": 41,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 13 分）设有两个长度均为n的一维整型数组A和res，对数组A中的每个元素A[i]，计算\nA[i]与A[j]（0 ≤ i ≤ j ≤ n – 1）乘积的最大值，并将其保存到res[i]中。例如，若A[]={1, 4, –9, \n6}，则得到res[]={6, 24, 81, 36}。现给定数组A请设计一个时间和空间上尽可能高效的算法\ncalMulMax，求res中各元素的值。函数原型为：void calMulMax(int A[], int res[], \nint n)。要求如下。 \n（1）给出算法的基本设计思想。 （4 分） \n（2）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 （7 分） \n（3）说明你所设计算法的时间复杂度和空间复杂度。 （2 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 7 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 13,
+    "rubric": [
+     {
+      "id": "q41-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 13
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q41-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 41 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q41"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      6,
+      7
+     ],
+     "locator": "PDF page 6, 7; question 41"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 41"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q42",
+   "year": 2025,
+   "number": 42,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 10 分）某工程包含 12 个活动，使用题 42 图所示的AOE网描述，图中各边上标注了活动\n及其持续时间。 \n \n题 42 图 \n请回答下列问题（活动均用活动名表示） 。 \n（1）完成该工程的最短时间是多少？哪些活动是关键活动？（3 分） \n（2）若以最短时间完成工程，则与活动e同时进行的活动可能有哪些？（3 分） \n（3）时间余量最大的活动是哪个？其时间余量是多少？（2 分） \n（4）假设工程从时刻 0 启动，因某种原因，活动b在时刻 6 开始。为了保证工程不延期，在其\n他活动持续时间均不变的情况下，b的持续时间最多是多少？若不改变b的持续时间，则压缩哪\n个活动的持续时间也能保证工程不延期？（2 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 8 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 10,
+    "rubric": [
+     {
+      "id": "q42-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 10
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q42-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 42 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2025-q42"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      7,
+      8
+     ],
+     "locator": "PDF page 7, 8; question 42"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 42"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q43",
+   "year": 2025,
+   "number": 43,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 12 分）现有C语言程序P的部分代码如题 43 图所示。假定运行程序P的计算机M字长\n为 32 位，按字节编址，数据Cache的数据区大小为 32KB，采用 8 路组相联映射方式，主存块\n大小为 64B，Cache的命中时间为 2 个时钟周期，缺失损失为 200 个时钟周期；采用页式虚拟存\n储管理方式，页大小为 4KB。数组d的起始虚拟地址V A31～V A0，为 0180 0020H。 \nint x, d[2048], i; \n... \nfor(i=0; i<2048; i++) \n  d[i]=d[i]/x; \n... \n题 43 图 \n请回答下列问题。 \n（1）主存地址中Cache组号字段和块内地址字段分别占几位？虚拟地址中哪些位可作为Cache\n索引？（3 分） \n（2）d[100]的虚拟地址为多少？d[100]所在主存块对应的Cache组号是多少？（2 分） \n（3）假定执行for语句时对应代码已在Cache，变量i和x已装入寄存器，数组d已调入主存但\n不在Cache， 则d[0]在其所在主存块内的偏移量是多少 （用十六进制表示）？for语句执行过程中，\n访问数组d的Cache缺失率和数组元素的平均访问时间分别是多少（Cache缺失率的计算结果要\n求用百分比表示，保留两位小数）？（5 分） \n（4）数组d分布在几个页中？若执行for语句时对应代码已在主存，但数组d还未调入主存，\n则执行for语句过程中，访问数组d所引起的缺页次数是多少？（2 分） \n \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 9 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 12,
+    "rubric": [
+     {
+      "id": "q43-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 12
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q43-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 43 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q43"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      8,
+      9
+     ],
+     "locator": "PDF page 8, 9; question 43"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 43"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q44",
+   "year": 2025,
+   "number": 44,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 11 分）对于题 43 中计算机M和程序P，假定P的部分机器级代码如题 44 图（a）所\n示，其中，R0～R4 为通用寄存器，SEXT表示按符号扩展；M中补码除法器逻辑结构如题 44 图\n（b）所示。 \n... \n//x在R2中，i在R4中 \n//数组d的首地址在R3中 \nmov   R1, (R3+R4*4)  //R1←d[i] \nscov  R1               //{R0, R1}←SEXT(R1) \nidiv  R1, R2          //R1←{R0, R1}/R2 \n... \n题 44 图（a） \n \n题 44 图（b） \n请回答下列问题。 \n（1）若执行题 44 图（a）中idiv指令的除运算时，d[i]=0x87654321、x=0xff，则补码除法器中\n寄存器R、Q和Y的初始内容分别是什么（用十六进制表示）？题 44 图（b）中哪个部件包含\n计数器？在补码除法器执行过程中，由ALUop所控制的ALU运算有哪几种？（6 分） \n（2）假设idiv指令执行过程中会检测并触发除法异常，则执行idiv指令时，哪些情况下会发生\n除法异常（要求给出此时d[i]和x的十六进制表示机器数）？发生除法异常时，在异常响应过程\n中CPU需要完成哪些操作？（5 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 10 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 11,
+    "rubric": [
+     {
+      "id": "q44-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 11
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q44-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 44 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2025-q44"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      9,
+      10
+     ],
+     "locator": "PDF page 9, 10; question 44"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 44"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q45",
+   "year": 2025,
+   "number": 45,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 7 分）甲、乙、丙三人一起植树，甲负责挖树坑，乙负责将树苗放入树坑中并填土，丙负\n责为新种的树苗浇水。植树的步骤依次为：挖树坑、放树苗、填土和浇水。现有铁锹和水桶各 1\n个，铁锹用于挖树坑和填土，水桶用于浇水。当树坑的数量小于 3 时，甲才可以挖树坑。假设初\n始时树坑的数量为 0，铁锹和水桶均可用。请定义尽可能少的信号量，用wait()、signal()操作描\n述植树过程中三人之间的同步或互斥关系，并说明所用信号量的作用及其初值。 \n \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 11 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 7,
+    "rubric": [
+     {
+      "id": "q45-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 7
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q45-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 45 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q45"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      10,
+      11
+     ],
+     "locator": "PDF page 10, 11; question 45"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 45"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q46",
+   "year": 2025,
+   "number": 46,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 8 分）某系统中进程的虚拟地址空间包括内核区、用户栈运行时堆、可读写数据段、只读\n代码段等区域，其布局如题 46 图所示，图中阴影部分表示未占用区域。现有C语言程序的部分\n代码如下。 \nchar *ptr; \nvoid main() \n{ \n    int length; \n    ptr=(char *)malloc(100); \n    scanf(\"%s\", ptr); \n    length=strlen(ptr); \n    printf(\"length=%d\\n\", length); \n    free(ptr); \n} \n 题 46 图 \n请回答下列问题。 \n（1）上述程序执行时，其进程控制块位于哪个区域？执行scanf()等待键盘输入时，该进程处于什\n么状态？（2 分） \n（2）main()函数的代码位于哪个区域？其直接调用的哪些函数的功能需要通过执行驱动程序实现？\n（3 分） \n（3） 变量ptr被分配在哪个区域？若变量length没有被分配在寄存器中， 则会被分配在哪个区域？\nptr指向的字符串位于哪个区域？（3 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 12 页（共 12 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 8,
+    "rubric": [
+     {
+      "id": "q46-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 8
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q46-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 46 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2025-q46"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      11,
+      12
+     ],
+     "locator": "PDF page 11, 12; question 46"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 46"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2025-q47",
+   "year": 2025,
+   "number": 47,
+   "subject": "computer-networks",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（本题 9 分）某公司在承建国家重大工程项目时，工程部需要较长时间驻扎在偏远山区，工程部\n网络需要连接公司总部网络。假设综合考虑方案的技术可行性、安全性与经济成本等因素后，决\n定租用我国自主建设的天通一号卫星通信链路，连接工程部网络的路由器R1 和公司总部网络的\n路由器R2，如题 47 图所示。S1 和S2 为千兆以太网交换机；TR1 和TR2 是卫星信号地面收发设\n备， 实现全双工调制解调。 天通一号卫星轨道高度是 36 000km， 电磁波信号传播速度为 300 000km/s。\n租用的卫星链路为R1 和R2 之间提供对称全双工信道，每个方向的数据传输速率为 200kb/s。 \n \n题 47 题图 \n请回答下列问题。 \n（1）若忽略卫星信号中继以及TR1 和TR2 调制解调的时间开销，则R1 到R2 之间卫星链路的单\n向传播时延是多少？主机H向总部服务器传输数据时可以达到的最大吞吐量是多少？若忽略各层\n协议数据包的首部开销以及以太网内的传播时延， 则主机H向总部服务器上传一个 4000B大小的\n工程进度报告文件，至少需要多长时间？（3 分） \n（2） 现需要基于GBN滑动窗口协议为卫星链路设计单向可靠的数据链路层协议SLP， 支持R1 向\nR2 发送数据，SLP数据帧长为 1500 B，忽略ACK帧长度。若要求SLP的单向信道利用率不低于\n80%，则SLP的发送窗口至少为多少？SLP帧的序号字段至少需要多少位？（3 分） \n（3）若公司总部为工程部网络分配的IP地址空间是 10.10.10.0/24，工程部进一步将该IP地址空\n间分配给 3 个子网，其中生活区子网可分配IP地址数不少于 120 个，作业区子网和管理区子网可\n分配IP地址数均不少于 60 个，且主机H已正确配置了IP地址，则作业区子网、管理区子网和生\n活区子网的子网地址分别是什么（给出CIDR地址形式）？（3 分）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 9,
+    "rubric": [
+     {
+      "id": "q47-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 9
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q47-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "第 47 题"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2025-q47"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2025 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2025.pdf",
+     "fileName": "2025.pdf",
+     "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+     "pages": [
+      12
+     ],
+     "locator": "PDF page 12; question 47"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2025 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2025-answer.pdf",
+     "fileName": "2025-answer.pdf",
+     "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+     "pages": [
+      1
+     ],
+     "locator": "answer table (page 1 assumed); answer 47"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2025 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2025/",
+      "fileName": "csg-2025.html",
+      "sha256": "a2d3a97c2f6336bfd76932350d1e56c6c2c36e146a19bb980a531e49118b3fca",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2025.0-draft.1",
+   "reviewStatus": "needs-review"
+  }
+ ],
+ "knowledgePoints": [
+  {
+   "id": "subject-data-structures",
+   "subject": "data-structures",
+   "name": "数据结构"
+  },
+  {
+   "id": "subject-computer-organization",
+   "subject": "computer-organization",
+   "name": "计算机组成原理"
+  },
+  {
+   "id": "subject-operating-systems",
+   "subject": "operating-systems",
+   "name": "操作系统"
+  },
+  {
+   "id": "subject-computer-networks",
+   "subject": "computer-networks",
+   "name": "计算机网络"
+  },
+  {
+   "id": "topic-2025-q01",
+   "subject": "data-structures",
+   "name": "第 1 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q02",
+   "subject": "data-structures",
+   "name": "第 2 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q03",
+   "subject": "data-structures",
+   "name": "第 3 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q04",
+   "subject": "data-structures",
+   "name": "第 4 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q05",
+   "subject": "data-structures",
+   "name": "第 5 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q06",
+   "subject": "data-structures",
+   "name": "第 6 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q07",
+   "subject": "data-structures",
+   "name": "第 7 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q08",
+   "subject": "data-structures",
+   "name": "第 8 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q09",
+   "subject": "data-structures",
+   "name": "第 9 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q10",
+   "subject": "data-structures",
+   "name": "第 10 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q11",
+   "subject": "data-structures",
+   "name": "第 11 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q12",
+   "subject": "computer-organization",
+   "name": "第 12 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q13",
+   "subject": "computer-organization",
+   "name": "第 13 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q14",
+   "subject": "computer-organization",
+   "name": "第 14 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q15",
+   "subject": "computer-organization",
+   "name": "第 15 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q16",
+   "subject": "computer-organization",
+   "name": "第 16 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q17",
+   "subject": "computer-organization",
+   "name": "第 17 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q18",
+   "subject": "computer-organization",
+   "name": "第 18 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q19",
+   "subject": "computer-organization",
+   "name": "第 19 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q20",
+   "subject": "computer-organization",
+   "name": "第 20 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q21",
+   "subject": "computer-organization",
+   "name": "第 21 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q22",
+   "subject": "computer-organization",
+   "name": "第 22 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q23",
+   "subject": "operating-systems",
+   "name": "第 23 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q24",
+   "subject": "operating-systems",
+   "name": "第 24 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q25",
+   "subject": "operating-systems",
+   "name": "第 25 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q26",
+   "subject": "operating-systems",
+   "name": "第 26 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q27",
+   "subject": "operating-systems",
+   "name": "第 27 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q28",
+   "subject": "operating-systems",
+   "name": "第 28 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q29",
+   "subject": "operating-systems",
+   "name": "第 29 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q30",
+   "subject": "operating-systems",
+   "name": "第 30 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q31",
+   "subject": "operating-systems",
+   "name": "第 31 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q32",
+   "subject": "operating-systems",
+   "name": "第 32 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q33",
+   "subject": "computer-networks",
+   "name": "第 33 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q34",
+   "subject": "computer-networks",
+   "name": "第 34 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q35",
+   "subject": "computer-networks",
+   "name": "第 35 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q36",
+   "subject": "computer-networks",
+   "name": "第 36 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q37",
+   "subject": "computer-networks",
+   "name": "第 37 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q38",
+   "subject": "computer-networks",
+   "name": "第 38 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q39",
+   "subject": "computer-networks",
+   "name": "第 39 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q40",
+   "subject": "computer-networks",
+   "name": "第 40 题",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2025-q41",
+   "subject": "data-structures",
+   "name": "第 41 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q42",
+   "subject": "data-structures",
+   "name": "第 42 题",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2025-q43",
+   "subject": "computer-organization",
+   "name": "第 43 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q44",
+   "subject": "computer-organization",
+   "name": "第 44 题",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2025-q45",
+   "subject": "operating-systems",
+   "name": "第 45 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q46",
+   "subject": "operating-systems",
+   "name": "第 46 题",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2025-q47",
+   "subject": "computer-networks",
+   "name": "第 47 题",
+   "parentId": "subject-computer-networks"
+  }
+ ],
+ "assets": [
+  {
+   "id": "cn408-2025-source-questions-page-1",
+   "path": "/content/cn408-2025/source/paper-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "1f2e179ae763e8935bd441bb1c6072732bbaea668e822db965605cd88fe0f801",
+   "sourcePage": 1,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-2",
+   "path": "/content/cn408-2025/source/paper-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "9148d64bb94c2c68b46087c5569c161866a11b9d07fa4548cd443618cb8516f5",
+   "sourcePage": 2,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-3",
+   "path": "/content/cn408-2025/source/paper-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "179b7875db1fa7d6d8cf7d8ce3dc3f5557907ad056612d12954c20e88e12d337",
+   "sourcePage": 3,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-4",
+   "path": "/content/cn408-2025/source/paper-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "16a3be0d854c3ac7caab83b9f86480ed5aef57a54ee9a4b2d3257bbf0ec8591f",
+   "sourcePage": 4,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-5",
+   "path": "/content/cn408-2025/source/paper-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "242e9b9579dc8d57898dbe64221747f9d65c200af19fede4131371d6f2eae765",
+   "sourcePage": 5,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-6",
+   "path": "/content/cn408-2025/source/paper-6.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "15ddfb7e90d4d87f7230f221dadf0cde59fb86ffa21b3667a3924d19db6e84b0",
+   "sourcePage": 6,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-7",
+   "path": "/content/cn408-2025/source/paper-7.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "024884fd6fa25f4e25c193a8a6a371c4f32ef733b937c880ada2c70118b25a01",
+   "sourcePage": 7,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-8",
+   "path": "/content/cn408-2025/source/paper-8.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "9013dd19e500c30c018b8854a92d533e837933ba4728530441d6de6dfd19a7c1",
+   "sourcePage": 8,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-9",
+   "path": "/content/cn408-2025/source/paper-9.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "2788c9a296fcb2ecceedc37dcd98cacb990eab3bf8b09adf4be553658be1122b",
+   "sourcePage": 9,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-10",
+   "path": "/content/cn408-2025/source/paper-10.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "5513562bb50164d51df43e153e32dcbe61f16454af809787361fc74897dcc765",
+   "sourcePage": 10,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-11",
+   "path": "/content/cn408-2025/source/paper-11.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "0156348762c3a61e375b1975d9ba67ac9e11db63a254bf9df7245f5c8a07fed2",
+   "sourcePage": 11,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-questions-page-12",
+   "path": "/content/cn408-2025/source/paper-12.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "5ac6ca0b09d931a8ab5a1653228413aa2c231b611251ea5cfc41acb01c7a7499",
+   "sourcePage": 12,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-answers-page-1",
+   "path": "/content/cn408-2025/source/answers-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "2431b7fa5bc3aa976b6a973a22b64000235cfb91cd6953418aa0d4b5ef4424dc",
+   "sourcePage": 1,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-answers-page-2",
+   "path": "/content/cn408-2025/source/answers-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "f88335b209652765abe12df1b8c9b62db13d76023641e9ab8ad9c782ff8a83aa",
+   "sourcePage": 2,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-answers-page-3",
+   "path": "/content/cn408-2025/source/answers-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "43f2f482fb9a7af4d0e4127bae2db325d4abc5c783fe7b0015c2dacae7f10b2c",
+   "sourcePage": 3,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-answers-page-4",
+   "path": "/content/cn408-2025/source/answers-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "90956d0f14dd2517109a8b0d52e095ba21a9b4ef31e57a6086be4658676191ae",
+   "sourcePage": 4,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2025-source-answers-page-5",
+   "path": "/content/cn408-2025/source/answers-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "6ca644f105db6d436b0d319af3fe8b7e923452d27ae1b729e3558263b3a2d782",
+   "sourcePage": 5,
+   "width": 953,
+   "height": 1348
+  }
+ ]
+}

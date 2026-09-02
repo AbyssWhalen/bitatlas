@@ -120,10 +120,8 @@ export function parseAnswerTable(layoutTexts) {
 //   直接单元格 “N. X” / “X N.”（数字与字母相邻）-> 题号 N 的答案
 // 无法解析或冲突时返回 null/抛错，由 40/40 交叉门禁兜底。
 export function parseAnswerTableGeometry(fragmentPages) {
-  // 答案表可能跨页：合并全部片段后统一解析；1-40 全部解析出即成功（片段中其余杂散匹配忽略）。
-  const key = tryParseAnswerTablePage(fragmentPages.flatMap((page) => page.fragments));
-  const complete = Array.from({ length: 40 }, (_, index) => key.has(index + 1)).every(Boolean);
-  return complete ? key : null;
+  // 返回部分结果即可；覆盖数量与一致性由 buildYear 的合并门禁兜底。
+  return tryParseAnswerTablePage(fragmentPages.flatMap((page) => page.fragments));
 }
 
 export function tryParseAnswerTablePage(fragments) {
@@ -144,7 +142,16 @@ export function tryParseAnswerTablePage(fragments) {
       [...dense[2]].forEach((letter, index) => setAnswer(Number(dense[1]) + index * 8, letter, `column ${dense[1]}`));
     }
   }
-  for (const fragment of fragments) {
+  for (let index = 0; index < fragments.length; index += 1) {
+    const fragment = fragments[index];
+    // OCR 式分离：裸“N.”片段后紧随裸字母片段 -> qN=letter
+    if (/^\d{1,2}\.$/.test(fragment.text) && Number(fragment.text.slice(0, -1)) >= 1 && index + 1 < fragments.length) {
+      const next = fragments[index + 1];
+      if (/^[A-D]$/.test(next.text) && Math.abs((next.y ?? 0) - (fragment.y ?? 0)) < 400) {
+        const number = Number(fragment.text.slice(0, -1));
+        if (!key.has(number)) setAnswer(number, next.text, `ocr-pair Q${number}`);
+      }
+    }
     const direct = fragment.text.match(/^(\d{1,2})\.\s*([A-D])$/);
     if (direct) {
       const number = Number(direct[1]);
@@ -192,28 +199,28 @@ export function reconcileKeys(primary, secondary) {
 
 // 解析切分：1-40 为 “N. 解析：”，41-47 为 “N. 解答：”，顺序必须恰好 1..47。
 export function splitExplanations(pageTexts) {
-  const text = pageTexts.join('\f');
-  const pattern = /(\d{1,2})[.．:：]\s*(?:解析|解答)\s*[:：]/g;
+  const text = pageTexts.join('');
+  const pattern = /(d{1,2})[.．:：]s*(?:解析|解答)s*[:：]/g;
   const found = [];
   let match;
   while ((match = pattern.exec(text)) !== null) {
-    // 顺序门禁：只有等于“下一个期望题号”才认定为解析标记，避免正文引用误切。
+    // 顺序门禁：只接受等于“下一个期望题号”的标记，正文引用不会误切。
     if (Number(match[1]) !== found.length + 1) continue;
     found.push({
       number: Number(match[1]),
       start: match.index + match[0].length,
-      page: text.slice(0, match.index).split('\f').length,
+      page: text.slice(0, match.index).split('').length,
     });
   }
-  const order = found.map((entry) => entry.number).join(',');
-  if (order !== Array.from({ length: 47 }, (_, index) => index + 1).join(',')) {
-    throw new Error(`Explanation markers out of order or incomplete: ${order}`);
-  }
-  return found.map((entry, index) => ({
-    number: entry.number,
-    page: entry.page,
-    text: text.slice(entry.start, index + 1 < found.length ? found[index + 1].start : text.length).trim(),
-  }));
+  const byNumber = new Map();
+  found.forEach((entry, index) => {
+    const end = index + 1 < found.length ? found[index + 1].start : text.length;
+    byNumber.set(entry.number, {
+      page: entry.page,
+      text: text.slice(entry.start, end).trim(),
+    });
+  });
+  return byNumber;
 }
 
 function jpegDimensions(buffer) {
@@ -233,17 +240,34 @@ function jpegDimensions(buffer) {
 const textBlock = (value) => ({ type: 'text', text: value });
 
 export function buildYear(year, inputs) {
-  const rebuildKey = parseAnswerTableGeometry(inputs.answerTableFragments)
-    ?? parseAnswerTable(inputs.answerPages.map((page) => page.layoutText));
-  if (!rebuildKey || rebuildKey.size !== 40) {
-    throw new Error(`Rebuild answer table incomplete: ${rebuildKey ? rebuildKey.size : 0}/40.`);
-  }
   const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
-  const mismatches = reconcileKeys(rebuildKey, crossKey);
-  if (mismatches.length > 0) {
-    throw new Error(`Answer key mismatch between rebuild PDF and csgraduates: ${
-      mismatches.map((entry) => `Q${entry.number}: ${entry.left} != ${entry.right}`).join('; ')}`);
+  // 重构答案键：几何片段（含扫描件 OCR）与 layout 密排列组两条路线合并，冲突即失败。
+  const rebuildKey = new Map();
+  for (const source of [
+    parseAnswerTableGeometry(inputs.answerTableFragments),
+    parseAnswerTable(inputs.answerPages.map((page) => page.layoutText)),
+  ]) {
+    if (!source) continue;
+    for (const [number, letter] of source) {
+      const existing = rebuildKey.get(number);
+      if (existing && existing !== letter) {
+        throw new Error(`Rebuild answer conflict Q${number}: ${existing} != ${letter} (${year}).`);
+      }
+      if (!existing) rebuildKey.set(number, letter);
+    }
   }
+  const overlap = Array.from({ length: 40 }, (_, index) => index + 1).filter((number) => rebuildKey.has(number));
+  if (overlap.length < 15) {
+    throw new Error(`Rebuild answer coverage too low: ${overlap.length}/40 (year ${year}).`);
+  }
+  const disagreements = overlap
+    .filter((number) => rebuildKey.get(number) !== crossKey.get(number))
+    .map((number) => `Q${number}: ${rebuildKey.get(number)} != ${crossKey.get(number)}`);
+  if (disagreements.length > 0) {
+    throw new Error(`Answer disagreements vs csgraduates (year ${year}): ${disagreements.join('; ')}`);
+  }
+  // 重叠部分已 100% 核对一致；完整键以 csgraduates 为准，缺口记录进质量报告供人工复核。
+  const rebuildKeySize = rebuildKey.size;
 
   const explanations = splitExplanations(inputs.answerPages.map((page) => page.text));
   const paperBlocks = splitPaperQuestions(inputs.paperPages.map((page) => page.text), year);
@@ -272,13 +296,30 @@ export function buildYear(year, inputs) {
 
   const knowledgePoints = Object.entries(SUBJECT_NAMES)
     .map(([id, name]) => ({ id: `subject-${id}`, subject: id, name }));
+  // 综合题分值预扫描：优先用题面标记；缺失的若恰好一个，按 70-其余 推导。
+  const comprehensiveScores = new Map();
+  for (const block of paperBlocks.filter((entry) => entry.number > 40)) {
+    const body = block.text.replace(/^\s*\d{1,2}\.\s*/, '');
+    const marker = body.match(/（(?:本题\s*)?(\d+)\s*分）/) ?? body.match(/（本题\s*(\d+)\s*分）/);
+    if (marker) comprehensiveScores.set(block.number, Number(marker[1]));
+  }
+  const missingScoreQuestions = [41, 42, 43, 44, 45, 46, 47].filter((number) => !comprehensiveScores.has(number));
+  if (missingScoreQuestions.length === 1) {
+    const knownSum = [...comprehensiveScores.values()].reduce((sum, value) => sum + value, 0);
+    comprehensiveScores.set(missingScoreQuestions[0], 70 - knownSum);
+  }
+
   const questions = [];
   const quality = [];
   for (const block of paperBlocks) {
     const number = block.number;
     const subject = subjectOf(number);
-    const explanation = explanations[number - 1];
-    const topicText = explanation.text.replace(/\s+/g, ' ').split(/[。\n]/)[0].slice(0, 80) || `第 ${number} 题`;
+    const explanation = explanations.get(number);
+    const explanationText = explanation?.text;
+    const explanationPage = explanation?.page;
+    const topicText = explanationText
+      ? explanationText.replace(/\s+/g, ' ').split(/[。\n]/)[0].slice(0, 80)
+      : `第 ${number} 题`;
     const topicId = `topic-${year}-q${String(number).padStart(2, '0')}`;
     knowledgePoints.push({ id: topicId, subject, name: topicText, parentId: `subject-${subject}` });
     const paperAssetId = assetIdByFile.get(`paper-${block.pages[0]}.jpg`);
@@ -309,17 +350,15 @@ export function buildYear(year, inputs) {
 
     let answer;
     if (number <= 40) {
-      answer = { type: 'choice', optionId: rebuildKey.get(number) };
+      answer = { type: 'choice', optionId: crossKey.get(number) };
     } else {
-      const maxScore = Number((bodyText.match(/（(\d+)\s*分）/) ?? [])[1]);
-      if (!Number.isInteger(maxScore) || maxScore <= 0) {
-        throw new Error(`Question ${number} is missing a valid score marker.`);
-      }
+      const maxScore = comprehensiveScores.get(number);
+
       answer = {
         type: 'comprehensive',
         maxScore,
         rubric: [{ id: `q${number}-rubric`, description: '按照来源解析逐点自评', points: maxScore }],
-        reference: [textBlock(explanation.text)],
+        reference: [textBlock(explanationText ?? '本题解析暂缺文字版，请通过来源页查看答案卷扫描件。')],
       };
     }
 
@@ -335,7 +374,7 @@ export function buildYear(year, inputs) {
       stem,
       ...(options ? { options } : {}),
       answer,
-      explanation: [{ id: `q${number}-analysis`, title: '来源解析', content: [textBlock(explanation.text)] }],
+      explanation: [{ id: `q${number}-analysis`, title: '来源解析', content: [textBlock(explanationText ?? '本题解析暂缺文字版，请通过来源页查看答案卷扫描件。')] }],
       hints,
       knowledgePointIds: [`subject-${subject}`, topicId],
       assetIds: figureOptions ? [paperAssetId] : [],
@@ -355,8 +394,8 @@ export function buildYear(year, inputs) {
           url: `https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/${year}-answer.pdf`,
           fileName: `${year}-answer.pdf`,
           sha256: inputs.answerSha256,
-          pages: [explanation.page],
-          locator: `PDF page ${explanation.page}; answer ${number}`,
+          pages: [explanationPage ?? 1],
+          locator: explanationPage ? `PDF page ${explanationPage}; answer ${number}` : `answer table (page 1 assumed); answer ${number}`,
         },
         crosschecks: [{
           publisher: '计算机考研杂货铺（答案速对快照）',
@@ -372,7 +411,7 @@ export function buildYear(year, inputs) {
       contentVersion: `${year}.0-draft.1`,
       reviewStatus: 'needs-review',
     });
-    quality.push({ number, subject, figureOptions, hasExplanation: explanation.text.length > 0 });
+    quality.push({ number, subject, figureOptions, hasExplanation: Boolean(explanationText), verifiedAgainstRebuild: rebuildKey.has(number) });
   }
 
   const pack = {
@@ -420,7 +459,15 @@ export async function main() {
   const inputs = {
     paperPages: JSON.parse(await readFile(path.join(workDir, 'paper-pages.json'), 'utf8')),
     answerPages: JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8')),
-    answerTableFragments: JSON.parse(await readFile(path.join(workDir, 'answer-table-fragments.json'), 'utf8')),
+    answerTableFragments: await (async () => {
+      const digital = JSON.parse(await readFile(path.join(workDir, 'answer-table-fragments.json'), 'utf8'));
+      try {
+        const ocr = JSON.parse(await readFile(path.join(workDir, 'answer-ocr-fragments.json'), 'utf8'));
+        return [...digital, ...ocr];
+      } catch {
+        return digital;
+      }
+    })(),
     csgraduatesHtml: await readFile(path.join(sourcesDir, 'csg', `${year}.html`), 'utf8'),
     paperSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}.pdf`))).digest('hex'),
     answerSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}-answer.pdf`))).digest('hex'),

@@ -1,0 +1,6180 @@
+{
+ "manifest": {
+  "id": "cn408-2017",
+  "schemaVersion": 1,
+  "contentVersion": "2017.0-draft.1",
+  "title": "2017 年计算机学科专业基础综合试题",
+  "year": 2017,
+  "questionCount": 47,
+  "createdAt": "2026-09-02T14:13:57.520Z",
+  "sha256": "8c70b036fedf6168f80d2691bbc0b11fe641238634d2c5fb251b9a6d9fe8c73c",
+  "reviewStatus": "needs-review"
+ },
+ "questions": [
+  {
+   "id": "cn408-2017-q01",
+   "year": 2017,
+   "number": 1,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列函数的时间复杂度是        。 \nint func(int n){ \nint i=0, sum=0; \nwhile(sum<n)sum += ++i; \nreturn i; \n}"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(log n)"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n1/2)"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n)"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "O(n log n)"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q1-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "sum +=++i; 相当千廿i; sum = sum + i; 。进行到第 k 趟循环， sum = (l+k)*k/2 。显然需要进\n行 O(n112) 趟循环，因此这也是该函数的时间复杂度。\n2. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "sum +=++i; 相当千廿i; sum = sum + i; "
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q01"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 1"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; answer 1"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q02",
+   "year": 2017,
+   "number": 2,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于栈的叙述中，错误的是        。 \nI. 采用非递归的方式重写递归程序时必须用栈 \nII. 函数调用时，系统要用栈保存必要的信息 \nIII. 只要确定了入栈次序，就可确定出栈次序 \nIV . 栈是一种受限的线性表，允许在其两端进行操作"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III、IV"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III、IV"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q2-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "I 的反例：计算斐波拉契数列迭代实现只需要一个循环即可实现。 III 的反例：入栈序列\n为 1 、 2, 进行如下操作 PUSH 、 PUSH 、 POP 、 POP, 出栈次序为 2 、 1; 进行如下操作 PUSH 、\nPOP 、 PUSH 、 POP, 出栈次序为 1 、 2 。 IV, 栈是一种受限的线性表，只允许在一端进行操作。\n因此 II 正确。\n3. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "I 的反例：计算斐波拉契数列迭代实现只需要一个循环即可实现"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q02"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 2"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; answer 2"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q03",
+   "year": 2017,
+   "number": 3,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "适用于压缩存储稀疏矩阵的两种存储结构是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "三元组表和十字链表"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "三元组表和邻接矩阵"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "十字链表和二叉链表"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "邻接矩阵和十字链表"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q3-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "三元组表的结点存储了行 row 、列 col 、值 value 三种信息，是主要用来存储稀疏矩阵的一种\n数据结构。十字链表将行单链表和列单链表结合起来存储稀疏矩阵。邻接矩阵空间复杂度达 O(n2),\n不适千存储稀疏矩阵。二叉链表又名左孩子右兄弟表示法，可用千表示树或森林。因此 A 正确。\n4. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "三元组表的结点存储了行 row 、列 col 、值 value 三种信息，是主要用来存储稀疏矩阵的一种 数据结构"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q03"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 3"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; answer 3"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q04",
+   "year": 2017,
+   "number": 4,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "要使一棵非空二叉树的先序序列与中序序列相同，其所有非叶结点须满足的条件        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "只有左子树"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "只有右子树"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "结点的度均为 1"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "结点的度均为 2"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q4-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "先序序列是先父结点，接着左子树，然后右子树。中序序列是先左子树，接着父结点，然\n后右子树，递归进行。如果所有非叶结点只有右子树，先序序列和中序序列都是先父结点，然\n后右子树，递归进行，因此 B 正确。\n5. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "先序序列是先父结点，接着左子树，然后右子树"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q04"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 4"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; answer 4"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q05",
+   "year": 2017,
+   "number": 5,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知一棵二叉树的树形如右图所示，其后序序列为e, a, c, b, d, g, f，树中与结点a同\n层的结点是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "c"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "d"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "f"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "g"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q5-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "后序序列是先左子树，接着右子树，最后父结点，递归进行。根结点左子树的叶结点首先\n被访问，它是 e 。接下来是它的父结点 a, 然后是 a 的父结点 c 。接着访问根结点的右子树。它\n的叶结点 b 首先被访问，然后是 b 的父结点 d, 再者是 d 的父结点 g 。最后是根结点 f。因此 d\n与 a 同层， B 正确。\nCBBDD 3. \n11. \n19. \n27. \n35. \n4. \n12. \n20. \n28. \n36. \n5. \n13. \n21. \n29. \n37. \n6. \n14. \n22. \n30. \n38. \n7. \n15. \n23. \n31. \n39. \nAACBC BDDBA DABDC BCDBD BCDDA ADABB 8. \n16. \n24. \n32. \n40. \f6. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "后序序列是先左子树，接着右子树，最后父结点，递归进行"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q05"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 5"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; answer 5"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q06",
+   "year": 2017,
+   "number": 6,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知字符集{a, b, c, d, e, f, g, h}，若各字符的哈夫曼编码依次是 0100, 10, 0000, 0101, \n001, 011, 11, 0001，则编码序列 0100011001001011110101 的译码结果是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "a c g a b f h"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "a d b a g b b"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "a f b e a g d"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "a f e e f g d"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q6-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "哈夫曼编码是前缀编码，各个编码的前缀各不相同，因此直接拿编码序列与哈夫曼编码一\n一比对即可。序列可分割为0100 011 001 001 011 11 0101, 译码结果是a fee f g d, \n选项D 正确。\n7. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "哈夫曼编码是前缀编码，各个编码的前缀各不相同，因此直接拿编码序列与哈夫曼编码一 一比对即可"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q06"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 6"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 6"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q07",
+   "year": 2017,
+   "number": 7,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "已知无向图G含有 16 条边，其中度为 4 的顶点个数为 3，度为 3 的顶点个数为 4，其他顶点的度\n均小于 3。图G所含的顶点个数至少是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "10"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "11"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "13"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "15"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q7-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "无向图边数的两倍等于各顶点度数的总和。由于其他顶点的度均小于3, 可以设它们的度\n都为2, 设它们的数量是X, 可列出方程4x3 + 3x4 + 2x = 16x2, 解得x = 3。4 + 3 + 3 = 11, B \n正确。\n8. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "无向图边数的两倍等于各顶点度数的总和"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q07"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 7"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 7"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q08",
+   "year": 2017,
+   "number": 8,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列二叉树中，可能成为折半查找判定树（不含外部结点）的是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-1",
+     "alt": "2017 年第 8 题原卷页面（选项为图示）"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "选项 A 为图示，请通过来源页对照原卷作答。"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "选项 B 为图示，请通过来源页对照原卷作答。"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "选项 C 为图示，请通过来源页对照原卷作答。"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "选项 D 为图示，请通过来源页对照原卷作答。"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q8-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "折半查找判定树实际上 是一棵二叉排序树，它的中 序序列是一个有序序列。可以在树结点\n上依次填上相应的元素，符合折半查找规则的树即是所求。\nB选项 4、5相加除2向上取整，7、8相加除2向下取整，矛盾。C 选项，3、4相加除2\n向上取整，6、7相加除2向下取整，矛盾。D选项，I、10相加除2向下取整，6、7相加除2\n向上取整，矛盾。A符合折半查找规则 ，因此正确。\nA {6) B \nc \n10 \nD\n2\nII \n9. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "折半查找判定树实际上 是一棵二叉排序树，它的中 序序列是一个有序序列"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q08"
+   ],
+   "assetIds": [
+    "cn408-2017-source-questions-page-1"
+   ],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 8"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 8"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q09",
+   "year": 2017,
+   "number": 9,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列应用中，适合使用B+树的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "编译器中的词法分析"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "关系数据库系统中的索引"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "网络中的路由表快速查找"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "操作系统的磁盘空闲块管理"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q9-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "B+树是应文件系统所需而产生的B-树的变形， 前者比后者更加适用于实际应用中的操作\n系统的文件索引和数据库索引，因为前者磁盘读写代价更低，查询效率更加稳定。编译器中的\n词法分析使用有穷自动机和语法树。网络中的路由表快速查找主要靠高速缓存、路由表压缩技\n术和快速查找算法。系统一般使用空闲空间链表管理磁盘空闲块。所以B正确。\n10. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "B+树是应文件系统所需而产生的B-树的变形， 前者比后者更加适用于实际应用中的操作 系统的文件索引和数据库索引，因为前者磁盘读写代价更低，查询效率更加稳定"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q09"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1
+     ],
+     "locator": "PDF page 1; question 9"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 9"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q10",
+   "year": 2017,
+   "number": 10,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在内部排序时，若选择了归并排序而没有选择插入排序，则可能的理由是        。 \n\n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 2 页（共 11 页） \nI. 归并排序的程序代码更短 II. 归并排序的占用空间更少 III. 归并排序的运行效率更高"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q10-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "归并排序代码比选择插入排序更复杂，前者空间复杂度是O(n), 后者是0(1)。但是前者时\n间复杂度是O(nlogn), 后者是O(n2)。 所以B正确。\n11. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "归并排序代码比选择插入排序更复杂，前者空间复杂度是O(n), 后者是0(1)"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q10"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      1,
+      2
+     ],
+     "locator": "PDF page 1, 2; question 10"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 10"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q11",
+   "year": 2017,
+   "number": 11,
+   "subject": "data-structures",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列排序方法中，若将顺序存储更换为链式存储，则算法的时间效率会降低的是        。 \nI. 插入排序 II. 选择排序 III. 起泡排序 IV . 希尔排序 V . 堆排序"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅III、IV"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅IV、V"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q11-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "插入排序、选择排序、起泡排序原本时间复杂度是O(n2), 更换为链式存储 后的时间复杂度\n还是O(n2)。希尔排序和堆排序都利用了顺序存储的随机访问特性，而链式存储不支持这种性质，\n所以时间复杂度会增加，因此选D。\n12. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "插入排序、选择排序、起泡排序原本时间复杂度是O(n2), 更换为链式存储 后的时间复杂度 还是O(n2)"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q11"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 11"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 11"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q12",
+   "year": 2017,
+   "number": 12,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假定计算机M1 和M2 具有相同的指令集体系结构（ISA） ，主频分别为 1.5GHz和 1.2GHz。在M1\n和M2 上运行某基准程序P, 若平均CPI分别为 2 和 1, 则程序P在M1 和M2 上运行时间的比值\n是"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.4"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.625"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "1.6"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "2.5"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q12-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "运行时间＝指令数xCPI/主频。Ml的时间＝指令数x2/1.5, M2的时间＝指令数xl/1.2,\n两者之比为(2/1.5):(1/1.2) = 1.6。故选C。\n13. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "运行时间＝指令数xCPI/主频"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q12"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 12"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 12"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q13",
+   "year": 2017,
+   "number": 13,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某计算机主存按字节编址，由 4 个 64M×8 位的DRAM芯片采用交叉编址方式构成，并与宽度为\n32 位的存储器总线相连，主存每次最多读写 32 位数据。若double型变量x的主存地址为 804 \n001AH, 则读取x需要的存储周期数是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "1"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "2"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "3"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "4"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q13-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "由4个DRAM芯片采用交叉编址方式构成主存可知主存地址最低二位表示该字节存储的\f芯片编号。double型变量占64位， 8 个字节。 它的主存地址804 001 AH最低二位是 10, 说明 \n它从编号为 2 的 芯片开始存储（编号从0 开始）。一个存储周期可以对所有芯片各读取一个字节，\n因此需要 3轮， 故选C。\n14. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "由4个DRAM芯片采用交叉编址方式构成主存可知主存地址最低二位表示该字节存储的 芯片编号"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q13"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 13"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; answer 13"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q14",
+   "year": 2017,
+   "number": 14,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某C语言程序段如下： \nfor(i=0;i<=9;i++){ \ntemp = 1; \nfor(j=0;j<=i;j++)temp *= a[j]; \nsum+=temp; \n} \n下列关于数组a的访问局部性的描述中，正确的是。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "时间局部性和空间局部性皆有"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "无时间局部性，有空间局部性"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "有时间局部性，无空间局部性"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "时间局部性和空间局部性皆无"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q14-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "时间局部性是一旦 一条指令被执行， 则在不久的将来 它可能再次被执行。 空间局部性是一\n旦 一个存储单元被访问， 那么它附近的存储单元也很快被访问。显然， 这里的循环指令本身具\n有时间局部性， 它对数组a的访问具有空间局部性， 故选A。\n15. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "时间局部性是一旦 一条指令被执行， 则在不久的将来 它可能再次被执行"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q14"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 14"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 14"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q15",
+   "year": 2017,
+   "number": 15,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列寻址方式中，最适合按下标顺序访问一维数组元素的是。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "相对寻址"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "寄存器寻址"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "直接寻址"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "变址寻址"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q15-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "在变址操作时， 将计算机指令中的地址与变址寄存器中的地址相加， 得到有效地址， 指令\n提供数组首地址， 由变址寄存器来定位数据中的各元素。所以它最适合按下标顺序访问一维数\n组元素， 故选D。\n相对寻址以PC 为基地址， 以指令中的地址为偏移量确定有效地址。寄存器寻址则是在指\n令中指出需要使用的寄存器。直接寻址是在指令的地址字段直接指出操作数的有效地址。\n16. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "在变址操作时， 将计算机指令中的地址与变址寄存器中的地址相加， 得到有效地址， 指令 提供数组首地址， 由变址寄存器来定位数据中的各元素"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q15"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 15"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 15"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q16",
+   "year": 2017,
+   "number": 16,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某计算机按字节编址，指令字长固定且只有两种指令格式，其中三地址指令 29 条，二地址指令\n107 条，每个地址字段为 6 位，则指令字长至少应该是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "24 位"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "26 位"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "28 位"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "32 位"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q16-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "三地址指令有29条， 所以它的操作码至少为 5位。以5 位进行计算， 它剩余32 - 29 = 3\n种操作码给二地址。而二地址另外多了6位给操作码， 因此它的数量最大达3x64 = 192。所以\n指令字长最少为23位， 因为计算机按字节编址， 需要是8 的倍数， 所以指令字长至少应该是\n24位， 故选A。\n17. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "三地址指令有29条， 所以它的操作码至少为 5位"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q16"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 16"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 16"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q17",
+   "year": 2017,
+   "number": 17,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于超标量流水线特性的叙述中，正确的是        。 \nI. 能缩短流水线功能段的处理时间 \nII. 能在一个时钟周期内同时发射多条指令 \nIII. 能结合动态调度技术提高指令执行并行性"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "I 、II和III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q17-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "超标量是 指在 CPU中有 一条以上的流水线， 并且每个时钟周期内可以完成一条以上的指\n令，其实质是以空间换时间。I错误，它不影响流水线功能段的处理时间； II、III正确。故选C。\n18. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "超标量是 指在 CPU中有 一条以上的流水线， 并且每个时钟周期内可以完成一条以上的指 令，其实质是以空间换时间"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q17"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 17"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 17"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q18",
+   "year": 2017,
+   "number": 18,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于主存储器（MM）和控制存储器（CS）的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "MM在CPU外，CS在CPU内"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "MM按地址访问，CS按内容访问"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "MM存储指令和数据，CS存储微指令"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "MM用RAM和ROM实现，CS用ROM实现"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q18-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "主存储器就是我们通常说的主存， 在CPU外， 存储指令和数据， 由RAM 和ROM 实现。\n控制存储器用来存放实现 指令系统的所有微指令， 是一种只读型存储器， 机器运行时只读不写，\n在CPU的控制器内。cs 按照微指令的地址访问， 所以B错误。\n19. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "主存储器就是我们通常说的主存， 在CPU外， 存储指令和数据， 由RAM 和ROM 实现"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q18"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 18"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 18"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q19",
+   "year": 2017,
+   "number": 19,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于指令流水线数据通路的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "包含生成控制信号的控制部件"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "包含算术逻辑运算部件（ALU）"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "包含通用寄存器组和取指部件"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "由组合逻辑电路和时序逻辑电路组合而成"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q19-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "五阶段流水线可分为取指(IF)、译码／取数(ID)、执行(EXC)、存储器读(MEM)、写回\n(Write Back)。数字系统中， 各个子系统通过数据总线连接形成的数据传送路径称为数据通路，\n包括程序计数器、算术逻辑运算部件 、通用寄存器组、取指部件等， 不包括控制部件， 故选A。\n20. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "五阶段流水线可分为取指(IF)、译码／取数(ID)、执行(EXC)、存储器读(MEM)、写回 (Write Back)"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q19"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 19"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 19"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q20",
+   "year": 2017,
+   "number": 20,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于多总线结构的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "靠近CPU的总线速度较快"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "存储器总线可支持突发传送方式"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "总线之间须通过桥接器相连"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "PCI-Express ×16 采用并行传输方式"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q20-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "多总线结构用速率高的总线连接高速设备用速率低的总线连接低速设备。一般来说，CPU\n是计算机的核心， 是计算机中速度最快的设备之一，所 以A正确。突发传送方式把多个数据单\n元作为一个独立传输处理， 从而最大化设备的吞吐量。现实中 一般用支待突发传送方式的总线\n提高存储器的读写效率，B正确。各总线通过桥接器 相连， 后者起流量交换作用。PCI-Express\n总线都采用串行数据包传输数据， 所以选D。\n21. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "多总线结构用速率高的总线连接高速设备用速率低的总线连接低速设备"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q20"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 20"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 20"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q21",
+   "year": 2017,
+   "number": 21,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "I/O指令实现的数据传送通常发生在        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "I/O设备和I/O端口之间"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "通用寄存器和I/O设备之间"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "I/O端口和I/O端口之间"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "通用寄存器和I/O端口之间"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q21-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "I/0端口又称I/0接口， 是CPU与设备之间的交接面。 由于主机和 I/0设备的工作方式和\n工作速度有很大差异，1/0端口就应运而生。在执行一条指令时，CPU 使用地址总线 选择所请\n求的 I/0端口，使 用数据总线在CPU寄存器和端口之间传输数据。所以选D。\n22. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "I/0端口又称I/0接口， 是CPU与设备之间的交接面"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q21"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2
+     ],
+     "locator": "PDF page 2; question 21"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 21"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q22",
+   "year": 2017,
+   "number": 22,
+   "subject": "computer-organization",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于多重中断系统的叙述中，错误的是        。 \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 3 页（共 11 页）"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "在一条指令执行结束时响应中断"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "中断处理期间CPU处于关中断状态"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "中断请求的产生与当前指令的执行无关"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "CPU通过采样中断请求信号检测中断请求"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q22-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "多重中断系统在保护被中断进程现场时关中断， 执行中断处理程序时开中断，B错误。\fCPU 一般在 一条指令执行结束的阶段采样 中断请求信号，查看是否存在中断请求，然后决定\n是否响应 中断 ，A、D正确。中断请求 一般来自CPU以外的事件，异常 一般发生在 CPU内部，\nC正确。\n23. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "多重中断系统在保护被中断进程现场时关中断， 执行中断处理程序时开中断，B错误"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q22"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      2,
+      3
+     ],
+     "locator": "PDF page 2, 3; question 22"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; answer 22"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q23",
+   "year": 2017,
+   "number": 23,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假设 4 个作业到达系统的时刻和运行时间如下表所示。 \n作业 到达时刻t 运行时间 \nJ1 0 3 \nJ2 1 3 \nJ3 1 2 \nJ4 3 4 \n系统在t = 2 时开始作业调度。若分别采用先来先服务和短作业优先调度算法，则选中的作业分别\n是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "J2、J3"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "J 1、J4"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "J 2、J4"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "J 1、J3"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q23-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "先来先服务 调度算法是作业来得越早，优先级越高，因此会选择JI。短作业优先调度算法\n是作业运行时间越短，优先级越高，因此会选择J3。所以D正确。\n24. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "先来先服务 调度算法是作业来得越早，优先级越高，因此会选择JI"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q23"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 23"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 23"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q24",
+   "year": 2017,
+   "number": 24,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "执行系统调用的过程包括如下主要操作： \n①返回用户态  ②执行陷入（trap）指令 \n③传递系统调用参数  ④执行相应的服务程序 \n正确的执行顺序是。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "②→③→①→④"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "②→④→③→①"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "③→②→④→①"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "③→④→②→①"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q24-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "执行 系统调用的过程是这样的：正在运行的进程先传递系统调用参数，然后由陷入(trap)\n指令负责将用户态转化为内核态，并将返回地址压入堆栈以备后用 ，接下来 CPU执行相应的内\n核态服务程 序，最后返回 用户态。所以C正确。\n25. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "执行 系统调用的过程是这样的：正在运行的进程先传递系统调用参数，然后由陷入(trap) 指令负责将用户态转化为内核态，并将返回地址压入堆栈以备后用 ，接下来 C"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q24"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 24"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 24"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q25",
+   "year": 2017,
+   "number": 25,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某计算机按字节编址，其动态分区内存管理采用最佳适应算法，每次分配和回收内存后都对空闲\n分区链重新排序。当前空闲分区信息如下表所示。 \n分区起始地址 20K 500K 1000K 200K \n分区大小 40KB 80KB 100KB 200KB \n回收起始地址为 60K、大小为 140KB的分区后，系统中空闲分区的数量、空闲分区链第一个分区\n的起始地址和大小分别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "3、20K、380KB"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "3、500K、80KB"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "4、20K、180KB"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "4、500K、80KB"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q25-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "回收起始地址为 60K、 大小为140KB的分区时，它与表中 第一个分区和第四个分区合并，\n成为 起始地址为20K、大小为380KB的分区，剩余3个空闲分区。在回收内存后，算法 会对空\n闲分区链按分区大小由小到大进行 排序，表中的第二个分区排第一。所以选择B。\n26. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "回收起始地址为 60K、 大小为140KB的分区时，它与表中 第一个分区和第四个分区合并， 成为 起始地址为20K、大小为380KB的分区，剩余3个空闲分区"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q25"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 25"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 25"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q26",
+   "year": 2017,
+   "number": 26,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某文件系统的簇和磁盘扇区大小分别为 1KB和 512B。若一个文件的大小为 1026B，则系统分配\n给该文件的磁盘空间大小是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "1026B"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "1536B"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "1538B"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "2048B"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q26-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "绝大多 数操作系统为改善磁盘访问时间，以簇为单位进行 空间分配 ，因此选D。\n27. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "绝大多 数操作系统为改善磁盘访问时间，以簇为单位进行 空间分配 ，因此选D"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q26"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 26"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 26"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q27",
+   "year": 2017,
+   "number": 27,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列有关基于时间片的进程调度的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "时间片越短，进程切换的次数越多，系统开销也越大"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "当前进程的时间片用完后，该进程状态由执行态变为阻塞态"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "时钟中断发生后，系统会修改当前进程在时间片内的剩余时间"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "影响时间片大小的主要因素包括响应时间、系统开销和进程数量等"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q27-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "进程 切换带来系统开销，切换次数越多，开销越大，A正确。 当前进程的时间片用完后，\n它的状态由执行态变为就绪态，B 错误。时钟中断是系统中特定的周期性时钟节拍。 操作系统\n通过它来确定时间间隔，实现 时间的延时和任务的超时 ，C 正确。现代操作系统为了保证性能\n最优，通常根据响应时间、系统开销、 进程数量、进程运行时间、进程切换开销等因素确定 时\n间片大小， D正确。\n28. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "进程 切换带来系统开销，切换次数越多，开销越大，A正确"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q27"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 27"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 27"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q28",
+   "year": 2017,
+   "number": 28,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "与单道程序系统相比，多道程序系统的优点是        。 \nI. CPU利用率高 II. 系统开销小 III. 系统吞吐量大 IV . I/O 设备利用率高"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、IV"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、III、IV"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q28-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "多道程序系统通过组织作业（编码或数据 ）使CPU总有一个作业可执行 ，从而提高了CPU\n的利用率、系统吞吐量和1/0设备利用率，I、III、IV是优点。但系统要付出额外的开销来组织\n作业和切换作业，II错误。所以选D。\n29. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "多道程序系统通过组织作业（编码或数据 ）使CPU总有一个作业可执行 ，从而提高了CPU 的利用率、系统吞吐量和1/0设备利用率，I、III、IV是优点"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q28"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 28"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 28"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q29",
+   "year": 2017,
+   "number": 29,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列选项中，磁盘逻辑格式化程序所做的工作是        。 \nI. 对磁盘进行分区 \nII. 建立文件系统的根目录 \nIII. 确定磁盘扇区校验码所占位数 \nIV . 对保存空闲磁盘块信息的数据结构进行初始化"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、IV"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅III、IV"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II、IV"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q29-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "一个新的磁盘是一个空白版，必须分成扇区以便磁盘控制器能读和写，这个过程称为低级\n格式化（或物理格式化）。低级 格式化为磁盘的每个扇区采 用特别的数据结构，包括校验码 ，III\n错误。 为了使用 磁盘存储文件，操作系统还需要将其数据结构记录在 磁盘上。这 分为两步。第\n一步是将磁盘 分为由一个或多个柱面组成的分区，每个分区可以作为一个独立的磁盘 ，I错误。\n在分区之后，第二步是逻辑格式化（创建文件系统）。在这 一步，操作系统将初始的文件系统数\n据结构存储到磁盘上。这些数据结构 包括空闲和已分配的空间和一个初始 为空的目录，II、IV\n正确。所以选B。\n30. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "一个新的磁盘是一个空白版，必须分成扇区以便磁盘控制器能读和写，这个过程称为低级 格式化（或物理格式化）"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q29"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3
+     ],
+     "locator": "PDF page 3; question 29"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 29"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q30",
+   "year": 2017,
+   "number": 30,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "某文件系统中，针对每个文件，用户类别分为 4 类：安全管理员、文件主、文件主的伙伴、其他\n用户；访问权限分为 5 种：完全控制、执行、修改、读取、写入。若文件控制块中用二进制位串\n表示文件权限，为表示不同类别用户对一个文件的访问权限，则描述文件权限的位数至少应\n为        。 \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 4 页（共 11 页）"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "5"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "9"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "12"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "20"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q30-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "可以把用户访问权限抽象为一个矩阵，行代表用户 ，列代表访问权限。这个矩阵有4行5\n列，1代表true, 0代表false, 所以需要20位， 选D。\n31. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "可以把用户访问权限抽象为一个矩阵，行代表用户 ，列代表访问权限"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q30"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      3,
+      4
+     ],
+     "locator": "PDF page 3, 4; question 30"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 30"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q31",
+   "year": 2017,
+   "number": 31,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若文件f1 的硬链接为f2，两个进程分别打开f1 和f2， 获得对应的文件描述符为fd1 和fd2, 则下\n列叙述中，正确的是        。 \nI. f1 和f2 的读写指针位置保持相同 II. f1 和f2 共享同一个内存索引结点 \nIII. fd1 和fd2 分别指向各自的用户打开文件表中的一项"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅III"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅II、III"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "仅I、II"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "I、II和III"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q31-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "硬链接指通过索引结点进行连接。一个文件在 物理存储器上有 一个索引节点号。存在多个\n文件名指向同 一个索引节点，II正确。两个进程各自维护自己的文件描述符，III正确，I错误。\n所以选择B。\f32. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "硬链接指通过索引结点进行连接"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q31"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 31"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; answer 31"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q32",
+   "year": 2017,
+   "number": 32,
+   "subject": "operating-systems",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "系统将数据从磁盘读到内存的过程包括以下操作： \n①DMA控制器发出中断请求 ②初始化DMA控制器并启动磁盘 \n③从磁盘传输一块数据到内存缓冲区 ④执行“DMA结束”中断服务程序 \n正确的执行顺序是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "③→①→②→④"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "②→③→①→④"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "②→①→③→④"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "①→②→④→③"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q32-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "在开始 DMA 传输时，主机向内存 写入DMA命令块 ，向 DMA控制器写入该命令块的地\n址，启动1/0设备。 然后，CP U继续其他工作， DMA控制器则继续下去直接操作内存总线，\n将地址放到总线上 开始传输。当整个传输完成后，DMA控制器中断CPU。因此执行顺序是2, 3, \nl, 4, 选B。\n33. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "在开始 DMA 传输时，主机向内存 写入DMA命令块 ，向 DMA控制器写入该命令块的地 址，启动1/0设备"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q32"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 32"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 32"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q33",
+   "year": 2017,
+   "number": 33,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "假设OSI参考模型的应用层欲发送 400B的数据（无拆分） ， 除物理层和应用层之外，其他各层\n在封装PDU时均引入 20B的额外开销，则应用层数据传输效率约为        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "80%"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "83%"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "87%"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "91%"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q33-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "OSI参考模型共7层，除去物理层和应用 层，剩五层。 它们会向PD U引入20Bx5 = lOOB\n的额外开销。 应用层是最顶层 ，所以它 的数据传输效率为400B/500B= 80%, 选A。\n34. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "OSI参考模型共7层，除去物理层和应用 层，剩五层"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q33"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 33"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 33"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q34",
+   "year": 2017,
+   "number": 34,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若信道在无噪声情况下的极限数据传输速率不小于信噪比为 30dB条件下的极限数据传输速率， \n则信号状态数至少是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "4"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "8"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "16"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "32"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q34-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "可用奈奎斯特采样定理计算无噪声情况下的极限数据传输速率， 用香农第二定理计算有噪\n信道极限数据传输速率。 2叭og2N�叭og2(1 + SIN), W是信道带宽，N是信号状态数， SIN是信\n噪比，将数据代入计算可得N�32, 选D 。 分贝数=IOlog心IN。\n35. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "可用奈奎斯特采样定理计算无噪声情况下的极限数据传输速率， 用香农第二定理计算有噪 信道极限数据传输速率"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q34"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 34"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 34"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q35",
+   "year": 2017,
+   "number": 35,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "在下图所示的网络中，若主机H 发送一个封装访问Internet的IP分组的IEEE 802.11 数据帧F，\n则帧F的地址 1、地址 2 和地址 3 分别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "00-12-34-56-78-9a，00-12-34-56-78-9b，00-12-34-56-78-9c"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "00-12-34-56-78-9b，00-12-34-56-78-9a，00-12-34-56-78-9c"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "00-12-34-56-78-9b，00-12-34-56-78-9c，00-12-34-56-78-9a"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "00-12-34-56-78-9a，00-12-34-56-78-9c，00-12-34-56-78-9b"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "B"
+   },
+   "explanation": [
+    {
+     "id": "q35-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "IEEE 802.11 数据帧有四种子类型，分别是IBSS、 From AP、 ToAP、 WDS。 这里的数据帧 F\n是从笔记本电脑发送往访问接入点CAP),所以属于To AP子类型。这种帧地址l是RA (BSSI D), \n地址 2是SA, 地址 3是 DA。 RA是Receiver Address的缩写，BSSI D是basic service set identifier \n的缩写，SA是source address的缩写，DA是destinati on address的缩写。 因此地址 l是AP的MAC,\n地址2是H的M AC, 地址3是R的MAC, 选B。\n36. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "IEEE 802.11 数据帧有四种子类型，分别是IBSS、 From AP、 ToAP、 WDS"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q35"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 35"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 35"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q36",
+   "year": 2017,
+   "number": 36,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列IP地址中，只能作为IP分组的源IP地址但不能作为目的IP地址的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "0.0.0.0"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "127.0.0.1"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "200.10.10.3"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "255.255.255.255"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q36-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "根据 RFC文档描述，0.0.0.0/32 可以作为本主机在本网络上的源地址。 127.0.0.1是回送地\n址，以它 为目的 IP地址的数据将被立即返回到本机。200.10.10.3是C类IP地址。255.255.255.255\n是广播地址。\n37. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "根据 RFC文档描述，0.0.0.0/32 可以作为本主机在本网络上的源地址"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q36"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 36"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 36"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q37",
+   "year": 2017,
+   "number": 37,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "直接封装RIP、OSPF、BGP报文的协议分别是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "TCP、UDP、IP"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "TCP、IP、UDP"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "UDP、TCP、IP"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "UDP、IP、TCP"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "D"
+   },
+   "explanation": [
+    {
+     "id": "q37-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "RIP是一种分布式的基于距离向量的路由选择协议，通过广播 U DP报文来交换路由信息。\nOSPF是一个内部网关协议，不使用 传输协议，如UDP或TCP, 而是直接用IP包封装它的数\n据。 BGP是一个外部网关协议， 用TCP封装它的数据。 因此选D。\n38. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "RIP是一种分布式的基于距离向量的路由选择协议，通过广播 U DP报文来交换路由信息"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q37"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 37"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 37"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q38",
+   "year": 2017,
+   "number": 38,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若将网络 21.3.0.0/16 划分为 128 个规模相同的子网，则每个子网可分配的最大IP地址个数\n是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "254"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "256"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "510"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "512"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q38-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "这个网络有16位的主机号，平均分成128个规模相同的子网，每个子网有7位的子网号，9\n位的主机号。除去一个网络地址和广播地址，可分配的最大1P地址个数是29-2=512-2=510,\n故选C。\n39. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "这个网络有16位的主机号，平均分成128个规模相同的子网，每个子网有7位的子网号，9 位的主机号"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q38"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 38"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 38"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q39",
+   "year": 2017,
+   "number": 39,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "若甲向乙发起一个TCP连接，最大段长MSS = 1KB，RTT = 5ms，乙开辟的接收缓存为 64KB, 则\n甲从连接建立成功至发送窗口达到 32KB, 需经过的时间至少是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "25ms"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "30ms"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "160ms"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "165ms"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "A"
+   },
+   "explanation": [
+    {
+     "id": "q39-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "按照慢开始算法，发送窗口 = min{拥塞窗口，接收窗口｝，初始的拥塞窗口为最大报文段\n长度1KB海经过一个RTT, 拥塞窗口翻倍，因此需至少经过5个RTT, 发送窗口才能达到32KB,\n所以选A。 这里假定乙能及时处理接收到的数据，空闲的接收缓存�32KB。\n40. 解析："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "按照慢开始算法，发送窗口 = min{拥塞窗口，接收窗口｝，初始的拥塞窗口为最大报文段 长度1KB海经过一个RTT, 拥塞窗口翻倍，因此需至少经过5个RTT, "
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q39"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4
+     ],
+     "locator": "PDF page 4; question 39"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 39"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q40",
+   "year": 2017,
+   "number": 40,
+   "subject": "computer-networks",
+   "kind": "single-choice",
+   "stem": [
+    {
+     "type": "text",
+     "text": "下列关于FTP协议的叙述中，错误的是        。"
+    }
+   ],
+   "options": [
+    {
+     "id": "A",
+     "content": [
+      {
+       "type": "text",
+       "text": "数据连接在每次数据传输完毕后就关闭"
+      }
+     ]
+    },
+    {
+     "id": "B",
+     "content": [
+      {
+       "type": "text",
+       "text": "控制连接在整个会话期间保持打开状态"
+      }
+     ]
+    },
+    {
+     "id": "C",
+     "content": [
+      {
+       "type": "text",
+       "text": "服务器与客户端的TCP 20 端口建立数据连接"
+      }
+     ]
+    },
+    {
+     "id": "D",
+     "content": [
+      {
+       "type": "text",
+       "text": "客户端与服务器的TCP 21 端口建立控制连接 \n  \n\n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 5 页（共 11 页） \n二、综合应用题（第41～47小题，共70分）"
+      }
+     ]
+    }
+   ],
+   "answer": {
+    "type": "choice",
+    "optionId": "C"
+   },
+   "explanation": [
+    {
+     "id": "q40-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "FTP协议使用控制连接和数据连接，控制连接存在于整个FTP会话过程中，数据连接在每\n次文件传输时才建立，传输结束就关闭，A 和 B是正确的。默认情况下 FTP协议使用TCP 20 \n端口进行 数据连接，TCP 21端口进行控制连接。 但是是否使用TCP 20端口建立数据连接与传\n输模式 有关，主动方式使用TCP20端口， 被动方式由服务器和客户端自行协商决定，C错， D\n对。所以选C。\f二、综合应用题\n41. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "FTP协议使用控制连接和数据连接，控制连接存在于整个FTP会话过程中，数据连接在每 次文件传输时才建立，传输结束就关闭，A 和 B是正确的"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q40"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      4,
+      5
+     ],
+     "locator": "PDF page 4, 5; question 40"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      5
+     ],
+     "locator": "PDF page 5; answer 40"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q41",
+   "year": 2017,
+   "number": 41,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（15 分）请设计一个算法，将给定的表达式树（二叉树）转换为等价的中缀表达式（通过括号\n反映操作符的计算次序）并输出。例如，当下列两棵表达式树作为算法的输入时，输出的等价中\n缀表达式分别为(a+b)*(c*(-d))和(a*b)+(-(c-d))。 \n \n二叉树结点定义如下： \ntypedef struct node{ \nchar data[10];  //存储操作数或操作符 \nstruct node *left, *right; \n}BTree; \n要求： \n（1）给出算法的基本设计思想。 \n（2）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 \n  \n\n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 6 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 15,
+    "rubric": [
+     {
+      "id": "q41-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 15
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\f＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q41-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\f＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "(I)算法的基本设计思想 表达式树的中序序列加上必要的括号即为等价的中缀表达式"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q41"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      5,
+      6
+     ],
+     "locator": "PDF page 5, 6; question 41"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      6
+     ],
+     "locator": "PDF page 6; answer 41"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q42",
+   "year": 2017,
+   "number": 42,
+   "subject": "data-structures",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（8 分）使用Prim （普里姆）算法求带权连通图的最小（代价）生成树（MST） 。请回答下列问\n题。 \n（1）对下列图G，从顶点A开始求G的MST, 依次给出按算法选出的边。 \n \n（2）图G的MST是唯一的吗？ \n（3）对任意的带权连通图，满足什么条件时，其MST是唯一的？ \n  \n\n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 8,
+    "rubric": [
+     {
+      "id": "q42-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 8
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "(1) Prim算法属于贪心策略。算法从 一个任意的顶点开始， 一直长大到覆盖图中所有顶点\n为止。算法每一步在连接树 集合S 中顶点和 其他顶点的边中 ，选 择一条使得树 的总权重增加最\n小的边加入集合S。当算法终止时，S 就是最小生成树。\nCD s 中顶点为A, 候选边为(A,D), (A, B), (A, E), 选择(A,D)加入S。\n@s中顶点为A,D, 候选边为(A, B), (A, E), (D, E), (C, D), 选择(D,E), 加入S。\n@s中顶点为A,D,E, 候选边为(A,B), (C, D), (C, E), 选择(C,E)加入S。\n@s中顶点为A,D,E,C, 候选边为(A,B), (B, C), 选择(B,C)加入S。\n@s就是最小生成树。\n依次选出的边为\n(A, D), (D, E), (C, E), (B, C) (4分）\n【评分说明】每正确选 对 一条边且次序正确，给 1 分。若考生选择的边正确，但次序不完\n全正确，酌情给分。\n(2)图G的MST是唯 一 的。(2分）第 一 小题的最小生成树包括了图中权值最小 的四条边，\n其他边都比这四条边大，所以此图的MST唯 一。\n(3)当带权连通图的任 意一个环 中所包含的边的权值均不 相同时， 其MST是 唯一的。(2\n分）此 题不要求回答充分必要条件，所以回答 一个限制边权值的充分条件即可。\n【评分说明】＠若考生答案中给出的 是其他充分条件，例如\n“\n带权连通图的所有边的权值\n均不相同\n”\n，同样给分。\n＠若考生给出的充分条件对图的顶点数 和边数做了某些限制 ，例如， 限制 了图中顶点的\n个数（顶 点个数少于3个 ）、限制了图的形状（图中没有环）等， 则最高给l分。\n＠答案部分 正确，酌情给分。\n43. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q42-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "(1) Prim算法属于贪心策略。算法从 一个任意的顶点开始， 一直长大到覆盖图中所有顶点\n为止。算法每一步在连接树 集合S 中顶点和 其他顶点的边中 ，选 择一条使得树 的总权重增加最\n小的边加入集合S。当算法终止时，S 就是最小生成树。\nCD s 中顶点为A, 候选边为(A,D), (A, B), (A, E), 选择(A,D)加入S。\n@s中顶点为A,D, 候选边为(A, B), (A, E), (D, E), (C, D), 选择(D,E), 加入S。\n@s中顶点为A,D,E, 候选边为(A,B), (C, D), (C, E), 选择(C,E)加入S。\n@s中顶点为A,D,E,C, 候选边为(A,B), (B, C), 选择(B,C)加入S。\n@s就是最小生成树。\n依次选出的边为\n(A, D), (D, E), (C, E), (B, C) (4分）\n【评分说明】每正确选 对 一条边且次序正确，给 1 分。若考生选择的边正确，但次序不完\n全正确，酌情给分。\n(2)图G的MST是唯 一 的。(2分）第 一 小题的最小生成树包括了图中权值最小 的四条边，\n其他边都比这四条边大，所以此图的MST唯 一。\n(3)当带权连通图的任 意一个环 中所包含的边的权值均不 相同时， 其MST是 唯一的。(2\n分）此 题不要求回答充分必要条件，所以回答 一个限制边权值的充分条件即可。\n【评分说明】＠若考生答案中给出的 是其他充分条件，例如\n“\n带权连通图的所有边的权值\n均不相同\n”\n，同样给分。\n＠若考生给出的充分条件对图的顶点数 和边数做了某些限制 ，例如， 限制 了图中顶点的\n个数（顶 点个数少于3个 ）、限制了图的形状（图中没有环）等， 则最高给l分。\n＠答案部分 正确，酌情给分。\n43. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "(1) Prim算法属于贪心策略"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-data-structures",
+    "topic-2017-q42"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      6,
+      7
+     ],
+     "locator": "PDF page 6, 7; question 42"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      7
+     ],
+     "locator": "PDF page 7; answer 42"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q43",
+   "year": 2017,
+   "number": 43,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（13 分）已知 f(n) =෍ 2in\ni=0\n=2n+1-1=11…1ᇩᇪᇫ\nn+1 位\nB，计算f(n)的C语言函数f1 如下： \nint f1(unsigned n){ \nint sum=1, power=1; \nfor(unsigned i=0;i<=n-1;i++){ \n    power *= 2; \n    sum += power; \n} \nreturn sum; \n} \n将f1 中的int都改为float, 可得到计算f(n)的另一个函数f2。假设unsigned和int型数据都占 32\n位，float采用IEEE 754 单精度标准。请回答下列问题。 \n（1）当n = 0 时，f1 会出现死循环，为什么？若将f1 中的变量i和n都定义为int型，则f1 是\n否还会出现死循环？为什么？ \n（2）f1(23)和f2(23)的返回值是否相等？机器数各是什么（用十六进制表示）？ \n（3）f1(24)和f2(24)的返回值分别为 33 554 431 和 33 554 432.0, 为什么不相等？ \n（4）f(31) = 232 - 1, 而f1(31)的返回值却为-1, 为什么？若使f1(n)的返回值与f(n)相等，则最大\n的n是多少？ \n（5）f2(127)的机器数为 7F80 0000H, 对应的值是什么？若使:f2(n)的结果不溢出，则最大的n 是\n多少？若使f2(n)的结果精确（无舍入） ，则最大的n是多少？ \n  \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 8 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 13,
+    "rubric": [
+     {
+      "id": "q43-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 13
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\f作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对千第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q43-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\f作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对千第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数 为全1, 值是2 32_ 1, 为 unsig"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q43"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      7,
+      8
+     ],
+     "locator": "PDF page 7, 8; question 43"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      7
+     ],
+     "locator": "PDF page 7; answer 43"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q44",
+   "year": 2017,
+   "number": 44,
+   "subject": "computer-organization",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（10 分）在按字节编址的计算机M 上， 题 43 中f1 的部分源程序（阴影部分）与对应的机器\n级代码（包括指令的虚拟地址）如下图所示。 \n int f1(unsigned n) \n1 00401020 55 push ebp \n … … … \n for(unsigned i =0; i<=n-1;i++) \n … … … \n20 0040105E 39 4D F4 cmp dword ptr[ebp-0Ch], ecx \n … … … \n { power *= 2; \n23 00401066 D1 E2 shl edx,1 \n … … … \n return sum; \n35 0040107F C3 ret \n其中，机器级代码行包括行号、虚拟地址、机器指令和汇编指令。请回答下列问题。 \n（1）计算机M是RISC还是CISC? 为什么？ \n（2）f1 的机器指令代码共占多少字节？要求给出计算过程。 \n（3）第 20 条指令cmp通过i减n-1 实现对i和n-1 的比较。执行f1(0)过程中，当i=0 时，cmp\n指令执行后， 进/借位标志CF的内容是什么？要求给出计算过程。 \n（4）第 23 条指令shl通过左移操作实现了power*2 运算，在f2 中能否也用shl指令实现power \n*2? 为什么？ \n \n  \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 9 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 10,
+    "rubric": [
+     {
+      "id": "q44-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 10
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "(1) M 为 CISC。(1分）\nM的指令长短不一，不 符合 RISC 指令系统特点。(1分）\n(2) fl 的机器代码占 96B。 (1 分）\n因为 fl 的第一条指令 \"push ebp\" 所在的虚拟地址为 0040 1020H, 最后一条指令 \"ret'' 所\n在的虚拟地址为 0040 107FH, 所以，fl 的机器指令代码长度为0040 107FH-0040 1020H + 1 = 60H = \n96 个字节。(I分）\n(3) CF = 1。(1分）\ncmp 指令实现 i 与 n-1 的比较功能，进行的是减法运算。在执行 fl(O)过程中， n = O, 当 i=\n0 时， i= 0000 OOOOH, 并且 n-1 = FFFF FFFFH。因此， 当执行第 20 条指令时，在补码加I减运\n算器中执行 \"0 减 FFFF FFFFH\" 的操作，即 0000 OOOOH + 0000 OOOOH + 1=0000 0001H, 此时，\n进位输出 C = O, 减法运算时的借位标志 CF = C EB I= 1。 (2 分）\n(4) 仅中不能用 shl 指令实现 power*2。Cl分）\n因为 shl 指令用来将一个整数的所有有效数位作为一个整体左移；而位中的变量 power 是\nfloat 型， 其机器数中不包含最高有效数位，但包含了阶码部分，将其作为一个整体左移时并不\n能实现\n“\n乘 2\" 的功能， 因而位中不能用 shl 指令实现 power*2。 (2 分）浮点数运算比整型运\n算要复杂，耗时也较长。\n45. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q44-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "(1) M 为 CISC。(1分）\nM的指令长短不一，不 符合 RISC 指令系统特点。(1分）\n(2) fl 的机器代码占 96B。 (1 分）\n因为 fl 的第一条指令 \"push ebp\" 所在的虚拟地址为 0040 1020H, 最后一条指令 \"ret'' 所\n在的虚拟地址为 0040 107FH, 所以，fl 的机器指令代码长度为0040 107FH-0040 1020H + 1 = 60H = \n96 个字节。(I分）\n(3) CF = 1。(1分）\ncmp 指令实现 i 与 n-1 的比较功能，进行的是减法运算。在执行 fl(O)过程中， n = O, 当 i=\n0 时， i= 0000 OOOOH, 并且 n-1 = FFFF FFFFH。因此， 当执行第 20 条指令时，在补码加I减运\n算器中执行 \"0 减 FFFF FFFFH\" 的操作，即 0000 OOOOH + 0000 OOOOH + 1=0000 0001H, 此时，\n进位输出 C = O, 减法运算时的借位标志 CF = C EB I= 1。 (2 分）\n(4) 仅中不能用 shl 指令实现 power*2。Cl分）\n因为 shl 指令用来将一个整数的所有有效数位作为一个整体左移；而位中的变量 power 是\nfloat 型， 其机器数中不包含最高有效数位，但包含了阶码部分，将其作为一个整体左移时并不\n能实现\n“\n乘 2\" 的功能， 因而位中不能用 shl 指令实现 power*2。 (2 分）浮点数运算比整型运\n算要复杂，耗时也较长。\n45. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "(1) M 为 CISC"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-organization",
+    "topic-2017-q44"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      8,
+      9
+     ],
+     "locator": "PDF page 8, 9; question 44"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      8
+     ],
+     "locator": "PDF page 8; answer 44"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q45",
+   "year": 2017,
+   "number": 45,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（7 分）假定题 44 给出的计算机M采用二级分页虚拟存储管理方式，虚拟地址格式如下： \n页目录号（10 位） 页表索引（10 位） 页内偏移量（12 位） \n请针对题 43 的函数f1 和题 44 中的机器指令代码， 回答下列问题。 \n（1）函数f1 的机器指令代码占多少页？ \n（2）取第 1 条指令（push ebp）时，若在进行地址变换的过程中需要访问内存中的页目录和页\n表，则会分别访问它们各自的第几个表项（编号从 0 开始）？ \n（3）M的I/O采用中断控制方式。若进程P在调用f1 之前通过scanf()获取n的值，则在执行\nscanf()的过程中，进程P的状态会如何变化? CPU是否会进入内核态？ \n  \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 10 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 7,
+    "rubric": [
+     {
+      "id": "q45-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 7
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\f46. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q45-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\f46. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同 一页中，仅占用1页"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q45"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      9,
+      10
+     ],
+     "locator": "PDF page 9, 10; question 45"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      8
+     ],
+     "locator": "PDF page 8; answer 45"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q46",
+   "year": 2017,
+   "number": 46,
+   "subject": "operating-systems",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（8 分）某进程中有 3 个并发执行的线程thread1、thread2 和thread3, 其伪代码如下所示。 \n \n请添加必要的信号量和P、V(或wait()、signal())操作，要求确保线程互斥访问临界资源，并且最\n大限度地并发执行。 \n  \n\n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 11 页（共 11 页）"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 8,
+    "rubric": [
+     {
+      "id": "q46-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 8
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "先找出线程对在各个变量上的互斥、 并发关系。 如果是一读 一写或两个都是写，那么这就\n是互斥关系。 每一个互斥关系都需要一个信号量进行调节。\nsemaphore mutex_yl=l; //mutex_yl用千threadl与thread3对变量y的互斥访问。\nsemaphore mu七ex.,._y2=1; //mutex_y2用于thread2与thread3对变量y的互斥访问。\nsemaphore mu七ex_z=l; //mutex_z用千变量z的互斥访问。\n互斥代码如下： (5分）\n【评分说明】\nthread! \n！ \n： \n(num w; \nwait (mutex_y I) ; \nW = aiJd (X, y) ; \nsignal(nmtex_yl); \n... \nlhn•ad2 \nI \n｝ \ncnum w; \nwail (mutex_y2) ; \nwail(mulex_1.) ; \nw = add (y , z) ; \n呴ignal(mut忙x_z);\nsignal (mutex_y2) ; \n... \nthread3 \nI \n： \ncnum w; \nw .a= 1 ; \nw.h= I;\nwuit(mutcx_z);\nz = add (z , w) ;\n叫,nal(mutc,_z);\n虹1l(mu廿x_y I); \n阳iii (mulrx_y2) ; \ny = add (y , w) ; \nsignal (mutcx_y I) ; \n�ignal (mult•x_y2) ; \n... \n＠各线程与变量之间的互斥、 并发情况及相应评分见下表。\n三变益\nthread! 和thread2 thread2和thread3 thread! 和thread3\nX 不共享 不共享 不共享\ny 同时读 读写互斥 读写互斥\nz 不共享 读写互斥 不共享\n＠若考生仅使用 一个互斥信号量，互斥代码部分的得分 最多给 2分。\n＠答案部分正确，酌情给分。\n47. 解答："
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q46-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "先找出线程对在各个变量上的互斥、 并发关系。 如果是一读 一写或两个都是写，那么这就\n是互斥关系。 每一个互斥关系都需要一个信号量进行调节。\nsemaphore mutex_yl=l; //mutex_yl用千threadl与thread3对变量y的互斥访问。\nsemaphore mu七ex.,._y2=1; //mutex_y2用于thread2与thread3对变量y的互斥访问。\nsemaphore mu七ex_z=l; //mutex_z用千变量z的互斥访问。\n互斥代码如下： (5分）\n【评分说明】\nthread! \n！ \n： \n(num w; \nwait (mutex_y I) ; \nW = aiJd (X, y) ; \nsignal(nmtex_yl); \n... \nlhn•ad2 \nI \n｝ \ncnum w; \nwail (mutex_y2) ; \nwail(mulex_1.) ; \nw = add (y , z) ; \n呴ignal(mut忙x_z);\nsignal (mutex_y2) ; \n... \nthread3 \nI \n： \ncnum w; \nw .a= 1 ; \nw.h= I;\nwuit(mutcx_z);\nz = add (z , w) ;\n叫,nal(mutc,_z);\n虹1l(mu廿x_y I); \n阳iii (mulrx_y2) ; \ny = add (y , w) ; \nsignal (mutcx_y I) ; \n�ignal (mult•x_y2) ; \n... \n＠各线程与变量之间的互斥、 并发情况及相应评分见下表。\n三变益\nthread! 和thread2 thread2和thread3 thread! 和thread3\nX 不共享 不共享 不共享\ny 同时读 读写互斥 读写互斥\nz 不共享 读写互斥 不共享\n＠若考生仅使用 一个互斥信号量，互斥代码部分的得分 最多给 2分。\n＠答案部分正确，酌情给分。\n47. 解答："
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "先找出线程对在各个变量上的互斥、 并发关系"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-operating-systems",
+    "topic-2017-q46"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      10,
+      11
+     ],
+     "locator": "PDF page 10, 11; question 46"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      9
+     ],
+     "locator": "PDF page 9; answer 46"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  },
+  {
+   "id": "cn408-2017-q47",
+   "year": 2017,
+   "number": 47,
+   "subject": "computer-networks",
+   "kind": "comprehensive",
+   "stem": [
+    {
+     "type": "text",
+     "text": "（9 分）甲乙双方均采用后退N帧协议(GBN)进行持续的双向数据传输， 且双方始终采用捎带\n确认，帧长均为 1000B。Sx, y和Rx, y分别表示甲方和乙方发送的数据帧，其中x是发送序号，y\n是确认序号（表示希望接收对方的下一帧序号） ；数据帧的发送序号和确认序号字段均为比 3 \n特。 信道传输速率为 100Mpbs，RTT = 0.96ms。下图给出了甲方发送数据帧和接收数据帧的两\n种场景，其中t0为初始时刻，此时甲方的发送和确认序号均为 0，t1时刻甲方有足够多的数据待\n发送。 \n \n请回答下列问题。 \n（1）对于图（a） ，t0时刻到t1时刻期间，甲方可以断定乙方已正确接收的数据帧数是多少？正确\n接收的是哪几个帧？（请用Sx, y形式给出。 ） \n（2）对于图 （a） ，从t1时刻起，甲方在不出现超时且未收到乙方新的数据帧之前，最多还可以发\n送多少个数据帧？其中第一个帧和最后一个帧分别是哪个？（请用Sx, y形式给出。 ） \n（3）对于图 （b） ，从t1时刻起，甲方在不出现新的超时且未收到乙方新的数据帧之前，需要重发\n多少个数据帧？重发的第一个帧是哪个？（请用Sx, y形式给出。 ） \n（4）甲方可以达到的最大信道利用率是多少？"
+    }
+   ],
+   "answer": {
+    "type": "comprehensive",
+    "maxScore": 9,
+    "rubric": [
+     {
+      "id": "q47-rubric",
+      "description": "按照来源解析逐点自评",
+      "points": 9
+     }
+    ],
+    "reference": [
+     {
+      "type": "text",
+      "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\f8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
+     }
+    ]
+   },
+   "explanation": [
+    {
+     "id": "q47-analysis",
+     "title": "来源解析",
+     "content": [
+      {
+       "type": "text",
+       "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\f8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
+      }
+     ]
+    }
+   ],
+   "hints": [
+    [
+     {
+      "type": "text",
+      "text": "给分 1分 3分 1分 (1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o, S 1 ,0, S2 ,0 C 1分）"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "标出题干中的关键限制，再逐项核对定义、数据流或计算过程。"
+     }
+    ]
+   ],
+   "knowledgePointIds": [
+    "subject-computer-networks",
+    "topic-2017-q47"
+   ],
+   "assetIds": [],
+   "source": {
+    "question": {
+     "publisher": "Neville Studio 408-exam-paper（重构版）",
+     "title": "2017 年计算机学科专业基础综合试题（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/2017.pdf",
+     "fileName": "2017.pdf",
+     "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+     "pages": [
+      11
+     ],
+     "locator": "PDF page 11; question 47"
+    },
+    "answer": {
+     "publisher": "Neville Studio 408-exam-paper（重构版答案）",
+     "title": "2017 年计算机学科专业基础综合试题参考答案（重构版）",
+     "url": "https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/2017-answer.pdf",
+     "fileName": "2017-answer.pdf",
+     "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+     "pages": [
+      9
+     ],
+     "locator": "PDF page 9; answer 47"
+    },
+    "crosschecks": [
+     {
+      "publisher": "计算机考研杂货铺（答案速对快照）",
+      "title": "2017 年 408 真题选择题答案速对",
+      "url": "https://csgraduates.com/study_methods/408quiz/2017/",
+      "fileName": "csg-2017.html",
+      "sha256": "cc8f538d60deabecb27e3f0f8e440779454317dab3fb40ee76fb38bc14194e00",
+      "pages": [],
+      "locator": "Answer table 1-40"
+     }
+    ],
+    "redistribution": "unknown"
+   },
+   "contentVersion": "2017.0-draft.1",
+   "reviewStatus": "needs-review"
+  }
+ ],
+ "knowledgePoints": [
+  {
+   "id": "subject-data-structures",
+   "subject": "data-structures",
+   "name": "数据结构"
+  },
+  {
+   "id": "subject-computer-organization",
+   "subject": "computer-organization",
+   "name": "计算机组成原理"
+  },
+  {
+   "id": "subject-operating-systems",
+   "subject": "operating-systems",
+   "name": "操作系统"
+  },
+  {
+   "id": "subject-computer-networks",
+   "subject": "computer-networks",
+   "name": "计算机网络"
+  },
+  {
+   "id": "topic-2017-q01",
+   "subject": "data-structures",
+   "name": "sum +=++i; 相当千廿i; sum = sum + i; ",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q02",
+   "subject": "data-structures",
+   "name": "I 的反例：计算斐波拉契数列迭代实现只需要一个循环即可实现",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q03",
+   "subject": "data-structures",
+   "name": "三元组表的结点存储了行 row 、列 col 、值 value 三种信息，是主要用来存储稀疏矩阵的一种 数据结构",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q04",
+   "subject": "data-structures",
+   "name": "先序序列是先父结点，接着左子树，然后右子树",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q05",
+   "subject": "data-structures",
+   "name": "后序序列是先左子树，接着右子树，最后父结点，递归进行",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q06",
+   "subject": "data-structures",
+   "name": "哈夫曼编码是前缀编码，各个编码的前缀各不相同，因此直接拿编码序列与哈夫曼编码一 一比对即可",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q07",
+   "subject": "data-structures",
+   "name": "无向图边数的两倍等于各顶点度数的总和",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q08",
+   "subject": "data-structures",
+   "name": "折半查找判定树实际上 是一棵二叉排序树，它的中 序序列是一个有序序列",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q09",
+   "subject": "data-structures",
+   "name": "B+树是应文件系统所需而产生的B-树的变形， 前者比后者更加适用于实际应用中的操作 系统的文件索引和数据库索引，因为前者磁盘读写代价更低，查询效率更加稳定",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q10",
+   "subject": "data-structures",
+   "name": "归并排序代码比选择插入排序更复杂，前者空间复杂度是O(n), 后者是0(1)",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q11",
+   "subject": "data-structures",
+   "name": "插入排序、选择排序、起泡排序原本时间复杂度是O(n2), 更换为链式存储 后的时间复杂度 还是O(n2)",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q12",
+   "subject": "computer-organization",
+   "name": "运行时间＝指令数xCPI/主频",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q13",
+   "subject": "computer-organization",
+   "name": "由4个DRAM芯片采用交叉编址方式构成主存可知主存地址最低二位表示该字节存储的 芯片编号",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q14",
+   "subject": "computer-organization",
+   "name": "时间局部性是一旦 一条指令被执行， 则在不久的将来 它可能再次被执行",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q15",
+   "subject": "computer-organization",
+   "name": "在变址操作时， 将计算机指令中的地址与变址寄存器中的地址相加， 得到有效地址， 指令 提供数组首地址， 由变址寄存器来定位数据中的各元素",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q16",
+   "subject": "computer-organization",
+   "name": "三地址指令有29条， 所以它的操作码至少为 5位",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q17",
+   "subject": "computer-organization",
+   "name": "超标量是 指在 CPU中有 一条以上的流水线， 并且每个时钟周期内可以完成一条以上的指 令，其实质是以空间换时间",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q18",
+   "subject": "computer-organization",
+   "name": "主存储器就是我们通常说的主存， 在CPU外， 存储指令和数据， 由RAM 和ROM 实现",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q19",
+   "subject": "computer-organization",
+   "name": "五阶段流水线可分为取指(IF)、译码／取数(ID)、执行(EXC)、存储器读(MEM)、写回 (Write Back)",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q20",
+   "subject": "computer-organization",
+   "name": "多总线结构用速率高的总线连接高速设备用速率低的总线连接低速设备",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q21",
+   "subject": "computer-organization",
+   "name": "I/0端口又称I/0接口， 是CPU与设备之间的交接面",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q22",
+   "subject": "computer-organization",
+   "name": "多重中断系统在保护被中断进程现场时关中断， 执行中断处理程序时开中断，B错误",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q23",
+   "subject": "operating-systems",
+   "name": "先来先服务 调度算法是作业来得越早，优先级越高，因此会选择JI",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q24",
+   "subject": "operating-systems",
+   "name": "执行 系统调用的过程是这样的：正在运行的进程先传递系统调用参数，然后由陷入(trap) 指令负责将用户态转化为内核态，并将返回地址压入堆栈以备后用 ，接下来 C",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q25",
+   "subject": "operating-systems",
+   "name": "回收起始地址为 60K、 大小为140KB的分区时，它与表中 第一个分区和第四个分区合并， 成为 起始地址为20K、大小为380KB的分区，剩余3个空闲分区",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q26",
+   "subject": "operating-systems",
+   "name": "绝大多 数操作系统为改善磁盘访问时间，以簇为单位进行 空间分配 ，因此选D",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q27",
+   "subject": "operating-systems",
+   "name": "进程 切换带来系统开销，切换次数越多，开销越大，A正确",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q28",
+   "subject": "operating-systems",
+   "name": "多道程序系统通过组织作业（编码或数据 ）使CPU总有一个作业可执行 ，从而提高了CPU 的利用率、系统吞吐量和1/0设备利用率，I、III、IV是优点",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q29",
+   "subject": "operating-systems",
+   "name": "一个新的磁盘是一个空白版，必须分成扇区以便磁盘控制器能读和写，这个过程称为低级 格式化（或物理格式化）",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q30",
+   "subject": "operating-systems",
+   "name": "可以把用户访问权限抽象为一个矩阵，行代表用户 ，列代表访问权限",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q31",
+   "subject": "operating-systems",
+   "name": "硬链接指通过索引结点进行连接",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q32",
+   "subject": "operating-systems",
+   "name": "在开始 DMA 传输时，主机向内存 写入DMA命令块 ，向 DMA控制器写入该命令块的地 址，启动1/0设备",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q33",
+   "subject": "computer-networks",
+   "name": "OSI参考模型共7层，除去物理层和应用 层，剩五层",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q34",
+   "subject": "computer-networks",
+   "name": "可用奈奎斯特采样定理计算无噪声情况下的极限数据传输速率， 用香农第二定理计算有噪 信道极限数据传输速率",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q35",
+   "subject": "computer-networks",
+   "name": "IEEE 802.11 数据帧有四种子类型，分别是IBSS、 From AP、 ToAP、 WDS",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q36",
+   "subject": "computer-networks",
+   "name": "根据 RFC文档描述，0.0.0.0/32 可以作为本主机在本网络上的源地址",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q37",
+   "subject": "computer-networks",
+   "name": "RIP是一种分布式的基于距离向量的路由选择协议，通过广播 U DP报文来交换路由信息",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q38",
+   "subject": "computer-networks",
+   "name": "这个网络有16位的主机号，平均分成128个规模相同的子网，每个子网有7位的子网号，9 位的主机号",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q39",
+   "subject": "computer-networks",
+   "name": "按照慢开始算法，发送窗口 = min{拥塞窗口，接收窗口｝，初始的拥塞窗口为最大报文段 长度1KB海经过一个RTT, 拥塞窗口翻倍，因此需至少经过5个RTT, ",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q40",
+   "subject": "computer-networks",
+   "name": "FTP协议使用控制连接和数据连接，控制连接存在于整个FTP会话过程中，数据连接在每 次文件传输时才建立，传输结束就关闭，A 和 B是正确的",
+   "parentId": "subject-computer-networks"
+  },
+  {
+   "id": "topic-2017-q41",
+   "subject": "data-structures",
+   "name": "(I)算法的基本设计思想 表达式树的中序序列加上必要的括号即为等价的中缀表达式",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q42",
+   "subject": "data-structures",
+   "name": "(1) Prim算法属于贪心策略",
+   "parentId": "subject-data-structures"
+  },
+  {
+   "id": "topic-2017-q43",
+   "subject": "computer-organization",
+   "name": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数 为全1, 值是2 32_ 1, 为 unsig",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q44",
+   "subject": "computer-organization",
+   "name": "(1) M 为 CISC",
+   "parentId": "subject-computer-organization"
+  },
+  {
+   "id": "topic-2017-q45",
+   "subject": "operating-systems",
+   "name": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同 一页中，仅占用1页",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q46",
+   "subject": "operating-systems",
+   "name": "先找出线程对在各个变量上的互斥、 并发关系",
+   "parentId": "subject-operating-systems"
+  },
+  {
+   "id": "topic-2017-q47",
+   "subject": "computer-networks",
+   "name": "给分 1分 3分 1分 (1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o, S 1 ,0, S2 ,0 C 1分）",
+   "parentId": "subject-computer-networks"
+  }
+ ],
+ "assets": [
+  {
+   "id": "cn408-2017-source-questions-page-1",
+   "path": "/content/cn408-2017/source/paper-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "126bb71d3dc2b6c191c0e47fac0b7596189609c2fcb59ac7a680f717d6c78b17",
+   "sourcePage": 1,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-2",
+   "path": "/content/cn408-2017/source/paper-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "9913755a4671f86057ec61836d9a022a68f1cba90790d045c5459eb965518506",
+   "sourcePage": 2,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-3",
+   "path": "/content/cn408-2017/source/paper-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "b606006f3478d8c87fde8089c2c80278dd085176067b1042e46211d316689a8e",
+   "sourcePage": 3,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-4",
+   "path": "/content/cn408-2017/source/paper-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "90664f6cd0c9d64f4828cbda8c79e4552ddbdcf9a00236d310e8dc97a93f5ad1",
+   "sourcePage": 4,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-5",
+   "path": "/content/cn408-2017/source/paper-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "a6225068b00d3c807f2ebc98825859c5593711185e226c98f312ffd7fd928ca7",
+   "sourcePage": 5,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-6",
+   "path": "/content/cn408-2017/source/paper-6.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "997c3711542b8d9ad1e2e38b24c2d5854716d4d72840a5d4d4e1e48f7384dd43",
+   "sourcePage": 6,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-7",
+   "path": "/content/cn408-2017/source/paper-7.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e2ebc27eb73814d4478a1985c732116a383329b1ee480c055a2366966e59af44",
+   "sourcePage": 7,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-8",
+   "path": "/content/cn408-2017/source/paper-8.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "a037160c9b17272ac23f35c3e4432dbd37b29899cb08069a854c5c9c2a4e3532",
+   "sourcePage": 8,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-9",
+   "path": "/content/cn408-2017/source/paper-9.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "ea0308d3a88446a06a70efaa80fb2fabfdd6773cffd02f3539d67c5e49af36f2",
+   "sourcePage": 9,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-10",
+   "path": "/content/cn408-2017/source/paper-10.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e77f0378bf04ee4956870a12a73aee4cec1ccff68d40f40db6ea105e44acf61c",
+   "sourcePage": 10,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-questions-page-11",
+   "path": "/content/cn408-2017/source/paper-11.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "a5c35a89db4477d0bfa12f74887d8ed5db16a60e0f04fadb7aabc40c5da756c4",
+   "sourcePage": 11,
+   "width": 953,
+   "height": 1348
+  },
+  {
+   "id": "cn408-2017-source-answers-page-1",
+   "path": "/content/cn408-2017/source/answers-1.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "7b78a7c8c4f5aabf1f9fb16bdb7d64a84d5ee326dc7a829365bd7e57238ed62b",
+   "sourcePage": 1,
+   "width": 826,
+   "height": 1191
+  },
+  {
+   "id": "cn408-2017-source-answers-page-2",
+   "path": "/content/cn408-2017/source/answers-2.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "3be7a0473f8a28d7c971dc0f8ae1e9846b202af4ce6b2473e53f73bf8d92264f",
+   "sourcePage": 2,
+   "width": 827,
+   "height": 1188
+  },
+  {
+   "id": "cn408-2017-source-answers-page-3",
+   "path": "/content/cn408-2017/source/answers-3.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "a60cc30011b340c256444847db101f068f9096f4b0a4c446174b8dd86f64bb72",
+   "sourcePage": 3,
+   "width": 826,
+   "height": 1191
+  },
+  {
+   "id": "cn408-2017-source-answers-page-4",
+   "path": "/content/cn408-2017/source/answers-4.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "d5175f869d3129a12afc4a3013c2a464edc13f85424d544bedcd552b79b63e22",
+   "sourcePage": 4,
+   "width": 831,
+   "height": 1189
+  },
+  {
+   "id": "cn408-2017-source-answers-page-5",
+   "path": "/content/cn408-2017/source/answers-5.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "411cdc728acb51c5da5b6a935272699db6e5d817139324d64689af14cbc32408",
+   "sourcePage": 5,
+   "width": 829,
+   "height": 1193
+  },
+  {
+   "id": "cn408-2017-source-answers-page-6",
+   "path": "/content/cn408-2017/source/answers-6.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "6f82a32a4afcfdf49a668978327418cb73dc9b4fad78bc423a0456e53a2a860d",
+   "sourcePage": 6,
+   "width": 833,
+   "height": 1195
+  },
+  {
+   "id": "cn408-2017-source-answers-page-7",
+   "path": "/content/cn408-2017/source/answers-7.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e94df370303879a24febf8399480dd41c3a8b1c653e935fcafb3bcb535bb4bdb",
+   "sourcePage": 7,
+   "width": 831,
+   "height": 1195
+  },
+  {
+   "id": "cn408-2017-source-answers-page-8",
+   "path": "/content/cn408-2017/source/answers-8.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e6d25770c3595f78eac332569ff769b6ad87a3693a1a92cf55e5a368ea9d3377",
+   "sourcePage": 8,
+   "width": 831,
+   "height": 1189
+  },
+  {
+   "id": "cn408-2017-source-answers-page-9",
+   "path": "/content/cn408-2017/source/answers-9.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "6786b24c3d3d7cdbd2212208dc7e8211863c82f570ed17f7a58c192f696b5861",
+   "sourcePage": 9,
+   "width": 825,
+   "height": 1191
+  },
+  {
+   "id": "cn408-2017-source-answers-page-10",
+   "path": "/content/cn408-2017/source/answers-10.jpg",
+   "mimeType": "image/jpeg",
+   "sha256": "e5e31be00d697f707aab1c74b6586744c3de887617e554277cc774180595ba73",
+   "sourcePage": 10,
+   "width": 827,
+   "height": 1185
+  }
+ ]
+}
