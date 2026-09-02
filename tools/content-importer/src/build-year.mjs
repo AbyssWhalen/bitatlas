@@ -100,7 +100,7 @@ export function splitOptions(questionText) {
   return { stem, options };
 }
 
-// 答案表（layout 模式）：列头 N. 后跟该列 5 个字母，对应题号 N, N+8, N+16, N+24, N+32。
+// 旧版回退：layout 文本中的 “N. XXXXX” 密排列组（2010 年式排版）。
 export function parseAnswerTable(layoutTexts) {
   const key = new Map();
   for (const text of layoutTexts) {
@@ -109,6 +109,56 @@ export function parseAnswerTable(layoutTexts) {
       [...match[2]].forEach((letter, index) => {
         key.set(column + index * 8, letter);
       });
+    }
+  }
+  return key;
+}
+
+// 答案表（几何重建）：从答案卷首页的 (x,y) 文本片段还原 1-40 答案。
+// 支持两种片段形态（各年份排版不同）：
+//   密排列组 “N. XXXXX”   -> 列 N 的 5 个字母，对应题号 N+8k（k=0..4）
+//   直接单元格 “N. X” / “X N.”（数字与字母相邻）-> 题号 N 的答案
+// 无法解析或冲突时返回 null/抛错，由 40/40 交叉门禁兜底。
+export function parseAnswerTableGeometry(fragmentPages) {
+  // 答案表可能跨页：合并全部片段后统一解析；1-40 全部解析出即成功（片段中其余杂散匹配忽略）。
+  const key = tryParseAnswerTablePage(fragmentPages.flatMap((page) => page.fragments));
+  const complete = Array.from({ length: 40 }, (_, index) => key.has(index + 1)).every(Boolean);
+  return complete ? key : null;
+}
+
+export function tryParseAnswerTablePage(fragments) {
+  const key = new Map();
+  const setAnswer = (number, letter, source) => {
+    if (!Number.isInteger(number) || number < 1 || number > 40) return;
+    const existing = key.get(number);
+    if (existing) {
+      if (existing !== letter) throw new Error(`Answer conflict for Q${number}: ${existing} != ${letter} (${source})`);
+      return;
+    }
+    key.set(number, letter);
+  };
+  // 先应用密排列组（5 字母自洽），直接单元格只填充未确定的题号。
+  for (const fragment of fragments) {
+    const dense = fragment.text.match(/^([1-8])\.\s*([A-D]{5})$/);
+    if (dense) {
+      [...dense[2]].forEach((letter, index) => setAnswer(Number(dense[1]) + index * 8, letter, `column ${dense[1]}`));
+    }
+  }
+  for (const fragment of fragments) {
+    const direct = fragment.text.match(/^(\d{1,2})\.\s*([A-D])$/);
+    if (direct) {
+      const number = Number(direct[1]);
+      if (!key.has(number)) setAnswer(number, direct[2], `direct "${fragment.text}"`);
+    }
+    // 片段内 “N. X”（X 后是边界）：如 2012 式行尾 “8. A”。密集 5 字母组因 lookahead 不匹配，天然跳过。
+    for (const trailing of fragment.text.matchAll(/(\d{1,2})\.\s*([A-D])(?=\s|$)/g)) {
+      const number = Number(trailing[1]);
+      if (!key.has(number)) setAnswer(number, trailing[2], `trailing "${fragment.text.slice(0, 24)}"`);
+    }
+    // 连排形态（2012 式）：“B 2. A 3. A” 与 2013 式 “D 2.” —— 字母属于其后的题号减一。
+    for (const chained of fragment.text.matchAll(/([A-D])\s+(\d{1,2})\.(?!\d)/g)) {
+      const number = Number(chained[2]) - 1;
+      if (!key.has(number)) setAnswer(number, chained[1], `chained "${fragment.text.slice(0, 24)}"`);
     }
   }
   return key;
@@ -183,7 +233,11 @@ function jpegDimensions(buffer) {
 const textBlock = (value) => ({ type: 'text', text: value });
 
 export function buildYear(year, inputs) {
-  const rebuildKey = parseAnswerTable(inputs.answerPages.map((page) => page.layoutText));
+  const rebuildKey = parseAnswerTableGeometry(inputs.answerTableFragments)
+    ?? parseAnswerTable(inputs.answerPages.map((page) => page.layoutText));
+  if (!rebuildKey || rebuildKey.size !== 40) {
+    throw new Error(`Rebuild answer table incomplete: ${rebuildKey ? rebuildKey.size : 0}/40.`);
+  }
   const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
   const mismatches = reconcileKeys(rebuildKey, crossKey);
   if (mismatches.length > 0) {
@@ -366,6 +420,7 @@ export async function main() {
   const inputs = {
     paperPages: JSON.parse(await readFile(path.join(workDir, 'paper-pages.json'), 'utf8')),
     answerPages: JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8')),
+    answerTableFragments: JSON.parse(await readFile(path.join(workDir, 'answer-table-fragments.json'), 'utf8')),
     csgraduatesHtml: await readFile(path.join(sourcesDir, 'csg', `${year}.html`), 'utf8'),
     paperSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}.pdf`))).digest('hex'),
     answerSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}-answer.pdf`))).digest('hex'),

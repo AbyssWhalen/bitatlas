@@ -52,6 +52,22 @@ def render(pdf_path: Path, out_dir: Path, prefix: str) -> list[str]:
     return written
 
 
+def extract_fragments(reader: PdfReader, max_pages: int = 2) -> list[dict]:
+    """按坐标收集答案卷前几页的文本片段（用于几何重建答案速对表）。"""
+    pages = []
+    for index, page in enumerate(reader.pages[:max_pages], start=1):
+        fragments: list[dict] = []
+
+        def visitor(text, cm, tm, font_dict, font_size, _fragments=fragments):
+            stripped = (text or "").strip()
+            if stripped:
+                _fragments.append({"x": round(tm[4], 1), "y": round(tm[5], 1), "text": stripped})
+
+        page.extract_text(visitor_text=visitor)
+        pages.append({"page": index, "fragments": fragments})
+    return pages
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=int, required=True)
@@ -70,11 +86,14 @@ def main() -> None:
     render_dir.mkdir(parents=True, exist_ok=True)
 
     paper_pages = extract(PdfReader(str(paper_pdf)))
-    answer_pages = extract(PdfReader(str(answer_pdf)))
+    answer_reader = PdfReader(str(answer_pdf))
+    answer_pages = extract(answer_reader)
     (work_dir / "paper-pages.json").write_text(
         json.dumps(paper_pages, ensure_ascii=False, indent=1), encoding="utf-8")
     (work_dir / "answer-pages.json").write_text(
         json.dumps(answer_pages, ensure_ascii=False, indent=1), encoding="utf-8")
+    (work_dir / "answer-table-fragments.json").write_text(
+        json.dumps(extract_fragments(answer_reader), ensure_ascii=False), encoding="utf-8")
 
     paper_renders = render(paper_pdf, render_dir, "paper")
     answer_renders = render(answer_pdf, render_dir, "answers")

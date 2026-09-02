@@ -2176,3 +2176,18 @@
 - 提交 `fa55840` 部署成功；`/content/2010.json` 与扫描图 HTTP 200。
 - 真实 Chrome：默认 2009 视图 47 题、年份筛选含 2010/2009、切换 2010 后 47 题、Q1 选 D（答案键）回答正确、来源页扫描图加载、返回 2009 正常、无资源级错误。2011-2025 的 404 探测为 installExtraContent 设计行为（未发布=未安装）。
 - 批量推进：2011-2025 每年需 `extract-year-pdf.py --year N` + 下载 csgraduates 快照至 `local-data/sources/csg/N.html` + `build:year --year N`（内含 40/40 答案门禁）+ `content:validate` + 提交；2026 为回忆版暂不收录。
+
+## 2026-09-02 - 2011-2025 批量推进：受阻于逐年答案表排版差异（未完成，未发布）
+
+### 状态
+
+- 15 年 PDF 与 csgraduates 快照已下载至 `local-data/sources/`（2011/2012/2023/2025 PDF 已用 git clone 的 intact 副本替换；venv 已增 pypdfium2 与 cryptography）。全部年份已跑 extract-year-pdf.py（片段 + 渲染）。
+- build-year.mjs 答案表解析已升级为几何片段方案（tryParseAnswerTablePage）：支持 2010 式密排列组（列 N + 5 字母 → N+8k）、2013 式网格直接单元格（"9. C" / "D 2."）、2012 式连排（"B 2. A 3. A" → 字母属题号减一）、行尾 "N. X"；跨页合并；测试 6/6 通过。parseAnswerTableGeometry 仅在 1-40 全部解析出时返回，否则回退 layout 正则并 fail closed。
+- 当前构建结果：2011 解析标记断裂；2012=31/40（几何）、2013=30/40、2014=30/40、2015=30/40、2016=25/40、2017=30/40、2018=35/40（2018 差 5 题，最接近）；2019/2020/2021/2022/2023/2024/2025 = 0/40（疑似扫描版或字体无 unicode 映射，visitor 提取为空，需 OCR 路线）。全部未达 40/40 双源门禁，未生成、未发布任何题包。
+- 诊断线索：2013 答案页右侧 x≈454 有紧凑字母串（"DAABA CCABB..."）尚未对应到缺失题号；2019-2025 需先确认是否扫描件（answer-pages.json text 是否为空）。
+
+### 下一轮计划
+
+1. 逐年在 fragments 上补解析形态（优先 2018 只差 5 题、2012 差 9 题）；必要时按 2009 先例走 rapidocr OCR 路线重建答案表。
+2. 每年仍须过“重构答案 == csgraduates 40/40”门禁后才能生成题包；生成后 content:validate、构建、部署、真实浏览器验收与文档记录同 2010 流程。
+3. 工具改动（build-year/extract/test/validate）尚未提交；工作树含本轮全部未提交变更。

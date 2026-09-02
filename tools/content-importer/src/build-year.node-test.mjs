@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
   parseAnswerTable,
+  parseAnswerTableGeometry,
   parseCsgraduatesKey,
   reconcileKeys,
   splitNumberedBlocks,
   splitOptions,
+  tryParseAnswerTablePage,
 } from './build-year.mjs';
 
 describe('build-year pure parsers', () => {
@@ -25,6 +27,43 @@ describe('build-year pure parsers', () => {
     assert.equal(parsed.stem, '题干内容');
     assert.deepEqual(parsed.options.map((option) => option.text), ['甲', '乙', '丙', '丁']);
     assert.equal(splitOptions('题干只有图形选项'), null);
+  });
+
+  it('parseAnswerTableGeometry 支持密排列组、直接单元格与连排三种形态', () => {
+    const denseFragments = [
+      { x: 94, y: 541, text: '1. DBDBC' },
+      { x: 145, y: 541, text: '2. CDBAC' },
+      { x: 196, y: 541, text: '3. DAADD' },
+      { x: 247, y: 541, text: '4. CDDBC' },
+      { x: 298, y: 541, text: '5. BBABB' },
+      { x: 349, y: 541, text: '6. ABDCD' },
+      { x: 400, y: 541, text: '7. BACBA' },
+      { x: 451, y: 541, text: '8. BCADC' },
+    ];
+    const dense = parseAnswerTableGeometry([{ page: 1, fragments: denseFragments }]);
+    assert.ok(dense, 'dense table should parse to 40 answers');
+    assert.equal(dense.get(1), 'D');
+    assert.equal(dense.get(9), 'B');
+    assert.equal(dense.get(40), 'C');
+
+    const grid = tryParseAnswerTablePage([
+      { x: 69, y: 541, text: '1.' },
+      { x: 120, y: 541, text: 'D 2.' },
+      { x: 68, y: 526, text: '9. C' },
+    ]);
+    assert.equal(grid.get(1), 'D');
+    assert.equal(grid.get(9), 'C');
+
+    const chained = tryParseAnswerTablePage([
+      { x: 69, y: 541, text: '1.' },
+      { x: 94, y: 541, text: 'B 2. A 3. A 4. B 5. C 6. C 7. C 8. A' },
+      { x: 68, y: 526, text: '9. D' },
+      { x: 94, y: 526, text: '10.' },
+    ]);
+    assert.equal(chained.get(1), 'B');
+    assert.equal(chained.get(2), 'A');
+    assert.equal(chained.get(8), 'A');
+    assert.equal(chained.get(9), 'D');
   });
 
   it('parseAnswerTable 按列块映射题号（N, N+8, N+16, N+24, N+32）', () => {
