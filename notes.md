@@ -2795,3 +2795,11 @@
 - 变更：`.gitignore` 仅忽略 `apps/web/public/content/2009/`（legacy）；提交 `2009.json` + `cn408-2009/source/*.png`（19 张，约 9.7MB）；AGENTS/README/RELEASE/LOCAL_CONTENT 边界说明改写；`needs-review; verified 0/47` 状态不变，`/mock` 门禁不变。
 - 同日早前的 Cloudflare Worker + R2 + cookie 门禁方案已完成开发与本地验证（worker 单测 10/10、真实 Chrome 6/6），因用户选择仓库方案而未部署；工具留在被忽略的 `local-data/deploy/`，`local-data/deploy/README.md` 仍可作为未来切换私有分发的操作手册。
 - 线上部署与验收结果在后续条目补记。
+
+## 2026-09-02 - 题包上线与线上验收（完成）
+
+- 提交 `66f2324`（27 files：题包 20 个文件 + 7 份边界文档），Actions run `33580225575` 部署成功，`408.fytjut.com` 已可直接刷 2009 真题。
+- 本地封板门禁：lint、全部 workspace typecheck、全仓 Vitest `1090/1090`、production build、`content:validate`（47 题 / 19 资产，needs-review）全部通过；推送前完成 `git status --ignored`、`git ls-files local-data output tmp`（空）、staged 密钥扫描（无命中）与 staged diff 人工复核。
+- 线上验收（真实 Chrome）：桌面 1440 与移动 390 共 8/8 通过——47 题列表、Q1/Q2 作答与判定、来源解析、原卷扫描图（`/content/cn408-2009/*.png` 全 200）、刷新恢复练习、`/mock` verified 门禁保持关闭、390 无横向溢出。资源级 4xx/5xx 为零。
+- 深链接文档级 404（Pages + 404.html SPA 回退）为既有设计，`/lab` 同样如此；应用渲染不受影响，已在 HANDOFF 记录，不算本次回归。
+- 风险与既成事实：题库 JSON 与 19 张扫描图自本次提交起永久公开（git 历史），用户在选项中已知情确认；`/mock` 仍需 47/47 人工复核 ledger；后续年份题包首次公开须逐次授权（AGENTS.md 已写入）。

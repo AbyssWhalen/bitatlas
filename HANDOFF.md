@@ -2138,3 +2138,15 @@
 - `npm run content:validate` 通过（47 题 / 19 资产，needs-review）。
 - 提交前按 RELEASE 清单执行 `git status --ignored --short`、`git ls-files local-data output tmp`、密钥模式 grep 与 staged diff 人工复核。
 - 线上验收（部署完成后补记）：见下一段。
+
+### 线上验收（2026-09-02）
+
+- 提交 `66f2324` 推送后，Actions run `33580225575` 构建并部署成功。
+- curl：`/content/2009.json`、`/content/cn408-2009/source/questions-1.png` 均为 200。
+- 真实 Chrome（channel=chrome，SW 屏蔽）线上验收 8/8 通过：桌面 1440 真题页 47 题、Q1 作答提交判定正确（选 B 队列）、来源解析展示、原卷/解析扫描图从 `/content/cn408-2009/` 加载成功、刷新后练习恢复、`/mock` 保持“尚未完成 47 题人工复核”关闭态；移动 390 真题页 47 题、无横向溢出、Q2 练习可用；全程无资源级 4xx/5xx、无 pageerror。
+- 已知既有现象（与本次改动无关）：GitHub Pages 对应用深链接文档本身返回 HTTP 404 并以 `apps/web/public/404.html` 回退进 SPA（`/lab` 等老路由同样如此，RELEASE.md 已文档化）；直接输入深链接时控制台会出现一条该文档 404 提示，应用正常渲染。
+- 截图：`output/playwright/verify-live-pack/`。题包现为公开可下载内容（用户已知情并授权）；`needs-review; verified 0/47` 状态未变。
+
+### 下一检查点
+
+- 2009 刷题闭环已在线上可用。下一步自然候选：在站内 `/review/2009` 推进 47/47 人工复核以解锁 `/mock`；或开始 2010 题包导入（新增年份首次公开须逐次授权）。Cloudflare 私有分发工具保留在 `local-data/deploy/`，如未来想收回公开内容可按其 README 重新启用。
