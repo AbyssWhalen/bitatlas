@@ -27,10 +27,16 @@ export function KnowledgePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
-  const forest = useMemo(() => buildKnowledgeForest(knowledgePoints, questions), [knowledgePoints, questions]);
+  // 知识证据图是 2009 题目级证据图：只聚合 2009 题目引用的知识点与学科根节点。
+  const questions2009 = useMemo(() => questions.filter((question) => question.year === 2009), [questions]);
+  const knowledgePoints2009 = useMemo(() => {
+    const referenced = new Set(questions2009.flatMap((question) => question.knowledgePointIds));
+    return knowledgePoints.filter((point) => point.id.startsWith('subject-') || referenced.has(point.id));
+  }, [knowledgePoints, questions2009]);
+  const forest = useMemo(() => buildKnowledgeForest(knowledgePoints2009, questions2009), [knowledgePoints2009, questions2009]);
   const analytics = useMemo(
-    () => aggregateKnowledgePerformance(attempts, questions, forest),
-    [attempts, forest, questions],
+    () => aggregateKnowledgePerformance(attempts, questions2009, forest),
+    [attempts, forest, questions2009],
   );
   const nodeById = useMemo(() => new Map(forest.nodes.map((node) => [node.point.id, node])), [forest]);
   const performanceById = useMemo(

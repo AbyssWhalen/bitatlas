@@ -17,6 +17,7 @@ vi.mock('../app/StudyContext', () => ({
     attempts: [],
     notes: new Map(),
     reviewSummary: { approved: 0, total: 47 },
+    contentIssues: [],
     ...study,
   }),
 }));

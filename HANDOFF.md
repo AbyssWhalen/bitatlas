@@ -2150,3 +2150,23 @@
 ### 下一检查点
 
 - 2009 刷题闭环已在线上可用。下一步自然候选：在站内 `/review/2009` 推进 47/47 人工复核以解锁 `/mock`；或开始 2010 题包导入（新增年份首次公开须逐次授权）。Cloudflare 私有分发工具保留在 `local-data/deploy/`，如未来想收回公开内容可按其 README 重新启用。
+
+## 2026-09-02 - 2010 题包接入与多年份支持（第一阶段）
+
+### 内容管线
+
+- 新数据源：`neville-studio/408-exam-paper`（2009-2025 重构版数字 PDF + 答案 PDF，MIT；作者声明不持有试卷内容版权）。答案键交叉核验源：csgraduates 每年“答案速对”快照（本地存 `local-data/sources/csg/<year>.html` 并入题包 crosschecks）。
+- 新增 `tools/content-importer/src/extract-year-pdf.py`（pypdf 逐页文本 + pypdfium2 JPEG 页面渲染，已装入项目 venv）与 `build-year.mjs`（年份参数化构建：按期望题号切分 47 题、行内选项切分、答案表“列块”转置解析、与 csgraduates 快照 40/40 硬门禁、解析切分（容忍 `36: 解析` 式排版笔误）、图示选项题以题干内嵌页面图 + 占位选项兜底、来源/交叉核验元数据、canonical hash）。纯函数测试 `build-year.node-test.mjs` 5/5。
+- `content:validate` 扩展为校验 `apps/web/public/content/*.json` 全部题包（schema + 资产哈希 + 与 generated 产物解析等价 + 重构 PDF 来源哈希）。当前 `cn408-2009` 与 `cn408-2010` 均 PASS（各 47 题，needs-review；verified 0/47）。
+- 2010 答案键：重构答案 PDF 与 csgraduates 40/40 一致；此前发现的“Q5 分歧”经查为 pypdf 阅读顺序假象，重构 PDF 答案表及其解析原文（叶结点 82=B）与 csgraduates 完全一致。
+
+### 应用多年份支持
+
+- `storage.ts` 新增 `installExtraContent()`：2010-2025 可选题包按 `/content/<year>.json` 安装，显式 404=未安装（正常），解析/校验失败记入问题列表不阻塞其他年份；旗舰 2009 保持原空内容模式 fail-closed 合同。
+- `StudyContext` 暴露 `contentIssues`；`QuestionsPage` 新增年份筛选（默认 2009，多套题包时显示年份切换，行内增加年份标签）；`DashboardPage` 年度卡片/科目分布/顺序练习限定 2009（日计划保持跨年份）；`KnowledgePage` 证据图限定 2009 题目引用的知识点；`SettingsPage` 显示扩展题包安装问题。
+- `code-only-mode.spec.ts` 拦截范围扩展到全部 `content/2*.json`。
+
+### 验证
+
+- 全仓 Vitest 通过（含新增 build-year 5 项与 web 全部单测）；lint、typecheck、production build 通过；`content:validate` 双题包 PASS。
+- 线上部署与 2010 浏览器验收：见下一条记录。

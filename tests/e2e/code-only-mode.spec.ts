@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('keeps the public code-only mode usable without the private 2009 pack', async ({ page }) => {
-  await page.route('**/content/2009.json?*', async (route) => {
+  await page.route('**/content/2*.json?*', async (route) => {
     await route.fulfill({ status: 404, contentType: 'application/json', body: '{}' });
   });
 

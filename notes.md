@@ -2803,3 +2803,10 @@
 - 线上验收（真实 Chrome）：桌面 1440 与移动 390 共 8/8 通过——47 题列表、Q1/Q2 作答与判定、来源解析、原卷扫描图（`/content/cn408-2009/*.png` 全 200）、刷新恢复练习、`/mock` verified 门禁保持关闭、390 无横向溢出。资源级 4xx/5xx 为零。
 - 深链接文档级 404（Pages + 404.html SPA 回退）为既有设计，`/lab` 同样如此；应用渲染不受影响，已在 HANDOFF 记录，不算本次回归。
 - 风险与既成事实：题库 JSON 与 19 张扫描图自本次提交起永久公开（git 历史），用户在选项中已知情确认；`/mock` 仍需 47/47 人工复核 ledger；后续年份题包首次公开须逐次授权（AGENTS.md 已写入）。
+
+## 2026-09-02 - 2010 题包与多年份支持上线（第一阶段）
+
+- 数据源：neville-studio/408-exam-paper 重构版 PDF（MIT，作者声明不持有试卷内容版权）+ csgraduates 答案键快照交叉。新增 extract-year-pdf.py / build-year.mjs / build-year.node-test.mjs（5/5）。
+- 2010 答案键双源 40/40 一致（重构答案表“列块”转置映射 + csgraduates 快照；Q5“分歧”为 pypdf 阅读顺序假象，重构解析原文证实 B）。图示选项题 3 道（Q3 等）以题干内嵌页面图兜底，占位选项标注“见来源页”。
+- 应用：installExtraContent（2010-2025 可选安装，404=未安装，失败入 contentIssues 不阻塞）、QuestionsPage 年份筛选（默认 2009）、Dashboard 年度卡片限定 2009、Knowledge 证据图限定 2009 引用、code-only e2e 拦截扩展到 content/2*.json。408-user schema 未动。
+- 门禁：全仓 Vitest 97 files / 1090 tests 通过；lint/typecheck/build 通过；content:validate 双题包 PASS（各 47 题，needs-review；verified 0/47）。2011-2025 批量按同管线分批推进（每年需先下载 PDF+快照、跑双源核对门禁）。

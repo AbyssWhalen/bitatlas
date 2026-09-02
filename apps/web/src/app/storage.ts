@@ -7,6 +7,9 @@ export const CONTENT_ASSET_WARM_DELAY_MS = 5_000;
 
 const LOCAL_PACK_PATH = '/content/2009.json';
 const LOCAL_PACK_YEAR = 2009;
+// 旗舰年份（2009）走 installLocalContent 的空内容模式合同；
+// 扩展年份按“可选内容”安装：显式 404 = 未安装（正常），解析/校验失败记录为问题但不阻塞其他年份。
+export const EXTRA_PACK_YEARS = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 const VALIDATION_QUERY = '__408os_validate';
 const SHA256_PATTERN = /^[a-f0-9]{64}$/i;
 
@@ -333,4 +336,41 @@ export async function installLocalContent(options: InstallLocalContentOptions = 
 
   if (networkFailure instanceof Error) throw networkFailure;
   throw new LocalContentUnavailableError();
+}
+
+export interface InstallExtraContentOptions {
+  repository?: InstallRepository;
+  fetcher?: ContentFetcher;
+  cacheStorage?: CacheStorageLike;
+  schedule?: Scheduler;
+}
+
+export async function installExtraContent(options: InstallExtraContentOptions = {}): Promise<string[]> {
+  const repository = options.repository ?? storage.contentRepository;
+  const fetcher = options.fetcher ?? defaultFetcher;
+  const cacheStorage = options.cacheStorage ?? defaultCacheStorage();
+  const schedule = options.schedule ?? defaultScheduler;
+  const issues: string[] = [];
+  for (const year of EXTRA_PACK_YEARS) {
+    const packPath = `/content/${year}.json`;
+    let response: Response;
+    try {
+      response = await fetcher(validationRequestPath(packPath, String(Date.now())), { cache: 'no-store' });
+    } catch (reason) {
+      issues.push(`${year}: ${reason instanceof Error ? reason.message : '网络错误'}`);
+      continue;
+    }
+    if (!response.ok) continue;
+    try {
+      const pack = (await response.json()) as LocalContentPack;
+      if (pack.manifest?.year !== year) throw new Error(`题包年份不是 ${year}，拒绝安装。`);
+      const manifest = await repository.installPack(pack, false);
+      if (manifest.year !== year) throw new Error(`题包安装结果年份不是 ${year}。`);
+      await cacheInstalledPackDocument(packPath, response.clone(), cacheStorage);
+      scheduleInstalledPackAssetCaching(pack, true, schedule, cacheStorage, fetcher);
+    } catch (reason) {
+      issues.push(`${year}: ${reason instanceof Error ? reason.message : '安装失败'}`);
+    }
+  }
+  return issues;
 }

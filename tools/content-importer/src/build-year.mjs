@@ -1,0 +1,403 @@
+// 年份参数化的 408 题包构建器（Neville-studio 重构版 PDF + csgraduates 答案键交叉核验）。
+//
+// 输入（git-ignored）：
+//   local-data/work/rebuild/<year>/paper-pages.json / answer-pages.json   <- extract-year-pdf.py
+//   local-data/work/rebuild/<year>/render/{paper,answers}-N.jpg
+//   local-data/sources/rebuild/<year>.pdf / <year>-answer.pdf              <- 用于 sha256 来源记录
+//   local-data/sources/csg/<year>.html                                     <- csgraduates 答案表快照
+// 输出：
+//   local-data/generated/<year>.pack.json / <year>.quality.json
+//   apps/web/public/content/<year>.json
+//   apps/web/public/content/cn408-<year>/source/*.jpg
+//
+// 硬性门禁：重构答案 PDF 与 csgraduates 快照的 1-40 答案键必须 40/40 一致，否则构建失败。
+
+import { createHash } from 'node:crypto';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { computeContentPackHash, validateContentPack } from '@408os/content-schema';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+
+export const subjectOf = (number) => {
+  if (number <= 11 || number === 41 || number === 42) return 'data-structures';
+  if (number <= 22 || number === 43 || number === 44) return 'computer-organization';
+  if (number <= 32 || number === 45 || number === 46) return 'operating-systems';
+  return 'computer-networks';
+};
+
+const SUBJECT_NAMES = {
+  'data-structures': '数据结构',
+  'computer-organization': '计算机组成原理',
+  'operating-systems': '操作系统',
+  'computer-networks': '计算机网络',
+};
+
+const SECTION_HEADER = /^\s*[一二三四五六七八九十]、\s*(单项选择题|综合应用题)/;
+
+export function stripPageHeaders(pageTexts, year) {
+  const headerPattern = new RegExp(`^\\s*${year}\\s*年[^\\n]*第\\d+页，共\\d+页\\s*$`);
+  return pageTexts.map((text) => text
+    .split('\n')
+    .filter((line) => !headerPattern.test(line) && !SECTION_HEADER.test(line))
+    .join('\n'));
+}
+
+// 按顺序期望值切分：只有行首数字等于“下一题号”才开新块，避免 0.7 / 2010 年等误切。
+// 返回 [{ number, lines, pages }]，pages 为该块覆盖的页码（升序）。
+export function splitNumberedBlocks(pageTexts, expectedCount) {
+  const blocks = [];
+  let current = null;
+  let expected = 1;
+  pageTexts.forEach((pageText, pageIndex) => {
+    for (const line of pageText.split('\n')) {
+      const match = line.match(/^\s*(\d{1,2})\.\s*(.*)$/);
+      if (match && Number(match[1]) === expected) {
+        if (current) blocks.push(current);
+        current = { number: expected, lines: [match[2]], pages: new Set([pageIndex + 1]) };
+        expected += 1;
+      } else if (current) {
+        current.lines.push(line);
+        current.pages.add(pageIndex + 1);
+      }
+    }
+  });
+  if (current) blocks.push(current);
+  if (blocks.length !== expectedCount) {
+    throw new Error(`Expected ${expectedCount} numbered blocks, found ${blocks.length}.`);
+  }
+  return blocks.map((block) => ({
+    number: block.number,
+    text: block.lines.join('\n').trim(),
+    pages: [...block.pages].sort((left, right) => left - right),
+  }));
+}
+
+export const splitPaperQuestions = (pageTexts) => splitNumberedBlocks(pageTexts, 47);
+
+// 单选题选项切分：严格按 A→B→C→D 顺序出现；图示选项题（无可解析文本）返回 null。
+export function splitOptions(questionText) {
+  const markers = [];
+  const pattern = /(?:^|\s)([A-D])\s*\.\s*/g;
+  let match;
+  while ((match = pattern.exec(questionText)) !== null) {
+    if (match[1] !== String.fromCharCode(65 + markers.length)) return null;
+    markers.push({
+      id: match[1],
+      markerStart: match.index,
+      contentStart: match.index + match[0].length,
+    });
+    if (markers.length === 4) break;
+  }
+  if (markers.length !== 4) return null;
+  const stem = questionText.slice(0, markers[0].markerStart).trim();
+  const options = markers.map((marker, index) => {
+    const end = index + 1 < markers.length ? markers[index + 1].markerStart : questionText.length;
+    return { id: marker.id, text: questionText.slice(marker.contentStart, end).trim() };
+  });
+  if (options.some((option) => option.text.length === 0)) return null;
+  return { stem, options };
+}
+
+// 答案表（layout 模式）：列头 N. 后跟该列 5 个字母，对应题号 N, N+8, N+16, N+24, N+32。
+export function parseAnswerTable(layoutTexts) {
+  const key = new Map();
+  for (const text of layoutTexts) {
+    for (const match of text.matchAll(/(\d{1,2})\.\s+([A-D]{5})/g)) {
+      const column = Number(match[1]);
+      [...match[2]].forEach((letter, index) => {
+        key.set(column + index * 8, letter);
+      });
+    }
+  }
+  return key;
+}
+
+// csgraduates “答案速对”快照：顺序 1..40 的 “N 字母” 对。
+export function parseCsgraduatesKey(html) {
+  const marker = html.indexOf('答案速对');
+  if (marker === -1) throw new Error('csgraduates snapshot is missing the answer table.');
+  const region = html.slice(marker, marker + 6000).replace(/<[^>]+>/g, ' ');
+  const key = new Map();
+  for (const match of region.matchAll(/(\d{1,2})\s+([A-D])(?=\s|$)/g)) {
+    const number = Number(match[1]);
+    if (number === key.size + 1) key.set(number, match[2]);
+    if (key.size === 40) break;
+  }
+  if (key.size !== 40) throw new Error(`csgraduates key incomplete: ${key.size}/40.`);
+  return key;
+}
+
+export function reconcileKeys(primary, secondary) {
+  const mismatches = [];
+  for (let number = 1; number <= 40; number += 1) {
+    const left = primary.get(number);
+    const right = secondary.get(number);
+    if (!left || !right) throw new Error(`Answer key missing question ${number}.`);
+    if (left !== right) mismatches.push({ number, left, right });
+  }
+  return mismatches;
+}
+
+// 解析切分：1-40 为 “N. 解析：”，41-47 为 “N. 解答：”，顺序必须恰好 1..47。
+export function splitExplanations(pageTexts) {
+  const text = pageTexts.join('\f');
+  const pattern = /(\d{1,2})[.．:：]\s*(?:解析|解答)\s*[:：]/g;
+  const found = [];
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    // 顺序门禁：只有等于“下一个期望题号”才认定为解析标记，避免正文引用误切。
+    if (Number(match[1]) !== found.length + 1) continue;
+    found.push({
+      number: Number(match[1]),
+      start: match.index + match[0].length,
+      page: text.slice(0, match.index).split('\f').length,
+    });
+  }
+  const order = found.map((entry) => entry.number).join(',');
+  if (order !== Array.from({ length: 47 }, (_, index) => index + 1).join(',')) {
+    throw new Error(`Explanation markers out of order or incomplete: ${order}`);
+  }
+  return found.map((entry, index) => ({
+    number: entry.number,
+    page: entry.page,
+    text: text.slice(entry.start, index + 1 < found.length ? found[index + 1].start : text.length).trim(),
+  }));
+}
+
+function jpegDimensions(buffer) {
+  let offset = 2;
+  while (offset + 9 < buffer.length) {
+    if (buffer[offset] !== 0xff) { offset += 1; continue; }
+    const marker = buffer[offset + 1];
+    const length = buffer.readUInt16BE(offset + 2);
+    if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
+      return { height: buffer.readUInt16BE(offset + 5), width: buffer.readUInt16BE(offset + 7) };
+    }
+    offset += 2 + length;
+  }
+  throw new Error('JPEG dimensions not found.');
+}
+
+const textBlock = (value) => ({ type: 'text', text: value });
+
+export function buildYear(year, inputs) {
+  const rebuildKey = parseAnswerTable(inputs.answerPages.map((page) => page.layoutText));
+  const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
+  const mismatches = reconcileKeys(rebuildKey, crossKey);
+  if (mismatches.length > 0) {
+    throw new Error(`Answer key mismatch between rebuild PDF and csgraduates: ${
+      mismatches.map((entry) => `Q${entry.number}: ${entry.left} != ${entry.right}`).join('; ')}`);
+  }
+
+  const explanations = splitExplanations(inputs.answerPages.map((page) => page.text));
+  const paperBlocks = splitPaperQuestions(inputs.paperPages.map((page) => page.text), year);
+  const packId = `cn408-${year}`;
+
+  const assets = [];
+  const assetIdByFile = new Map();
+  const registerAsset = (fileName, sourcePage, kind) => {
+    const buffer = inputs.renderBuffers.get(fileName);
+    if (!buffer) throw new Error(`Missing render ${fileName}.`);
+    const id = `${packId}-source-${kind}-page-${sourcePage}`;
+    const dims = jpegDimensions(buffer);
+    assets.push({
+      id,
+      path: `/content/${packId}/source/${fileName}`,
+      mimeType: 'image/jpeg',
+      sha256: createHash('sha256').update(buffer).digest('hex'),
+      sourcePage,
+      width: dims.width,
+      height: dims.height,
+    });
+    assetIdByFile.set(fileName, id);
+  };
+  for (const fileName of inputs.paperRenders) registerAsset(fileName, Number(fileName.match(/(\d+)\.jpg$/)[1]), 'questions');
+  for (const fileName of inputs.answerRenders) registerAsset(fileName, Number(fileName.match(/(\d+)\.jpg$/)[1]), 'answers');
+
+  const knowledgePoints = Object.entries(SUBJECT_NAMES)
+    .map(([id, name]) => ({ id: `subject-${id}`, subject: id, name }));
+  const questions = [];
+  const quality = [];
+  for (const block of paperBlocks) {
+    const number = block.number;
+    const subject = subjectOf(number);
+    const explanation = explanations[number - 1];
+    const topicText = explanation.text.replace(/\s+/g, ' ').split(/[。\n]/)[0].slice(0, 80) || `第 ${number} 题`;
+    const topicId = `topic-${year}-q${String(number).padStart(2, '0')}`;
+    knowledgePoints.push({ id: topicId, subject, name: topicText, parentId: `subject-${subject}` });
+    const paperAssetId = assetIdByFile.get(`paper-${block.pages[0]}.jpg`);
+
+    let stem;
+    let options;
+    let figureOptions = false;
+    const bodyText = block.text.replace(/^\s*\d{1,2}\.\s*/, '').trim();
+    if (number <= 40) {
+      const parsed = splitOptions(bodyText);
+      if (parsed) {
+        stem = [textBlock(parsed.stem)];
+        options = parsed.options.map((option) => ({ id: option.id, content: [textBlock(option.text)] }));
+      } else {
+        figureOptions = true;
+        stem = [
+          textBlock(bodyText),
+          { type: 'image', assetId: paperAssetId, alt: `${year} 年第 ${number} 题原卷页面（选项为图示）` },
+        ];
+        options = ['A', 'B', 'C', 'D'].map((id) => ({
+          id,
+          content: [textBlock(`选项 ${id} 为图示，请通过来源页对照原卷作答。`)],
+        }));
+      }
+    } else {
+      stem = [textBlock(bodyText)];
+    }
+
+    let answer;
+    if (number <= 40) {
+      answer = { type: 'choice', optionId: rebuildKey.get(number) };
+    } else {
+      const maxScore = Number((bodyText.match(/（(\d+)\s*分）/) ?? [])[1]);
+      if (!Number.isInteger(maxScore) || maxScore <= 0) {
+        throw new Error(`Question ${number} is missing a valid score marker.`);
+      }
+      answer = {
+        type: 'comprehensive',
+        maxScore,
+        rubric: [{ id: `q${number}-rubric`, description: '按照来源解析逐点自评', points: maxScore }],
+        reference: [textBlock(explanation.text)],
+      };
+    }
+
+    const firstHint = topicText.replace(/^考查/, '先回忆');
+    const hints = [[textBlock(firstHint)], [textBlock('标出题干中的关键限制，再逐项核对定义、数据流或计算过程。')]];
+
+    questions.push({
+      id: `cn408-${year}-q${String(number).padStart(2, '0')}`,
+      year,
+      number,
+      subject,
+      kind: number <= 40 ? 'single-choice' : 'comprehensive',
+      stem,
+      ...(options ? { options } : {}),
+      answer,
+      explanation: [{ id: `q${number}-analysis`, title: '来源解析', content: [textBlock(explanation.text)] }],
+      hints,
+      knowledgePointIds: [`subject-${subject}`, topicId],
+      assetIds: figureOptions ? [paperAssetId] : [],
+      source: {
+        question: {
+          publisher: 'Neville Studio 408-exam-paper（重构版）',
+          title: `${year} 年计算机学科专业基础综合试题（重构版）`,
+          url: `https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/papers-rebuild/${year}.pdf`,
+          fileName: `${year}.pdf`,
+          sha256: inputs.paperSha256,
+          pages: block.pages,
+          locator: `PDF page ${block.pages.join(', ')}; question ${number}`,
+        },
+        answer: {
+          publisher: 'Neville Studio 408-exam-paper（重构版答案）',
+          title: `${year} 年计算机学科专业基础综合试题参考答案（重构版）`,
+          url: `https://raw.githubusercontent.com/neville-studio/408-exam-paper/main/answers/${year}-answer.pdf`,
+          fileName: `${year}-answer.pdf`,
+          sha256: inputs.answerSha256,
+          pages: [explanation.page],
+          locator: `PDF page ${explanation.page}; answer ${number}`,
+        },
+        crosschecks: [{
+          publisher: '计算机考研杂货铺（答案速对快照）',
+          title: `${year} 年 408 真题选择题答案速对`,
+          url: `https://csgraduates.com/study_methods/408quiz/${year}/`,
+          fileName: `csg-${year}.html`,
+          sha256: inputs.csgraduatesSha256,
+          pages: [],
+          locator: 'Answer table 1-40',
+        }],
+        redistribution: 'unknown',
+      },
+      contentVersion: `${year}.0-draft.1`,
+      reviewStatus: 'needs-review',
+    });
+    quality.push({ number, subject, figureOptions, hasExplanation: explanation.text.length > 0 });
+  }
+
+  const pack = {
+    manifest: {
+      id: packId,
+      schemaVersion: 1,
+      contentVersion: `${year}.0-draft.1`,
+      title: `${year} 年计算机学科专业基础综合试题`,
+      year,
+      questionCount: questions.length,
+      createdAt: new Date().toISOString(),
+      sha256: '',
+      reviewStatus: 'needs-review',
+    },
+    questions,
+    knowledgePoints,
+    assets,
+  };
+  pack.manifest.sha256 = computeContentPackHash(pack);
+  const validation = validateContentPack(pack, { enforceExamShape: true });
+  if (!validation.success) {
+    throw new Error(`Pack validation failed: ${validation.issues.map((issue) => `${issue.path}: ${issue.message}`).join('; ')}`);
+  }
+  return { pack, quality };
+}
+
+export async function main() {
+  const flagIndex = process.argv.indexOf('--year');
+  const year = Number(process.argv[flagIndex + 1]);
+  if (!Number.isInteger(year) || year < 2010) throw new Error('Usage: tsx src/build-year.mjs --year <2010+>');
+  const workDir = path.join(root, 'local-data', 'work', 'rebuild', String(year));
+  const sourcesDir = path.join(root, 'local-data', 'sources');
+  const renderBuffers = new Map();
+  const paperRenders = [];
+  const answerRenders = [];
+  for (let page = 1; page <= 30; page += 1) {
+    for (const [prefix, bucket] of [['paper', paperRenders], ['answers', answerRenders]]) {
+      const fileName = `${prefix}-${page}.jpg`;
+      try {
+        renderBuffers.set(fileName, await readFile(path.join(workDir, 'render', fileName)));
+        bucket.push(fileName);
+      } catch { /* pages exhausted */ }
+    }
+  }
+  const inputs = {
+    paperPages: JSON.parse(await readFile(path.join(workDir, 'paper-pages.json'), 'utf8')),
+    answerPages: JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8')),
+    csgraduatesHtml: await readFile(path.join(sourcesDir, 'csg', `${year}.html`), 'utf8'),
+    paperSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}.pdf`))).digest('hex'),
+    answerSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}-answer.pdf`))).digest('hex'),
+    csgraduatesSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'csg', `${year}.html`))).digest('hex'),
+    renderBuffers,
+    paperRenders,
+    answerRenders,
+  };
+
+  const { pack, quality } = buildYear(year, inputs);
+  const generatedDir = path.join(root, 'local-data', 'generated');
+  const publicDir = path.join(root, 'apps', 'web', 'public', 'content');
+  await mkdir(generatedDir, { recursive: true });
+  await mkdir(path.join(publicDir, `cn408-${year}`, 'source'), { recursive: true });
+  const packText = JSON.stringify(pack, null, 1);
+  await writeFile(path.join(generatedDir, `${year}.pack.json`), packText);
+  await writeFile(path.join(generatedDir, `${year}.quality.json`), JSON.stringify({
+    year,
+    questionCount: pack.questions.length,
+    answerKeyContract: 'rebuild-answer-pdf == csgraduates-snapshot (40/40)',
+    figureOptionQuestions: quality.filter((entry) => entry.figureOptions).map((entry) => entry.number),
+    quality,
+  }, null, 1));
+  await writeFile(path.join(publicDir, `${year}.json`), packText);
+  for (const asset of pack.assets) {
+    const fileName = asset.path.split('/').at(-1);
+    await copyFile(path.join(workDir, 'render', fileName), path.join(publicDir, `cn408-${year}`, 'source', fileName));
+  }
+  const figures = quality.filter((entry) => entry.figureOptions).map((entry) => entry.number);
+  console.log(`PASS cn408-${year}: ${pack.questions.length} questions, assets ${pack.assets.length}, figure-option questions: ${figures.length ? figures.join(',') : 'none'}`);
+}
+
+if (process.argv[1] && process.argv[1].replace(/\\/g, '/').endsWith('build-year.mjs')) {
+  await main();
+}

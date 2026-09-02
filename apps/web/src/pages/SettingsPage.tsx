@@ -5,7 +5,7 @@ import { BACKUP_DOWNLOAD_PREFIX } from '../app/brand';
 import { useStudy } from '../app/StudyContext';
 
 export function SettingsPage() {
-  const { packs, questions, attempts, notes, reviewSummary, exportBackup, importBackup, installVerifiedPack } = useStudy();
+  const { packs, questions, attempts, notes, reviewSummary, contentIssues, exportBackup, importBackup, installVerifiedPack } = useStudy();
   const navigate = useNavigate();
   const backupInput = useRef<HTMLInputElement>(null);
   const verifiedPackInput = useRef<HTMLInputElement>(null);
@@ -62,6 +62,12 @@ export function SettingsPage() {
         <div className="command-row"><button className="secondary-command" onClick={() => verifiedPackInput.current?.click()}><Upload size={17} />导入 Verified 题包</button></div>
         <input ref={verifiedPackInput} type="file" accept="application/json,.json" hidden onChange={(event) => { const file = event.target.files?.[0]; if (file) void handleVerifiedPackImport(file); event.currentTarget.value = ''; }} />
       </section>
+      {contentIssues.length > 0 && (
+        <section className="backup-band" role="alert">
+          <div><span className="eyebrow">CONTENT ISSUES</span><h2>扩展题包安装提示</h2><p>以下可选题包安装失败，其余功能不受影响：</p></div>
+          <ul>{contentIssues.map((issue) => <li key={issue}>{issue}</li>)}</ul>
+        </section>
+      )}
       <section className="backup-band">
         <div><span className="eyebrow">LOCAL PDF</span><h2>本地资料库</h2><p>PDF 独立保存在当前浏览器，不进入学习备份。</p></div>
         <div className="command-row"><button className="secondary-command" onClick={() => navigate('/documents')}><BookOpen size={17} />打开本地资料库<ArrowRight size={17} /></button></div>

@@ -11,6 +11,8 @@
     "build:2009": "tsx src/build-2009.mjs",
     "release:2009": "tsx src/release-2009.mjs",
     "test:release": "tsx --test src/release-2009.node-test.mjs",
-    "validate": "tsx src/validate.mjs"
+    "validate": "tsx src/validate.mjs",
+    "build:year": "tsx src/build-year.mjs",
+    "test:year": "tsx --test src/build-year.node-test.mjs"
   }
 }

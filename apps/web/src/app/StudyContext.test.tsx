@@ -12,6 +12,7 @@ import { StudyProvider, useStudy } from './StudyContext';
 
 const storageMocks = vi.hoisted(() => ({
   installLocalContent: vi.fn(async () => undefined),
+  installExtraContent: vi.fn(async () => [] as string[]),
   listPacks: vi.fn(),
   listQuestions: vi.fn(),
   listKnowledgePoints: vi.fn(async () => []),
@@ -44,6 +45,7 @@ const storageMocks = vi.hoisted(() => ({
 
 vi.mock('./storage', () => ({
   installLocalContent: storageMocks.installLocalContent,
+  installExtraContent: storageMocks.installExtraContent,
   installVerifiedContentPack: vi.fn(),
   isLocalContentUnavailableError: (reason: unknown) => (
     reason instanceof Error && reason.name === 'LocalContentUnavailableError'

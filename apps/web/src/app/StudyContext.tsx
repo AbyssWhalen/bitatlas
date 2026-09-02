@@ -26,6 +26,7 @@ import {
 } from '@408os/domain';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
+  installExtraContent,
   installLocalContent,
   installVerifiedContentPack,
   isLocalContentUnavailableError,
@@ -48,6 +49,7 @@ export interface ContentReviewDraft {
 interface StudyContextValue {
   loading: boolean;
   error: string | null;
+  contentIssues: string[];
   packs: ContentPackManifest[];
   questions: Question[];
   knowledgePoints: KnowledgePoint[];
@@ -123,6 +125,7 @@ function nextContentReviewTimestamp(previous: string | null): string {
 export function StudyProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [contentIssues, setContentIssues] = useState<string[]>([]);
   const [packs, setPacks] = useState<ContentPackManifest[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [knowledgePoints, setKnowledgePoints] = useState<KnowledgePoint[]>([]);
@@ -177,17 +180,20 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     void (async () => {
       try {
         await installLocalContent();
+      } catch (reason) {
+        if (active && !isLocalContentUnavailableError(reason)) {
+          if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
+          setLoading(false);
+          return;
+        }
+        // 显式 HTTP 缺失：进入空内容模式，同时仍尝试安装可选扩展年份。
+      }
+      try {
+        const issues = await installExtraContent();
+        if (active) setContentIssues(issues);
         if (active) await reload();
       } catch (reason) {
-        if (active && isLocalContentUnavailableError(reason)) {
-          try {
-            await reload();
-          } catch (reloadReason) {
-            if (active) setError(reloadReason instanceof Error ? reloadReason.message : '初始化失败');
-          }
-        } else if (active) {
-          setError(reason instanceof Error ? reason.message : '初始化失败');
-        }
+        if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
       } finally {
         if (active) setLoading(false);
       }
@@ -487,6 +493,7 @@ export function StudyProvider({ children }: { children: ReactNode }) {
   const value: StudyContextValue = {
     loading,
     error,
+    contentIssues,
     packs,
     questions,
     knowledgePoints,

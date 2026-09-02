@@ -20,26 +20,30 @@ export function DashboardPage() {
   const mastered = [...currentProgress.values()].filter((entry) => entry.mastery === 'mastered').length;
   const wrong = [...currentProgress.values()].filter((entry) => entry.lastCorrect === false).length;
   const questionById = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
+  // 2009 是旗舰年份：总览页的复习卡片、科目分布与顺序练习都限定 2009；
+  // 其他年份通过 /questions 的年份筛选练习，日计划保持跨年份。
+  const questions2009 = useMemo(() => questions.filter((question) => question.year === 2009), [questions]);
   const dailyPlan = useMemo(() => buildDailyReviewPlan(attempts, questions, {
     today: new Date(),
     timeZone: 'Asia/Shanghai',
     dailyLimit: 8,
   }), [attempts, questions]);
   const subjectCounts = useMemo(() => Object.entries(subjectMeta).map(([subject, meta]) => {
-    const subjectQuestions = questions.filter((question) => question.subject === subject);
+    const subjectQuestions = questions2009.filter((question) => question.subject === subject);
     const done = subjectQuestions.filter((question) => currentProgress.has(question.id)).length;
     return { subject, ...meta, total: subjectQuestions.length, done };
-  }), [currentProgress, questions]);
+  }), [currentProgress, questions2009]);
   const remainingPlanIds = dailyPlan.items.filter((item) => !item.completedToday).map((item) => item.questionId);
   const manifest = packs.find((pack) => pack.year === 2009);
   const packVerified = manifest?.reviewStatus === 'verified';
   const hasQuestions = questions.length > 0;
-  const choiceCount = questions.filter((question) => question.kind === 'single-choice').length;
-  const comprehensiveCount = questions.filter((question) => question.kind === 'comprehensive').length;
+  const has2009Questions = questions2009.length > 0;
+  const choiceCount = questions2009.filter((question) => question.kind === 'single-choice').length;
+  const comprehensiveCount = questions2009.filter((question) => question.kind === 'comprehensive').length;
 
   const startAll = async () => {
-    if (!hasQuestions) return;
-    const id = await createSession(questions.map((question) => question.id), 'practice');
+    if (!has2009Questions) return;
+    const id = await createSession(questions2009.map((question) => question.id), 'practice');
     navigate(`/practice/${id}`);
   };
 
@@ -119,13 +123,13 @@ export function DashboardPage() {
 
       <div className="dashboard-columns">
         <section className="year-band">
-          <div className="section-heading"><div><span className="eyebrow">历年真题</span><h2>2009 全国统考</h2></div><span className="pack-status">{hasQuestions ? `${questions.length} 题` : '未安装'}</span></div>
-          <div className="year-progress"><span style={{ width: `${questions.length ? (attempted / questions.length) * 100 : 0}%` }} /></div>
+          <div className="section-heading"><div><span className="eyebrow">历年真题</span><h2>2009 全国统考</h2></div><span className="pack-status">{has2009Questions ? `${questions2009.length} 题` : '未安装'}</span></div>
+          <div className="year-progress"><span style={{ width: `${questions2009.length ? (questions2009.filter((question) => currentProgress.has(question.id)).length / questions2009.length) * 100 : 0}%` }} /></div>
           <div className="year-facts">
             <span><strong>{choiceCount}</strong> 单项选择</span><span><strong>{comprehensiveCount}</strong> 综合应用</span><span><strong>{mastered}</strong> 已掌握</span>
           </div>
           <div className="command-row">
-            <button className="primary-command" disabled={!hasQuestions} onClick={() => void startAll()}><Play size={17} />顺序练习</button>
+            <button className="primary-command" disabled={!has2009Questions} onClick={() => void startAll()}><Play size={17} />顺序练习</button>
             <button className="secondary-command" onClick={() => navigate('/questions')}>筛选题目<ArrowRight size={17} /></button>
           </div>
         </section>
