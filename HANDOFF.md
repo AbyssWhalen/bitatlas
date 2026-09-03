@@ -2230,3 +2230,66 @@
 3) 性能与可达性巡检：Cloudflare 直连稳定性、PWA 离线、78MB 内容资产的缓存策略与首屏。
 
 边界：408-user schema v1/v2/v3、Q44（parallel-5/split-6 + needs-review）、人工复核门禁、2026 收录政策不变。授权范围（用户已在开场确认）：通过全部门禁的改动可提交、推送并部署到 Pages，部署后必须真实浏览器验收并记录；除此之外的破坏性操作仍须逐次请示。每完成关键步骤更新 HANDOFF.md，结束前给出实际验证结果清单与未解问题。
+
+## 2026-09-03 - 全量 E2E 修复 + 题包内容修复 + PWA/巡检（三波部署，全部线上验收）
+
+### 第一波：启动性能回归修复（commit 3d4df3e，已部署）
+
+- 17 套题包加入后首次默认全量 E2E 实跑：**133/201 passed、51 failed、17 did not run**（此前事实 187/189）。失败根因：每次启动 `installExtraContent` 串行 no-store fetch×16 + `installPack` 全量重写 IndexedDB（非幂等）+ 367 个资产（约 78MB）每次启动无条件 17 路并行预热；同 context 双页面时两份启动互相放大。
+- 修复（apps/web/src/app/storage.ts、StudyContext.tsx）：扩展题包 fetch 并行/安装串行并在年份间让出事件循环；installed manifest id+sha256 一致则跳过重写且不再重复预热资产；2009 旗舰同样幂等跳过（fetch 新鲜度与 fail-closed 合同不变）；首屏在 2009 安装+reload 后立即可用，扩展年份后台安装完成后才二次 reload；资产预热改全局串行队列。
+- 顺带修复既有 bug：`installExtraContent` 在 `response.json()` 之后才 `response.clone()`，必抛 "Body has already been consumed"，线上数据页因此长期显示 16 条假"安装失败"问题（现消失，已线上验收）。
+- 修复后三轮全量 E2E：192/201 → 199/201 → **201/201（run D，3.3min）**。未改弱断言、未延长超时；content-review:275 的残留偶发失败经 trace 定位为共享渲染进程主线程争用，随预热串行化消失。
+- lint / typecheck / vitest 1094 / build / content:validate 17/17 全过。顺带清掉 b801132 遗留的 build-year.mjs lint error（交接记录"lint 通过"与事实不符，实际该错误随 b801132 入库）。
+
+### 第二波：题包内容修复（commit 58222c0，已部署，contentVersion draft.1→draft.2）
+
+- **生成器回归修复**：`splitExplanations` 的标记正则在 b801132 丢失反斜杠（`(d{1,2})...s*`），解析切分全灭——13 套题包 611 题"解析暂缺"占位正是此 bug 所致（交接记录归因为"无干净标记"不准确）。修复后恢复真实解析：2012 +9、2014 +23、2015 +14、2018 +35（净 +128 题）；2010/2013/2017 保持 47/47。2011/2016/2020/2022/2023 有文本但标记形态不同（0 命中），2019/2021/2024/2025 为扫描答案卷无文本——见质量清单。
+- **题干缺图修复**：题干命中图示关键词（下图/如图/题N图/流程图等）的题现内嵌对应原卷页面图（与图示选项题同模式）。2010-2025 共 97 题获得题干配图（此前仅 4 道图示选项题有图）；assetIds 同步。经 2019 Q5 渲染页人工比对确认图在重构 PDF 中存在、此前确实丢失。
+- **形近错字**：build-year 白名单规范化（大千/小千/由千/对千/己知/己经等 → 于/已），12 处全清，扫描 0 命中；纯函数测试 8/8。
+- 边界：答案键 40/40 双源门禁、Q44、needs-review、/mock 门禁均未动；408-user schema 未动（contentVersion 递增属内容版本合同，进度按版本过滤为既有设计）。
+- content:validate 17/17 PASS；vitest 1094、lint、typecheck、build 通过；重建后全量 E2E run E：200/201（content-review:275 偶发一次，隔离 2.9s 通过）。
+
+### 第三波：PWA clientsClaim（commit 3e75f42，已部署）
+
+- 线上实测发现：SW 激活后页面 `navigator.serviceWorker.controller` 恒为 null（即使在线 reload），离线 reload 3/3 直接走网络失败；generateSW 产物只有 skipWaiting() 没有 clientsClaim()。vite.config.ts workbox 加 `clientsClaim: true` 后线上复验全绿：页面受控、离线 reload 出 47 题、离线练习路由（懒加载 chunk）可用。本地对应 E2E（study-flow:137）通过。
+
+### 线上验收（2026-09-03，真实 Chrome 国内直连）
+
+- curl：17 年份 JSON 与扫描图抽检 200；2019=draft.2 且 Q5 带 image 块；2010 无「大千」、Q45 真实解析。
+- 真实 Chrome 桌面+移动（脚本现位于 `tools/verify-live/verify-live-wave12.spec.ts`，截图 output/playwright/verify-live-wave12/）：默认 2009 47 题、17 年筛选、2019 Q5 题干图加载（AOE 网）、2019 Q24 图示选项题占位不变、2010 Q1 无错字、2018 Q6「己知」已修且解析为真实文本、数据页无假安装问题、移动 390 无横向溢出、PWA 离线（断网 reload 47 题+练习路由）。首轮跑出的 4 个 FAIL 全部为脚本自身问题（无效深链、嵌套 main、离线阶段资源错误误计），修正后全过。
+
+### 巡检结论与待办
+
+- 直连稳定：408.fytjut.com 连续 probe 全 200，TTFB ≈ 1s；来源页 JPG CF 边缘 HIT（max-age=14400）；题包 JSON CF DYNAMIC（不边缘缓存），应用启动自取 ≈2.8MB（更新检测设计，未变化时跳过重装）。
+- 新增质量清单文档 `docs/content-quality-backlog.md`（P2 解析占位约 530 题的三类处理路径、7 题上标丢失、提示词模板化、答案 locator assumed、sw.js CF 缓存 ≤10min、precache 慢网络分钟级）。
+- 待办：① content-review:275 在 24 worker 全量下仍属高敏感用例（run D 曾全绿），如再现可考虑给该用例的独立数据准备降耦合（不改断言）；② 解析占位的逐年格式扩展（P2 清单路径 1）；③ CF Cache Rule 对 /sw.js Bypass（需维护者在 CF Dashboard 操作）。
+
+## 2026-09-03 - 接手会话收尾（Run F 状态 + 验收脚本入库）
+
+上一会话（Zcode）在轮询 Run F（3e75f42 clientsClaim 后的最终全量 E2E）时因模型日限额中断；Run F 进程未正常结束，`.last-run.json` 缺失，**结果未记录，不得视为已通过**。本会话接手后的处理与结论：
+
+### 验收脚本入库
+
+- `verify-live.spec.ts`、`verify-live-17years.spec.ts`、`verify-live-wave12.spec.ts` 三个线上验收脚本从 `local-data/deploy/`（git 忽略）迁至 `tools/verify-live/` 并随仓库提交，脚本内路径计算与截图目录不变，仅更新注释中的运行命令（`node --import tsx tools/verify-live/<name>.spec.ts`）。
+- `verify-flow.spec.ts`（Worker 私有分发门禁验证）与 `worker/`、`upload-content.mjs`、`local-preview.mjs` 等私有部署设施留在 `local-data/deploy/` 不提交；`quality-scan.mjs` 留在 `output/`。
+- 新增文件通过 eslint；vitest include（apps/packages 的 `*.test.*`）与 Playwright testMatch（tests/e2e、apps/web/e2e）均不会误扫 `tools/verify-live/*.spec.ts`。
+
+### Run F 复跑结论：TRAE 沙箱环境无法承载全量 E2E，未取得合同结果
+
+在本会话的 TRAE 终端内多次尝试复跑全量 E2E（8/4/2 workers、分片、预热 dist 后），全部呈系统性超时：页面 DOM 完整、locator 可解析，但元素长时间不进入 stable 状态（30s 超时），网络 trace 显示静态 chunk 单请求 14-31s。取证链：单测试 8.3s 通过、3 文件 3 workers 16.1s 通过、2 文件 2 workers 14/14 通过、8 个独立 Chrome 实例并发冷启动纯页面加载 1.5s 全过、preview 服务器单请求 170ms——即代码与构建产物本身健康；失败仅出现在长时间大规模运行时。根因定位为 TRAE 沙箱对本机 Chrome/Playwright 文件操作的拦截（Chrome 程序目录 debug.log、ms-playwright browser 注册目录、GPU/输入法缓存、npm debug log），长跑时被拦截的操作累积拖垮浏览器主线程；同因导致全仓 vitest 在沙箱内只完成 16/97 文件（81 个环境错误）。Zcode 的 run D/E（201/201、200/201）均在无沙箱终端完成，不受影响。
+
+### 当前 HEAD 门禁状态（如实记录）
+
+- lint 0 error、workspace typecheck 通过、production build 通过（PWA 88 entries / 2782.90 KiB）——本会话在沙箱内实测。
+- vitest 1094 全绿为 58222c0/3e75f42 提交前的实测记录；3e75f42 仅改 vite.config.ts workbox clientsClaim（build 时生效，不触及 vitest 覆盖的应用/包代码），该记录对当前 HEAD 仍有效，但未在本会话重跑全量。
+- 全量 E2E：run E（200/201）仍为内容重建后基线；3e75f42 的增量验证依据为其唯一相关用例 study-flow:137（PWA 离线，Zcode 已单独跑过通过）+ 线上真实 Chrome PWA 离线验收（断网 reload 47 题与练习路由可用）。**3e75f42 之后的完整 201 用例全量 E2E 尚未在任何环境取得通过记录，需维护者在无沙箱终端复跑**：
+
+```powershell
+npm run build
+npx vite preview --host 127.0.0.1 --port 4173   # 或直接 npm run test:e2e 让 Playwright 自管 webServer
+npx playwright test                              # 8 workers，参照 run D 约 3-4 分钟
+```
+
+### 本次提交内容与部署影响
+
+- 提交仅含文档（HANDOFF/notes/content-quality-backlog）与 tools/verify-live 验收脚本，无应用代码变更；Pages 部署产物与 3e75f42 已部署版本一致（同一 apps/packages 代码的确定性构建）。

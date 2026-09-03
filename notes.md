@@ -2810,3 +2810,12 @@
 - 2010 答案键双源 40/40 一致（重构答案表“列块”转置映射 + csgraduates 快照；Q5“分歧”为 pypdf 阅读顺序假象，重构解析原文证实 B）。图示选项题 3 道（Q3 等）以题干内嵌页面图兜底，占位选项标注“见来源页”。
 - 应用：installExtraContent（2010-2025 可选安装，404=未安装，失败入 contentIssues 不阻塞）、QuestionsPage 年份筛选（默认 2009）、Dashboard 年度卡片限定 2009、Knowledge 证据图限定 2009 引用、code-only e2e 拦截扩展到 content/2*.json。408-user schema 未动。
 - 门禁：全仓 Vitest 97 files / 1090 tests 通过；lint/typecheck/build 通过；content:validate 双题包 PASS（各 47 题，needs-review；verified 0/47）。2011-2025 批量按同管线分批推进（每年需先下载 PDF+快照、跑双源核对门禁）。
+
+## 2026-09-03 全量 E2E + 内容 + PWA 三波修复（实际命令与结果）
+
+- `npm run test:e2e`（默认全量）：修复前 133/201（51 failed、17 did not run）→ 三波修复后 run D 201/201；内容重建后 run E 200/201（content-review:275 一次偶发，隔离通过）；run F（clientsClaim 后）见 HANDOFF 补记。
+- 根因链（trace 取证）：installExtraContent 串行重装×16 + installPack 非幂等全量重写 + 78MB 资产无条件 17 路并行预热 → 共享渲染进程主线程饱和 → 5s 断言窗超时；双页面场景互相放大。
+- 既有 bug 再发现：① installExtraContent clone-after-json（16 条假安装失败，已修）；② splitExplanations 正则丢反斜杠随 b801132 入库（611 题占位解析的真因，已修，+128 题恢复）；③ SW 无 clientsClaim（线上离线 reload 必败，已修）。
+- 内容重建：build-year 增加题干图内嵌（97 题配图）与错字白名单（12 处清零）；contentVersion draft.2；content:validate 17/17。
+- 巡检：直连 5/5 200（TTFB≈1s）；JPG CF HIT；JSON CF DYNAMIC；sw.js 被 CF 边缘缓存 ≤10min（部署后更新延迟，建议 CF Cache Rule Bypass，需用户操作）。
+- 未解：2011/2016/2020/2022/2023 解析标记形态待逐年扩展；扫描卷年份解析需 OCR；7 题上标丢失；提示词模板化；content-review:275 高负载敏感。详见 docs/content-quality-backlog.md。
