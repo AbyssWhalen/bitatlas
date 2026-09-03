@@ -64,6 +64,19 @@ async function showReviewView(page: Page, name: '来源' | '结构化' | '核对
   }
 }
 
+// 双页复核用例的保存事务曾与后台扩展题包安装（解析+写库）争用主线程，高负载下
+// 5s 内到不了「已通过复核」。404 会被 installExtraContent 静默跳过（storage.ts），
+// 2009 旗舰包不受影响，断言面不变。
+async function skipExtraPackInstalls(page: Page) {
+  const extraYears = [
+    '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017',
+    '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025',
+  ];
+  await Promise.all(extraYears.map((year) => (
+    page.context().route(`**/content/${year}.json*`, (route) => route.fulfill({ status: 404 }))
+  )));
+}
+
 async function downloadJson<T>(download: Download): Promise<T> {
   const stream = await download.createReadStream();
   const chunks: Buffer[] = [];
@@ -273,6 +286,7 @@ test('enforces the rejection gate and exports a hash-bound ledger', async ({ pag
 });
 
 test('prevents a stale review tab from downgrading an approved record', async ({ page }, testInfo) => {
+  await skipExtraPackInstalls(page);
   await openReview(page);
   await showReviewView(page, '核对');
   const peer = await page.context().newPage();

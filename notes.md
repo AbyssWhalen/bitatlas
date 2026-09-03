@@ -2819,3 +2819,10 @@
 - 内容重建：build-year 增加题干图内嵌（97 题配图）与错字白名单（12 处清零）；contentVersion draft.2；content:validate 17/17。
 - 巡检：直连 5/5 200（TTFB≈1s）；JPG CF HIT；JSON CF DYNAMIC；sw.js 被 CF 边缘缓存 ≤10min（部署后更新延迟，建议 CF Cache Rule Bypass，需用户操作）。
 - 未解：2011/2016/2020/2022/2023 解析标记形态待逐年扩展；扫描卷年份解析需 OCR；7 题上标丢失；提示词模板化；content-review:275 高负载敏感。详见 docs/content-quality-backlog.md。
+
+## 2026-09-03 Run F 完成与 content-review:275 解耦（实际命令与结果）
+
+- 维护者授权后本会话完成 Run F：默认 8 workers 两轮 195/201、191/201（失败全为超时类、集合非确定、隔离复跑 18.1s 全过；根因是机器仅剩 ~5GB 内存承载不了 8 个并发 Chrome，非代码回归）；`--workers=4` 两轮 200/201 → 修复后 201/201（4.0m）。PWA 用例 study-flow:137 四轮三视口全过。
+- content-review:275 三轮均在 1440 早期排位失败，F3 报错定位为保存事务卡「正在保存审核记录」>5s：与后台 16 包安装（主线程解析+写库）争用，双页用例双份风暴。按 HANDOFF 预授权路径修复：tests/e2e/content-review.spec.ts 新增 skipExtraPackInstalls（2010-2025 路由 404，installExtraContent 静默跳过，2009 不受影响），断言与超时零改动。
+- 验证：eslint 0 error；content-review.spec.ts 18/18（原用例 2.7-4.0s）；全量 F4 201/201；npm run typecheck 通过。
+- 风险与未解：8 workers 基线需空闲机器复跑；study-flow:500/mock-exam:144 跨标签页用例高负载下同敏感（如再现按同模式解耦）；待办②解析占位逐年扩展、待办③ CF /sw.js Bypass 不变。

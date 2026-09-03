@@ -2293,3 +2293,31 @@ npx playwright test                              # 8 workers，参照 run D 约 
 ### 本次提交内容与部署影响
 
 - 提交仅含文档（HANDOFF/notes/content-quality-backlog）与 tools/verify-live 验收脚本，无应用代码变更；Pages 部署产物与 3e75f42 已部署版本一致（同一 apps/packages 代码的确定性构建）。
+
+## 2026-09-03 - Run F 完成：全量 E2E 201/201 + content-review:275 解耦修复（待办①落地）
+
+经维护者授权（"我给你权限，你去弄吧"），上一节遗留的 Run F 在本会话完成。全部运行如实记录：
+
+### 全量运行记录（HEAD 715f8a8，同一 dist、同一 preview 4173，零沙箱拦截）
+
+| 轮次 | 命令 | 结果 | 失败 |
+| --- | --- | --- | --- |
+| F | `npx playwright test`（默认 8 workers） | 195/201（4.4m） | 6 个全部超时/元素未找到类 |
+| F2 | `npx playwright test`（默认 8 workers） | 191/201（4.7m） | 10 个，失败数较 F 增长且集合不同 |
+| F3 | `npx playwright test --workers=4` | 200/201（4.2m） | 仅 content-review:275（chromium-1440） |
+| F4 | `npx playwright test --workers=4`（修复后） | **201/201（4.0m）** | 无 |
+
+- 8 worker 失败根因是环境容量而非代码：运行时机器仅剩 ~5GB 可用内存（用户浏览器多标签 + 9 个 MCP/插件 node 进程），8 个并发 Chrome 实例（约 3-6GB）超出余量。F 轮 6 个失败用 `--last-failed --workers=2` 隔离复跑 18.1s 全过（3.3-10.9s/条），F/F2 失败集合不同（非确定性），F2 报错抽样全部为超时类、无断言逻辑失败。与 run D（201/201、8 workers、3.3m）的差异为机器负载：run D 时点后续启动的 MCP 服务与用户浏览器标签尚未累积。
+- 3e75f42 直接相关用例 study-flow:137（PWA 离线）在 F/F2/F3/F4 四轮三视口全部通过；线上 PWA 验收此前已全绿。
+
+### content-review:275 失败根因与解耦修复
+
+- F3 唯一失败定位到保存事务而非页面加载：点击「通过复核」后状态停在「正在保存审核记录」，5s 内未到「已通过复核」——IndexedDB 保存事务与后台 `installExtraContent`（16 包解析+校验+写库，主线程 CPU）争用；该用例双页 = 双份安装风暴，且在 chromium-1440 项目排位 #19-26 正处安装窗口（F/F2/F3 三轮均在此用例 1440 失败，隔离必过 2.8s），符合上一节预授权的「独立数据准备降耦，不改断言」处理条件。
+- 修复（tests/e2e/content-review.spec.ts）：新增 `skipExtraPackInstalls(page)` helper，在该用例 context 上把 2010-2025 题包请求路由为 404——`installExtraContent` 对 non-ok 响应静默跳过（storage.ts `if (!entry.response.ok) continue`），无安装、无二次 reload、无 issue 记录；2009 旗舰（`/content/2009.json`）不受影响。断言与超时零改动。
+- 验证链：eslint 0 error → content-review.spec.ts 三视口 18/18（原用例 2.7-4.0s）→ 全量 F4 201/201 → workspace typecheck 通过。
+
+### 遗留说明
+
+- 默认 8 workers 全量在当前机器负载下无法复现 run D；4 workers 全量 201/201 为本 HEAD 的通过记录。如需 8 workers 基线，建议在空闲机器（关闭浏览器与其他常驻服务）复跑。
+- study-flow:500、mock-exam:144 等跨标签页用例在 8 workers 高负载下同为敏感（F/F2 曾失败、F3/F4 通过），如再现可按 `skipExtraPackInstalls` 同一模式解耦；本次未预先扩大改动面。
+- 待办②（2011/2016/2020/2022/2023 解析占位的逐年格式扩展）与待办③（Cloudflare Dashboard 给 /sw.js 配 Bypass，需维护者操作）不变，见 docs/content-quality-backlog.md。
