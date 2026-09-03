@@ -69,6 +69,9 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
+        // 不 claim 的话，SW 激活前的已打开页面（及其后续 reload）永远不会被控制，
+        // 离线 reload 会直接走网络失败（线上验收实测 controller 恒为 null）。
+        clientsClaim: true,
         globPatterns: ['**/*.{js,mjs,css,html,svg,png,woff2,json}'],
         globIgnores: ['**/content/**/*', '**/assets/pdf.worker.*.mjs', '**/pdfjs/**/*'],
         runtimeCaching: [
