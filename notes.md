@@ -2826,3 +2826,11 @@
 - content-review:275 三轮均在 1440 早期排位失败，F3 报错定位为保存事务卡「正在保存审核记录」>5s：与后台 16 包安装（主线程解析+写库）争用，双页用例双份风暴。按 HANDOFF 预授权路径修复：tests/e2e/content-review.spec.ts 新增 skipExtraPackInstalls（2010-2025 路由 404，installExtraContent 静默跳过，2009 不受影响），断言与超时零改动。
 - 验证：eslint 0 error；content-review.spec.ts 18/18（原用例 2.7-4.0s）；全量 F4 201/201；npm run typecheck 通过。
 - 风险与未解：8 workers 基线需空闲机器复跑；study-flow:500/mock-exam:144 跨标签页用例高负载下同敏感（如再现按同模式解耦）；待办②解析占位逐年扩展、待办③ CF /sw.js Bypass 不变。
+
+## 2026-09-03 待办②完成：splitExplanations 形态扩展 + 2023 页码修复（实际命令与结果）
+
+- 命令与结果：`npm run test:year --workspace @408os/content-importer` 17/17（16→17 例，新增 8 种标记形态 + 内嵌 `\f` 页码回归）；`npx tsx src/build-year.mjs --year <2010..2025>` 16 套全部 PASS（2023 首跑因页码虚增被资产校验拦截，修复 `\f` 归一后通过）；`npm run content:validate` 17/17 PASS；`npm run lint`、`npm run typecheck` 通过。
+- 效果：解析占位 530 → 188，342 题恢复真实解析（2011/2016/2020/2022/2023 从 0 → 47，2012 38→47、2014 24→47、2015 33→47、2018 12→47）；2010/2013/2017 解析清理掉尾部粘连的下一题标记（54 处）；答案键无变化（40/40 双源门禁照常通过）。
+- 2023 专项：答案页提取文本 14 页每页内嵌 `\f`，页码被算成 15-27 并引用不存在资产——join 前页内 `\f` 归一换行修复；该问题仅 2023 存在（其余 15 年 0 命中）。
+- 关键决策：顺序门禁保持严格连续（真实数据 12 年全部 47/47，无需容忍跳号，避免正文误切风险）；4 题答案表噪声（2013 Q3、2015 Q2、2017 Q5、2016 Q1）不裁剪（2016 Q1 噪声在块中部，启发式有误伤风险，needs-review 覆盖）。
+- 未解：2019/2021/2024/2025 解析需 rapidocr 整页 OCR；7 题上标丢失；提示词模板化；待办③ CF /sw.js Bypass。详见 docs/content-quality-backlog.md。

@@ -197,27 +197,44 @@ export function reconcileKeys(primary, secondary) {
   return mismatches;
 }
 
-// 解析切分：1-40 为 “N. 解析：”，41-47 为 “N. 解答：”，顺序必须恰好 1..47。
+// 解析切分：覆盖 2010-2023 各年答案卷的实际排版形态——
+//   “N. 解析：/N. 解答：”（2010-2018）、数字被提取成 l/I（2011/2016 Q1）、
+//   数字或分隔符周围带空格（2012/2014/2016/2020）、双点“N .. 解析：”（2015 Q15）、
+//   “解 析”关键词内空格（2018 Q36）、“NN.【解析】”方括号与 • 分隔（2020）、
+//   “NN. X。【解析】”答案字母夹层（2022）、“N.【参考答案】X + 块内【解析】”（2023）。
+// 顺序门禁保持不变：只接受等于“下一个期望题号”的标记，正文引用不会误切。
 export function splitExplanations(pageTexts) {
-  const text = pageTexts.join('\f');
-  const pattern = /(\d{1,2})[.．:：]\s*(?:解析|解答)\s*[:：]/g;
+  // 2023 的提取文本内嵌 \f，会把页码虚增到不存在的页；页内 \f 归一为换行，只保留页边界分隔符。
+  const text = pageTexts.map((pageText) => pageText.replace(/\f/g, '\n')).join('\f');
+  const pattern = /([0-9lI](?:[ \t]*[0-9lI])?)[ \t]*[.．•:：]*\s*(?:[A-Da-d]\s*[。.]\s*)?[ \t]*【?(参考答案|解[ \t]*[析答])】?[ \t]*[:：]?/g;
   const found = [];
   let match;
   while ((match = pattern.exec(text)) !== null) {
-    // 顺序门禁：只接受等于“下一个期望题号”的标记，正文引用不会误切。
-    if (Number(match[1]) !== found.length + 1) continue;
+    const number = Number(match[1].replace(/[ \t]/g, '').replace(/[lI]/g, '1'));
+    if (!Number.isInteger(number) || number < 1) continue;
+    if (number !== found.length + 1) continue;
     found.push({
-      number: Number(match[1]),
+      number,
+      isReference: match[2].startsWith('参考'),
       start: match.index + match[0].length,
+      markerIndex: match.index,
       page: text.slice(0, match.index).split('\f').length,
     });
   }
   const byNumber = new Map();
   found.forEach((entry, index) => {
-    const end = index + 1 < found.length ? found[index + 1].start : text.length;
+    // 块边界取下一标记的起点（而非内容起点），避免把“N+1. 解析：”尾巴带进第 N 题。
+    const end = index + 1 < found.length ? found[index + 1].markerIndex : text.length;
+    let contentStart = entry.start;
+    if (entry.isReference) {
+      // 2023 形态：标记是“N.【参考答案】X”，解析正文从块内独立的【解析】之后开始。
+      const block = text.slice(entry.start, end);
+      const innerMatch = /【解[ \t]*[析答]】/.exec(block);
+      if (innerMatch) contentStart = entry.start + innerMatch.index + innerMatch[0].length;
+    }
     byNumber.set(entry.number, {
       page: entry.page,
-      text: text.slice(entry.start, end).replace(/\f/g, '\n').trim(),
+      text: text.slice(contentStart, end).replace(/\f/g, '\n').trim(),
     });
   });
   return byNumber;

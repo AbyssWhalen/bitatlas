@@ -6,6 +6,7 @@ import {
   parseAnswerTableGeometry,
   parseCsgraduatesKey,
   reconcileKeys,
+  splitExplanations,
   splitNumberedBlocks,
   splitOptions,
   stemReferencesFigure,
@@ -29,6 +30,98 @@ describe('build-year pure parsers', () => {
     assert.equal(parsed.stem, '题干内容');
     assert.deepEqual(parsed.options.map((option) => option.text), ['甲', '乙', '丙', '丁']);
     assert.equal(splitOptions('题干只有图形选项'), null);
+  });
+
+  it('splitExplanations 标准形态切分且不带下一题标记尾巴', () => {
+    const pages = [
+      '1. 解析：\n第一题解析正文。\n2. 解析：\n第二题正文，含数字 3. 不会误切。',
+      '3. 解答：\n综合题正文。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 3);
+    assert.equal(result.get(1).text, '第一题解析正文。');
+    assert.equal(result.get(2).text, '第二题正文，含数字 3. 不会误切。');
+    assert.equal(result.get(3).text, '综合题正文。');
+    assert.equal(result.get(1).page, 1);
+    assert.equal(result.get(3).page, 2);
+  });
+
+  it('splitExplanations 把被提取成 l/I 的数字 1 识别为题号（2011/2016 形态）', () => {
+    const lower = splitExplanations(['l. 解析：\n第一题。\n2. 解析：\n第二题。']);
+    assert.equal(lower.get(1).text, '第一题。');
+    const upper = splitExplanations(['I. 解析：\n第一题。\n2. 解析：\n第二题。']);
+    assert.equal(upper.get(1).text, '第一题。');
+  });
+
+  it('splitExplanations 容忍数字与分隔符之间的空格（2012/2014/2016 断链形态）', () => {
+    const pages = ['1. 解析：\n第一题。\n2 . 解析：\n第二题。', '3 .. 解析：\n第三题（2015 双点形态）。'];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 3);
+    assert.equal(result.get(2).text, '第二题。');
+    assert.equal(result.get(3).text, '第三题（2015 双点形态）。');
+  });
+
+  it('splitExplanations 识别数字内空格、• 分隔与【解析】方括号（2020 形态）', () => {
+    const pages = [
+      '0 1 .【解析】\n第一题正文。\n02.【解析】\n第二题正文。\n3• 【解析】\n第三题正文。\n4 . 【解析】\n第四题正文。',
+      '05 . 【解析】\n第五题正文。\n06.【解析】\n第六题正文。\n07.【解析】\n第七题正文。\n08.【解析】\n第八题正文。\n09.【解析】\n第九题正文。',
+      '10.【解析】\n第十题正文。\n1 1 .【解析】\n第十一题正文。\n12 . 【解析】\n第十二题正文。\n13• 【解析】\n第十三题正文。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 13);
+    assert.equal(result.get(1).text, '第一题正文。');
+    assert.equal(result.get(11).text, '第十一题正文。');
+    assert.equal(result.get(12).text, '第十二题正文。');
+    assert.equal(result.get(13).text, '第十三题正文。');
+    assert.equal(result.get(1).page, 1);
+    assert.equal(result.get(11).page, 3);
+  });
+
+  it('splitExplanations 容忍关键词内部空格（2018 “解 析” 形态）', () => {
+    const result = splitExplanations(['1. 解 析：\n第一题。\n2. 解 析：\n第二题。']);
+    assert.equal(result.size, 2);
+    assert.equal(result.get(2).text, '第二题。');
+  });
+
+  it('splitExplanations 容忍题号与【解析】之间的答案字母（2022 形态）', () => {
+    const pages = [
+      '01. B。【解析】当外层循环变量变化时结果不同。\n02. D。【解析】通过模拟出入栈判断。',
+      '3. c. 【解析】时刻 0 发生超时。\n4. D。【解析】TCP 释放过程。\n05.【解析】\n综合题正文。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 5);
+    assert.equal(result.get(1).text, '当外层循环变量变化时结果不同。');
+    assert.equal(result.get(3).text, '时刻 0 发生超时。');
+    assert.equal(result.get(5).text, '综合题正文。');
+  });
+
+  it('splitExplanations 定位【参考答案】块内的【解析】起点，并容忍分隔符后的换行（2023 形态）', () => {
+    const pages = [
+      '1.【参考答案】D \n【解析】 线性表的顺序存储结构采用一组地址连续的存储单元。\n2.【参考答案】C \n【解析】 主要考察双链表的插入操作。',
+      '3.【解析】 \n（1）算法的第一步。\n4.\n【解析】\n（1）FTP 的控制连接是持久的。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 4);
+    assert.equal(result.get(1).text, '线性表的顺序存储结构采用一组地址连续的存储单元。');
+    assert.equal(result.get(2).text, '主要考察双链表的插入操作。');
+    assert.equal(result.get(3).text, '（1）算法的第一步。');
+    assert.equal(result.get(4).text, '（1）FTP 的控制连接是持久的。');
+  });
+
+  it('splitExplanations 顺序门禁拒绝正文里的越界标记', () => {
+    const pages = ['1. 解析：\n正文引用 42. 解析：不应误切。\n答案速对里也不会出现解析标记。'];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 1);
+    assert.equal(result.get(1).text.includes('42. 解析：'), true);
+  });
+
+  it('splitExplanations 忽略页文本内嵌的换页符，页码不虚增（2023 形态）', () => {
+    const pages = ['1. 解析：\n第一题正文\f内嵌换页符。\n2. 解析：\n第二题。', '3. 解析：\n第三题。'];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 3);
+    assert.equal(result.get(1).text, '第一题正文\n内嵌换页符。');
+    assert.equal(result.get(2).page, 1);
+    assert.equal(result.get(3).page, 2);
   });
 
   it('parseAnswerTableGeometry 支持密排列组、直接单元格与连排三种形态', () => {

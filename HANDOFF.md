@@ -2321,3 +2321,31 @@ npx playwright test                              # 8 workers，参照 run D 约 
 - 默认 8 workers 全量在当前机器负载下无法复现 run D；4 workers 全量 201/201 为本 HEAD 的通过记录。如需 8 workers 基线，建议在空闲机器（关闭浏览器与其他常驻服务）复跑。
 - study-flow:500、mock-exam:144 等跨标签页用例在 8 workers 高负载下同为敏感（F/F2 曾失败、F3/F4 通过），如再现可按 `skipExtraPackInstalls` 同一模式解耦；本次未预先扩大改动面。
 - 待办②（2011/2016/2020/2022/2023 解析占位的逐年格式扩展）与待办③（Cloudflare Dashboard 给 /sw.js 配 Bypass，需维护者操作）不变，见 docs/content-quality-backlog.md。
+
+## 2026-09-03 - 待办②完成：解析标记形态扩展，530→188 占位（342 题恢复）
+
+经维护者授权（"好的，执行吧"），content-quality-backlog 待办②落地。
+
+### 改动
+
+- `tools/content-importer/src/build-year.mjs` `splitExplanations`：
+  - 标记正则扩展 8 种实际排版形态（l/I 误提取、空格断链、双点、`解 析` 内空格、【解析】方括号 + `•`、答案字母夹层、【参考答案】块、分隔符后换行）；
+  - 块边界从「下一标记内容起点」改为「下一标记起点」，去除旧版尾部粘连的 `N+1. 解析：`（2010/2013/2017 共 54 处）；
+  - 顺序门禁保持严格连续（真实数据 12 个有文本年份全部 47/47，无需容忍跳号）；
+  - 2023 专项：答案页提取文本每页内嵌 `\f` 导致页码虚增至 15-27、引用不存在资产被校验拦截——join 前页内 `\f` 归一为换行，页码回到真实 1-14。
+- `tools/content-importer/src/build-year.node-test.mjs`：16 → 17 例（新增 8 种形态 + 内嵌 `\f` 页码回归），全绿。
+- 全量重建 2010-2025 十六套题包（`build-year.mjs --year`），2019/2021/2024/2025 无答案页文本、内容不变（仅 createdAt/sha256）。
+
+### 验证
+
+- `npm run test:year --workspace @408os/content-importer`：17/17 通过。
+- 真实数据覆盖（生产版 splitExplanations 直跑 answer-pages.json）：2010-2018、2020、2022、2023 共 12 年全部 47/47 非空解析。
+- 占位统计：530 → 188（恢复 342 题；剩余 2019/2021/2024/2025 需 OCR 路线）。
+- `npm run content:validate`：17 套全部 PASS（含 2023 资产引用校验）。
+- `npm run lint` / `npm run typecheck`：通过。
+- E2E 不依赖解析具体内容（content-review 仅引用「解析」UI 标签），未重跑全量。
+
+### 残留（记录于 docs/content-quality-backlog.md）
+
+- 4 题解析内嵌答案表噪声（2013 Q3、2015 Q2、2017 Q5 旧版遗留；2016 Q1 本次新增），needs-review 状态覆盖，不做有误伤风险的裁剪。
+- 待办③（Cloudflare `/sw.js` Bypass）仍需维护者在 CF Dashboard 操作。
