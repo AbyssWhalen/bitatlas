@@ -2410,3 +2410,32 @@ npx playwright test                              # 8 workers，参照 run D 约 
 
 - 资源级：`/` 与 `/sw.js` 200；17 套年份 JSON 全 200；2019/2024/2025 来源扫描图（`answers-1.jpg` 等）与 2009 `questions-1.png`/`answers-1.png` 抽检 200；线上 2019/2024 题包 SHA256 与本地提交完全一致。
 - 真实浏览器（桌面）：首页默认 2009 47 题正常渲染；年份筛选切 2019 → 47 题；2019 Q1 作答判定 + OCR 恢复的真实解析（非占位）；2024 Q41 综合题 + 原卷/解析来源页图弹窗加载；/lab 实验室 11 个 CPU 模块加载；/mock 门禁正确显示 needs-review 关闭状态。核心流程 7/7 通过。
+
+## 2026-09-03 - 收尾：工作垃圾清理（释放约 308 MB，本地提交不推送）
+
+经维护者授权（"把这个项目工作过程中产生的垃圾和没用的文件清理一下"），删除全部未被 git 追踪且无管线引用的工作产物。
+
+### 已删除
+
+- `local-data/sources/408-exam-paper-repo/`（116 MB）：neville-studio 仓库克隆工作副本，无任何工具/文档引用，源 PDF 已复制在 `sources/rebuild/`，需要时可从公开 GitHub 重新克隆。
+- `apps/web/dist/`（85.6 MB）：构建产物，`npm run build` 约 10 秒可重建；CI 部署不依赖本地 dist。清理前先停掉了占用 4173 的遗留 `vite preview` 进程（PID 5008）。
+- `tmp/trace-extract、rebuild-check、pdfs、trace2`（71.3 MB）：E2E 调试 trace 与重建检查临时件。
+- `output/playwright/`（34.4 MB）与根下约 40 个一次性调试文件（sw-debug*.mjs、check-*.mjs、diag-*.mjs、dev-server/preview/e2e 日志等）。
+- `local-data/work/patch-builder*.cjs`（5 个临时补丁脚本）。
+
+### 保留（管线依赖或文档引用）
+
+- `local-data/sources/rebuild/`（32 个源 PDF，sha256 来源门禁输入）、`sources/csg/`（答案键快照）、`sources/2009-*`（2009 管线）。
+- `local-data/work/rebuild/`（pages JSON + render JPG + answer-ocr-pages.json，重建管线核心输入）、`work/render` + `work/ocr`（2009 管线）。
+- `local-data/generated/`（release 管线输入）、`local-data/deploy/`（未来私有分发操作手册）。
+- `output/quality-scan.mjs`、`output/audit-pack-diff.mjs`（文档引用的审计工具）。
+- `.venv`（284 MB，RapidOCR 依赖）：OCR 任务已完成但产物修正或新年份扫描卷仍需它；如需进一步瘦身可删（重装方式见 tools/content-importer/README.md）。
+
+### 验证
+
+- 清理后重建 2019 题包：PASS（47 题 / 23 资产 / 24 图示题），与 HEAD 仅 createdAt/sha256 元数据差异，内容逐字节一致，管线完好。
+- `git status` 干净；`git ls-files output tmp local-data` 为空（三目录均未追踪，删除不影响仓库）。
+
+### 后续方向（维护者 2026-09-03 提出，暂不实施）
+
+- 用户登录与管理功能：数据库 + 邮件验证码；预期用户 ≤10 人，倾向 Cloudflare 托管方案（D1/Turnstile/Email 等）；当前 local-first 架构需先设计云同步边界（408-user schema v1-v3 与备份兼容是稳定合同，不得破坏）。
