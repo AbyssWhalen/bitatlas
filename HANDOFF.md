@@ -2376,3 +2376,32 @@ npx playwright test                              # 8 workers，参照 run D 约 
 
 - 待办③（Cloudflare `/sw.js` Bypass）仍需维护者在 CF Dashboard 操作。
 - 2019/2021/2024/2025 解析占位需 OCR 路线；提示词模板化（791/799）方向未定，均见 docs/content-quality-backlog.md。
+
+## 2026-09-03 - 内容质量第四批：扫描卷整页 OCR，解析占位 188 → 80
+
+经维护者授权（"都由你来操作吧，按你推荐的来"），content-quality-backlog 第四批落地，2019/2021/2024/2025 四个无文本年份走 RapidOCR 整页识别路线。
+
+### 改动
+
+- 新增 `tools/content-importer/src/ocr-answer-explanations.py`：项目本地 RapidOCR 识别答案卷整页——行聚类重组、页眉页脚剔除、水印片段过滤（`微信公众号计算机考研数据` / `985211`）、源 PDF 重复页按 sha256 去重（2024 第 4 页）、原始片段转储供审计；产物 `local-data/work/rebuild/<year>/answer-ocr-pages.json` 不入库。
+- `tools/content-importer/src/build-year.mjs`：
+  - 答案页嵌入文本为空时按页号回填 `answer-ocr-pages.json` 的 OCR 文本，有文本年份零影响；
+  - `splitExplanations` 支持 OCR 紧凑标记（`1.解析：`）与综合题 `NN.【答案要点】`；两阶段锚定——先严格从 1 递增，失败后允许任意首标记 + 严格 +1（2024/2025 综合题从 41 起，选择题区只有答案表无解析）；
+  - `normalizeComplexityNotation` 支持全角/混搭括号与 OCR 形近归一（`0（n）`→`O(n)`、`login`→`log n`、`log 2 n`→`log₂n`、`n 1/2`→`n^(1/2)`、`n 2`→`n²`），保守白名单防误伤。
+- 单元测试 23 → 27 例（OCR 紧凑标记、【答案要点】形态、首标记锚定、全角括号归一）。
+
+### 验证
+
+- `npm run test:year -w @408os/content-importer`：27/27。
+- 全量重建 16 年（`npx tsx tools/content-importer/src/build-year.mjs --year <y>` 直跑，npm 会吞 `--year`）：全部 PASS，含 40/40 双源答案键门禁。
+- 效果：2019/2021 恢复 47/47 真实解析（来源为逐题详解版答案卷，含选择题逐题解析）；2024/2025 恢复 7 道综合题【答案要点】（官方参考答案仅含答案表 + 综合题要点）；合计 108 题解析 + 108 条首提示；占位 188 → 80。
+- 审计（`output/audit-pack-diff.mjs`，HEAD vs 工作区）：216 处字段变更全部落在 2019(94)/2021(94)/2024(14)/2025(14) 的 explanation/hints；其余 12 年 diff 仅 `createdAt`/`sha256` 元数据，内容逐字节一致，管线确定性无回归。
+- 2025 Q44 保护项复核：`needs-review` 不变；hints[0] 变为来源解析首句属全库既有约定（与 2010-2023 综合题一致）；`parallel-5 / split-6` 在 CPU 实验代码中，不受题包重建影响。
+- `npm run content:validate`：17 套全部 PASS；`npm run lint`、`npm run typecheck`、`npx vitest run --maxWorkers=4`（97 files / 1094 tests）、`npm run build`（PWA 88 entries / 2782.90 KiB）全部通过。
+- E2E 未重跑：本批不触碰应用代码与路由，仅内容 JSON 与导入器；Run F 全量仍建议在维护者终端空闲时段复跑。
+
+### 残留
+
+- 80 题占位为来源极限（2024/2025 选择题无官方解析文字），不再追。
+- 待办③（Cloudflare `/sw.js` Bypass）仍需维护者在 CF Dashboard 操作。
+- 提示词模板化（第二提示通用句，791/799）方向未定。

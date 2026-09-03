@@ -197,30 +197,43 @@ export function reconcileKeys(primary, secondary) {
   return mismatches;
 }
 
-// 解析切分：覆盖 2010-2023 各年答案卷的实际排版形态——
+// 解析切分：覆盖 2010-2025 各年答案卷的实际排版形态——
 //   “N. 解析：/N. 解答：”（2010-2018）、数字被提取成 l/I（2011/2016 Q1）、
 //   数字或分隔符周围带空格（2012/2014/2016/2020）、双点“N .. 解析：”（2015 Q15）、
 //   “解 析”关键词内空格（2018 Q36）、“NN.【解析】”方括号与 • 分隔（2020）、
-//   “NN. X。【解析】”答案字母夹层（2022）、“N.【参考答案】X + 块内【解析】”（2023）。
-// 顺序门禁保持不变：只接受等于“下一个期望题号”的标记，正文引用不会误切。
+//   “NN. X。【解析】”答案字母夹层（2022）、“N.【参考答案】X + 块内【解析】”（2023）、
+//   扫描版综合题“NN.【答案要点】”（2024/2025，单选题无解析文本）。
+// 顺序门禁两段式：先按“严格从 1 连续”收集（全量年份形态，正文引用不会误切）；
+// 零命中说明该年只有 41-47 综合题标记（2024/2025 答案卷单选题仅给答案表），
+// 改用“首标记锚定 + 严格 +1”重扫，后续连续性不放宽，单选题保持占位。
 export function splitExplanations(pageTexts) {
   // 2023 的提取文本内嵌 \f，会把页码虚增到不存在的页；页内 \f 归一为换行，只保留页边界分隔符。
   const text = pageTexts.map((pageText) => pageText.replace(/\f/g, '\n')).join('\f');
-  const pattern = /([0-9lI](?:[ \t]*[0-9lI])?)[ \t]*[.．•:：]*\s*(?:[A-Da-d]\s*[。.]\s*)?[ \t]*【?(参考答案|解[ \t]*[析答])】?[ \t]*[:：]?/g;
-  const found = [];
-  let match;
-  while ((match = pattern.exec(text)) !== null) {
-    const number = Number(match[1].replace(/[ \t]/g, '').replace(/[lI]/g, '1'));
-    if (!Number.isInteger(number) || number < 1) continue;
-    if (number !== found.length + 1) continue;
-    found.push({
-      number,
-      isReference: match[2].startsWith('参考'),
-      start: match.index + match[0].length,
-      markerIndex: match.index,
-      page: text.slice(0, match.index).split('\f').length,
-    });
-  }
+  const pattern = /([0-9lI](?:[ \t]*[0-9lI])?)[ \t]*[.．•:：]*\s*(?:[A-Da-d]\s*[。.]\s*)?[ \t]*【?(参考答案|答案要点|解[ \t]*[析答])】?[ \t]*[:：]?/g;
+  const collect = (anchored) => {
+    const found = [];
+    let match;
+    pattern.lastIndex = 0;
+    while ((match = pattern.exec(text)) !== null) {
+      const number = Number(match[1].replace(/[ \t]/g, '').replace(/[lI]/g, '1'));
+      if (!Number.isInteger(number) || number < 1) continue;
+      // 锚定模式接受任意首标记（2024/2025 只有 41-47），其后同样严格“上一题号 + 1”。
+      const expected = found.length === 0
+        ? (anchored ? number : 1)
+        : found[found.length - 1].number + 1;
+      if (number !== expected) continue;
+      found.push({
+        number,
+        isReference: match[2].startsWith('参考'),
+        start: match.index + match[0].length,
+        markerIndex: match.index,
+        page: text.slice(0, match.index).split('\f').length,
+      });
+    }
+    return found;
+  };
+  let found = collect(false);
+  if (found.length === 0) found = collect(true);
   const byNumber = new Map();
   found.forEach((entry, index) => {
     // 块边界取下一标记的起点（而非内容起点），避免把“N+1. 解析：”尾巴带进第 N 题。
@@ -283,11 +296,12 @@ export function normalizeRebuildText(value) {
 
 // 复杂度记法规范化：数字 PDF 提取丢失上下标——O(n²)→“O(n2)”、O(log₂n)→“O(log2n)”、
 // O(n^(1/2))→“O(n1/2)”/“O(n112)”，以及大写 O 被提取成数字 0 的“0(1)”。
+// 扫描版 OCR 另产出全角/混搭括号形态“0（n）”/“O(1）”，统一归一为半角括号。
 // 仅处理括号内为纯复杂度形态（恰为 1，或 n/m/e/p/log/lenl 开头）的组：汇编偏移寻址
-// 0(t2)/0(s2)/0(r4)、dB 公式 10log10(S/N)、二进制位串 00(28 个 0)、中文括注 0(即…)
-// 均不以白名单开头，不受影响。
+// 0(t2)/0(s2)/0(r4)、dB 公式 10log10(S/N)、二进制位串 00(28 个 0)、中文括注 0(即…)、
+// 数值区间 0（0～199）均不以白名单开头，不受影响。
 export function normalizeComplexityNotation(value) {
-  return value.replace(/([O0ΘΩ])\s*\(([^()]{1,24}?)\)/g, (whole, letter, inner) => {
+  return value.replace(/([O0ΘΩ])\s*[（(]([^()（）]{1,24}?)[)）]/g, (whole, letter, inner) => {
     const trimmed = inner.trim();
     if (!/^(?:1$|[nmep]|log|lenl)/.test(trimmed)) return whole;
     const normalized = trimmed
@@ -560,7 +574,17 @@ export async function main() {
   }
   const inputs = {
     paperPages: JSON.parse(await readFile(path.join(workDir, 'paper-pages.json'), 'utf8')),
-    answerPages: JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8')),
+    // 扫描版答案卷（2019/2021/2024/2025）无嵌入文本：answer-ocr-pages.json 的整页 OCR
+    // 文本补齐空 text 作解析来源；答案键仍走几何片段路线，layoutText 不受影响。
+    answerPages: await (async () => {
+      const pages = JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8'));
+      try {
+        const ocrByPage = new Map(JSON.parse(await readFile(path.join(workDir, 'answer-ocr-pages.json'), 'utf8'))
+          .map((page) => [page.page, page.text]));
+        return pages.map((page) => ({ ...page, text: page.text.trim() ? page.text : (ocrByPage.get(page.page) ?? '') }));
+      } catch { /* 数字版年份无 OCR 文本 */ }
+      return pages;
+    })(),
     answerTableFragments: await (async () => {
       // 2010 的工作目录没有几何/OCR 片段文件；该年答案表由 layout 密排列组解析覆盖。
       const parts = [];

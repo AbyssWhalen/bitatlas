@@ -117,6 +117,19 @@ describe('build-year pure parsers', () => {
     assert.equal(result.get(1).text.includes('42. 解析：'), true);
   });
 
+  it('splitExplanations 识别扫描卷 OCR 的紧凑标记（2019 形态）', () => {
+    const pages = [
+      '1.解析：\n线性表是典型题型。\n2.解析：\n完全二叉树的性质。',
+      '3.解析：当数据规模较小时可选择简单排序方法。\n答案速对 1. D 2. B 3. A 不会被误切。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 3);
+    assert.equal(result.get(1).text, '线性表是典型题型。');
+    assert.equal(result.get(3).text.includes('当数据规模较小时可选择简单排序方法。'), true);
+    assert.equal(result.get(3).text.includes('答案速对'), true);
+    assert.equal(result.get(3).page, 2);
+  });
+
   it('splitExplanations 忽略页文本内嵌的换页符，页码不虚增（2023 形态）', () => {
     const pages = ['1. 解析：\n第一题正文\f内嵌换页符。\n2. 解析：\n第二题。', '3. 解析：\n第三题。'];
     const result = splitExplanations(pages);
@@ -135,6 +148,30 @@ describe('build-year pure parsers', () => {
     assert.equal(result.get(2).text, '第二题真实答案到此结束。');
   });
 
+  it('splitExplanations 识别扫描卷综合题【答案要点】并锚定首标记（2024/2025 形态）', () => {
+    const pages = [
+      '2024年全国硕士研究生招生考试\n计算机学科专业基础试题参考答案\n一、单项选择题\n1.D 2.A 3.A 4.B 5.D\n二、综合应用题\n41.【答案要点】\n（1）算法的基本设计思想\n建立图G各顶点的入度表。',
+      'int uniquely(MGraph G)\n42.【答案要点】\n(1）HT如下\n装填因子α=7/11。',
+      '43.【答案要点】\n（1）最多有2=32个通用寄存器。',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 3);
+    assert.equal(result.get(41).text.startsWith('（1）算法的基本设计思想'), true);
+    assert.equal(result.get(41).page, 1);
+    assert.equal(result.get(42).text, '(1）HT如下\n装填因子α=7/11。');
+    assert.equal(result.get(42).page, 2);
+    assert.equal(result.get(43).text, '（1）最多有2=32个通用寄存器。');
+    assert.equal(result.get(1), undefined);
+  });
+
+  it('splitExplanations 全量年份的越界前置标记不触发锚定重扫', () => {
+    const pages = ['42. 解析：\n杂项引用不应锚定。\n1. 解析：\n第一题。\n2. 解析：\n第二题。'];
+    const result = splitExplanations(pages);
+    assert.equal(result.size, 2);
+    assert.equal(result.get(1).text, '第一题。');
+    assert.equal(result.get(42), undefined);
+  });
+
   it('normalizeComplexityNotation 恢复复杂度上下标并把 0( 修正为 O(', () => {
     assert.equal(
       normalizeComplexityNotation('时间复杂度为O(n2), 空间复杂度为0(1)。'),
@@ -151,6 +188,21 @@ describe('build-year pure parsers', () => {
     assert.equal(normalizeComplexityNotation('时间0(n), 空间O(n)'), '时间O(n), 空间O(n)');
     assert.equal(normalizeComplexityNotation('空间复杂度 O(login)'), '空间复杂度 O(log n)');
     assert.equal(normalizeComplexityNotation('邻接矩阵的空间复杂度为O(n\n2)'), '邻接矩阵的空间复杂度为O(n²)');
+  });
+
+  it('normalizeComplexityNotation 归一 OCR 全角/混搭括号的复杂度记法', () => {
+    assert.equal(
+      normalizeComplexityNotation('算法的时间复杂度为0（n）；空间复杂度为O(1）。'),
+      '算法的时间复杂度为O(n)；空间复杂度为O(1)。',
+    );
+    assert.equal(
+      normalizeComplexityNotation('平均时间复杂度为O（n²），比较次数为O（1）。'),
+      '平均时间复杂度为O(n²)，比较次数为O(1)。',
+    );
+    assert.equal(
+      normalizeComplexityNotation('页框号范围0（0～199）保持原样'),
+      '页框号范围0（0～199）保持原样',
+    );
   });
 
   it('normalizeComplexityNotation 不误伤汇编寻址、dB 公式、位串与中文括注', () => {

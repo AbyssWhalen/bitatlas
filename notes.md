@@ -2843,3 +2843,12 @@
 - 新发现并修复：① 2020 答案卷末页附带 2019 试卷首页整页粘进 Q47 解析——块内出现「NNNN全国硕士研究生招生考试」即截断；② 2012 Q1 `return n*fact(n-10)` 为 `n-1)` 右括号提取成 0（解析原文"参数值减 1"可证，全库扫描仅此一处）——白名单新增 fact(n-10)→fact(n-1)。
 - 审计：output/audit-pack-diff.mjs 逐题对比 HEAD vs 新版，33 处变更字段全部符合预期、无附带损伤；占位保持 188（2019/2021/2024/2025），12 个有文本年份解析 47/47 无回归。
 - 风险与未解：E2E 未重跑（本批只动内容 JSON 与导入器，不触应用代码；下次封板跑全量）；2019/2021/2024/2025 需 OCR；提示词模板化方向未定；待办③ CF /sw.js Bypass 仍需维护者操作。详见 docs/content-quality-backlog.md。
+
+## 2026-09-03 内容质量第四批：扫描卷整页 OCR 恢复 188 → 80（实际命令与结果）
+
+- 命令与结果：`npm run test:year -w @408os/content-importer` 27/27（23→27 例）；`npx tsx tools/content-importer/src/build-year.mjs --year <2010..2025>` 16 套全部 PASS（40/40 双源答案键门禁照常）；`npm run content:validate` 17/17；`npm run lint`、`npm run typecheck`、`npx vitest run --maxWorkers=4` 97 files / 1094 tests、`npm run build`（PWA 88 entries / 2782.90 KiB）全部通过。
+- OCR 路线：新增 `ocr-answer-explanations.py`（项目本地 venv RapidOCR），答案卷 JPG 整页识别→行聚类重组→页眉页脚剔除→水印片段过滤（`微信公众号计算机考研数据`/`985211`）→源 PDF 重复页 sha256 去重（2024 第 4 页）→`local-data/work/rebuild/<year>/answer-ocr-pages.json`（不入库）。
+- build-year 集成：答案页嵌入文本为空才按页号回填 OCR 文本；`splitExplanations` 新增 OCR 紧凑标记 `1.解析：`、综合题 `NN.【答案要点】`，两阶段锚定（严格从 1 递增失败后允许任意首标记 + 严格 +1，2024/2025 综合题从 41 起）；`normalizeComplexityNotation` 支持全角/混搭括号（`0（n）`、`O(1）`）与 `login`/`log 2 n`/`n 1/2` 形近归一。
+- 效果与审计：2019/2021 恢复 47/47（逐题详解版答案卷），2024/2025 恢复 7 道综合题【答案要点】；合计 108 解析 + 108 首提示；`output/audit-pack-diff.mjs` 确认 216 处变更全部落在四个年份的 explanation/hints（2019:94、2021:94、2024:14、2025:14），其余 12 年仅 createdAt/sha256 元数据变化、内容逐字节一致。
+- 保护项复核：2025 Q44 `needs-review` 不变，hints[0] 变为来源解析首句（全库既有约定，与 2010-2023 综合题一致）；`parallel-5/split-6` 在 CPU 实验代码中不受影响。
+- 风险与未解：80 题占位为来源极限（2024/2025 选择题无官方解析文字）；OCR 文本仍含少量水印残字与形近错字（如 `3Z.D`），needs-review 状态覆盖，不冒充人工审核；E2E 未重跑（不触应用代码），Run F 全量建议在维护者终端空闲时段复跑；待办③ CF /sw.js Bypass 仍需维护者操作。详见 docs/content-quality-backlog.md。
