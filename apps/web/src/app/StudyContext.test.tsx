@@ -12,7 +12,7 @@ import { StudyProvider, useStudy } from './StudyContext';
 
 const storageMocks = vi.hoisted(() => ({
   installLocalContent: vi.fn(async () => undefined),
-  installExtraContent: vi.fn(async () => [] as string[]),
+  installExtraContent: vi.fn(async () => ({ issues: [] as string[], installedYears: [] as number[] })),
   listPacks: vi.fn(),
   listQuestions: vi.fn(),
   listKnowledgePoints: vi.fn(async () => []),

@@ -267,7 +267,6 @@ export function buildYear(year, inputs) {
     throw new Error(`Answer disagreements vs csgraduates (year ${year}): ${disagreements.join('; ')}`);
   }
   // 重叠部分已 100% 核对一致；完整键以 csgraduates 为准，缺口记录进质量报告供人工复核。
-  const rebuildKeySize = rebuildKey.size;
 
   const explanations = splitExplanations(inputs.answerPages.map((page) => page.text));
   const paperBlocks = splitPaperQuestions(inputs.paperPages.map((page) => page.text), year);

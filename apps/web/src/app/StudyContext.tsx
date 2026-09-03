@@ -189,13 +189,22 @@ export function StudyProvider({ children }: { children: ReactNode }) {
         // 显式 HTTP 缺失：进入空内容模式，同时仍尝试安装可选扩展年份。
       }
       try {
-        const issues = await installExtraContent();
-        if (active) setContentIssues(issues);
         if (active) await reload();
       } catch (reason) {
         if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
+        if (active) setLoading(false);
+        return;
       } finally {
         if (active) setLoading(false);
+      }
+      // 扩展年份不阻塞首屏：2009（或空状态）先可用，后台安装完成后再刷新一次数据。
+      try {
+        const { issues, installedYears } = await installExtraContent();
+        if (!active) return;
+        setContentIssues(issues);
+        if (installedYears.length > 0) await reload();
+      } catch (reason) {
+        if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
       }
     })();
     return () => {

@@ -170,6 +170,10 @@ export async function cacheInstalledPackDocument(
   }
 }
 
+// 全局串行预热队列：17 套题包各自并行预热会以 17 路 fetch + SHA-256 + Cache put 冲击
+// 共享渲染进程主线程与网络，阻塞同页面/同进程其他页面的交互。
+let assetWarmChain: Promise<void> = Promise.resolve();
+
 export function scheduleInstalledPackAssetCaching(
   pack: LocalContentPack,
   refresh: boolean,
@@ -178,7 +182,9 @@ export function scheduleInstalledPackAssetCaching(
   fetcher: ContentFetcher = defaultFetcher,
 ): void {
   schedule(() => {
-    void cacheInstalledPackAssets(pack, refresh, cacheStorage, fetcher);
+    assetWarmChain = assetWarmChain
+      .then(async () => { await cacheInstalledPackAssets(pack, refresh, cacheStorage, fetcher); })
+      .catch(() => undefined);
   }, CONTENT_ASSET_WARM_DELAY_MS);
 }
 
@@ -205,6 +211,14 @@ async function installResponse(
   if (!response.ok) throw new LocalContentUnavailableError();
   const pack = (await response.json()) as LocalContentPack;
   if (pack.manifest?.year !== LOCAL_PACK_YEAR) throw new Error('本地题包年份不是 2009，拒绝安装。');
+  const installedManifest = installed.find((entry) => entry.year === pack.manifest?.year);
+  const unchanged = installedManifest != null
+    && installedManifest.id === pack.manifest?.id
+    && installedManifest.sha256 === pack.manifest?.sha256;
+  if (unchanged && installedManifest) {
+    // 字节一致（sha256 相同）且首次安装已通过校验：跳过重复重写，避免每次启动都全量重装 2009。
+    return { status: 'installed', manifest: installedManifest, pack };
+  }
   const protectedManifest = installed.find((entry) => (
     entry.reviewStatus === 'verified'
     && (entry.year === pack.manifest?.year || entry.id === pack.manifest?.id)
@@ -345,32 +359,65 @@ export interface InstallExtraContentOptions {
   schedule?: Scheduler;
 }
 
-export async function installExtraContent(options: InstallExtraContentOptions = {}): Promise<string[]> {
+export interface ExtraContentInstallResult {
+  issues: string[];
+  installedYears: number[];
+}
+
+export async function installExtraContent(
+  options: InstallExtraContentOptions = {},
+): Promise<ExtraContentInstallResult> {
   const repository = options.repository ?? storage.contentRepository;
   const fetcher = options.fetcher ?? defaultFetcher;
   const cacheStorage = options.cacheStorage ?? defaultCacheStorage();
   const schedule = options.schedule ?? defaultScheduler;
-  const issues: string[] = [];
-  for (const year of EXTRA_PACK_YEARS) {
-    const packPath = `/content/${year}.json`;
-    let response: Response;
+  const installed = await repository.listPacks();
+  // 16 份文档并行拉取（I/O），安装（解析+校验+写库，主线程 CPU）串行执行并在年份之间让出
+  // 事件循环：同源页面共享渲染进程主线程，连续校验 16 套题包会阻塞其他页面首屏。
+  const fetched = await Promise.all(EXTRA_PACK_YEARS.map(async (year): Promise<{
+    year: number;
+    response?: Response;
+    fetchError?: unknown;
+  }> => {
     try {
-      response = await fetcher(validationRequestPath(packPath, String(Date.now())), { cache: 'no-store' });
+      return {
+        year,
+        response: await fetcher(validationRequestPath(`/content/${year}.json`, String(Date.now())), { cache: 'no-store' }),
+      };
     } catch (reason) {
-      issues.push(`${year}: ${reason instanceof Error ? reason.message : '网络错误'}`);
+      return { year, fetchError: reason };
+    }
+  }));
+  const issues: string[] = [];
+  const installedYears: number[] = [];
+  for (const entry of fetched) {
+    const packPath = `/content/${entry.year}.json`;
+    if (entry.response === undefined) {
+      const reason = entry.fetchError;
+      issues.push(`${entry.year}: ${reason instanceof Error ? reason.message : '网络错误'}`);
       continue;
     }
-    if (!response.ok) continue;
     try {
-      const pack = (await response.json()) as LocalContentPack;
-      if (pack.manifest?.year !== year) throw new Error(`题包年份不是 ${year}，拒绝安装。`);
-      const manifest = await repository.installPack(pack, false);
-      if (manifest.year !== year) throw new Error(`题包安装结果年份不是 ${year}。`);
-      await cacheInstalledPackDocument(packPath, response.clone(), cacheStorage);
-      scheduleInstalledPackAssetCaching(pack, true, schedule, cacheStorage, fetcher);
+      if (!entry.response.ok) continue;
+      const cacheResponse = entry.response.clone();
+      const pack = (await entry.response.json()) as LocalContentPack;
+      if (pack.manifest?.year !== entry.year) throw new Error(`题包年份不是 ${entry.year}，拒绝安装。`);
+      const installedManifest = installed.find((manifest) => manifest.year === entry.year);
+      const unchanged = installedManifest != null
+        && installedManifest.id === pack.manifest?.id
+        && installedManifest.sha256 === pack.manifest?.sha256;
+      if (!unchanged) {
+        const manifest = await repository.installPack(pack, false);
+        if (manifest.year !== entry.year) throw new Error(`题包安装结果年份不是 ${entry.year}。`);
+        installedYears.push(entry.year);
+      }
+      await cacheInstalledPackDocument(packPath, cacheResponse, cacheStorage);
+      // 未变化的题包不重复预热资产：refresh 会重新下载并校验全部来源页图（17 套约 78MB）。
+      if (!unchanged) scheduleInstalledPackAssetCaching(pack, true, schedule, cacheStorage, fetcher);
     } catch (reason) {
-      issues.push(`${year}: ${reason instanceof Error ? reason.message : '安装失败'}`);
+      issues.push(`${entry.year}: ${reason instanceof Error ? reason.message : '安装失败'}`);
     }
+    await new Promise<void>((resolve) => { defaultScheduler(resolve, 0); });
   }
-  return issues;
+  return { issues, installedYears };
 }
