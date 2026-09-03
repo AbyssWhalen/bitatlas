@@ -6,8 +6,8 @@
   "title": "2014 年计算机学科专业基础综合试题",
   "year": 2014,
   "questionCount": 47,
-  "createdAt": "2026-09-03T13:07:58.142Z",
-  "sha256": "c79ebb2596953c5aa9229acd86b685b382a05a9378e7ed0920a9d75ffd568343",
+  "createdAt": "2026-09-03T13:49:57.311Z",
+  "sha256": "871ce146c01e1db4d71fbaa901b4d465c915892f4c4d64cefa3e1279ce3da0c7",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -29,7 +29,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(log2n)"
+       "text": "O(log₂n)"
       }
      ]
     },
@@ -47,7 +47,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(nlog2n)"
+       "text": "O(nlog₂n)"
       }
      ]
     },
@@ -56,7 +56,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(n2)"
+       "text": "O(n²)"
       }
      ]
     }
@@ -72,7 +72,7 @@
      "content": [
       {
        "type": "text",
-       "text": "内层循环条件 j<=n 与外层循环的变量无关，每次循环j 自增 1, 每次内层循环都执行 n 次。\n外层循环条件为 k<=n, 增量定义为 k*=2, 可知循环次数为 2k<=n, 即 k<=log2n 。所以内层循环\n的时间复杂度是 O(n), 外层循环的时间复杂度是 O(log2n) 。对于嵌套循环，根据乘法规则可知，\n该段程序的时间复杂度 T(n) = T1(n)T2(n) = O(n)O(log2n) = O(nlog2n), 选 C 。"
+       "text": "内层循环条件 j<=n 与外层循环的变量无关，每次循环j 自增 1, 每次内层循环都执行 n 次。\n外层循环条件为 k<=n, 增量定义为 k*=2, 可知循环次数为 2k<=n, 即 k<=log2n 。所以内层循环\n的时间复杂度是 O(n), 外层循环的时间复杂度是 O(log₂n) 。对于嵌套循环，根据乘法规则可知，\n该段程序的时间复杂度 T(n) = T1(n)T2(n) = O(n)O(log₂n) = O(nlog₂n), 选 C 。"
       }
      ]
     }

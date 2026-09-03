@@ -6,8 +6,8 @@
   "title": "2025 年计算机学科专业基础综合试题",
   "year": 2025,
   "questionCount": 47,
-  "createdAt": "2026-09-03T13:08:18.720Z",
-  "sha256": "0e4926791c9a45dfc2cbc19b8a68a9a18950d1f538e1f7b4df2dcec7eb9f5291",
+  "createdAt": "2026-09-03T13:50:11.449Z",
+  "sha256": "e1a7b3f6b85393457942748bbac055e6ce1028acb2e20f985e86deb7f301af93",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -56,7 +56,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(n2)"
+       "text": "O(n²)"
       }
      ]
     }

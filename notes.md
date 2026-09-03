@@ -2834,3 +2834,12 @@
 - 2023 专项：答案页提取文本 14 页每页内嵌 `\f`，页码被算成 15-27 并引用不存在资产——join 前页内 `\f` 归一换行修复；该问题仅 2023 存在（其余 15 年 0 命中）。
 - 关键决策：顺序门禁保持严格连续（真实数据 12 年全部 47/47，无需容忍跳号，避免正文误切风险）；4 题答案表噪声（2013 Q3、2015 Q2、2017 Q5、2016 Q1）不裁剪（2016 Q1 噪声在块中部，启发式有误伤风险，needs-review 覆盖）。
 - 未解：2019/2021/2024/2025 解析需 rapidocr 整页 OCR；7 题上标丢失；提示词模板化；待办③ CF /sw.js Bypass。详见 docs/content-quality-backlog.md。
+
+## 2026-09-03 内容质量第三批：上标恢复 + 噪声锚点裁剪 + 2020 Q47 截断 + 2012 Q1 残留（实际命令与结果）
+
+- 命令与结果：`npm run test:year -w @408os/content-importer` 23/23（17→23 例）；`npx tsx tools/content-importer/src/build-year.mjs --year 2010..2025` 16 套全部 PASS（注：`npm run build:year -- --year` 会被 npm 吞掉 `--year`，必须直跑 tsx）；`npm run content:validate` 17/17；`npm run lint`、`npm run typecheck`、`npx vitest run --maxWorkers=4` 97 files / 1094 tests、`npm run build`（PWA 88 entries / 2782.90 KiB）全部通过。
+- normalizeComplexityNotation：O(n2)→O(n²)、O(log2n)→O(log₂n)、O(n1/2)/O(n112)→O(n^(1/2))、0(1)→O(1)、O(login)→O(log n)。白名单门禁（括号内恰为 1 或 n/m/e/p/log/lenl 开头）保住汇编 0(t2)、dB 公式、位串、中文括注；题干/选项/解析/提示统一过管线。
+- 噪声裁剪改走锚点路线（推翻上一批"不裁剪"决策）：trimExplanationNoise + EXPLANATION_NOISE_TRIMS 按 4 题人工核对 from/to 锚点（2013 Q3、2015 Q2、2017 Q5 块尾表格；2016 Q1 块中表格+地址图残留、保留其后真实正文），锚点失配即构建失败。4 年重建全过证明锚点全部命中。
+- 新发现并修复：① 2020 答案卷末页附带 2019 试卷首页整页粘进 Q47 解析——块内出现「NNNN全国硕士研究生招生考试」即截断；② 2012 Q1 `return n*fact(n-10)` 为 `n-1)` 右括号提取成 0（解析原文"参数值减 1"可证，全库扫描仅此一处）——白名单新增 fact(n-10)→fact(n-1)。
+- 审计：output/audit-pack-diff.mjs 逐题对比 HEAD vs 新版，33 处变更字段全部符合预期、无附带损伤；占位保持 188（2019/2021/2024/2025），12 个有文本年份解析 47/47 无回归。
+- 风险与未解：E2E 未重跑（本批只动内容 JSON 与导入器，不触应用代码；下次封板跑全量）；2019/2021/2024/2025 需 OCR；提示词模板化方向未定；待办③ CF /sw.js Bypass 仍需维护者操作。详见 docs/content-quality-backlog.md。

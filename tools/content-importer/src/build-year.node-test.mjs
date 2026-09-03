@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
+  normalizeComplexityNotation,
   normalizeRebuildText,
   parseAnswerTable,
   parseAnswerTableGeometry,
@@ -10,6 +11,7 @@ import {
   splitNumberedBlocks,
   splitOptions,
   stemReferencesFigure,
+  trimExplanationNoise,
   tryParseAnswerTablePage,
 } from './build-year.mjs';
 
@@ -124,6 +126,67 @@ describe('build-year pure parsers', () => {
     assert.equal(result.get(3).page, 2);
   });
 
+  it('splitExplanations 截断粘进末块的外来试卷页（2020 形态）', () => {
+    const pages = [
+      '1. 解析：\n第一题。',
+      '2. 解析：\n第二题真实答案到此结束。\n2019全国硕士研究生招生考试计算机学科专业基础试题\n一、单项选择题\n01.设n是描述问题规模的非负整数，下列程序段的时间复杂度是( )。\nA. O(log n) B. O(n)',
+    ];
+    const result = splitExplanations(pages);
+    assert.equal(result.get(2).text, '第二题真实答案到此结束。');
+  });
+
+  it('normalizeComplexityNotation 恢复复杂度上下标并把 0( 修正为 O(', () => {
+    assert.equal(
+      normalizeComplexityNotation('时间复杂度为O(n2), 空间复杂度为0(1)。'),
+      '时间复杂度为O(n²), 空间复杂度为O(1)。',
+    );
+    assert.equal(
+      normalizeComplexityNotation('A. O(log2n) B. O(n) C. O(nlog 2n) D. O(n 2)'),
+      'A. O(log₂n) B. O(n) C. O(nlog₂n) D. O(n²)',
+    );
+    assert.equal(
+      normalizeComplexityNotation('B. O(n1/2)；需要进 行 O(n112) 趟循环'),
+      'B. O(n^(1/2))；需要进 行 O(n^(1/2)) 趟循环',
+    );
+    assert.equal(normalizeComplexityNotation('时间0(n), 空间O(n)'), '时间O(n), 空间O(n)');
+    assert.equal(normalizeComplexityNotation('空间复杂度 O(login)'), '空间复杂度 O(log n)');
+    assert.equal(normalizeComplexityNotation('邻接矩阵的空间复杂度为O(n\n2)'), '邻接矩阵的空间复杂度为O(n²)');
+  });
+
+  it('normalizeComplexityNotation 不误伤汇编寻址、dB 公式、位串与中文括注', () => {
+    const assembly = 'I2：load s3, 0(t2) //R[s3]←M[R[t2]+0]\nlw r5, 0(r4) //R[r5]←M[R[r4]+0]';
+    assert.equal(normalizeComplexityNotation(assembly), assembly);
+    const shannon = '信噪比=10log10(S/N), 信道容量 C=Wlog2(1+S/N)';
+    assert.equal(normalizeComplexityNotation(shannon), shannon);
+    const binary = '地址范围为110...00(28 个 0)~11...1(30 个 1)，十六进制表示为 300000000H';
+    assert.equal(normalizeComplexityNotation(binary), binary);
+    const prose = '结点数比边数多10 (即25-15 = 10), 显然共有10棵树。';
+    assert.equal(normalizeComplexityNotation(prose), prose);
+    const kept = 'O(n + e)、O(ne)、O(p/2)、O(lenl+len2) 与 0(28H) 均保持原样';
+    assert.equal(normalizeComplexityNotation(kept), kept);
+  });
+
+  it('trimExplanationNoise 裁掉块尾答案表并保留正文（2013 Q3 形态）', () => {
+    const text = '利用 7 个关键字构建平衡二叉树 T, 构建的平衡二叉\n树如下图所示。构造及调整的过程如下：\n1. \n9. \n17. \n25. \n33. \n3. \n11. \nDCBCD 4. \n12. \nDAABA CCABB CADBB';
+    assert.equal(
+      trimExplanationNoise(text, 2013, 3),
+      '利用 7 个关键字构建平衡二叉树 T, 构建的平衡二叉\n树如下图所示。构造及调整的过程如下：',
+    );
+  });
+
+  it('trimExplanationNoise 裁掉块中表格与图示残留并保留后续正文（2016 Q1 形态）', () => {
+    const text = '根据存储状态，单链表的结构如下图所示。\nDABAC \n.... \n.l975 31l23 CDB \nBD \n4. \n40. \nBCBAC \n1008H 1000H 1010H \n101411 三\n二\n其中“链接地址”是指结点 next 所指的内存地址。即 1014H 、 1004H 和 1010H 。';
+    assert.equal(
+      trimExplanationNoise(text, 2016, 1),
+      '根据存储状态，单链表的结构如下图所示。\n其中“链接地址”是指结点 next 所指的内存地址。即 1014H 、 1004H 和 1010H 。',
+    );
+  });
+
+  it('trimExplanationNoise 锚点失配即失败，无锚点题原样返回', () => {
+    assert.throws(() => trimExplanationNoise('正文没有答案表锚点。', 2013, 3), /anchor "from" not found/);
+    assert.equal(trimExplanationNoise('普通年份的普通解析。', 2010, 1), '普通年份的普通解析。');
+  });
+
   it('parseAnswerTableGeometry 支持密排列组、直接单元格与连排三种形态', () => {
     const denseFragments = [
       { x: 94, y: 541, text: '1. DBDBC' },
@@ -201,6 +264,8 @@ describe('build-year pure parsers', () => {
     // 不在白名单中的正常文本保持原样。
     assert.equal(normalizeRebuildText('一千个结点的树'), '一千个结点的树');
     assert.equal(normalizeRebuildText('已知条件成立'), '已知条件成立');
+    // 2012 Q1 递归代码的右括号被提取成 0。
+    assert.equal(normalizeRebuildText('return n*fact(n-10)'), 'return n*fact(n-1)');
   });
 
   it('stemReferencesFigure 识别题干引用图的形式', () => {

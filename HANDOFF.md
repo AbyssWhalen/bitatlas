@@ -2349,3 +2349,30 @@ npx playwright test                              # 8 workers，参照 run D 约 
 
 - 4 题解析内嵌答案表噪声（2013 Q3、2015 Q2、2017 Q5 旧版遗留；2016 Q1 本次新增），needs-review 状态覆盖，不做有误伤风险的裁剪。
 - 待办③（Cloudflare `/sw.js` Bypass）仍需维护者在 CF Dashboard 操作。
+
+## 2026-09-03 - 内容质量第三批：上标恢复、噪声定点裁剪、2020 Q47 截断、2012 Q1 代码残留
+
+经维护者授权（"都由你来操作吧，按你推荐的来"），content-quality-backlog 第三批落地。上一节"不做裁剪"的残留项本次以「按题人工核对锚点 + fail closed」方式解决。
+
+### 改动（tools/content-importer/src/build-year.mjs + 测试）
+
+- `normalizeComplexityNotation`：复杂度记法规范化。`O(n2)`→`O(n²)`、`O(log2n)`→`O(log₂n)`、`O(n1/2)`/`O(n112)`→`O(n^(1/2))`、`0(1)`→`O(1)`（大写 O 提取成数字 0）、`O(login)`→`O(log n)`。白名单门禁：仅处理括号内为纯复杂度形态（恰为 1，或 n/m/e/p/log/lenl 开头）的 `O/0/Θ/Ω(...)` 组；汇编 `0(t2)`、dB 公式 `10log10(S/N)`、位串 `00(28 个 0)`、中文括注 `0(即…)` 不受影响。题干、选项、解析、提示统一过该管线。
+- `trimExplanationNoise` + `EXPLANATION_NOISE_TRIMS`：4 题答案表/图示残留定点裁剪（2013 Q3、2015 Q2、2017 Q5 块尾表格；2016 Q1 块中表格+地址图残留，保留其后真实正文）。锚点来自 sha256 固定的源 PDF 人工核对，失配即构建失败（fail closed）。
+- `splitExplanations`：块内出现「NNNN全国硕士研究生招生考试」外来试卷头即截断（2020 答案卷末页附带 2019 试卷首页，原整页粘进 Q47）。
+- `REBUILD_TYPO_NORMALIZATIONS` 新增 `fact(n-10)`→`fact(n-1)`（2012 Q1 递归代码右括号被提取成 0，解析原文"参数值减 1"可证；全库扫描仅此一处）。
+- 单元测试 17 → 23 例（复杂度正/负例、噪声裁剪 3 例、2020 截断 1 例），全绿。
+
+### 验证
+
+- `npm run test:year -w @408os/content-importer`：23/23。
+- 全量重建 16 年（`npx tsx tools/content-importer/src/build-year.mjs --year 2010..2025`）：全部 PASS（含内部 schema + 40/40 双源答案键门禁；npm run 传参会吞 `--year`，须直跑 tsx）。
+- 逐题 diff 审计（HEAD vs 新版，output/audit-pack-diff.mjs）：33 处变更字段全部符合预期（复杂度记法、4 题噪声、2020 Q47、2012 Q1），无附带损伤。
+- 占位回归：188 不变（仅 2019/2021/2024/2025）；12 个有文本年份解析全部 47/47。
+- `npm run content:validate`：17 套全部 PASS。
+- `npm run lint` / `npm run typecheck` / `npx vitest run --maxWorkers=4`（97 files / 1094 tests）/ `npm run build`（PWA 88 entries / 2782.90 KiB）：全部通过。
+- E2E 未重跑：本批不触碰应用代码与路由，仅内容 JSON 与导入器；下次封板跑全量。
+
+### 残留
+
+- 待办③（Cloudflare `/sw.js` Bypass）仍需维护者在 CF Dashboard 操作。
+- 2019/2021/2024/2025 解析占位需 OCR 路线；提示词模板化（791/799）方向未定，均见 docs/content-quality-backlog.md。

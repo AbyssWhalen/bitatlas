@@ -6,8 +6,8 @@
   "title": "2019 年计算机学科专业基础综合试题",
   "year": 2019,
   "questionCount": 47,
-  "createdAt": "2026-09-03T13:08:07.416Z",
-  "sha256": "8f1faad81780f6ea0c25f0ee70c9d858819b9a47830c1cfd0f3f08ac9de0d61a",
+  "createdAt": "2026-09-03T13:50:03.622Z",
+  "sha256": "26185334b6227fa351f76359c811e4a5d412f28714612173aae1769faebb3d27",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -38,7 +38,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(n1/2)"
+       "text": "O(n^(1/2))"
       }
      ]
     },
@@ -56,7 +56,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(n2)"
+       "text": "O(n²)"
       }
      ]
     }

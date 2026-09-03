@@ -6,8 +6,8 @@
   "title": "2016 年计算机学科专业基础综合试题",
   "year": 2016,
   "questionCount": 47,
-  "createdAt": "2026-09-03T13:08:02.028Z",
-  "sha256": "d4d81a2916a3e5f8b39ddc9f04fe4bba31fe690cb216ae3f48e651ec64c7591a",
+  "createdAt": "2026-09-03T13:49:59.800Z",
+  "sha256": "c50c369c8960c44eb28a8f10658e6767239c3d53765aeb844c8b8d08d85f0f4c",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -72,7 +72,7 @@
      "content": [
       {
        "type": "text",
-       "text": "根据存储状态，单链表的结构如下图所示。\nDABAC \n.... \n.l975 31l23 CDB \nBD \n4. \n12. \n20. \n28. \n36. \nBCA \nDB \n5. \n13. \n21. \n29. \n37. \nCDAAB 6. \n14. \n22. \n30. \n38. \nDAACD 7. \n15. \n23. \n31. \n39. \nBCADC 8. \n16. \n24. \n32. \n40. \nBCBAC \n1008H 1000H 1010H \n101411 三\n二\n其中“链接地址”是指结点 next 所指的内存地址。当结点 f 插入后， a 指向 f, f 指向 e, e 指向\nb 。显然 a 、 e 和 f 的“链接地址”分别是 f、 b 和 e 的内存地址，即 1014H 、 1004H 和 1010H 。"
+       "text": "根据存储状态，单链表的结构如下图所示。\n其中“链接地址”是指结点 next 所指的内存地址。当结点 f 插入后， a 指向 f, f 指向 e, e 指向\nb 。显然 a 、 e 和 f 的“链接地址”分别是 f、 b 和 e 的内存地址，即 1014H 、 1004H 和 1010H 。"
       }
      ]
     }
@@ -812,7 +812,7 @@
      "content": [
       {
        "type": "text",
-       "text": "O(n2)"
+       "text": "O(n²)"
       }
      ]
     },
@@ -5241,7 +5241,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "(1)算法的基本设计思想\n由题意知， 将最小的Ln12订个元素放在A 1 中，其余的元素放在A2中，分组结果即可满足题\n目要求。 仿照快速排序的思想，基于枢轴将n个整数划分为两个子集。根 据划分后 枢轴所处的\n位置i分别处理：\n＠若i= Ln12)」， 则分组完成， 算法结束；\n＠若i < Ln12)」， 则枢轴及之前的所有元素均属于A,, 继续对l之后的元素进行划分；\n＠若l扎n/2)」， 则枢轴及之后的所有元素均属千A2, 继续对l之前的元素进行划分；\n基于该设计思想实现的算法， 无须对全部元素进行全排序， 其平均时间复杂度是O(n), 空\n间复杂度是0(1)。\n(2)算法实现(9分）\nint setParti七ion(int a[], in七 n) {\nint pivotkey, low=O, lowO=O, high=n-1, highO=n-1, flag=l, k=n/2, i; \nint sl=O, s2 =0; \nwhile (flag) { \npiovtkey=a [low]; \nwhile (low<high). { \n／／选择枢轴\n／／基于枢轴对数据进行划分\nwhile (low<high && a [high] >=pivotkey) - high; \nif(low! =high) a[low] =a[high]; \nwhile(low<high && a[low]<=pivotkey) ++low; \nif(low! =high) a[high]=a[low]; \n} / /(;!nd of while (low<high) \na[low] =pivotkey; \nif(low==k-1)\nflag=O; \nelse{ \nif(low<k-1) { \nlowO=++low; \nhigh=highO; \nelse{ \nhighO =--high; \nlow=lowO; \nfor(i=O;i<k;i++) s l+=;a[i); \nfor (i=k; i<n; i++) s2+=a [i); \nreturn s2-sl; \n【(1)(2)的评分说明】\n／／如果枢轴是第n/2小元素， 划分成功\n／／是否继续划分\n＠本题目只需将最大的一半元素与最小的\n一\n半元素分组， 不需要对所有元素进行全部排\n序。 参考答案基于快速排序思想， 采用非递归的方式实现。 若考生设计的算法满足题目的功能\n要求且正确， 则(1)、(2)根据所实现算法的平均时间复杂度给分， 细则见下表。\n时间复杂度 分 数 说 明\nO(n) 13 采用类似快速排序思想， 没有对元素进行全排序\nO(nlog2n) 11 \nO(n勺 9 \n其他 7 时间复杂度高千 O(n\n2\n)的算法\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 可参照O 的标准给分。\n© 若算法的基本设计思想描述或算法实现中部分正确， 可参照O 中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了使用C语言的版本， 使用C++ 语言的答案视同使用C语言。\n(3)算法的平均时间复杂度 和空间复杂度\n本参考答案给出的算法平均时间复杂度是O(n), 空间复杂度是0(1)。\n【评分说明】"
+      "text": "(1)算法的基本设计思想\n由题意知， 将最小的Ln12订个元素放在A 1 中，其余的元素放在A2中，分组结果即可满足题\n目要求。 仿照快速排序的思想，基于枢轴将n个整数划分为两个子集。根 据划分后 枢轴所处的\n位置i分别处理：\n＠若i= Ln12)」， 则分组完成， 算法结束；\n＠若i < Ln12)」， 则枢轴及之前的所有元素均属于A,, 继续对l之后的元素进行划分；\n＠若l扎n/2)」， 则枢轴及之后的所有元素均属千A2, 继续对l之前的元素进行划分；\n基于该设计思想实现的算法， 无须对全部元素进行全排序， 其平均时间复杂度是O(n), 空\n间复杂度是O(1)。\n(2)算法实现(9分）\nint setParti七ion(int a[], in七 n) {\nint pivotkey, low=O, lowO=O, high=n-1, highO=n-1, flag=l, k=n/2, i; \nint sl=O, s2 =0; \nwhile (flag) { \npiovtkey=a [low]; \nwhile (low<high). { \n／／选择枢轴\n／／基于枢轴对数据进行划分\nwhile (low<high && a [high] >=pivotkey) - high; \nif(low! =high) a[low] =a[high]; \nwhile(low<high && a[low]<=pivotkey) ++low; \nif(low! =high) a[high]=a[low]; \n} / /(;!nd of while (low<high) \na[low] =pivotkey; \nif(low==k-1)\nflag=O; \nelse{ \nif(low<k-1) { \nlowO=++low; \nhigh=highO; \nelse{ \nhighO =--high; \nlow=lowO; \nfor(i=O;i<k;i++) s l+=;a[i); \nfor (i=k; i<n; i++) s2+=a [i); \nreturn s2-sl; \n【(1)(2)的评分说明】\n／／如果枢轴是第n/2小元素， 划分成功\n／／是否继续划分\n＠本题目只需将最大的一半元素与最小的\n一\n半元素分组， 不需要对所有元素进行全部排\n序。 参考答案基于快速排序思想， 采用非递归的方式实现。 若考生设计的算法满足题目的功能\n要求且正确， 则(1)、(2)根据所实现算法的平均时间复杂度给分， 细则见下表。\n时间复杂度 分 数 说 明\nO(n) 13 采用类似快速排序思想， 没有对元素进行全排序\nO(nlog₂n) 11 \nO(n勺 9 \n其他 7 时间复杂度高千 O(n²)的算法\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 可参照O 的标准给分。\n© 若算法的基本设计思想描述或算法实现中部分正确， 可参照O 中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了使用C语言的版本， 使用C++ 语言的答案视同使用C语言。\n(3)算法的平均时间复杂度 和空间复杂度\n本参考答案给出的算法平均时间复杂度是O(n), 空间复杂度是O(1)。\n【评分说明】"
      }
     ]
    },
@@ -5252,7 +5252,7 @@
      "content": [
       {
        "type": "text",
-       "text": "(1)算法的基本设计思想\n由题意知， 将最小的Ln12订个元素放在A 1 中，其余的元素放在A2中，分组结果即可满足题\n目要求。 仿照快速排序的思想，基于枢轴将n个整数划分为两个子集。根 据划分后 枢轴所处的\n位置i分别处理：\n＠若i= Ln12)」， 则分组完成， 算法结束；\n＠若i < Ln12)」， 则枢轴及之前的所有元素均属于A,, 继续对l之后的元素进行划分；\n＠若l扎n/2)」， 则枢轴及之后的所有元素均属千A2, 继续对l之前的元素进行划分；\n基于该设计思想实现的算法， 无须对全部元素进行全排序， 其平均时间复杂度是O(n), 空\n间复杂度是0(1)。\n(2)算法实现(9分）\nint setParti七ion(int a[], in七 n) {\nint pivotkey, low=O, lowO=O, high=n-1, highO=n-1, flag=l, k=n/2, i; \nint sl=O, s2 =0; \nwhile (flag) { \npiovtkey=a [low]; \nwhile (low<high). { \n／／选择枢轴\n／／基于枢轴对数据进行划分\nwhile (low<high && a [high] >=pivotkey) - high; \nif(low! =high) a[low] =a[high]; \nwhile(low<high && a[low]<=pivotkey) ++low; \nif(low! =high) a[high]=a[low]; \n} / /(;!nd of while (low<high) \na[low] =pivotkey; \nif(low==k-1)\nflag=O; \nelse{ \nif(low<k-1) { \nlowO=++low; \nhigh=highO; \nelse{ \nhighO =--high; \nlow=lowO; \nfor(i=O;i<k;i++) s l+=;a[i); \nfor (i=k; i<n; i++) s2+=a [i); \nreturn s2-sl; \n【(1)(2)的评分说明】\n／／如果枢轴是第n/2小元素， 划分成功\n／／是否继续划分\n＠本题目只需将最大的一半元素与最小的\n一\n半元素分组， 不需要对所有元素进行全部排\n序。 参考答案基于快速排序思想， 采用非递归的方式实现。 若考生设计的算法满足题目的功能\n要求且正确， 则(1)、(2)根据所实现算法的平均时间复杂度给分， 细则见下表。\n时间复杂度 分 数 说 明\nO(n) 13 采用类似快速排序思想， 没有对元素进行全排序\nO(nlog2n) 11 \nO(n勺 9 \n其他 7 时间复杂度高千 O(n\n2\n)的算法\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 可参照O 的标准给分。\n© 若算法的基本设计思想描述或算法实现中部分正确， 可参照O 中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了使用C语言的版本， 使用C++ 语言的答案视同使用C语言。\n(3)算法的平均时间复杂度 和空间复杂度\n本参考答案给出的算法平均时间复杂度是O(n), 空间复杂度是0(1)。\n【评分说明】"
+       "text": "(1)算法的基本设计思想\n由题意知， 将最小的Ln12订个元素放在A 1 中，其余的元素放在A2中，分组结果即可满足题\n目要求。 仿照快速排序的思想，基于枢轴将n个整数划分为两个子集。根 据划分后 枢轴所处的\n位置i分别处理：\n＠若i= Ln12)」， 则分组完成， 算法结束；\n＠若i < Ln12)」， 则枢轴及之前的所有元素均属于A,, 继续对l之后的元素进行划分；\n＠若l扎n/2)」， 则枢轴及之后的所有元素均属千A2, 继续对l之前的元素进行划分；\n基于该设计思想实现的算法， 无须对全部元素进行全排序， 其平均时间复杂度是O(n), 空\n间复杂度是O(1)。\n(2)算法实现(9分）\nint setParti七ion(int a[], in七 n) {\nint pivotkey, low=O, lowO=O, high=n-1, highO=n-1, flag=l, k=n/2, i; \nint sl=O, s2 =0; \nwhile (flag) { \npiovtkey=a [low]; \nwhile (low<high). { \n／／选择枢轴\n／／基于枢轴对数据进行划分\nwhile (low<high && a [high] >=pivotkey) - high; \nif(low! =high) a[low] =a[high]; \nwhile(low<high && a[low]<=pivotkey) ++low; \nif(low! =high) a[high]=a[low]; \n} / /(;!nd of while (low<high) \na[low] =pivotkey; \nif(low==k-1)\nflag=O; \nelse{ \nif(low<k-1) { \nlowO=++low; \nhigh=highO; \nelse{ \nhighO =--high; \nlow=lowO; \nfor(i=O;i<k;i++) s l+=;a[i); \nfor (i=k; i<n; i++) s2+=a [i); \nreturn s2-sl; \n【(1)(2)的评分说明】\n／／如果枢轴是第n/2小元素， 划分成功\n／／是否继续划分\n＠本题目只需将最大的一半元素与最小的\n一\n半元素分组， 不需要对所有元素进行全部排\n序。 参考答案基于快速排序思想， 采用非递归的方式实现。 若考生设计的算法满足题目的功能\n要求且正确， 则(1)、(2)根据所实现算法的平均时间复杂度给分， 细则见下表。\n时间复杂度 分 数 说 明\nO(n) 13 采用类似快速排序思想， 没有对元素进行全排序\nO(nlog₂n) 11 \nO(n勺 9 \n其他 7 时间复杂度高千 O(n²)的算法\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 可参照O 的标准给分。\n© 若算法的基本设计思想描述或算法实现中部分正确， 可参照O 中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了使用C语言的版本， 使用C++ 语言的答案视同使用C语言。\n(3)算法的平均时间复杂度 和空间复杂度\n本参考答案给出的算法平均时间复杂度是O(n), 空间复杂度是O(1)。\n【评分说明】"
       }
      ]
     }

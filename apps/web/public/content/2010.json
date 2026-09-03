@@ -6,8 +6,8 @@
   "title": "2010 年计算机学科专业基础综合试题",
   "year": 2010,
   "questionCount": 47,
-  "createdAt": "2026-09-03T13:07:52.620Z",
-  "sha256": "0ff51d1ccb7b5ebf72bb8a9226a32f1384665e097eca36198be29b1b77ff396e",
+  "createdAt": "2026-09-03T13:49:52.123Z",
+  "sha256": "e4da0a511968414814da25bf146a93ac6f2e64493dee4e853d3bedad7b4f1c89",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -5134,7 +5134,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。"
+      "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为O(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。"
      }
     ]
    },
@@ -5145,7 +5145,7 @@
      "content": [
       {
        "type": "text",
-       "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。"
+       "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为O(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。"
       }
      ]
     }

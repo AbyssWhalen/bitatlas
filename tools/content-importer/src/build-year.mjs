@@ -224,7 +224,11 @@ export function splitExplanations(pageTexts) {
   const byNumber = new Map();
   found.forEach((entry, index) => {
     // 块边界取下一标记的起点（而非内容起点），避免把“N+1. 解析：”尾巴带进第 N 题。
-    const end = index + 1 < found.length ? found[index + 1].markerIndex : text.length;
+    let end = index + 1 < found.length ? found[index + 1].markerIndex : text.length;
+    // 2020 答案卷末页附带 2019 年试卷首页，其重复题号被顺序门禁拒绝后整页粘进最后一块；
+    // 块内出现外来试卷头（“NNNN全国硕士研究生招生考试”）即从该处截断。
+    const foreign = /(?:^|\n|\f)\s*\d{4}\s*全国硕士研究生招生考试/.exec(text.slice(entry.start, end));
+    if (foreign) end = entry.start + foreign.index;
     let contentStart = entry.start;
     if (entry.isReference) {
       // 2023 形态：标记是“N.【参考答案】X”，解析正文从块内独立的【解析】之后开始。
@@ -256,8 +260,9 @@ function jpegDimensions(buffer) {
 
 const textBlock = (value) => ({ type: 'text', text: value });
 
-// 重构版数字 PDF 的已知形近错字白名单（于/千/干、已/己）。
+// 重构版数字 PDF 的已知形近错字与代码残留白名单（于/千/干、已/己、右括号提取成 0）。
 // 只替换完整组合；408 题面语境中这些组合没有正常用法，逐条替换不会误伤正常文本。
+// fact(n-10)：2012 Q1 递归代码“n-1)”的右括号被提取成 0（解析原文“参数值减 1”可证）。
 export const REBUILD_TYPO_NORMALIZATIONS = [
   ['大千', '大于'], ['小千', '小于'], ['等千', '等于'], ['由千', '由于'], ['对千', '对于'],
   ['关千', '关于'], ['位千', '位于'], ['处千', '处于'], ['千是', '于是'],
@@ -265,6 +270,7 @@ export const REBUILD_TYPO_NORMALIZATIONS = [
   ['关干', '关于'], ['位干', '位于'], ['处干', '处于'], ['干是', '于是'],
   ['己知', '已知'], ['己经', '已经'], ['己满', '已满'], ['己分配', '已分配'],
   ['己排', '已排'], ['己注', '已注'], ['己完成', '已完成'],
+  ['fact(n-10)', 'fact(n-1)'],
 ];
 
 export function normalizeRebuildText(value) {
@@ -275,7 +281,46 @@ export function normalizeRebuildText(value) {
   return text;
 }
 
-// 题干引用图（下图/如图/题 N 图等）而文本无法承载：内嵌对应原卷页面图兜底（与图示选项题同模式）。
+// 复杂度记法规范化：数字 PDF 提取丢失上下标——O(n²)→“O(n2)”、O(log₂n)→“O(log2n)”、
+// O(n^(1/2))→“O(n1/2)”/“O(n112)”，以及大写 O 被提取成数字 0 的“0(1)”。
+// 仅处理括号内为纯复杂度形态（恰为 1，或 n/m/e/p/log/lenl 开头）的组：汇编偏移寻址
+// 0(t2)/0(s2)/0(r4)、dB 公式 10log10(S/N)、二进制位串 00(28 个 0)、中文括注 0(即…)
+// 均不以白名单开头，不受影响。
+export function normalizeComplexityNotation(value) {
+  return value.replace(/([O0ΘΩ])\s*\(([^()]{1,24}?)\)/g, (whole, letter, inner) => {
+    const trimmed = inner.trim();
+    if (!/^(?:1$|[nmep]|log|lenl)/.test(trimmed)) return whole;
+    const normalized = trimmed
+      .replace(/\blogin\b/g, 'log n')
+      .replace(/log\s*2\s*n/g, 'log₂n')
+      .replace(/\bn\s*1\s*\/\s*2\b/g, 'n^(1/2)')
+      .replace(/\bn1\s*12\b/g, 'n^(1/2)')
+      .replace(/\bn\s*2\b/g, 'n²');
+    return `${letter === '0' ? 'O' : letter}(${normalized})`;
+  });
+}
+
+// 答案卷速查表（题号网格 + 五字母答案组）与图示残留夹进解析块的人工裁剪：
+// 2013 Q3/2015 Q2/2017 Q5 表格在块尾，2016 Q1 表格与地址图残留夹在块中（其后正文保留）。
+// 表格文本无解析语义、图示残留为乱码，自动判别边界有误伤风险，故按题人工核对锚点定点裁剪；
+// 锚点来自 sha256 固定的源 PDF，失配即构建失败（fail closed）。
+export const EXPLANATION_NOISE_TRIMS = [
+  { year: 2013, number: 3, from: /1\.\s*9\./, to: null },
+  { year: 2015, number: 2, from: /\n3\.\s*\n11\./, to: null },
+  { year: 2017, number: 5, from: /CBBDD/, to: null },
+  { year: 2016, number: 1, from: /DABAC/, to: /101411 三\s*二\s*/ },
+];
+
+export function trimExplanationNoise(text, year, number) {
+  const trim = EXPLANATION_NOISE_TRIMS.find((entry) => entry.year === year && entry.number === number);
+  if (!trim) return text;
+  const from = trim.from.exec(text);
+  if (!from) throw new Error(`Explanation noise anchor "from" not found (year ${year} Q${number}).`);
+  if (!trim.to) return text.slice(0, from.index).trim();
+  const to = trim.to.exec(text.slice(from.index));
+  if (!to) throw new Error(`Explanation noise anchor "to" not found (year ${year} Q${number}).`);
+  return (text.slice(0, from.index) + text.slice(from.index + to.index + to[0].length)).trim();
+}
 const STEM_FIGURE_PATTERN = /(下|上|如|右|左|该)图|图所示|图中|如图|示意图|流程图|题\s*\d+\s*图/;
 
 export const stemReferencesFigure = (text) => STEM_FIGURE_PATTERN.test(text);
@@ -363,7 +408,9 @@ export function buildYear(year, inputs) {
     const number = block.number;
     const subject = subjectOf(number);
     const explanation = explanations.get(number);
-    const explanationText = explanation?.text == null ? undefined : normalizeRebuildText(explanation.text);
+    const explanationText = explanation?.text == null
+      ? undefined
+      : normalizeComplexityNotation(trimExplanationNoise(normalizeRebuildText(explanation.text), year, number));
     const explanationPage = explanation?.page;
     const topicText = explanationText
       ? explanationText.replace(/\s+/g, ' ').split(/[。\n]/)[0].slice(0, 80)
@@ -375,7 +422,7 @@ export function buildYear(year, inputs) {
     let stem;
     let options;
     let figureOptions = false;
-    const bodyText = normalizeRebuildText(block.text.replace(/^\s*\d{1,2}\.\s*/, '').trim());
+    const bodyText = normalizeComplexityNotation(normalizeRebuildText(block.text.replace(/^\s*\d{1,2}\.\s*/, '').trim()));
     if (number <= 40) {
       const parsed = splitOptions(bodyText);
       if (parsed) {
