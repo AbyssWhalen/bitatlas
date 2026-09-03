@@ -199,8 +199,8 @@ export function reconcileKeys(primary, secondary) {
 
 // 解析切分：1-40 为 “N. 解析：”，41-47 为 “N. 解答：”，顺序必须恰好 1..47。
 export function splitExplanations(pageTexts) {
-  const text = pageTexts.join('');
-  const pattern = /(d{1,2})[.．:：]s*(?:解析|解答)s*[:：]/g;
+  const text = pageTexts.join('\f');
+  const pattern = /(\d{1,2})[.．:：]\s*(?:解析|解答)\s*[:：]/g;
   const found = [];
   let match;
   while ((match = pattern.exec(text)) !== null) {
@@ -209,7 +209,7 @@ export function splitExplanations(pageTexts) {
     found.push({
       number: Number(match[1]),
       start: match.index + match[0].length,
-      page: text.slice(0, match.index).split('').length,
+      page: text.slice(0, match.index).split('\f').length,
     });
   }
   const byNumber = new Map();
@@ -217,7 +217,7 @@ export function splitExplanations(pageTexts) {
     const end = index + 1 < found.length ? found[index + 1].start : text.length;
     byNumber.set(entry.number, {
       page: entry.page,
-      text: text.slice(entry.start, end).trim(),
+      text: text.slice(entry.start, end).replace(/\f/g, '\n').trim(),
     });
   });
   return byNumber;
@@ -238,6 +238,38 @@ function jpegDimensions(buffer) {
 }
 
 const textBlock = (value) => ({ type: 'text', text: value });
+
+// 重构版数字 PDF 的已知形近错字白名单（于/千/干、已/己）。
+// 只替换完整组合；408 题面语境中这些组合没有正常用法，逐条替换不会误伤正常文本。
+export const REBUILD_TYPO_NORMALIZATIONS = [
+  ['大千', '大于'], ['小千', '小于'], ['等千', '等于'], ['由千', '由于'], ['对千', '对于'],
+  ['关千', '关于'], ['位千', '位于'], ['处千', '处于'], ['千是', '于是'],
+  ['大干', '大于'], ['小干', '小于'], ['等干', '等于'], ['由干', '由于'], ['对干', '对于'],
+  ['关干', '关于'], ['位干', '位于'], ['处干', '处于'], ['干是', '于是'],
+  ['己知', '已知'], ['己经', '已经'], ['己满', '已满'], ['己分配', '已分配'],
+  ['己排', '已排'], ['己注', '已注'], ['己完成', '已完成'],
+];
+
+export function normalizeRebuildText(value) {
+  let text = value;
+  for (const [from, to] of REBUILD_TYPO_NORMALIZATIONS) {
+    if (text.includes(from)) text = text.split(from).join(to);
+  }
+  return text;
+}
+
+// 题干引用图（下图/如图/题 N 图等）而文本无法承载：内嵌对应原卷页面图兜底（与图示选项题同模式）。
+const STEM_FIGURE_PATTERN = /(下|上|如|右|左|该)图|图所示|图中|如图|示意图|流程图|题\s*\d+\s*图/;
+
+export const stemReferencesFigure = (text) => STEM_FIGURE_PATTERN.test(text);
+
+function stemFigureBlocks(year, number, pages, assetIdByFile) {
+  return pages.map((page) => {
+    const assetId = assetIdByFile.get(`paper-${page}.jpg`);
+    if (!assetId) throw new Error(`Missing paper render for page ${page} (${year} Q${number}).`);
+    return { type: 'image', assetId, alt: `${year} 年第 ${number} 题原卷页面（题干含图）` };
+  });
+}
 
 export function buildYear(year, inputs) {
   const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
@@ -314,7 +346,7 @@ export function buildYear(year, inputs) {
     const number = block.number;
     const subject = subjectOf(number);
     const explanation = explanations.get(number);
-    const explanationText = explanation?.text;
+    const explanationText = explanation?.text == null ? undefined : normalizeRebuildText(explanation.text);
     const explanationPage = explanation?.page;
     const topicText = explanationText
       ? explanationText.replace(/\s+/g, ' ').split(/[。\n]/)[0].slice(0, 80)
@@ -326,12 +358,15 @@ export function buildYear(year, inputs) {
     let stem;
     let options;
     let figureOptions = false;
-    const bodyText = block.text.replace(/^\s*\d{1,2}\.\s*/, '').trim();
+    const bodyText = normalizeRebuildText(block.text.replace(/^\s*\d{1,2}\.\s*/, '').trim());
     if (number <= 40) {
       const parsed = splitOptions(bodyText);
       if (parsed) {
         stem = [textBlock(parsed.stem)];
         options = parsed.options.map((option) => ({ id: option.id, content: [textBlock(option.text)] }));
+        if (stemReferencesFigure(parsed.stem)) {
+          stem.push(...stemFigureBlocks(year, number, block.pages, assetIdByFile));
+        }
       } else {
         figureOptions = true;
         stem = [
@@ -345,6 +380,9 @@ export function buildYear(year, inputs) {
       }
     } else {
       stem = [textBlock(bodyText)];
+      if (stemReferencesFigure(bodyText)) {
+        stem.push(...stemFigureBlocks(year, number, block.pages, assetIdByFile));
+      }
     }
 
     let answer;
@@ -363,6 +401,7 @@ export function buildYear(year, inputs) {
 
     const firstHint = topicText.replace(/^考查/, '先回忆');
     const hints = [[textBlock(firstHint)], [textBlock('标出题干中的关键限制，再逐项核对定义、数据流或计算过程。')]];
+    const stemImageAssetIds = stem.flatMap((block) => (block.type === 'image' ? [block.assetId] : []));
 
     questions.push({
       id: `cn408-${year}-q${String(number).padStart(2, '0')}`,
@@ -376,7 +415,7 @@ export function buildYear(year, inputs) {
       explanation: [{ id: `q${number}-analysis`, title: '来源解析', content: [textBlock(explanationText ?? '本题解析暂缺文字版，请通过来源页查看答案卷扫描件。')] }],
       hints,
       knowledgePointIds: [`subject-${subject}`, topicId],
-      assetIds: figureOptions ? [paperAssetId] : [],
+      assetIds: [...new Set([...(figureOptions ? [paperAssetId] : []), ...stemImageAssetIds])],
       source: {
         question: {
           publisher: 'Neville Studio 408-exam-paper（重构版）',
@@ -407,7 +446,7 @@ export function buildYear(year, inputs) {
         }],
         redistribution: 'unknown',
       },
-      contentVersion: `${year}.0-draft.1`,
+      contentVersion: `${year}.0-draft.2`,
       reviewStatus: 'needs-review',
     });
     quality.push({ number, subject, figureOptions, hasExplanation: Boolean(explanationText), verifiedAgainstRebuild: rebuildKey.has(number) });
@@ -417,7 +456,7 @@ export function buildYear(year, inputs) {
     manifest: {
       id: packId,
       schemaVersion: 1,
-      contentVersion: `${year}.0-draft.1`,
+      contentVersion: `${year}.0-draft.2`,
       title: `${year} 年计算机学科专业基础综合试题`,
       year,
       questionCount: questions.length,
@@ -459,13 +498,14 @@ export async function main() {
     paperPages: JSON.parse(await readFile(path.join(workDir, 'paper-pages.json'), 'utf8')),
     answerPages: JSON.parse(await readFile(path.join(workDir, 'answer-pages.json'), 'utf8')),
     answerTableFragments: await (async () => {
-      const digital = JSON.parse(await readFile(path.join(workDir, 'answer-table-fragments.json'), 'utf8'));
-      try {
-        const ocr = JSON.parse(await readFile(path.join(workDir, 'answer-ocr-fragments.json'), 'utf8'));
-        return [...digital, ...ocr];
-      } catch {
-        return digital;
+      // 2010 的工作目录没有几何/OCR 片段文件；该年答案表由 layout 密排列组解析覆盖。
+      const parts = [];
+      for (const fileName of ['answer-table-fragments.json', 'answer-ocr-fragments.json']) {
+        try {
+          parts.push(JSON.parse(await readFile(path.join(workDir, fileName), 'utf8')));
+        } catch { /* 该年份无此片段文件 */ }
       }
+      return parts.flat();
     })(),
     csgraduatesHtml: await readFile(path.join(sourcesDir, 'csg', `${year}.html`), 'utf8'),
     paperSha256: createHash('sha256').update(await readFile(path.join(sourcesDir, 'rebuild', `${year}.pdf`))).digest('hex'),

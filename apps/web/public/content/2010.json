@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2010",
   "schemaVersion": 1,
-  "contentVersion": "2010.0-draft.1",
+  "contentVersion": "2010.0-draft.2",
   "title": "2010 年计算机学科专业基础综合试题",
   "year": 2010,
   "questionCount": 47,
-  "createdAt": "2026-09-02T02:21:58.598Z",
-  "sha256": "aecc6e0c07b02e2b10d099571aeb3fd8b6c0598c3727b8825114df67f7c62636",
+  "createdAt": "2026-09-03T00:27:45.205Z",
+  "sha256": "c991584b0b4c50cce8671a029d3df654ad955a155553016dece099cb04f69e87",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -72,7 +72,7 @@
      "content": [
       {
        "type": "text",
-       "text": "选项 A 可由 in, in, in, in, out, out, in, out, out, in, out, out 得到；选项 B 可由 in, in, in, out, out, \nin, out, out, in, out, in, out 得到；选项 C 可由 in, in, out, in, out, out, in, in, out, in, out, out 得到；选\n项 D 可由 in, out, in, in, in, in, in, out, out, out, out, out 得到，但题意要求不允许连续三次退栈操作，\n故 D 不可能得到。\n【另解】先进栈的元素后出栈，进栈顺序为 a, b, c, d, e, f, 故连续出栈时的序列必然是按字\n母表逆序的，若出栈序列中出现了长度大千等于 3 的连续逆序子序列，则为不符合要求的出栈\n序列。\n2. 解析："
+       "text": "选项 A 可由 in, in, in, in, out, out, in, out, out, in, out, out 得到；选项 B 可由 in, in, in, out, out, \nin, out, out, in, out, in, out 得到；选项 C 可由 in, in, out, in, out, out, in, in, out, in, out, out 得到；选\n项 D 可由 in, out, in, in, in, in, in, out, out, out, out, out 得到，但题意要求不允许连续三次退栈操作，\n故 D 不可能得到。\n【另解】先进栈的元素后出栈，进栈顺序为 a, b, c, d, e, f, 故连续出栈时的序列必然是按字\n母表逆序的，若出栈序列中出现了长度大于等于 3 的连续逆序子序列，则为不符合要求的出栈\n序列。\n2. 解析："
       }
      ]
     }
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -387,7 +387,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -400,6 +400,11 @@
     {
      "type": "text",
      "text": "在右图所示的平衡二叉树中，插入关键字 48 后得到一棵新平衡二\n叉树。在新平衡二叉树中，关键字 37 所在结点的左、右子结点中\n保存的关键字分别是      。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-1",
+     "alt": "2010 年第 4 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -451,7 +456,7 @@
      "content": [
       {
        "type": "text",
-       "text": "插入 48 以后，该二叉树根结点的平衡因子由-1 变为 -2, 在最小不平衡子树根结点的右子\n树 CR) 的左子树 (L) 中插入新结点引起的不平衡属千 RL 型平衡旋转，需要做两次旋转操作\n（先右旋后左旋）。\n今\n13 \n24 \n90 \n调整后，关键字 37 所在结点的左、右子结点中保存的关键字分别是 24 、 53 。\f5. 解析："
+       "text": "插入 48 以后，该二叉树根结点的平衡因子由-1 变为 -2, 在最小不平衡子树根结点的右子\n树 CR) 的左子树 (L) 中插入新结点引起的不平衡属千 RL 型平衡旋转，需要做两次旋转操作\n（先右旋后左旋）。\n今\n13 \n24 \n90 \n调整后，关键字 37 所在结点的左、右子结点中保存的关键字分别是 24 、 53 。\n5. 解析："
       }
      ]
     }
@@ -474,7 +479,9 @@
     "subject-data-structures",
     "topic-2010-q04"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -511,7 +518,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -635,7 +642,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -699,7 +706,7 @@
      "content": [
       {
        "type": "text",
-       "text": "哈夫曼树为带权路径长度最小的二叉树， 不一定是完全二叉树。哈夫曼树中没有度为1的\n结点，B正确；构造哈夫曼树时， 最先选取两个权值最小的结点作为左、右子树构造一棵新的\n二叉树，C正确；哈夫曼树中任 一非叶结点P的权值为其左、右子树根结点权值之和， 其权值\n不小千其左、右子树根结点的权值， 在与结点P的左、右子树根结点处于同 一层的结点中，若\n存在权值大于结点P权值的结点Q, 则结点Q的兄弟结点中权值较小的 一个应该与结点P作为\n左、右子树构造新的二叉树。 综上可知，哈夫曼树中任 一非叶结点的权值 一定不小千下 一层\n任 一结点的权值。\n7. 解析："
+       "text": "哈夫曼树为带权路径长度最小的二叉树， 不一定是完全二叉树。哈夫曼树中没有度为1的\n结点，B正确；构造哈夫曼树时， 最先选取两个权值最小的结点作为左、右子树构造一棵新的\n二叉树，C正确；哈夫曼树中任 一非叶结点P的权值为其左、右子树根结点权值之和， 其权值\n不小于其左、右子树根结点的权值， 在与结点P的左、右子树根结点处于同 一层的结点中，若\n存在权值大于结点P权值的结点Q, 则结点Q的兄弟结点中权值较小的 一个应该与结点P作为\n左、右子树构造新的二叉树。 综上可知，哈夫曼树中任 一非叶结点的权值 一定不小于下 一层\n任 一结点的权值。\n7. 解析："
       }
      ]
     }
@@ -759,7 +766,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -883,7 +890,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -896,6 +903,16 @@
     {
      "type": "text",
      "text": "对右图进行拓扑排序，可以得到不同的拓扑序列的个数是      。 \n\n2010 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第2页，共11页"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-1",
+     "alt": "2010 年第 8 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-2",
+     "alt": "2010 年第 8 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -970,7 +987,10 @@
     "subject-data-structures",
     "topic-2010-q08"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-1",
+    "cn408-2010-source-questions-page-2"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -1008,7 +1028,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1132,7 +1152,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1196,7 +1216,7 @@
      "content": [
       {
        "type": "text",
-       "text": "快递排序的递归次数与元素的初始排列有关。若每次划分后分区比较平衡，则递归次数少；\n若划分后分区不平衡， 则递归次数多。但快速排序的递归次数与分区处理顺序无关， 即先处理\n较长的分区或先处理较短的分区都不影响递归次数。\n此外，可以形象地把快速排序的递归调用过程用一个二叉树描述，先处理较长或较短分区，\f可以想象为交换某 一递归结点处的左右子树， 这并 不会影响树中的分支数 。\n11. 解析："
+       "text": "快递排序的递归次数与元素的初始排列有关。若每次划分后分区比较平衡，则递归次数少；\n若划分后分区不平衡， 则递归次数多。但快速排序的递归次数与分区处理顺序无关， 即先处理\n较长的分区或先处理较短的分区都不影响递归次数。\n此外，可以形象地把快速排序的递归调用过程用一个二叉树描述，先处理较长或较短分区，\n可以想象为交换某 一递归结点处的左右子树， 这并 不会影响树中的分支数 。\n11. 解析："
       }
      ]
     }
@@ -1256,7 +1276,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1380,7 +1400,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1504,7 +1524,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1628,7 +1648,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1640,7 +1660,7 @@
    "stem": [
     {
      "type": "text",
-     "text": "假定变量i、f和d的数据类型分别为int、float和double （int用补码表示，float和double分别用\nIEEE 754 单精度和双精度浮点数格式表示） ，己知i=785，f=1.5678e3，d=1.5e100。若在 32 位机\n器中执行下列关系表达式，则结果为“真”的是      。 \nI. i==(int)(float)i         II. f==(float)(int)f \nIII. f==(float)(double)f       IV . (d+f)-d==f"
+     "text": "假定变量i、f和d的数据类型分别为int、float和double （int用补码表示，float和double分别用\nIEEE 754 单精度和双精度浮点数格式表示） ，已知i=785，f=1.5678e3，d=1.5e100。若在 32 位机\n器中执行下列关系表达式，则结果为“真”的是      。 \nI. i==(int)(float)i         II. f==(float)(int)f \nIII. f==(float)(double)f       IV . (d+f)-d==f"
     }
    ],
    "options": [
@@ -1752,7 +1772,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1816,7 +1836,7 @@
      "content": [
       {
        "type": "text",
-       "text": "用2Kx4位的芯片组成一个8Kx8位存储器，共需8片2Kx4位的芯片，分为4组 ，每组由\n2片2Kx4位的芯片并联组成2Kx8位的芯片，各组芯片的地址分配如下：\n第 一组(2个芯片并联）： OOOOH�07FFH。\n第二组(2个芯片并联）：0800H�OFFFH。\f第三组(2个芯片并 联）： 1 OOO H-17FFH。\n第四组(2个芯片并 联）： 1800H-IFFFH。\n地址OBIFH 所在的芯片属于第二组，故其所在芯 片的最小地址为0800H。\n16. 解析："
+       "text": "用2Kx4位的芯片组成一个8Kx8位存储器，共需8片2Kx4位的芯片，分为4组 ，每组由\n2片2Kx4位的芯片并联组成2Kx8位的芯片，各组芯片的地址分配如下：\n第 一组(2个芯片并联）： OOOOH�07FFH。\n第二组(2个芯片并联）：0800H�OFFFH。\n第三组(2个芯片并 联）： 1 OOO H-17FFH。\n第四组(2个芯片并 联）： 1800H-IFFFH。\n地址OBIFH 所在的芯片属于第二组，故其所在芯 片的最小地址为0800H。\n16. 解析："
       }
      ]
     }
@@ -1876,7 +1896,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2000,7 +2020,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2124,7 +2144,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2248,7 +2268,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2373,7 +2393,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2437,7 +2457,7 @@
      "content": [
       {
        "type": "text",
-       "text": "典型的总线标准有： ISA、EISA、VESA、PCI、PCI-Express 、AGP、USB、R S-232C等。\nA中 的CR T是纯平显示器；B中 的CPI 是每条指令的时钟周期数；C中的RAM 是半导体随机\n存储器、MIPS是每秒执行多少百万条指令数。\f21. 解析："
+       "text": "典型的总线标准有： ISA、EISA、VESA、PCI、PCI-Express 、AGP、USB、R S-232C等。\nA中 的CR T是纯平显示器；B中 的CPI 是每条指令的时钟周期数；C中的RAM 是半导体随机\n存储器、MIPS是每秒执行多少百万条指令数。\n21. 解析："
       }
      ]
     }
@@ -2497,7 +2517,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2621,7 +2641,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2745,7 +2765,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2869,7 +2889,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2993,7 +3013,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3117,7 +3137,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3241,7 +3261,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3305,7 +3325,7 @@
      "content": [
       {
        "type": "text",
-       "text": "这是皮特森算法的实际实现， 保证进入临界区的进程合理安全。该算法为了防止两个进程\n为进入临界区而无限期等待， 设置变量turn, 表示不允许进入临界区的编号， 每个进程在先设\f置自己标志后再设置tum标志，不允许另 一个进程进入，这时，再同时检测另 一个进程状态标 \n志和不允许进入表示，这样可以保证当两个进程同时要求进入临界区时只允许 一个进程进入临 \n界区。保存的是较晚的一次赋值，因此较晚的进程等待，较早的进程进入。 先到先入，后到等 \n待， 从而完成临界区访问 的要求。\n其实这里可以想象为两个人进门，每个人进门前都会和对方客套 一句 \n“\n你先走\n”\n。如果进\n门时没别人，就当和空气说句废话，然后大步登门入室；如果两人同时进门，就互相请先，但\n各自只客套一次，所以先客套的人请完对方，就等着对方请自己，然后光明正大地进门。\n28. 解析："
+       "text": "这是皮特森算法的实际实现， 保证进入临界区的进程合理安全。该算法为了防止两个进程\n为进入临界区而无限期等待， 设置变量turn, 表示不允许进入临界区的编号， 每个进程在先设\n置自己标志后再设置tum标志，不允许另 一个进程进入，这时，再同时检测另 一个进程状态标 \n志和不允许进入表示，这样可以保证当两个进程同时要求进入临界区时只允许 一个进程进入临 \n界区。保存的是较晚的一次赋值，因此较晚的进程等待，较早的进程进入。 先到先入，后到等 \n待， 从而完成临界区访问 的要求。\n其实这里可以想象为两个人进门，每个人进门前都会和对方客套 一句 \n“\n你先走\n”\n。如果进\n门时没别人，就当和空气说句废话，然后大步登门入室；如果两人同时进门，就互相请先，但\n各自只客套一次，所以先客套的人请完对方，就等着对方请自己，然后光明正大地进门。\n28. 解析："
       }
      ]
     }
@@ -3365,7 +3385,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3489,7 +3509,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3614,7 +3634,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3738,7 +3758,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3862,7 +3882,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3986,7 +4006,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4050,7 +4070,7 @@
      "content": [
       {
        "type": "text",
-       "text": "计算机网络 的各层及其协议的集合称为体系结构，分层就涉及对各层功能的划分 ，因此A、\nB、D正确。体系结构是抽象的，它不包括各层协议的具体实现细节。《计算机网络》中在讲解网\n络层次时，仅有讲各层的协议和功能，而内部实现细节没有提及。内部实现细节是由具体设备厂\f家来确定的。\n34. 解析："
+       "text": "计算机网络 的各层及其协议的集合称为体系结构，分层就涉及对各层功能的划分 ，因此A、\nB、D正确。体系结构是抽象的，它不包括各层协议的具体实现细节。《计算机网络》中在讲解网\n络层次时，仅有讲各层的协议和功能，而内部实现细节没有提及。内部实现细节是由具体设备厂\n家来确定的。\n34. 解析："
       }
      ]
     }
@@ -4110,7 +4130,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4123,6 +4143,11 @@
     {
      "type": "text",
      "text": "在右图所示的采用“存储—转发”方式的分组交换网\n网络中，所有链路的数据传输速率为 100Mbps，分组\n大小为 1000B，其中分组头大小为 20B。若主机H1\n向主机H2 发送一个大小为 980000B的文件， 则在不\n考虑分组拆装时间和传播延迟的情况下，从H1 发送\n开始到H2 接收完为止，需要的时间至少．．是      。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-4",
+     "alt": "2010 年第 34 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4197,7 +4222,9 @@
     "subject-computer-networks",
     "topic-2010-q34"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4234,7 +4261,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4358,7 +4385,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4482,7 +4509,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4606,7 +4633,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4730,7 +4757,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4854,7 +4881,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4918,7 +4945,7 @@
      "content": [
       {
        "type": "text",
-       "text": "当采用递归查询时，如果主机所询 问的本地域名服务器不知道被查询域名的IP地址，那\n么本地域名服务器 就以 DNS客户的身份，向 其他根域名服务器继续发出查询请求 报文，而不\n是让该主机自已进行下 一步的查询。因此，这种方法用户主机和本地域名服务器发送的域名请\n求条数均为1条。因此选A。\f41. 解答："
+       "text": "当采用递归查询时，如果主机所询 问的本地域名服务器不知道被查询域名的IP地址，那\n么本地域名服务器 就以 DNS客户的身份，向 其他根域名服务器继续发出查询请求 报文，而不\n是让该主机自已进行下 一步的查询。因此，这种方法用户主机和本地域名服务器发送的域名请\n求条数均为1条。因此选A。\n二、 综合应用题\n41. 解答："
       }
      ]
     }
@@ -4979,7 +5006,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5079,7 +5106,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5107,7 +5134,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\f3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。\n43. 解答："
+      "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。\n43. 解答："
      }
     ]
    },
@@ -5118,7 +5145,7 @@
      "content": [
       {
        "type": "text",
-       "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\f3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。\n43. 解答："
+       "text": "1)算法的基本设计思想：\n可以将这个问题视为把数组ab转换成数组b a Ca代表数组的前p个元素，b代 表数组中余\n下的n-p个元素）， 先将a逆置得到a- 1b, 再将 b 逆置得到a- 1矿， 最后将整个a-1矿逆置得到\n(a-1b- 1r1 = ba。设Reverse函数执行将数组元素逆置的操作，对abcdefgh向左循环移动3 (p = 3) \n个位置的过程如下：\n6 \n4 \nReverse(O,p一1)得到cbadefgh;\nReverse(p,n-1)得到cbahgfed;\nReverse(O,n 一1)得到defghabc。\n注： Reverse中， 两个参数分别表示数组中待转换元素的始末位置。\n2) 使用 C 语言描述算法如下：\nvoid Reverse(int R[],int from,int 七o)\ninti, 七emp;\nfor(i=O;i<(to-from+l)/2;i++) \n{ ·t!:iinp=R[from+i] ;R[from+i]=R[to-i],;R[ 七o-i] =temp;}\n}//Reverse \nvoid Converse(int R[],int n,int p) { \nReverse (R, 0, p-1); \nReverse(R,p,n-1); \nReverse(R,0,n一1);\n3)上述算法中 3个Reverse函数的时间复杂度分别为O(p/2) 、O((n-p)/2)和O(n/2), 故所设\n计的算法的时间复杂度为O(n), 空间复杂度为0(1)。\n【另解】借助辅助数组来实现。\n算法思想：创建大小为p的辅助数组 s, 将R中前p个整数依次暂存在 S中 ，同时将R中\n后n-p个整数左移， 然后将S中暂存的p个数依次放回到R中的后续单元 。\n时间复杂度为O(n), 空间复杂度为O(p)。\n43. 解答："
       }
      ]
     }
@@ -5179,7 +5206,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5192,6 +5219,16 @@
     {
      "type": "text",
      "text": "（11 分）某计算机字长为 16 位，主存地址空间大小为 128KB，按字编址。采用单字长指令格\n式，指令各字段定义如下图所示。 \n15  12 11 6 5 0 \nOP Ms Rs Md Rd \n 源操作数  目的操作数  \n转移指令采用相对寻址方式，相对偏移量用补码表示，寻址方式定义见下表。 \nMs/Md 寻址方式 助记符 含义 \n000B 寄存器直接 Rn 操作数 = (Rn) \n001B 寄存器间接 (Rn) 操作数 = ((Rn)) \n010B 寄存器间接、自增 (Rn)+ 操作数 = ((Rn))，(Rn) + 1 → Rn \n011B 相对 D(Rn) 转移目标地址 = (PC)+(Rn) \n注：(X) 表示存储器地址X或寄存器X的内容。 \n请回答下列问题： \n（1）该指令系统最多可有多少条指令？该计算机最多有多少个通用寄存器？存储器地址寄存器\n（MAR）和存储器数据寄存器（MDR）至少各需要多少位？ \n（2）转移指令的目标地址范围是多少？ \n（3）若操作码 0010B表示加法操作（助记符为add） ，寄存器R4 和R5 的编号分别为 100B和\n101B，R4 的内容为 1234H，R5 的内容为 5678H，地址 1234H中的内容为 5678H，地址 5678H中的\n内容为 1234H，则汇编语言为“add (R4), (R5)+” （逗号前为源操作数，逗号后为目的操作数）对应\n的机器码是什么（用十六进制表示）？该指令执行后，哪些寄存器和存储单元中的内容会改变？改\n变后的内容是什么？ \n  \n2010 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第8页，共11页"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-7",
+     "alt": "2010 年第 43 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-8",
+     "alt": "2010 年第 43 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5241,7 +5278,10 @@
     "subject-computer-organization",
     "topic-2010-q43"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-7",
+    "cn408-2010-source-questions-page-8"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5279,7 +5319,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5307,7 +5347,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "1)每个Cache行对应一个标记项，如下图所示 。\nI 有效位 1 脏位 I 替换控制位 I 标记位\n不考虑用于Cache 一致性维护和替换算法的控制位。地址总长度为28位(2 28=256M)\n块内地址6位(26=64) , Cache块号3位(23=8)' 故Tag的位数为28-6:-3= 19位，还需使\n用 一个有效位， 故题中 数据Cache行的结构如下图所示 。\n口\n』\n19bit 64B=512bit \n标记位\nI I I \n该行对应的标记项 每行存储的数据\n数据Cache共有8行，因此数据Cache的总容量为8x(64 + 20/8)B = 532B。\n2) 数组a在主存的 存放位置及其 与Cache之 间的映射关系如下图所示。\f行号\n。\n6 \n7\n,\n'\nz\n-\n－\n＇\n，\n之\n、 一\n}\n-－ \n0\n'\n,' '， \n2, 3\n,\n_ /z\n,'\n，夕\n一\n，\n－\n,－\n,\n­\n,\n、\n夕\n一\n,'\n，一\nZ-\n,'\n}，\nY \n－，\n一 ，\n＇，、\n，\n、\n，＇\n'，\n一\n，：\n一\n，＇\n， 一\n，\nCache \n数组按行优先方式存放， 首地址为320, 数组元素占4字节。a [0][31]所在的主存块对应的\nCache行号为(320 + 3Ix4)/64 = 6; a[l][l]所在的 主存块对应的Cache行 号为(320 + 256x4 +\nIx4)/64 % 8 = 5。\n【另解】由1)可知主存和Cache的地址格式如下图所示 。\n27 8 6 5 0 \n主存地址I 标记 1块号1块内地址I\n8 6 5 \nCache地址1块号1块内地址I\n数组按行优先方式存放，首地址320, 数组元素占4字节。a[0][31] 的地址为320 + 31x4 = 1 \n10111100B, 故其对应的 Cache行号为llOB = 6; a[l][l]的地址为320 + 256x4 + 1 x4 = 1348 = 101 \n0100 OIOOB, 故其对应的 Cache行号为101B= 5。\n3)数组a 的大小为256x256x4B= 218B, 占用 i8!6 4= i2个主存块， 按行优先存放， 程序\nA逐行访问数组a, 共需访问 的次数为i6\n次， 未命中 次数为i\n12 次（即每个字块的第一个数未\n命中），因此程序A的命中率为(i 6 -i2)!i 6x100%= 93.75%。\n【另解】数组a 按行存放， 程序A按行存取。 每个字块中存放16个int型数据， 除访问 的\n第一个不命中 ，随后的15个全都命中，访问全部字块都符合这 一规律，且数组大小为字块大小\n的整数倍， 故程序A的命中率为15/16= 93.75%。\n程序B逐列访问数组a, Cache总容量为64Bx8 = 512B, 数组a 一行的大小为1KB, 正好\n是Cache容量的2倍， 可知不同行 的同 一 列数组元素使用的是同 一个 Cache单元， 故逐列访问\n每个数据时， 都会将之前的字块置换出， 也即每次访问都不会命中 ，命 中率为0。\n由于从Cache读数据比从 主存读数据快很多 ，所 以程序A 的执行比程序B 快得多。\n注意：本题考查Cache容量计算， 直接映射方式的地址计算， 以及命中率计算（注意：行\n优先遍历与列优先遍历命中率差别很大）。\n45. 解答："
+      "text": "1)每个Cache行对应一个标记项，如下图所示 。\nI 有效位 1 脏位 I 替换控制位 I 标记位\n不考虑用于Cache 一致性维护和替换算法的控制位。地址总长度为28位(2 28=256M)\n块内地址6位(26=64) , Cache块号3位(23=8)' 故Tag的位数为28-6:-3= 19位，还需使\n用 一个有效位， 故题中 数据Cache行的结构如下图所示 。\n口\n』\n19bit 64B=512bit \n标记位\nI I I \n该行对应的标记项 每行存储的数据\n数据Cache共有8行，因此数据Cache的总容量为8x(64 + 20/8)B = 532B。\n2) 数组a在主存的 存放位置及其 与Cache之 间的映射关系如下图所示。\n行号\n。\n6 \n7\n,\n'\nz\n-\n－\n＇\n，\n之\n、 一\n}\n-－ \n0\n'\n,' '， \n2, 3\n,\n_ /z\n,'\n，夕\n一\n，\n－\n,－\n,\n­\n,\n、\n夕\n一\n,'\n，一\nZ-\n,'\n}，\nY \n－，\n一 ，\n＇，、\n，\n、\n，＇\n'，\n一\n，：\n一\n，＇\n， 一\n，\nCache \n数组按行优先方式存放， 首地址为320, 数组元素占4字节。a [0][31]所在的主存块对应的\nCache行号为(320 + 3Ix4)/64 = 6; a[l][l]所在的 主存块对应的Cache行 号为(320 + 256x4 +\nIx4)/64 % 8 = 5。\n【另解】由1)可知主存和Cache的地址格式如下图所示 。\n27 8 6 5 0 \n主存地址I 标记 1块号1块内地址I\n8 6 5 \nCache地址1块号1块内地址I\n数组按行优先方式存放，首地址320, 数组元素占4字节。a[0][31] 的地址为320 + 31x4 = 1 \n10111100B, 故其对应的 Cache行号为llOB = 6; a[l][l]的地址为320 + 256x4 + 1 x4 = 1348 = 101 \n0100 OIOOB, 故其对应的 Cache行号为101B= 5。\n3)数组a 的大小为256x256x4B= 218B, 占用 i8!6 4= i2个主存块， 按行优先存放， 程序\nA逐行访问数组a, 共需访问 的次数为i6\n次， 未命中 次数为i\n12 次（即每个字块的第一个数未\n命中），因此程序A的命中率为(i 6 -i2)!i 6x100%= 93.75%。\n【另解】数组a 按行存放， 程序A按行存取。 每个字块中存放16个int型数据， 除访问 的\n第一个不命中 ，随后的15个全都命中，访问全部字块都符合这 一规律，且数组大小为字块大小\n的整数倍， 故程序A的命中率为15/16= 93.75%。\n程序B逐列访问数组a, Cache总容量为64Bx8 = 512B, 数组a 一行的大小为1KB, 正好\n是Cache容量的2倍， 可知不同行 的同 一 列数组元素使用的是同 一个 Cache单元， 故逐列访问\n每个数据时， 都会将之前的字块置换出， 也即每次访问都不会命中 ，命 中率为0。\n由于从Cache读数据比从 主存读数据快很多 ，所 以程序A 的执行比程序B 快得多。\n注意：本题考查Cache容量计算， 直接映射方式的地址计算， 以及命中率计算（注意：行\n优先遍历与列优先遍历命中率差别很大）。\n45. 解答："
      }
     ]
    },
@@ -5318,7 +5358,7 @@
      "content": [
       {
        "type": "text",
-       "text": "1)每个Cache行对应一个标记项，如下图所示 。\nI 有效位 1 脏位 I 替换控制位 I 标记位\n不考虑用于Cache 一致性维护和替换算法的控制位。地址总长度为28位(2 28=256M)\n块内地址6位(26=64) , Cache块号3位(23=8)' 故Tag的位数为28-6:-3= 19位，还需使\n用 一个有效位， 故题中 数据Cache行的结构如下图所示 。\n口\n』\n19bit 64B=512bit \n标记位\nI I I \n该行对应的标记项 每行存储的数据\n数据Cache共有8行，因此数据Cache的总容量为8x(64 + 20/8)B = 532B。\n2) 数组a在主存的 存放位置及其 与Cache之 间的映射关系如下图所示。\f行号\n。\n6 \n7\n,\n'\nz\n-\n－\n＇\n，\n之\n、 一\n}\n-－ \n0\n'\n,' '， \n2, 3\n,\n_ /z\n,'\n，夕\n一\n，\n－\n,－\n,\n­\n,\n、\n夕\n一\n,'\n，一\nZ-\n,'\n}，\nY \n－，\n一 ，\n＇，、\n，\n、\n，＇\n'，\n一\n，：\n一\n，＇\n， 一\n，\nCache \n数组按行优先方式存放， 首地址为320, 数组元素占4字节。a [0][31]所在的主存块对应的\nCache行号为(320 + 3Ix4)/64 = 6; a[l][l]所在的 主存块对应的Cache行 号为(320 + 256x4 +\nIx4)/64 % 8 = 5。\n【另解】由1)可知主存和Cache的地址格式如下图所示 。\n27 8 6 5 0 \n主存地址I 标记 1块号1块内地址I\n8 6 5 \nCache地址1块号1块内地址I\n数组按行优先方式存放，首地址320, 数组元素占4字节。a[0][31] 的地址为320 + 31x4 = 1 \n10111100B, 故其对应的 Cache行号为llOB = 6; a[l][l]的地址为320 + 256x4 + 1 x4 = 1348 = 101 \n0100 OIOOB, 故其对应的 Cache行号为101B= 5。\n3)数组a 的大小为256x256x4B= 218B, 占用 i8!6 4= i2个主存块， 按行优先存放， 程序\nA逐行访问数组a, 共需访问 的次数为i6\n次， 未命中 次数为i\n12 次（即每个字块的第一个数未\n命中），因此程序A的命中率为(i 6 -i2)!i 6x100%= 93.75%。\n【另解】数组a 按行存放， 程序A按行存取。 每个字块中存放16个int型数据， 除访问 的\n第一个不命中 ，随后的15个全都命中，访问全部字块都符合这 一规律，且数组大小为字块大小\n的整数倍， 故程序A的命中率为15/16= 93.75%。\n程序B逐列访问数组a, Cache总容量为64Bx8 = 512B, 数组a 一行的大小为1KB, 正好\n是Cache容量的2倍， 可知不同行 的同 一 列数组元素使用的是同 一个 Cache单元， 故逐列访问\n每个数据时， 都会将之前的字块置换出， 也即每次访问都不会命中 ，命 中率为0。\n由于从Cache读数据比从 主存读数据快很多 ，所 以程序A 的执行比程序B 快得多。\n注意：本题考查Cache容量计算， 直接映射方式的地址计算， 以及命中率计算（注意：行\n优先遍历与列优先遍历命中率差别很大）。\n45. 解答："
+       "text": "1)每个Cache行对应一个标记项，如下图所示 。\nI 有效位 1 脏位 I 替换控制位 I 标记位\n不考虑用于Cache 一致性维护和替换算法的控制位。地址总长度为28位(2 28=256M)\n块内地址6位(26=64) , Cache块号3位(23=8)' 故Tag的位数为28-6:-3= 19位，还需使\n用 一个有效位， 故题中 数据Cache行的结构如下图所示 。\n口\n』\n19bit 64B=512bit \n标记位\nI I I \n该行对应的标记项 每行存储的数据\n数据Cache共有8行，因此数据Cache的总容量为8x(64 + 20/8)B = 532B。\n2) 数组a在主存的 存放位置及其 与Cache之 间的映射关系如下图所示。\n行号\n。\n6 \n7\n,\n'\nz\n-\n－\n＇\n，\n之\n、 一\n}\n-－ \n0\n'\n,' '， \n2, 3\n,\n_ /z\n,'\n，夕\n一\n，\n－\n,－\n,\n­\n,\n、\n夕\n一\n,'\n，一\nZ-\n,'\n}，\nY \n－，\n一 ，\n＇，、\n，\n、\n，＇\n'，\n一\n，：\n一\n，＇\n， 一\n，\nCache \n数组按行优先方式存放， 首地址为320, 数组元素占4字节。a [0][31]所在的主存块对应的\nCache行号为(320 + 3Ix4)/64 = 6; a[l][l]所在的 主存块对应的Cache行 号为(320 + 256x4 +\nIx4)/64 % 8 = 5。\n【另解】由1)可知主存和Cache的地址格式如下图所示 。\n27 8 6 5 0 \n主存地址I 标记 1块号1块内地址I\n8 6 5 \nCache地址1块号1块内地址I\n数组按行优先方式存放，首地址320, 数组元素占4字节。a[0][31] 的地址为320 + 31x4 = 1 \n10111100B, 故其对应的 Cache行号为llOB = 6; a[l][l]的地址为320 + 256x4 + 1 x4 = 1348 = 101 \n0100 OIOOB, 故其对应的 Cache行号为101B= 5。\n3)数组a 的大小为256x256x4B= 218B, 占用 i8!6 4= i2个主存块， 按行优先存放， 程序\nA逐行访问数组a, 共需访问 的次数为i6\n次， 未命中 次数为i\n12 次（即每个字块的第一个数未\n命中），因此程序A的命中率为(i 6 -i2)!i 6x100%= 93.75%。\n【另解】数组a 按行存放， 程序A按行存取。 每个字块中存放16个int型数据， 除访问 的\n第一个不命中 ，随后的15个全都命中，访问全部字块都符合这 一规律，且数组大小为字块大小\n的整数倍， 故程序A的命中率为15/16= 93.75%。\n程序B逐列访问数组a, Cache总容量为64Bx8 = 512B, 数组a 一行的大小为1KB, 正好\n是Cache容量的2倍， 可知不同行 的同 一 列数组元素使用的是同 一个 Cache单元， 故逐列访问\n每个数据时， 都会将之前的字块置换出， 也即每次访问都不会命中 ，命 中率为0。\n由于从Cache读数据比从 主存读数据快很多 ，所 以程序A 的执行比程序B 快得多。\n注意：本题考查Cache容量计算， 直接映射方式的地址计算， 以及命中率计算（注意：行\n优先遍历与列优先遍历命中率差别很大）。\n45. 解答："
       }
      ]
     }
@@ -5379,7 +5419,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5392,6 +5432,16 @@
     {
      "type": "text",
      "text": "（7 分） 假设计算机系统采用CSCAN （循环扫描）磁盘调度策略，使用2KB的内存空间记录 16384\n个磁盘块的空闲状态。 \n（1）请说明在上述条件下如何进行磁盘块空闲状态的管理。 \n（2）设某单面磁盘旋转速度为 6000rpm，每个磁道有 100 个扇区，相邻磁道间的平均移动时间\n为 1ms。若在某时刻，磁头位于 100 号磁道处，并沿着磁道号增大的方向移动（见下图） ，磁道号请\n求队列为 50, 90, 30, 120，对请求队列中的每个磁道需读取 1 个随机分布的扇区，则读完这 4 个扇区\n点共需要多少时间？要求给出计算过程。 \n（3）如果将磁盘替换为随机访问的Flash半导体存储器（如U盘、SSD等） ，是否有比CSCAN\n更高效的磁盘调度策略？若有，给出磁盘调度策略的名称并说明理由；若无，说明理由。 \n \n  \n\n2010 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第10页，共11页"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-9",
+     "alt": "2010 年第 45 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-10",
+     "alt": "2010 年第 45 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5407,7 +5457,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "1)用位图表示磁盘的空闲状态。 每位表示 一个磁盘块的空闲状态 ， 共需要16 384/32 = 512\n字=512x4字节 =2KB, 正好可放在系统提供的内存中。\n2)采用CSCAN调度算法， 访问磁道的顺序和移动的磁道数见下表。\f被访问的下一个磁道号 I 移动距离（磁道数）\n120 \n30 \n50 \n90 \n20-90-20-40\n移动的磁道数为20+ 90 + 20 + 40 = 170, 故总 的移动 磁道时间为170ms。\n由千转速为6000rpm, 则平均 旋转延迟为Sms, 总的旋转延迟 时间 = 20ms。\n由于转速为 6000rpm, 则读取一个磁道上 一个扇区的平均 读取时间为O .lms, 总的读取扇\n区的时间为0.4ms。\n综上， 读取上述磁道上 所有扇区所花的总时间为190.4ms。\n3)采用FCFS (先来先服务）调度策略更高效。 因为Flash半导体存储器的物理结构不需\n要考虑寻道时间和旋转延迟， 可直接按1/0请求的先后 顺序服务。\n46. 解答："
+      "text": "1)用位图表示磁盘的空闲状态。 每位表示 一个磁盘块的空闲状态 ， 共需要16 384/32 = 512\n字=512x4字节 =2KB, 正好可放在系统提供的内存中。\n2)采用CSCAN调度算法， 访问磁道的顺序和移动的磁道数见下表。\n被访问的下一个磁道号 I 移动距离（磁道数）\n120 \n30 \n50 \n90 \n20-90-20-40\n移动的磁道数为20+ 90 + 20 + 40 = 170, 故总 的移动 磁道时间为170ms。\n由于转速为6000rpm, 则平均 旋转延迟为Sms, 总的旋转延迟 时间 = 20ms。\n由于转速为 6000rpm, 则读取一个磁道上 一个扇区的平均 读取时间为O .lms, 总的读取扇\n区的时间为0.4ms。\n综上， 读取上述磁道上 所有扇区所花的总时间为190.4ms。\n3)采用FCFS (先来先服务）调度策略更高效。 因为Flash半导体存储器的物理结构不需\n要考虑寻道时间和旋转延迟， 可直接按1/0请求的先后 顺序服务。\n46. 解答："
      }
     ]
    },
@@ -5418,7 +5468,7 @@
      "content": [
       {
        "type": "text",
-       "text": "1)用位图表示磁盘的空闲状态。 每位表示 一个磁盘块的空闲状态 ， 共需要16 384/32 = 512\n字=512x4字节 =2KB, 正好可放在系统提供的内存中。\n2)采用CSCAN调度算法， 访问磁道的顺序和移动的磁道数见下表。\f被访问的下一个磁道号 I 移动距离（磁道数）\n120 \n30 \n50 \n90 \n20-90-20-40\n移动的磁道数为20+ 90 + 20 + 40 = 170, 故总 的移动 磁道时间为170ms。\n由千转速为6000rpm, 则平均 旋转延迟为Sms, 总的旋转延迟 时间 = 20ms。\n由于转速为 6000rpm, 则读取一个磁道上 一个扇区的平均 读取时间为O .lms, 总的读取扇\n区的时间为0.4ms。\n综上， 读取上述磁道上 所有扇区所花的总时间为190.4ms。\n3)采用FCFS (先来先服务）调度策略更高效。 因为Flash半导体存储器的物理结构不需\n要考虑寻道时间和旋转延迟， 可直接按1/0请求的先后 顺序服务。\n46. 解答："
+       "text": "1)用位图表示磁盘的空闲状态。 每位表示 一个磁盘块的空闲状态 ， 共需要16 384/32 = 512\n字=512x4字节 =2KB, 正好可放在系统提供的内存中。\n2)采用CSCAN调度算法， 访问磁道的顺序和移动的磁道数见下表。\n被访问的下一个磁道号 I 移动距离（磁道数）\n120 \n30 \n50 \n90 \n20-90-20-40\n移动的磁道数为20+ 90 + 20 + 40 = 170, 故总 的移动 磁道时间为170ms。\n由于转速为6000rpm, 则平均 旋转延迟为Sms, 总的旋转延迟 时间 = 20ms。\n由于转速为 6000rpm, 则读取一个磁道上 一个扇区的平均 读取时间为O .lms, 总的读取扇\n区的时间为0.4ms。\n综上， 读取上述磁道上 所有扇区所花的总时间为190.4ms。\n3)采用FCFS (先来先服务）调度策略更高效。 因为Flash半导体存储器的物理结构不需\n要考虑寻道时间和旋转延迟， 可直接按1/0请求的先后 顺序服务。\n46. 解答："
       }
      ]
     }
@@ -5441,7 +5491,10 @@
     "subject-operating-systems",
     "topic-2010-q45"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-9",
+    "cn408-2010-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5479,7 +5532,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5492,6 +5545,16 @@
     {
      "type": "text",
      "text": "（8 分）设某计算机的逻辑地址空间和物理地址空间均为 64KB，按字节编址。若某进程最多需要\n6 页（Page）数据存储空间，页的大小为 1KB，操作系统采用固定分配局部置换策略为此进程分\n配 4 个页框（Page Frame） 。在时刻 260 前的该进程访问情况见下表（访问位即使用位） 。 \n页号 页框号 装入时刻 访问位 \n0 7 130 1 \n1 4 230 1 \n2 2 200 1 \n3 9 260 1 \n当该进程执行到时刻 260 时，要访问逻辑地址为 17CAH的数据。请回答下列问题： \n（1）该逻辑地址对应的页号是多少？ \n（2）若采用先进先出 （FIFO）置换算法，该逻辑地址对应的物理地址是多少？要求给出计算过\n程。 \n（3）若采用时钟（CLOCK）置换算法，该逻辑地址对应的物理地址是多少？要求给出计算过程\n（设搜索下一页的指针沿顺时针方向移动，且当前指向 2 号页框，示意图见下图） 。 \n \n  \n\n2010 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第11页，共11页"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-10",
+     "alt": "2010 年第 46 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2010-source-questions-page-11",
+     "alt": "2010 年第 46 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5541,7 +5604,10 @@
     "subject-operating-systems",
     "topic-2010-q46"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2010-source-questions-page-10",
+    "cn408-2010-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5579,7 +5645,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5678,7 +5744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2010.0-draft.1",
+   "contentVersion": "2010.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

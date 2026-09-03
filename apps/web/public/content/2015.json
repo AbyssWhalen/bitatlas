@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2015",
   "schemaVersion": 1,
-  "contentVersion": "2015.0-draft.1",
+  "contentVersion": "2015.0-draft.2",
   "title": "2015 年计算机学科专业基础综合试题",
   "year": 2015,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:21:52.245Z",
-  "sha256": "b93582c1ae337059ff4af7e8bb148aa38baac01f60b168f45063743a7c2b9c4e",
+  "createdAt": "2026-09-03T00:27:53.339Z",
+  "sha256": "ff6e67143c0eaa5460a17ecbfd8db13277942e5fb8fd4c579b1923a1f49efc02",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -72,7 +72,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "递归调用函数时，在系统栈里保存的函数信息需满足先进后出的特点，依次调用了 main(),\nS(l), S(O), 故栈底到栈顶的信息依次是 main(), S(1), S(O) 。\n2. 解析："
       }
      ]
     }
@@ -81,7 +81,7 @@
     [
      {
       "type": "text",
-      "text": "第 1 题"
+      "text": "递归调用函数时，在系统栈里保存的函数信息需满足先进后出的特点，依次调用了 main(), S(l), S(O), 故栈底到栈顶的信息依次是 main(), S("
      }
     ],
     [
@@ -117,7 +117,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 1"
+     "locator": "PDF page 1; answer 1"
     },
     "crosschecks": [
      {
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -196,7 +196,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "根据二叉树前序遍历和中序遍历的递归算法中递归工作栈的状态变化得出：前序序列和中\n序序列的关系相当于以前序序列为入栈次序，以中序序列为出栈次序。因为前序序列和中序序\n列可以唯一地确定一棵二叉树，所以题意相当千“以序列 a, b, c, d 为入栈次序，则出栈序列的\n个数为多少“，对于 n 个不同元素进栈，出栈序列的个数为—-c;n= 14 。\nn+l \n3. \n11. \n19. \n27. \n35. \n4. \n12. \n20. \n28. \n36. \nCBCCC ACBCA CDDCC DBBBA DABAB DACAB BCDBA 5. \n13. \n21. \n29. \n37. \n6. \n14. \n22. \n30. \n38. \n7. \n15. \n23. \n31. \n39. \n8. \n16. \n24. \n32. \n40. \n3. 解析："
       }
      ]
     }
@@ -205,7 +205,7 @@
     [
      {
       "type": "text",
-      "text": "第 2 题"
+      "text": "根据二叉树前序遍历和中序遍历的递归算法中递归工作栈的状态变化得出：前序序列和中 序序列的关系相当于以前序序列为入栈次序，以中序序列为出栈次序"
      }
     ],
     [
@@ -241,7 +241,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 2"
+     "locator": "PDF page 1; answer 2"
     },
     "crosschecks": [
      {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -320,7 +320,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "在哈夫曼树中，左右孩子权值之和为父结点权值。仅以分析选项 A 为例：若两个 10 分别\n属千两棵不同的子树，根的权值不等于其孩子的权值和，不符；若两个 10 属于同棵子树，其权\n值不等于其两个孩子（叶结点）的权值和，不符。 B 、 C 选项的排除方法一样。\n4. 解析："
       }
      ]
     }
@@ -329,7 +329,7 @@
     [
      {
       "type": "text",
-      "text": "第 3 题"
+      "text": "在哈夫曼树中，左右孩子权值之和为父结点权值"
      }
     ],
     [
@@ -365,7 +365,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 3"
+     "locator": "PDF page 1; answer 3"
     },
     "crosschecks": [
      {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -444,7 +444,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "只有两个结点的平衡二叉树的根结点的度为 1, A 错误。中序遍历后可以得到一个降序序\n列，树中最大元素一定无左子树（可能有右子树），因此不一定是叶结点， B 错误。最后插入的\n结点可能会导致平衡调整，而不一定是叶结点， C 错误。\n5. 解析："
       }
      ]
     }
@@ -453,7 +453,7 @@
     [
      {
       "type": "text",
-      "text": "第 4 题"
+      "text": "只有两个结点的平衡二叉树的根结点的度为 1, A 错误"
      }
     ],
     [
@@ -489,7 +489,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 4"
+     "locator": "PDF page 1; answer 4"
     },
     "crosschecks": [
      {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -568,7 +568,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "画出该有向图图形如下。\n采用图的深度优先遍历，共 5 种可能： <vo, VJ, V3, V2>, <vo, V2, V3, V1>, <vo, V2, Vi, V3>, <vo, V3, \nV2, V1>, <vo, V3, V1, V2>, 选 D 。\n6. 解析："
       }
      ]
     }
@@ -577,7 +577,7 @@
     [
      {
       "type": "text",
-      "text": "第 5 题"
+      "text": "画出该有向图图形如下"
      }
     ],
     [
@@ -613,7 +613,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 5"
+     "locator": "PDF page 1; answer 5"
     },
     "crosschecks": [
      {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -692,7 +692,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "从 V4 开始， Kruskal 算法选中的第一条边一定是权值最小的 (V1,V4), B 错误。由于 V1 和\nV4 已经可达，第二条边含有V 1和V4 的权值为8 的一定符合Prim 算法，排除\nA、D。\n7. 解析："
       }
      ]
     }
@@ -701,7 +701,7 @@
     [
      {
       "type": "text",
-      "text": "第 6 题"
+      "text": "从 V4 开始， Kruskal 算法选中的第一条边一定是权值最小的 (V1,V4), B 错误"
      }
     ],
     [
@@ -737,7 +737,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 6"
+     "locator": "PDF page 1; answer 6"
     },
     "crosschecks": [
      {
@@ -752,7 +752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -816,7 +816,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "画出查找路径图，因为折半查找的判定树是一棵二叉排序树，看其是否满足二叉排序树的\n要求。 ＾ \n500 \n180 \n450 \n450 \n显然，选项A的查找路径不满足。\n8. 解析："
       }
      ]
     }
@@ -825,7 +825,7 @@
     [
      {
       "type": "text",
-      "text": "第 7 题"
+      "text": "画出查找路径图，因为折半查找的判定树是一棵二叉排序树，看其是否满足二叉排序树的 要求"
      }
     ],
     [
@@ -859,9 +859,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 7"
+     "locator": "PDF page 2; answer 7"
     },
     "crosschecks": [
      {
@@ -876,7 +876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -888,7 +888,7 @@
    "stem": [
     {
      "type": "text",
-     "text": "己知字符串S为“abaabaabacacaabaabcc” ，模式串t为“abaabc” 。采用KMP算法进行匹配，第\n一次出现“失配” （s[i] ≠ t[j]）时，i＝j＝5，下次开始匹配时，i和j的值分别是        。"
+     "text": "已知字符串S为“abaabaabacacaabaabcc” ，模式串t为“abaabc” 。采用KMP算法进行匹配，第\n一次出现“失配” （s[i] ≠ t[j]）时，i＝j＝5，下次开始匹配时，i和j的值分别是        。"
     }
    ],
    "options": [
@@ -940,7 +940,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "由题中\n“\n失配s[ i] :/; 玵］时，i=j=S\", 可知题中的主串和模式串 的位序都是从0开始的（要\n注意灵活应变）。按照next数组生成算法，对于t有\n编号\nt \n。 2 3 4 5\na a \nnext 一1\n1-b-o\na\n-0\nb一1 c-2\n依据KMP算法\n”\n当失配时，i不变，j回退到next[j]的位置并重新比较\n”，当失配s[i]f; t[j]\n时，i=j =5, 由上表不难得出next[j]= next[5] = 2 (位序从0开始）。从而最后结果应为i= 5 (i \n保持不变），j=2。\n9. 解析："
       }
      ]
     }
@@ -949,7 +949,7 @@
     [
      {
       "type": "text",
-      "text": "第 8 题"
+      "text": "由题中 “ 失配s[ i] :/; 玵］时，i=j=S\", 可知题中的主串和模式串 的位序都是从0开始的（要 注意灵活应变）"
      }
     ],
     [
@@ -983,9 +983,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 8"
+     "locator": "PDF page 2; answer 8"
     },
     "crosschecks": [
      {
@@ -1000,7 +1000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1064,7 +1064,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "基数排序的元素移动次数与关键字的初始排列次序无关，而其他三种排序都是与关键字的\n初始排列明显相关的。\n10. 解析："
       }
      ]
     }
@@ -1073,7 +1073,7 @@
     [
      {
       "type": "text",
-      "text": "第 9 题"
+      "text": "基数排序的元素移动次数与关键字的初始排列次序无关，而其他三种排序都是与关键字的 初始排列明显相关的"
      }
     ],
     [
@@ -1107,9 +1107,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 9"
+     "locator": "PDF page 2; answer 9"
     },
     "crosschecks": [
      {
@@ -1124,7 +1124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1188,7 +1188,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "删除8后，将12 移动到堆顶，第一次是15和10比较，第二次是10和12比较并交换，\n第三次还需比较12和16, 故比较次数为3次。\n,/\\� I\\ / \\ \nj�; i� 气芒＼、巴\n，矗 全、\n(10) \n夕\n－\n／\n气、一\n--�---\n(15) i'12 \n£-\\ .--< (21 -,'\n. \n34 i v \n: 16) \n, _ _j \\�i \n--、\n(12 J \n--、／\n、\n��---! 15) (10 \n;--\\ . ,.1-· \n(21, ， \n＼ ) (34) (16) \n、、j , __令\n11. 解析："
       }
      ]
     }
@@ -1197,7 +1197,7 @@
     [
      {
       "type": "text",
-      "text": "第 10 题"
+      "text": "删除8后，将12 移动到堆顶，第一次是15和10比较，第二次是10和12比较并交换， 第三次还需比较12和16, 故比较次数为3次"
      }
     ],
     [
@@ -1231,9 +1231,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 10"
+     "locator": "PDF page 2; answer 10"
     },
     "crosschecks": [
      {
@@ -1248,7 +1248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1312,7 +1312,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "希尔排序的思想是： 先将待排元素序列分割成若干子序列（由相隔某个\n“\n增量\n”\n的元素组\n成），分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增\n量足够小）时，再对全体元素进行一次直接插入排序。\n12. 解析："
       }
      ]
     }
@@ -1321,7 +1321,7 @@
     [
      {
       "type": "text",
-      "text": "第 11 题"
+      "text": "希尔排序的思想是： 先将待排元素序列分割成若干子序列（由相隔某个 “ 增量 ” 的元素组 成），分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的"
      }
     ],
     [
@@ -1356,9 +1356,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 11"
+     "locator": "PDF page 2; answer 11"
     },
     "crosschecks": [
      {
@@ -1373,7 +1373,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1437,7 +1437,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "硬件能直接执行的只能是机器语言（二进制编码），汇编语言是为了增强机器语言的可诙\n性和记忆性的语言，经过汇编后才能被执行。\n13. 解析："
       }
      ]
     }
@@ -1446,7 +1446,7 @@
     [
      {
       "type": "text",
-      "text": "第 12 题"
+      "text": "硬件能直接执行的只能是机器语言（二进制编码），汇编语言是为了增强机器语言的可诙 性和记忆性的语言，经过汇编后才能被执行"
      }
     ],
     [
@@ -1480,9 +1480,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 12"
+     "locator": "PDF page 2; answer 12"
     },
     "crosschecks": [
      {
@@ -1497,7 +1497,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1561,7 +1561,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "补码整数表示时，负数的符号位为I, 数值位按位取反，末位加I, 因此剩下的2个\"I \"\n在最低位时，表示的是最小整数，为10000011, 转换成真值为-125。\n14. 解析："
       }
      ]
     }
@@ -1570,7 +1570,7 @@
     [
      {
       "type": "text",
-      "text": "第 13 题"
+      "text": "补码整数表示时，负数的符号位为I, 数值位按位取反，末位加I, 因此剩下的2个\"I \" 在最低位时，表示的是最小整数，为10000011, 转换成真值为-125"
      }
     ],
     [
@@ -1604,9 +1604,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 13"
+     "locator": "PDF page 2; answer 13"
     },
     "crosschecks": [
      {
@@ -1621,7 +1621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1685,7 +1685,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "对阶是较小的阶码对齐至较 大的阶码，I 正确。右规和尾数舍入过程，阶码加1而可能上\n溢，II正确， 同理III也正确。尾数溢出时可能仅产生误差，结果不一 定溢出，IV正确。\n15 .. 解析：\n直接映射的 地址结构如下 ：\nI 主存字块标记 I Cache字块标记 1 字块内地址\n按字节编址，块大小为4x32bit= 16B = 24 B, 则\n“\n字块内 地址\n”\n占4位；\n“\n能存放4K字数\n据的Cache\"即Cache的存储容量为4K字（注意单位），则Cache共有IK= 210 个Cache行，\nCache字块标记占10位；主存字块标记占32-10 -4= 18位。\nCache的总容量包括：存储容量和标记阵列容量（有效位、 标记位、 一致性维护位和替换\n算法 控制位）。标记阵列中的有效位和标记位是一 定有的，而 一致性维护位（脏位） 和替换算法\n控制位的 取舍 标准是看题眼，题目中，明确说明了采用写回法，因此 一 定包含 一致性维护位，\n而关于替换算法的词眼题目中未提及，所以不予考虑。\n从而每个Cache行 标记项包含18+ 1 + 1 = 20位， 标记阵列容量为： 210 x20位=20K位，\n存储容量为： 4Kx32位 =128K位，则总容量为128K+ 20K = 148K位。\n16. 解析：\n上述指令的执行过程可划分为取数、 运算和写回过程， 取数时读取xaddr可能不需要访问\n主存而直接访问Cache, 而写 直通方式需要把数据 同时 写入Cache和主存，因此至少访问 1次。\n17. 解析：\nDRAM使用电容存储，所以必须隔 一段时间刷新 一次，如果存储单元没有被刷新，存储的\n信息就会丢失。SDRAM表示同步动态随机存储器。\n18. 解析：\n每个访存地址对应的存储模块序号(0, I, 2, 3)如下所示。\n访存地址 I 8005 I 8006 I 8007 l 8008 I 8001 I 8002 I 8003 I 8004 I 8000 \n模块序号\n2 3 。 2 3 。 。\n其中，模块序号＝访存地址％存储器交叉模块数。\n判断可能发生访存冲突的规则是：给定的访存地址在相邻的四次访问中出现在同 一 个存储\n模块内。据此，根据上表可知8004和8000对应的模块号都为o, 即表明这两次的访问出现在\n同 一模块内且在相邻的访问请求中，满足发生冲突的条件。\n19. 解析：\n在同步通信方式中，系统采用一 个统一的时钟信号，而不是由各设备提供，否则没法实现\n统一的时钟。\n20. 解析：\n存取时间＝寻道时间＋延迟时间＋传输时间。存取 一 个扇区的平均延迟时间为旋转半\n周的时间，即为(60/7200)/2= 4. l 7ms, 传输时间为(60/7200)/1000= O.Olms, 因此访问 一 个扇区\n的平均存取时间为4.17+ O.Ql + 8 = 12.18ms, 保留 一位小数则为12.2ms。\n21. 解析：\n在程序中断I/0方式中，CPU和打印机直接交换， 打印字符直接传输到打印机的 I/0端口，\n不会涉及主存地址，而 CPU和打印机通过I/0端口中状态口和控制口来实现交互。\n22. 解析：\n内中断是指来自CPU和内存内部产生的中断，包括程序运算引起的各种错误，如地址非法、\n校验错、 页面失效、 非法指令、 用户程序执行特权指令自行中断(INT)和除数为零等，以上\n中断都在指令的执行过程中产生的，故A正确。这种检测 异常的工作肯定是由CPU (包括控制\n器和运算器）实现的，故B正确。内中断不能被屏蔽，一旦出现应立即处理，C正确。对于D,\n考虑到特殊情况， 如除数为零和自行中断(INT) 都会自动跳过中断指令， 所以不会返回到发\n生异常的指令继续执行，故错误。\n23. 解析：\n外部中断处理过程，PC值由中断隐指令自动保存，而通用寄存器 内容由操作系统保存。\n24. 解析：\n考虑到部分指令可能出现异常（导致中断），从而转到核心态。指令A有除零 异常的可能，\n指令B为 中断指令，指令D有缺页异常的可能，指令C不会发生异常。\n25. 解析：\nP(wait)操作表示进程请求某 一资源，A、B和C都 因为请求某 一资源会进入阻塞态，而D\n只是被剥夺了处理机资源，进入就绪态，一旦得到处理机即可运行。\n26. 解析：\n死锁的处理采用三种策略：死锁预防、死锁避免、 死锁检测和解除。\n死锁预防，采用破坏产生死锁的四个必要条件中的一个或几个，以防止发生死锁。其中之\n一的\n“\n破坏循环等待条件\n”\n，一般采用顺序资源分配法，首先给系统的资源编号，规定每个进程\n必须按编号递增的顺序请求资源，也就是限制了用户申请资源的顺序，故I的前半句属于死锁\n预防的范畴。\n银行家算法是最著名的死锁避免算法，其中的最大需求矩阵M心”迁义了每 一个进程对m\n类资源的最大需求量，系统在执行安全性算法中都会检查此次资源试分配后，系统是否处于安\n全状态，若不安全则将本次的试探分配作废。\n在死锁的检测和解除中，在系统为进程分配资源时不采取任何措施，但提供死锁的检测和\n解除的手段。故II、 III正确。\n27. 解析：\n可以采用书中常规的解法思路，也可以采用便捷法。对页号序列从后往前计数，直到数到\n4 (页框数） 个不同的数字为止，这个停止的数字就是要淘汰的页号（最近最久未使用的页），\n题中为页号2 。\n28. 解析：\n磁盘和内存的速度差异，决定了可以将内存经常访问的文件调入磁盘缓冲区，从高速缓存\n中复制的访问比磁盘I/0的机械操作要快很多。\n29. 解析：\n10个直接索引指针指向的数据块大小为lOxlK.B = 10KB。\n每个索引指针占4B, 则每个磁盘块可存放1KB/4B = 256个索引指针，一级索引指针指向\n的数据块大小为256x1KB = 256KB, 二级索引指针指向的数据块大小为256x256x1K.B = i6 K.B = \n64MB。\n按字节编址，偏移量为1234 时， 因1234B < 10KB, 则由直接索引指针可得到其所在的磁\n盘块地址。文件的索引结点已在内存中，则地址可直接得到，故仅需l次访盘即可。\n偏移量为307400时，因10KB + 256KB < 307400B < 64MB_, 可知该偏移量的内容在二级索\n引指针所指向 的某个磁盘块中， 索引结点已在内存中， 故先访盘2次得到文件所在 的磁盘块地\n址，再访盘 1次即可读出内容， 故共需3次访盘。\n30. 解析：\n对各进程进行固定分配时页面数不变， 不可能出现全局置换。而A、B 、D是现代操作系\n统中常见的3种策略。\n31. 解析：\n盘块号＝起始块号+L盘块号 /(1024x8)」=32 + L4o96121(1024x8)」=·32+ 50 = 82, 这里问的\n是块内字节号而不是位号， 因此还需要除以8(1字节=8位）， 块内字节号= L(盘块号％\n(1024x8))/8」 =1。\n32. 解析：\nSCAN算法就是电梯调度算法。顾名思义， 如果开始时磁头向外移动就一直要到最外侧，\n然后再返回向内侧移动，就 像电梯若往下则 一直要下到最底层需求才会再上升 一样。当期磁头\n位于58号并从外侧向内侧移动，先依次访问1 30和 199, 然后再返回向外侧移动，依次访问42\n和15, 故磁头移过的磁道数是：(199-58) + (199-15) = 325。\n33. 解析：\nPOP3建立在TCP连接上， 使用的是有连接可靠的数据传输服务。\n34. 解析：\nNRZ是最简单的串行编码技术， 用两个电压来代表两个二进制数， 如高电平表示1, 低电\n平表示 o, 题中编码1符合。NRZI则是用电平的一次翻转来表示1, 与前一个NRZI 电平相同\n的电平表示0。曼彻斯特编码将 一个码元分成两个相等的间隔， 前一个间隔为低电平后 一个间\n隔为高电平表示l; 0的 表示正好相反， 题中编码2符合。\n35. 解析：\n不考虑确认帧的开销， 一个帧发送完后经过一个单程传播时延到达接收方， 再经过一个单\n程传播时延发送 方收到应答， 从而继续发送。要使得传输效率最大化， 就是不用等确认也可以\n连续发送多个帧。设连续发送n个帧， 一个帧的发送时 延为1000B/128kbps= 62.5ms。对于采用\n滑动窗口协议的流水线机制，我们有如下公式：链路利用率 =(nx发送时延） /(RTT+发送时延）。\n依题意， 有(nx62.5ms)/(62.5ms+ 250msx2)�80%, 得 n� 7.2, 帧序号的比特数K需要满足\n2k �n+ 1。从而， 帧序号的比特数至少为4。\n36. 解析：\nCSM幻CD适用于有线网络， 而CSMA/CA则 广泛应用于无线局域网。其他选项关于\nCSMA/CD的描述都是正确的。\n37. 解析：\n从本质上说，交换机就是 一个多 端口的网桥CA正确）， 工作在数据链路层（因此不能实现\n不同网络层协议的网络互联，D错误）， 交换机能经济地将网络分成小的冲突域CB错误）。广\n播域属千网络层概念， 只有网络层设备（如路由器）才能分割广播域CC错误）。\n38. 解析：\n根据\n“ 最长前缀匹配原则\" 169.96.40.5与169.96.40.0前27 位匹配最长 ， 故选C。选项D\n为默认路由， 只有当前面 的所有目的网络都不能和分组的目的IP地址匹配时才使用。\n39. 解析：\n发送窗口的上限值=min[接收窗口，拥塞窗口］。4个RTT后，乙收到的数据全部存入缓存，\n不被取走， 接收窗口只剩下1KB (16-1-2-4-8= 1)缓存， 使得甲的发 送窗口为1KB。\n40. 解析：\nConnection: 连接方式， Close 表明为非持续连接方式， keep-alive 表示持续连接方式。 Cookie\n值是由服务器产生的， HTTP 请求报文中有 Cookie 报头表示曾经访问过 www.test.edu.cn 服务器。\n二、 综合应用题\n41. 解答：\n1)算法的基本设计思想\n算法的核心思想是用空间换时间。 使用辅助数组记录链表中已出现的数值， 从而只需对链\n表进行一趟扫描。\n因为ldatal�n, 故辅助数组 q 的大小为 n + 1, 各元素的初值均为 0 。依次扫描链表中的各\n结点， 同时检查 q[ldatal]的值， 如果为 o, 则保留该结点， 并令 q[jdatal] = 1; 否则，将该结点从\n链表中删除。\n2) 使用 C 语言描述的单链表结点的数据类型定义\ntypedef struct node {\n1.nt data; \nstruct node *link; \n}NODE; \nTypedef NODE *PNODE; \n3)算法实现\nvoid func (PNODE h,int n)\nPNODE p=h,r; \nint *q,m; \nq=(int *)malloc(sizeof(int)*(n+l)); //申请n+l 个位置的辅助空间\nfor(int i =O;i<n+l;i++) · //数组元素初值置 0\n*(q+i)=O; \nwhile(p->link!=NULL) \n｛ \nm=p->link->data>O? p->link->data:-p->link->data; \nif(*(q+m) ==O) II判断该结点的 data 是否已出现过\n｛ \n*(q+m) =l; \np=p->link; \nelse \nr=p->link; \np->link=r->link \nfree (r); \nfre.e (q); \nII首次出现\n／／保留\n／／重复出现\n／／删除\n【评分说明】若考生设计的算法满足题目的功能要求且正确， 则酌情给分。\n4)参考答案所给算法的时间复杂度为 O(m), 空间复杂度为 O(n)。\n【评分说明】若考生所估计的时间复杂度和空间复杂度与考生实现的算法一致， 可给分。\n42. 解答：\n1) 图 G的邻接矩阵A 如下：\nOllOl \n． \n＝ A\n2) A2\n如下： 3103l\n＝ 2A\nllOlO OllOl lOOll \n0010 \nl3212 02202 31031 l2213\n0 行 3 列的元素值 3 表示从顶点 0 到顶点 3 之间长度为 2 的路径共有 3 条。\n3) Bm (2:::;m::;,;n)中位于i行j列 co雨，j::;;n-1)的非零元素的含义是：\n顶点j长度为m的路径条数。\n43. 解答：\n1)程序员可见寄存器为通用寄存器 (RO-R3) 和PC。 因为采用了单总线结构， 因此， 若\n无暂存器 T, 则 ALU 的A、 B 端口会同时获得两个相同的数据， 使数据通路不能正常工作。\n【评分说明】回答通用寄存器 CRO-R3), 给分；回答PC, 给分；部分正确，酌情给分。\n设置暂存器T的原因若回答用千暂时存放端口A的数据， 则给分；其他答案，酌情给分。\n2)ALU 共有7种操作，故其操作控制信号 ALUop 至少需要 3 位；移位寄存器有 3种操作，\n其操作控制信号SRop 至少需要 2 位。\n3) 信号 SRout 所控制的部件是一个三态门， 用于控制 移位器与总线之间数据通路的连接\n与断开。\n【评分说明】只要回答出三态门或者控制连接I断开， 即给分。\n4)端口＠、＠、 ＠、 ＠、＠须连接到控制部件输出端。\n【评分说明】答案包含＠、＠、 ©、 ＠中任意 一个， 不给分；答案不全酌情给分。\n5) 连线 1, ®-®; 连线 2, (J)-@。\n【评分说明】回答除上述连线以外的其他连线，酌情给分。\n6) 因为每条指令的长度为 16 位， 按字节编址， 所以每条指令占用 2个内存单元， 顺序执\n行时， 下条指令地址为(PC)+ 2。 MUX 的一个输入端为 2, 可便千执行(PC)+ 2操作。\n44. 解答：\n1)指令操作码有7位， 因此最多可定义 2\n7 = 128 条指令。\n2)各条指令的机器代码分别如下：\nCD \"inc Rl\" 的机器码为 0000001 0 01 0 00 0 00, 即 0240H。\n@ \"shl R2, Rl\" 的机器码为 0000010 0 10 0 01 00 0, 即 0488H。\n@ \"sub R3, (Rl), R2\" 的机器码为 0000011 0 11 1 01 0 10, 即 06EAH。\n3)各标号处的控制信号或控制信号取值如下：\nCD 0; ®mov; @ mova; ©left; @ read; ®sub; CT) mov; ®Srout\n【评分说明】答对两个给分。\n4) 指令 \"sub Rl, R3, (R2)\" 的执行阶段至少包含 4个时钟周期；指令 \"incRl\" 的执行阶\n段至少包含2个时钟周期。\n45. 解答：\nsemaphore Full_A = x;\n图中从顶点i到\n//Full_A 表示A 的信箱中的邮件数量\nsemaphore Empty_A = M -x; \nsemaphore Full_B = y ; \nsemaphore Emp七y_B = N-y; \nsemaphore mutex_A = l; \nsemaphore mu七ex_B = l; \nCobegin \nA( \nwhile (TRUE) ( \nP (Full_A); \nP(mutex_A); \n从A的信箱中取出 一个邮件；\nV(mutex_A); \nV(Empty_A); \n回答问题并提出 一个新问题；\nP(Empty_B); \nP (mutex_B); \n将新邮件放入B的信箱；\nV(mutex_B); \nV (Full_B); \n【评分说明】\n1)每对信号量的定义及初值正确， 给分。\n//Empty_A表示A的信箱中还可存放的邮件数量\n//Full_B表示B的信箱中的邮件数量\n//Empty_B表示B的信箱中还可存放的邮件数量\n//mutex_A用于A的信箱互斥\n//mutex_B用千B的信箱互斥\nB{ \nwhile (TRUE) { \nP (Full_B); \nP (mutex_B); \n从B的信箱中取出 一个邮件；\nV(mutex_B); \nV(Empty_B); \n回答问题并提出 一个新问题；\nP (Empty_A); \nP (mutex_A); \n将新邮件放入A的信箱；\nV(mu七ex_A);\nV (Full_A); \n2)每个互斥信号量的P、 V操作使用正确， 各给分。\n3)每个同步信号量的P、V 操作使用正确， 各给分。\n4)其他答案酌情给分。\n46. 解答：\n1)在分页存储管理方式中， 将用户程序的地址空间分为 若干固定大小的区域， 称为\n“\n页\n”\n或\n“\n页面\n”\n。相 应地， 将内存空间分为若干物理块或页框(frame), 页和页框大小相同。 因此，\n页和页框大小均为2\n12\nB =4KB。 进程的虚拟地址空间大小为i\n32\n;2\n12\n= 2\n20\n页。\n2) (i\n0\nx4)/i\n2 \n(页 目录所占页数） + (2\n20\nx4)/i 2 \n(页表所占页数） = 1025页。\n3)需要访问 一个二级页表。 因为虚拟地址0100 OOOOH和0111 2048H的最高10位的值都\n是4,页目 录号相同，访问的是同一个二级页表。\n【评分说明】用其他方法计算， 思路和结果正确同样给分。\n47. 解答：\n1) DHCP服务器可为主机 2� 主机N动态分配IP 地址的最大范围是： 111.123.15.5�\n111.123.15.254; 主机2发送的封装DHCPDiscover报文的IP分组的源IP地址和目的IP地址分\n别是0.0.0.0 和255.255.255.255。\n2)主机 2发出的第 一个以太网帧的目的MAC地址是ff-ff-ff-ff-ff-ff; 封装主机2发往Internet\n的IP分组的以太网帧的目的MAC地址是00-al-al-al-al-al。\n3)主机l能访问WWW服务器，但不能访问Internet。由 于主机1 的子网掩码配置正确而\n默认网关IP地址被错误地配置为111.123.15.2 C正确IP地址是111.123.15.1),所以主机l 可以\n｀访 问在同一个子网内的WWW服务器，但当主机l访问Internet时， 主机l发出的IP分组会被\n路由到错误的默认网关C111.123.15.2), 从而无法到达目的主机。"
       }
      ]
     }
@@ -1694,7 +1694,7 @@
     [
      {
       "type": "text",
-      "text": "第 14 题"
+      "text": "对阶是较小的阶码对齐至较 大的阶码，I 正确"
      }
     ],
     [
@@ -1728,9 +1728,9 @@
      "fileName": "2015-answer.pdf",
      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 14"
+     "locator": "PDF page 3; answer 14"
     },
     "crosschecks": [
      {
@@ -1745,7 +1745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +1993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2489,7 +2489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2613,7 +2613,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2737,7 +2737,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2861,7 +2861,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +2986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3358,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3482,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3606,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3730,7 +3730,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3743,6 +3743,11 @@
     {
      "type": "text",
      "text": "文件系统用位图法表示磁盘空间的分配情况，位图存于磁盘的 32、127 号块中，每个盘块占\n1024 字节，盘块和块内字节均从 0 开始编号。假设要释放的盘块号为 409612，则位图中要修改\n的位所在的盘块号和块内字节序号分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-3",
+     "alt": "2015 年第 31 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -3817,7 +3822,9 @@
     "subject-operating-systems",
     "topic-2015-q31"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-3"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -3854,7 +3861,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3978,7 +3985,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4102,7 +4109,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4115,6 +4122,11 @@
     {
      "type": "text",
      "text": "使用两种编码方案对比特流 01100111 进行编码的结果如下图所示，编码 1 和编码 2 分别\n是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-3",
+     "alt": "2015 年第 34 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4189,7 +4201,9 @@
     "subject-computer-networks",
     "topic-2015-q34"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-3"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4226,7 +4240,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4351,7 +4365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4475,7 +4489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4599,7 +4613,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4723,7 +4737,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4847,7 +4861,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4972,7 +4986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5072,7 +5086,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5085,6 +5099,16 @@
     {
      "type": "text",
      "text": "（8 分）已知含有 5 个顶点的图G如下图所示。 \n \n请回答下列问题： \n（1）写出图G的邻接矩阵A（行、列下标从 0 开始） 。 \n（2）求A2，矩阵A2中位于 0 行 3 列元素值的含义是什么？ \n（3）若已知具有n（n≥2）个顶点的图的邻接矩阵为则Bm（2≤m≤n）中非零元素的含义是什\n么？ \n  \n\n2015 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-6",
+     "alt": "2015 年第 42 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-7",
+     "alt": "2015 年第 42 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5134,7 +5158,10 @@
     "subject-data-structures",
     "topic-2015-q42"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-6",
+    "cn408-2015-source-questions-page-7"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5172,7 +5199,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5185,6 +5212,16 @@
     {
      "type": "text",
      "text": "（13 分）某 16 位计算机的主存按字节编码，存取单位为 16 位；采用 16 位定长指令字格式；\nCPU采用单总线结构，主要部分如下图所示。图中R0～R3 为通用寄存器：T为暂存器；SR为\n移位寄存器，可实现直送（mov） 、左移一位（left）和右移一位（right）3 种操作，控制信号为\nSRop，SR的输出由信号SRout控制；ALU可实现直送A（mova） 、A加B（add） 、A减B\n（sub） 、A与B（and） 、A或B（or） 、非A（not）和A加 1（inc）7 种操作，控制信号为\nALUop。 \n \n请回答下列问题。 \n（1）图中哪些寄存器是程序员可见的？为何要设置暂存器T？ \n（2）控制信号ALUop和SRop的位数至少各是多少？ \n（3）控制信号SRout所控制部件的名称或作用是什么？ \n（4）端点①～⑨中，哪些端点须连接到控制部件的输出端？ \n（5）为完善单总线数据通路，需要在端点①～⑨中相应的端点之间添加必要的连线。写出连线\n的起点和终点，以正确表示数据的流动方向。 \n（6）为什么二路选择器MUX的一个输入端是 2？ \n  \n\n2015 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 8 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-7",
+     "alt": "2015 年第 43 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-8",
+     "alt": "2015 年第 43 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5234,7 +5271,10 @@
     "subject-computer-organization",
     "topic-2015-q43"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-7",
+    "cn408-2015-source-questions-page-8"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5272,7 +5312,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5285,6 +5325,16 @@
     {
      "type": "text",
      "text": "（10 分）题 43 中描述的计算机，其部分指令执行过程的控制信号如题 44 图a所示。 \n \n该机指令格式如题 44 图b所示，支持寄存器直接和寄存器间接两种寻址方式，寻址方式位分别\n为 0 和 1，通用寄存器R0～R3 的编号分别为 0、1、2 和 3。 \n \n请回答下列问题。 \n（1）该机的指令系统最多可定义多少条指令？ \n（2）若inc、shl和sub指令的操作码分别为 01H、02H和 03H，则以下指令对应的机器代码各\n是什么？ \ninc R1     ; R1 + 1 → R1 \nshl R2, R1    ; (R1) << 1 → R2 \nsub R3, (R1), R2  ; ((R1)) – (R2) → R3 \n（3）假设寄存器x的输入和输出控制信号分别为Xin和Xout，其值为 1 表示有效，为 0 表示无\n效（如PCout=1 表示PC内容送总线） ；存储器控制信号为MEMop，用于控制存储器的读\n（read）和写（write）操作写出题图a中标号①～⑧处的控制信号或控制信号的取值。 \n（4）指令“sub R1, R3, (R2)”和“inc R1”的执行阶段至少各需要多少个时钟周期？ \n  \n\n2015 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 9 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-8",
+     "alt": "2015 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-9",
+     "alt": "2015 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5334,7 +5384,10 @@
     "subject-computer-organization",
     "topic-2015-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-8",
+    "cn408-2015-source-questions-page-9"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5372,7 +5425,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5472,7 +5525,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5572,7 +5625,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5585,6 +5638,11 @@
     {
      "type": "text",
      "text": "（9 分）某网络拓扑如下图所示，其中路由器内网接口、DHCP服务器、www服务器与主机 1 均\n采用静态IP地址配置，相关地址信息见图中标注；主机 2～主机N通过DHCP服务器动态获取\nIP地址等配置信息。 \n \n请回答下列问题。 \n（1）DHCP服务器可为主机 2～主机N动态分配IP地址的最大范围是什么？主机 2 使用DHCP\n协议获取IP地址的过程中，发送的封装DHCP Discover报文的IP分组的源IP地址和目的IP地\n址分别是什么？ \n（2）若主机 2 的ARP表为空，则该主机访问Internet时，发出的第一个以太网帧的目的MAC\n地址是什么？封装主机 2 发往Internet的IP分组的以太网帧的目的MAC地址是什么？ \n（3）若主机 1 的子网掩码和默认网关分别配置为 255.255.255.0 和 111.123.15.2，则该主机是否\n能访问WWW服务器？是否能访问Internet？请说明理由。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2015-source-questions-page-11",
+     "alt": "2015 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5634,7 +5692,9 @@
     "subject-computer-networks",
     "topic-2015-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2015-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5671,7 +5731,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2015.0-draft.1",
+   "contentVersion": "2015.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],
@@ -5699,85 +5759,85 @@
   {
    "id": "topic-2015-q01",
    "subject": "data-structures",
-   "name": "第 1 题",
+   "name": "递归调用函数时，在系统栈里保存的函数信息需满足先进后出的特点，依次调用了 main(), S(l), S(O), 故栈底到栈顶的信息依次是 main(), S(",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q02",
    "subject": "data-structures",
-   "name": "第 2 题",
+   "name": "根据二叉树前序遍历和中序遍历的递归算法中递归工作栈的状态变化得出：前序序列和中 序序列的关系相当于以前序序列为入栈次序，以中序序列为出栈次序",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q03",
    "subject": "data-structures",
-   "name": "第 3 题",
+   "name": "在哈夫曼树中，左右孩子权值之和为父结点权值",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q04",
    "subject": "data-structures",
-   "name": "第 4 题",
+   "name": "只有两个结点的平衡二叉树的根结点的度为 1, A 错误",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q05",
    "subject": "data-structures",
-   "name": "第 5 题",
+   "name": "画出该有向图图形如下",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q06",
    "subject": "data-structures",
-   "name": "第 6 题",
+   "name": "从 V4 开始， Kruskal 算法选中的第一条边一定是权值最小的 (V1,V4), B 错误",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q07",
    "subject": "data-structures",
-   "name": "第 7 题",
+   "name": "画出查找路径图，因为折半查找的判定树是一棵二叉排序树，看其是否满足二叉排序树的 要求",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q08",
    "subject": "data-structures",
-   "name": "第 8 题",
+   "name": "由题中 “ 失配s[ i] :/; 玵］时，i=j=S\", 可知题中的主串和模式串 的位序都是从0开始的（要 注意灵活应变）",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q09",
    "subject": "data-structures",
-   "name": "第 9 题",
+   "name": "基数排序的元素移动次数与关键字的初始排列次序无关，而其他三种排序都是与关键字的 初始排列明显相关的",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q10",
    "subject": "data-structures",
-   "name": "第 10 题",
+   "name": "删除8后，将12 移动到堆顶，第一次是15和10比较，第二次是10和12比较并交换， 第三次还需比较12和16, 故比较次数为3次",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q11",
    "subject": "data-structures",
-   "name": "第 11 题",
+   "name": "希尔排序的思想是： 先将待排元素序列分割成若干子序列（由相隔某个 “ 增量 ” 的元素组 成），分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2015-q12",
    "subject": "computer-organization",
-   "name": "第 12 题",
+   "name": "硬件能直接执行的只能是机器语言（二进制编码），汇编语言是为了增强机器语言的可诙 性和记忆性的语言，经过汇编后才能被执行",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2015-q13",
    "subject": "computer-organization",
-   "name": "第 13 题",
+   "name": "补码整数表示时，负数的符号位为I, 数值位按位取反，末位加I, 因此剩下的2个\"I \" 在最低位时，表示的是最小整数，为10000011, 转换成真值为-125",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2015-q14",
    "subject": "computer-organization",
-   "name": "第 14 题",
+   "name": "对阶是较小的阶码对齐至较 大的阶码，I 正确",
    "parentId": "subject-computer-organization"
   },
   {

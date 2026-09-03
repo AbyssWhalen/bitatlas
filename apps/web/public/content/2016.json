@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2016",
   "schemaVersion": 1,
-  "contentVersion": "2016.0-draft.1",
+  "contentVersion": "2016.0-draft.2",
   "title": "2016 年计算机学科专业基础综合试题",
   "year": 2016,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:19:09.052Z",
-  "sha256": "8886fdc9584f80d1a5577a4d39c22cd3b34a631d3433bf8a041986758837f36a",
+  "createdAt": "2026-09-03T00:27:54.763Z",
+  "sha256": "853d73a9e745b0db8f61b31fe1abd360a5d8e02a50e5a65015d15d5fbf29d59a",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -269,6 +269,11 @@
     {
      "type": "text",
      "text": "设有下图所示的火车车轨，入口到出口之间有n条轨道，列车的行进方向均为从左至右，列车可\n驶入任意一条轨道。现有编号为 1～9 的 9 列列车，驶入的次序依次是 8，4，2，5，3，9，1，\n6，7。若期望驶出的次序依次为 1～9，则n至少是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-1",
+     "alt": "2016 年第 3 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -343,7 +348,9 @@
     "subject-data-structures",
     "topic-2016-q03"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -380,7 +387,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +511,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -641,6 +648,16 @@
     {
      "type": "text",
      "text": "下列选项中，不是下图深度优先搜索序列的是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-1",
+     "alt": "2016 年第 6 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-2",
+     "alt": "2016 年第 6 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -715,7 +732,10 @@
     "subject-data-structures",
     "topic-2016-q06"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-1",
+    "cn408-2016-source-questions-page-2"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -753,7 +773,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -877,7 +897,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -890,6 +910,11 @@
     {
      "type": "text",
      "text": "使用迪杰斯特拉(Dijkstra)算法求下图中从顶点 1 到其他各顶点的最短路径，依次得到的各最短路\n径的目标顶点是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-2",
+     "alt": "2016 年第 8 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -964,7 +989,9 @@
     "subject-data-structures",
     "topic-2016-q08"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-2"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -1001,7 +1028,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1125,7 +1152,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1276,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1400,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1524,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1648,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1772,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1896,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1994,7 +2021,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2118,7 +2145,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2242,7 +2269,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2366,7 +2393,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2490,7 +2517,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2641,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2765,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2889,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +3013,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3137,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3261,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3359,7 +3386,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3483,7 +3510,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3607,7 +3634,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3731,7 +3758,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3855,7 +3882,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3979,7 +4006,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4104,7 +4131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4228,7 +4255,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4352,7 +4379,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4476,7 +4503,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4600,7 +4627,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4724,7 +4751,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4848,7 +4875,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4973,7 +5000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4985,7 +5012,17 @@
    "stem": [
     {
      "type": "text",
-     "text": "（9 分）假设题 33～41 图中的H3 访问Web服务器S时，S为新建的TCP连接分配了 20KB（K \n= 1024）的接收缓存，最大段长MSS=1KB，平均往返时间RTT = 200ms。H3 建立连接时的初始\n序号为 100，且持续以MSS大小的段向S发送数据，拥塞窗口初始阈值为 32KB；S对收到的每\n个段进行确认，并通告新的接收窗口。假定TCP连接建立完成后，S端的TCP接收缓存仅有数\n据存入而无数据取出。请回答下列问题。 \n（1）在TCP连接建立过程中，H3 收到的S发送过来的第二次握手TCP段的SYN和ACK标志\n位的值分别是多少？确认序号是多少？ \n（2）H3 收到的第 8 个确认段所通告的接收窗口是多少？此时H3 的拥塞窗口变为多少？H3 的\n发送窗口变为多少？ \n（3）当H3 的发送窗口等于 0 时，下一个待发送的数据段序号是多少？H3 从发送第 1 个数据段\n到发送窗口等于 0 时刻为止，平均数据传输速率是多少（忽略段的传输延时）？ \n（4）若H3 与S之间通信己经结束，在t 时刻H3 请求断开该连接，则从t 时刻起，S释放该连\n接的最短时间是多少？ \n  \n2016 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 12 页）"
+     "text": "（9 分）假设题 33～41 图中的H3 访问Web服务器S时，S为新建的TCP连接分配了 20KB（K \n= 1024）的接收缓存，最大段长MSS=1KB，平均往返时间RTT = 200ms。H3 建立连接时的初始\n序号为 100，且持续以MSS大小的段向S发送数据，拥塞窗口初始阈值为 32KB；S对收到的每\n个段进行确认，并通告新的接收窗口。假定TCP连接建立完成后，S端的TCP接收缓存仅有数\n据存入而无数据取出。请回答下列问题。 \n（1）在TCP连接建立过程中，H3 收到的S发送过来的第二次握手TCP段的SYN和ACK标志\n位的值分别是多少？确认序号是多少？ \n（2）H3 收到的第 8 个确认段所通告的接收窗口是多少？此时H3 的拥塞窗口变为多少？H3 的\n发送窗口变为多少？ \n（3）当H3 的发送窗口等于 0 时，下一个待发送的数据段序号是多少？H3 从发送第 1 个数据段\n到发送窗口等于 0 时刻为止，平均数据传输速率是多少（忽略段的传输延时）？ \n（4）若H3 与S之间通信已经结束，在t 时刻H3 请求断开该连接，则从t 时刻起，S释放该连\n接的最短时间是多少？ \n  \n2016 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-6",
+     "alt": "2016 年第 41 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-7",
+     "alt": "2016 年第 41 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5035,7 +5072,10 @@
     "subject-data-structures",
     "topic-2016-q41"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-6",
+    "cn408-2016-source-questions-page-7"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5073,7 +5113,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5173,7 +5213,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5273,7 +5313,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5286,6 +5326,16 @@
     {
      "type": "text",
      "text": "（9 分）假定CPU主频为 50MHz，CPI为 4。设备D采用异步串行通信方式向主机传送 7 位\nASCII字符，通信规程中有 1 位奇校验位和 1 位停止位，从D接收启动命令到字符送入I/O端口\n需要 0.5ms。请回答下列问题，要求说明理由。 \n（1）每传送一个字符，在异步串行通信线上共需传输多少位？在设备D持续工作过程中，每秒\n钟最多可向I/O端口送入多少个字符？ \n（2）设备D采用中断方式进行输入/输出，示意图如下。 \n \nI/O端口每收到一个字符申请一次中断， 中断响应需 10 个时钟周期， 中断服务程序共有 20 条\n指令，其中第 15 条指令启动D工作。若CPU需从D读取 1000 个字符，则完成这一任务所需时\n间大约是多少个时钟周期？CPU用于完成这一任务的时间大约是多少个时钟周期？在中断响应阶\n段CPU进行了哪些操作？ \n  \n\n2016 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 10 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-9",
+     "alt": "2016 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-10",
+     "alt": "2016 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5335,7 +5385,10 @@
     "subject-computer-organization",
     "topic-2016-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-9",
+    "cn408-2016-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5373,7 +5426,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5386,6 +5439,16 @@
     {
      "type": "text",
      "text": "（14 分）某计算机采用页式虚拟存储管理方式，按字节编址，虚拟地址为 32 位，物理地址为 24\n位，页大小为 8KB；TLB采用全相联映射：Cache数据区大小为 64KB，按 2 路组相联方式组\n织，主存块大小为 64B。存储访问过程的示意图如下。 \n \n请回答下列问题。 \n（1）图中字段A～G的位数各是多少？TLB标记字段B中存放的是什么信息？ \n（2）将块号为 4099 的主存块装入到Cache中时，所映射的Cache组号是多少？对应的H\n字段内容是什么？ \n（3）Cache缺失处理的时间开销大还是缺页处理的时间开销大？为什么？ \n（4）为什么cache可以采用直写（Write Through）策略，而修改页面内容时总是采用回写\n（Write Back）策略。 \n  \n\n2016 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 11 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-10",
+     "alt": "2016 年第 45 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-11",
+     "alt": "2016 年第 45 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5435,7 +5498,10 @@
     "subject-operating-systems",
     "topic-2016-q45"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-10",
+    "cn408-2016-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5473,7 +5539,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5573,7 +5639,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5586,6 +5652,11 @@
     {
      "type": "text",
      "text": "（9 分）某磁盘文件系统使用链接分配方式组织文件，簇大小为 4KB。目录文件的每个目录项 \n包括文件名和文件的第一个簇号，其他簇号存放在文件分配表FAT中。 \n（1）假定目录树如下图所示，各文件占用的簇号及顺序如下表所示，其中dir、dir1 是目录，\nfile1、file2 是用户文件。请给出所有目录文件的内容。 \n \n（2）若FAT的每个表项仅存放簇号，占 2 字节，则FAT的最大长度为多少字节？该文件系统支\n持的文件长度最大是多少？ \n（3）系统通过目录文件和FAT实现对文件的按名存取，说明file1 的 106、108 两个簇号分别存\n放在FAT的哪个表项中。 \n（4）假设仅FAT和dir目录文件己读入内存，若需将文件dir/dir1/file的第 50 个字节读入内存，\n则要访问哪几个簇？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2016-source-questions-page-12",
+     "alt": "2016 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5635,7 +5706,9 @@
     "subject-computer-networks",
     "topic-2016-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2016-source-questions-page-12"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5672,7 +5745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2016.0-draft.1",
+   "contentVersion": "2016.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

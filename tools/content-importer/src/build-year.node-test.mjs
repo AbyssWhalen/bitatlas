@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
+  normalizeRebuildText,
   parseAnswerTable,
   parseAnswerTableGeometry,
   parseCsgraduatesKey,
   reconcileKeys,
   splitNumberedBlocks,
   splitOptions,
+  stemReferencesFigure,
   tryParseAnswerTablePage,
 } from './build-year.mjs';
 
@@ -94,5 +96,26 @@ describe('build-year pure parsers', () => {
       { number: 5, left: 'A', right: 'B' },
       { number: 9, left: 'A', right: 'C' },
     ]);
+  });
+
+  it('normalizeRebuildText 只替换白名单形近错字', () => {
+    assert.equal(normalizeRebuildText('长度大千等于 3'), '长度大于等于 3');
+    assert.equal(normalizeRebuildText('不小千其左、右子树'), '不小于其左、右子树');
+    assert.equal(normalizeRebuildText('己知三叉树T中'), '已知三叉树T中');
+    assert.equal(normalizeRebuildText('由千转速为6000rpm'), '由于转速为6000rpm');
+    assert.equal(normalizeRebuildText('对千统考算法题，己经结束'), '对于统考算法题，已经结束');
+    // 白名单按完整组合替换（题面语境中“大千世界”类用法不存在，属已知且可接受的过替换）；
+    // 不在白名单中的正常文本保持原样。
+    assert.equal(normalizeRebuildText('一千个结点的树'), '一千个结点的树');
+    assert.equal(normalizeRebuildText('已知条件成立'), '已知条件成立');
+  });
+
+  it('stemReferencesFigure 识别题干引用图的形式', () => {
+    assert.ok(stemReferencesFigure('下图所示的AOE网表示一项工程'));
+    assert.ok(stemReferencesFigure('如题 38 图所示'));
+    assert.ok(stemReferencesFigure('散列表HT如下图'));
+    assert.ok(stemReferencesFigure('采用流程图描述算法'));
+    assert.ok(!stemReferencesFigure('下列选项中，可能会将进程唤醒的事件是'));
+    assert.ok(!stemReferencesFigure('图的定义中不允许边权为负')); // “图的”不在白名单
   });
 });

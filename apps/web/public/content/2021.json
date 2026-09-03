@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2021",
   "schemaVersion": 1,
-  "contentVersion": "2021.0-draft.1",
+  "contentVersion": "2021.0-draft.2",
   "title": "2021 年计算机学科专业基础综合试题",
   "year": 2021,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:22:58.189Z",
-  "sha256": "5a9b0679ed3b808432588b94d171b03b72dbd8ac328c8d0f5f07c057ac863c27",
+  "createdAt": "2026-09-03T00:28:01.967Z",
+  "sha256": "948889b50a8640b317f2228ece019002a46e11ce3422a71ac26f66826abc13f5",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -641,6 +641,11 @@
     {
      "type": "text",
      "text": "给定平衡二叉树如下图所示，插入关键字 23 后，根中的关键字是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-1",
+     "alt": "2021 年第 6 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -715,7 +720,9 @@
     "subject-data-structures",
     "topic-2021-q06"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -752,7 +759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -765,6 +772,11 @@
     {
      "type": "text",
      "text": "给定如下有向图，该图的拓扑有序序列的个数是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-1",
+     "alt": "2021 年第 7 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -839,7 +851,9 @@
     "subject-data-structures",
     "topic-2021-q07"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -876,7 +890,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -889,6 +903,16 @@
     {
      "type": "text",
      "text": "使用Dijkstra算法求下图中从顶点 1 到其余各顶点的最短路径，将当前找到的从顶点 1 到顶点 2, \n3, 4, 5 的最短路径长度保存在数组dist中，求出第二条最短路径后，dist中的内容更新\n为        。 \n\n2021 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 2 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-1",
+     "alt": "2021 年第 8 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-2",
+     "alt": "2021 年第 8 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -963,7 +987,10 @@
     "subject-data-structures",
     "topic-2021-q08"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-1",
+    "cn408-2021-source-questions-page-2"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -1001,7 +1028,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1125,7 +1152,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1276,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1400,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1524,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1648,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1772,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1896,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +2020,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2144,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2268,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2392,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2490,7 +2517,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2641,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2765,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2889,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +3013,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3137,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3261,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3385,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3509,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3633,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3730,7 +3757,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3854,7 +3881,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3979,7 +4006,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4103,7 +4130,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4116,6 +4143,11 @@
     {
      "type": "text",
      "text": "若下图为一段差分曼彻斯特编码信号波形，则其编码的二进制位串是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-4",
+     "alt": "2021 年第 34 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4190,7 +4222,9 @@
     "subject-computer-networks",
     "topic-2021-q34"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4227,7 +4261,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4351,7 +4385,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4475,7 +4509,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4599,7 +4633,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4723,7 +4757,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4847,7 +4881,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4860,6 +4894,16 @@
     {
      "type": "text",
      "text": "设主机甲通过TCP向主机乙发送数据，部分过程如下图所示。甲在t0时刻发送一个序号seq = \n501、封装 200B数据的段，在t1时刻收到乙发送的序号seq = 601、确认序号ack_seq = 501、接\n收窗口rcvwnd = 500B的段，则甲在未收到新的确认段之前，可以继续向乙发送的数据序号范围\n是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-4",
+     "alt": "2021 年第 40 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-5",
+     "alt": "2021 年第 40 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4934,7 +4978,10 @@
     "subject-computer-networks",
     "topic-2021-q40"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-4",
+    "cn408-2021-source-questions-page-5"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4972,7 +5019,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4985,6 +5032,16 @@
     {
      "type": "text",
      "text": "（15 分）已知无向连通图G由顶点集V和边集E组成，|E| > 0 ,当G中度为奇数的顶点个数为不\n大于 2 的偶数时，G存在包含所有边且长度为|E|的路径（称为EL路径） 。设图G采用邻接矩阵\n存储，类型定义如下： \ntypedef struct{     // 图的定义 \n    int numVertices, numEdges; \n          // 图中实际顶点数和边数 \n    char VerticesList[MAXV]; \n          // 顶点表。MAXV为已定义常量 \n    int Edge[MAXV][MAXV]; \n          // 邻接矩阵 \n}MGraph \n请设计算法int IsExistEL(MGraph G)，判断G是否存在EL路径，若存在，则返回 1，否\n则返回 0。要求： \n（1）给出算法的基本设计思想。 \n（2）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 \n（3）说明你所设计算法的时间复杂度和空间复杂度。 \n \n  \n2021 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 6 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-5",
+     "alt": "2021 年第 41 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-6",
+     "alt": "2021 年第 41 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5034,7 +5091,10 @@
     "subject-data-structures",
     "topic-2021-q41"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-5",
+    "cn408-2021-source-questions-page-6"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5072,7 +5132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5172,7 +5232,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5272,7 +5332,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5372,7 +5432,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5472,7 +5532,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5572,7 +5632,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5585,6 +5645,11 @@
     {
      "type": "text",
      "text": "（9 分）某网络拓扑如题 47 图所示，以太网交换机S通过路由器R与Internet互联。路由器部分\n接口、本地域名服务器、H1、H2 的IP地址和MAC地址如图中所示。在t0时刻H1 的ARP表和\nS的交换表均为空，H1 在此刻利用浏览器通过域名www.abc.com请求访问Web服务器，在t1时\n刻（t1>t0）S第一次收到了封装HTTP请求报文的以太网帧，假设从t0到t1期间网络未发生任何\n与此次Web访问无关的网络通信。 \n 题 47 题图 \n请回答下列问题。 \n（1）从t0到t1期间，H1 除了HTTP之外还运行了哪个应用层协议？从应用层到数据链路层，该\n应用层协议报文是通过哪些协议进行逐层封装的？ \n（2）若S的交换表结构为<MAC地址，端口>，则t1时刻S交换表的内容是什么？ \n（3）从t0到t1期间，H2 至少会接收到几个与此次Web访问相关的帧？接收到的是什么帧？帧的\n目的MAC地址是什么？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2021-source-questions-page-11",
+     "alt": "2021 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5634,7 +5699,9 @@
     "subject-computer-networks",
     "topic-2021-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2021-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5671,7 +5738,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2021.0-draft.1",
+   "contentVersion": "2021.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

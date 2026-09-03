@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2011",
   "schemaVersion": 1,
-  "contentVersion": "2011.0-draft.1",
+  "contentVersion": "2011.0-draft.2",
   "title": "2011 年计算机学科专业基础综合试题",
   "year": 2011,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:19:03.328Z",
-  "sha256": "56e7a8bd125c3d59ef61de5d980e7447489fb167af7f9e37fab272585607f75a",
+  "createdAt": "2026-09-03T00:27:47.499Z",
+  "sha256": "5dbc564784f80de04ee9234c73faec9d41abd28f90f33d15271c75b1eaf616a5",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -889,6 +889,11 @@
     {
      "type": "text",
      "text": "下列关于图的叙述中，正确的是        。 \nI. 回路是简单路径        II. 存储稀疏图，用邻接矩阵比邻接表更省空间 \nIII. 若有向图中存在拓扑序列，则该图不存在回路"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2011-source-questions-page-1",
+     "alt": "2011 年第 8 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -963,7 +968,9 @@
     "subject-data-structures",
     "topic-2011-q08"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2011-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -1000,7 +1007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1124,7 +1131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1255,7 +1262,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1379,7 +1386,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1503,7 +1510,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1628,7 +1635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1752,7 +1759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1876,7 +1883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2000,7 +2007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2124,7 +2131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2248,7 +2255,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2372,7 +2379,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2496,7 +2503,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2620,7 +2627,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2744,7 +2751,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2868,7 +2875,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2992,7 +2999,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3116,7 +3123,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3241,7 +3248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3365,7 +3372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3489,7 +3496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3613,7 +3620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3737,7 +3744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3861,7 +3868,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3985,7 +3992,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4109,7 +4116,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4233,7 +4240,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4357,7 +4364,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4482,7 +4489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4495,6 +4502,11 @@
     {
      "type": "text",
      "text": "某网络拓扑如下图所示，路由器R1 只有到达子网 192.168.1.0/24 的路由。为使R1 可以将IP分\n组正确地路由到图中所有的子网， 则在R1 中需要增加的一条路由（目的网络，子网掩码，下一\n跳）是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2011-source-questions-page-4",
+     "alt": "2011 年第 37 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4569,7 +4581,9 @@
     "subject-computer-networks",
     "topic-2011-q37"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2011-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4606,7 +4620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4730,7 +4744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4854,7 +4868,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4978,7 +4992,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5078,7 +5092,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5178,7 +5192,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5278,7 +5292,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5291,6 +5305,16 @@
     {
      "type": "text",
      "text": "（12 分）某计算机存储器按字节编址， 虚拟（逻辑）地址空间大小为 16MB, 主存（物理）地址\n空间大小为 1MB, 页面大小为 4KB; Cache采用直接映射方式，共 8 行；主存与Cache之间交换\n的块大小为 32B。系统运行到某一时刻时，页表的部分内容和Cache的部分内容分别如题 44-a\n图、题 44-b图所示，图中页框号及标记字段的内容为十六进制形式。 \n虚页号 有效位 页框号 …  行号 有效位 标记 … \n0 1 06 …  0 1 020 … \n1 1 04 …  1 0 － … \n2 1 15 …  2 1 01D … \n3 1 02 …  3 1 105 … \n4 0 － …  4 1 064 … \n5 1 2B …  5 1 14D … \n6 0 － …  6 0 － … \n7 1 32 …  7 1 27A … \n题 44-a图 页表的部分内容  题 44-b图 Cache的部分内容 \n请回答下列问题。 \n（1）虚拟地址共有几位，哪几位表示虚页号？物理地址共有几位，哪几位表示页框号（物理页\n号）？ \n（2）使用物理地址访问Cache时，物理地址应划分成哪几个字段？要求说明每个字段的位数及\n在物理地址中的位置。 \n（3）虚拟地址 001C60H所在的页面是否在主存中？若在主存中， 则该虚拟地址对应的物理地\n址是什么？访问该地址时是否Cache命中？要求说明理由。 \n（4） 假定为该机配置一个四路组相联的TLB共可存放 8 个页表项， 若其当前内容 （十六进制）\n如题 44-c图所示，则此时虚拟地址 024BACH所在的页面是否存在主存中？要求说明理由。 \n组\n号 \n有效\n位 \n标\n记 \n页框\n号  有效\n位 \n标\n记 \n页框\n号  有效\n位 \n标\n记 \n页框\n号  有效\n位 \n标\n记 \n页框\n号 \n0 0 － －  1 001 15  0 － －  1 012 1F \n1 1 013 2D  0 － －  1 008 7E  0 － － \n题 44-c图 TLB的部分内容 \n  \n2011 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 8 页（共 10 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2011-source-questions-page-7",
+     "alt": "2011 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2011-source-questions-page-8",
+     "alt": "2011 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5340,7 +5364,10 @@
     "subject-computer-organization",
     "topic-2011-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2011-source-questions-page-7",
+    "cn408-2011-source-questions-page-8"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5378,7 +5405,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5478,7 +5505,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5578,7 +5605,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5591,6 +5618,11 @@
     {
      "type": "text",
      "text": "（9 分）某主机的MAC地址为 00-15-C5-C1-SE-28 , IP地址为 10.2.128.100  （私有地址）。题47-\na图是网络拓扑，题 47-b图是该主机进行Web请求的 1 个以太网数据帧前 80B的十六进制及\nASCII码内容。 \n \n题 47-a图 网络拓扑 \n \n题 47-b图 以太网数据帧（前 80B） \n请参考图中的数据回答以下问题。 \n（1）Web服务器的IP地址是什么？该主机的默认网关的MAC地址是什么？ \n（2）该主机在构造题 47-b图的数据帧时，使用什么协议确定目的MAC地址？封装该协议请求\n报文的以太网帧的目的MAC地址是什么？ \n（3）假设HTTP/1.1 协议以持续的非流水线方式工作，一次请求－响应时间为RTT , rfc.html页\n面引用了 5 个JPEG小图像，则从发出题 47-b图中的Web请求开始到浏览器收到全部内容为止，需\n要多少个RTT? \n（4）该帧所封装的IP分组经过路由器R转发时，需修改IP分组头中的哪些字段？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2011-source-questions-page-10",
+     "alt": "2011 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5640,7 +5672,9 @@
     "subject-computer-networks",
     "topic-2011-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2011-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5677,7 +5711,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2011.0-draft.1",
+   "contentVersion": "2011.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

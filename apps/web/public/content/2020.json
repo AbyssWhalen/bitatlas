@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2020",
   "schemaVersion": 1,
-  "contentVersion": "2020.0-draft.1",
+  "contentVersion": "2020.0-draft.2",
   "title": "2020 年计算机学科专业基础综合试题",
   "year": 2020,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:22:56.861Z",
-  "sha256": "f9af2f9a0f51d976f797d4b844827c740b9660ebf522b558c38cdd51e0699799",
+  "createdAt": "2026-09-03T00:28:00.531Z",
+  "sha256": "dded871471970abc33b7cab36090ae44355b723eb999dfcd288fb776bb302d8a",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1000,7 +1000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1124,7 +1124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1249,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1373,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1497,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +1993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2489,7 +2489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2614,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2738,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2862,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +2986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3358,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3482,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3606,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3731,7 +3731,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3855,7 +3855,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3979,7 +3979,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3992,6 +3992,11 @@
     {
      "type": "text",
      "text": "下图描述的协议要素是        。 \n \nI. 语法 II. 语义 III. 时序"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-4",
+     "alt": "2020 年第 33 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4066,7 +4071,9 @@
     "subject-computer-networks",
     "topic-2020-q33"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2020-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4103,7 +4110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4227,7 +4234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4240,6 +4247,11 @@
     {
      "type": "text",
      "text": "在下图所示的网络中，冲突域和广播域的个数分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-4",
+     "alt": "2020 年第 35 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4314,7 +4326,9 @@
     "subject-computer-networks",
     "topic-2020-q35"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2020-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4351,7 +4365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4476,7 +4490,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4489,6 +4503,11 @@
     {
      "type": "text",
      "text": "某IEEE 802.11 无线局域网中，主机H与AP之间发送或接收CSMA/CA帧的过程如下图所示。\n在H或AP发送帧前所等待的帧间间隔时间（IFS）中，最长的是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-5",
+     "alt": "2020 年第 37 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4563,7 +4582,9 @@
     "subject-computer-networks",
     "topic-2020-q37"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2020-source-questions-page-5"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4600,7 +4621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4724,7 +4745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4848,7 +4869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4861,6 +4882,16 @@
     {
      "type": "text",
      "text": "假设下图所示网络中的本地域名服务器只提供递归查询服务，其他域名服务器均只提供迭代查询\n服务；局域网内主机访问Internet上各服务器的往返时间（RTT）均为 10ms,忽略其他各种时延。\n若主机H通过超链接http://www.abc.com/index.html请求浏览纯文本Web页index.html,则从点击\n超链接开始到浏览器接收到index.html页面为止，所需的最短时间与最长时间分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-5",
+     "alt": "2020 年第 40 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-6",
+     "alt": "2020 年第 40 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4935,7 +4966,10 @@
     "subject-computer-networks",
     "topic-2020-q40"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2020-source-questions-page-5",
+    "cn408-2020-source-questions-page-6"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4973,7 +5007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5073,7 +5107,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5173,7 +5207,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5273,7 +5307,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5373,7 +5407,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5473,7 +5507,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5573,7 +5607,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5586,6 +5620,11 @@
     {
      "type": "text",
      "text": "（9 分）某校园网有两个局域网，通过路由器R1、R2 和R3 互联后接入Internet，S1 和S2 为以\n太网交换机。局域网采用静态IP地址配置，路由器部分接口以及各主机的IP地址如下图所示。 \n \n假设NAT转换表结构为 \n外网 内网 \nIP地址 端口号 IP地址 端口号 \n    \n请回答下列问题： \n（1）为使H2 和H3 能够访问Web服务器（使用默认端口号） ，需要进行什么配置？ \n（2）若H2 主动访问Web服务器时，将HTTP请求报文封装到IP数据报P中发送，则H2 发送\nP的源IP地址和目的IP地址分别是什么？经过R3 转发后，P的源IP地址和目的IP地址分别是\n什么？经过R2 转发后，P的源IP地址和目的IP地址分别是什么？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2020-source-questions-page-12",
+     "alt": "2020 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5635,7 +5674,9 @@
     "subject-computer-networks",
     "topic-2020-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2020-source-questions-page-12"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5672,7 +5713,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2020.0-draft.1",
+   "contentVersion": "2020.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

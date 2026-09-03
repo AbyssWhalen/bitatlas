@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2018",
   "schemaVersion": 1,
-  "contentVersion": "2018.0-draft.1",
+  "contentVersion": "2018.0-draft.2",
   "title": "2018 年计算机学科专业基础综合试题",
   "year": 2018,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:19:10.515Z",
-  "sha256": "e1e279a3cd331c7a2690caadfc9a29d8a1c8dfae8fed317f471af190dac22a3e",
+  "createdAt": "2026-09-03T00:27:57.661Z",
+  "sha256": "75f14f794eee96e1a6704232ac2e39ec794a931069a1247a862db6e8eaf8fda7",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -72,7 +72,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "第一次调用：＠从 S1 中弹出 2 和 3; ® 从 S2 中弹出＋；＠执行 3+2=5;@将 5 压入 S1 中，\n第一次调用结束后 S1 中剩余 5, 8, 5 (5 在栈顶）， S2 中剩余＊，－（－在栈顶）。第二次调用： O从 S1\n中弹出 5 和 8; ® 从 S2 中弹出－；＠执行 8-5=3;@将 3 压入 SI 中，第二次调用结束后 S1 中剩\n余 5, 3 (3 在栈顶）， S2 中剩余＊。第三次调用：＠从 S1 中弹出 3 和 5; ® 从 S2 中弹出＊；＠执行\n5x3 = 15; @将 15 压入 S1 中，第三次调用结束后 S1 中仅剩余 15 (栈顶）， S2 为空。故选 B 。\n2. 解析："
       }
      ]
     }
@@ -81,7 +81,7 @@
     [
      {
       "type": "text",
-      "text": "第 1 题"
+      "text": "第一次调用：＠从 S1 中弹出 2 和 3; ® 从 S2 中弹出＋；＠执行 3+2=5;@将 5 压入 S1 中， 第一次调用结束后 S1 中剩余 5, 8,"
      }
     ],
     [
@@ -117,7 +117,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 1"
+     "locator": "PDF page 1; answer 1"
     },
     "crosschecks": [
      {
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -196,7 +196,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "A 的操作顺序：＠＠＠＠＠＠＠＠。 B 的操作顺序： ®CDCDCDCDCD@ 。 D 的操作顺序：\n＠＠＠＠＠＠＠＠＠＠＠。对于 C: 首先输出 3, 说明 l 和 2 必须先依次入栈，而此后 2 肯定\n比 1 先输出，因此无法得到 1, 2 的输出顺序。\n3. 解析："
       }
      ]
     }
@@ -205,7 +205,7 @@
     [
      {
       "type": "text",
-      "text": "第 2 题"
+      "text": "A 的操作顺序：＠＠＠＠＠＠＠＠"
      }
     ],
     [
@@ -241,7 +241,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 2"
+     "locator": "PDF page 1; answer 2"
     },
     "crosschecks": [
      {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -320,7 +320,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "数组 N 的下标从 0 开始，第一个元素 m1,1 对应存入 n。，矩阵 M 的第一行有 12 个元素，第\n二行有 11 个，第三行有 10 个，第四行有 9 个，第五行有 8 个，所以 m6,6 是第 12 + 11 + 10 + 9 + \n8 + \n1 = 51 个元素，下标应为 50, 故选 A 。\n4. 解析："
       }
      ]
     }
@@ -329,7 +329,7 @@
     [
      {
       "type": "text",
-      "text": "第 3 题"
+      "text": "数组 N 的下标从 0 开始，第一个元素 m1,1 对应存入 n"
      }
     ],
     [
@@ -365,7 +365,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 3"
+     "locator": "PDF page 1; answer 3"
     },
     "crosschecks": [
      {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -444,7 +444,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "非叶结点的度均为 2, 且所有叶结点都位于同一层的完全二叉树就是满二叉树。对于一棵\n高度为 h 的满二叉树（空树 h=O), 其最后一层全部是叶结点，数量为 2h-1; 总结点数为 2h - I 。\n因此当 2h-'=k 时，可以得到 2h - I= 2k-l 。\n5. 解析："
       }
      ]
     }
@@ -453,7 +453,7 @@
     [
      {
       "type": "text",
-      "text": "第 4 题"
+      "text": "非叶结点的度均为 2, 且所有叶结点都位于同一层的完全二叉树就是满二叉树"
      }
     ],
     [
@@ -489,7 +489,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 4"
+     "locator": "PDF page 1; answer 4"
     },
     "crosschecks": [
      {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -568,7 +568,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "构造一棵符合题意的哈夫曼树，如下图所示。\n由此可知， 左子树为o, 右子树为1, 故答案为A。\n6. 解析："
       }
      ]
     }
@@ -577,7 +577,7 @@
     [
      {
       "type": "text",
-      "text": "第 5 题"
+      "text": "构造一棵符合题意的哈夫曼树，如下图所示"
      }
     ],
     [
@@ -613,7 +613,7 @@
      "pages": [
       1
      ],
-     "locator": "answer table (page 1 assumed); answer 5"
+     "locator": "PDF page 1; answer 5"
     },
     "crosschecks": [
      {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -640,7 +640,12 @@
    "stem": [
     {
      "type": "text",
-     "text": "己知二叉排序树如下图所示，元素之间应满足的大小关系是        。"
+     "text": "已知二叉排序树如下图所示，元素之间应满足的大小关系是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-1",
+     "alt": "2018 年第 6 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -692,7 +697,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "根据二叉排序树的特性：中序遍历(LNR)得到的是一个递增序列 。图中二叉排序树的中\n序遍历序列为Xi,X3, X5, X4, X2, 可知X3<�5<X40\n7. 解析："
       }
      ]
     }
@@ -701,7 +706,7 @@
     [
      {
       "type": "text",
-      "text": "第 6 题"
+      "text": "根据二叉排序树的特性：中序遍历(LNR)得到的是一个递增序列 "
      }
     ],
     [
@@ -715,7 +720,9 @@
     "subject-data-structures",
     "topic-2018-q06"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -735,9 +742,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 6"
+     "locator": "PDF page 2; answer 6"
     },
     "crosschecks": [
      {
@@ -752,7 +759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -816,7 +823,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "拓扑 排序每次选取入度为0的结点输出， 经观察不难发现拓扑序列前两位 一定是1, 5或\n5, 1 (因为只有1和5的入度均为o, 且其他结点都不满足仅有1或仅有5作为前驱）。因此D\n显然错误。\n8. 解析："
       }
      ]
     }
@@ -825,7 +832,7 @@
     [
      {
       "type": "text",
-      "text": "第 7 题"
+      "text": "拓扑 排序每次选取入度为0的结点输出， 经观察不难发现拓扑序列前两位 一定是1, 5或 5, 1 (因为只有1和5的入度均为o, 且其他结点都不满足仅有1或仅有"
      }
     ],
     [
@@ -860,9 +867,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 7"
+     "locator": "PDF page 2; answer 7"
     },
     "crosschecks": [
      {
@@ -877,7 +884,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -941,7 +948,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "m阶B树的基本性质：根结点以外的非叶结点最少 含有「m/2 1-1个关键字，代入m = 3得\n到每 个 非叶结点中 最少包含1个关键字， 而根结点含有1个关键字， 因此所有非叶结点都有两\n个孩子。此时其树形与h = 5的满二叉树相同， 可求得关键字最少为31个。\n9. 解析："
       }
      ]
     }
@@ -950,7 +957,7 @@
     [
      {
       "type": "text",
-      "text": "第 8 题"
+      "text": "m阶B树的基本性质：根结点以外的非叶结点最少 含有「m/2 1-1个关键字，代入m = 3得 到每 个 非叶结点中 最少包含1个关键字， 而根结点含有1个关键字"
      }
     ],
     [
@@ -984,9 +991,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 8"
+     "locator": "PDF page 2; answer 8"
     },
     "crosschecks": [
      {
@@ -1001,7 +1008,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1065,7 +1072,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "根据题意， 得到的HT如下：\n二\n2 3 4 5 6\n43 15 \nASL 成功\n=\n(1 + 2 + 3)/3 = 2。\n10. 解析："
       }
      ]
     }
@@ -1074,7 +1081,7 @@
     [
      {
       "type": "text",
-      "text": "第 9 题"
+      "text": "根据题意， 得到的HT如下： 二 2 3 4 5 6 43 15 ASL 成功 = (1 + 2 + 3)/3 = 2"
      }
     ],
     [
@@ -1108,9 +1115,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 9"
+     "locator": "PDF page 2; answer 9"
     },
     "crosschecks": [
      {
@@ -1125,7 +1132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1189,7 +1196,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "初始序列： 8, 3, 9, 11, 2, 1, 4, 7, 5, 10, 6 \n第 一趟： 1, 3, 7, 5, 2, 6, 4, 9, 11, 10, 8\n第二趟：\nI I I I I I I I I I I\n1, 2, 6, 4, 3, 7, 5, 8, 11, 10, 9 \nI I I I I I I I I I I \n第 一趟分组：8, 1, 6; 3, 4; 9, 7; 11, 5; 2,.10; 间隔为5, 排序后组内递增。\n第二趟分组：1,5,4,10; 3,2,9,8; 7,6,11; 间隔为3, 排序后组内递增。\n故答案选D。\n11. 解析："
       }
      ]
     }
@@ -1198,7 +1205,7 @@
     [
      {
       "type": "text",
-      "text": "第 10 题"
+      "text": "初始序列： 8, 3, 9, 11, 2, 1, 4, 7, 5, 10, 6 第 一趟： 1, 3, 7, 5, 2, 6, 4, 9, 11, 10, 8 "
      }
     ],
     [
@@ -1232,9 +1239,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 10"
+     "locator": "PDF page 2; answer 10"
     },
     "crosschecks": [
      {
@@ -1249,7 +1256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1313,7 +1320,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "要熟练掌握建堆、 堆的调整方法， 从序列末尾开始向前遍历， 变换过程如下图所示。\n6)� 6 \n')'/.)一\n5\n�气；。＼三？\n12. 解析："
       }
      ]
     }
@@ -1322,7 +1329,7 @@
     [
      {
       "type": "text",
-      "text": "第 11 题"
+      "text": "要熟练掌握建堆、 堆的调整方法， 从序列末尾开始向前遍历， 变换过程如下图所示"
      }
     ],
     [
@@ -1356,9 +1363,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 11"
+     "locator": "PDF page 2; answer 11"
     },
     "crosschecks": [
      {
@@ -1373,7 +1380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1437,7 +1444,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "对于I, 二进制由于只有0,1 两种数值，运算规则较简单，都是通过ALU部件转换成加法\n运算。 对于 II, 二进制只需要高电平和低电平两个状态就可以表示， 这样的物理器件很容易制\n造。对于 III, 二进制与逻辑量相吻合。二进制的 0 和1正好与逻辑量的\n“\n真\n”\n和\n“\n假\n”\n相对应，\n因此用二进制数表示二值逻辑显得十分自然， 采用逻辑门电路很容易实现运算。\n13. 解析："
       }
      ]
     }
@@ -1446,7 +1453,7 @@
     [
      {
       "type": "text",
-      "text": "第 12 题"
+      "text": "对于I, 二进制由于只有0,1 两种数值，运算规则较简单，都是通过ALU部件转换成加法 运算"
      }
     ],
     [
@@ -1480,9 +1487,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      2
      ],
-     "locator": "answer table (page 1 assumed); answer 12"
+     "locator": "PDF page 2; answer 12"
     },
     "crosschecks": [
      {
@@ -1497,7 +1504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1561,7 +1568,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "利用补码转换成原码的规则 ：负数符号位不变数值位取反加 1; 正数补码等于原码。两个\n机器数对应的原码是[x] 凡, = 80000021H, 对应的数值是-33, [y]原 = [y]补=00000041H = 65。排除\nA、D选 项。x-y直接利用补码 减法准则， [x]补- [y]补 = [x]补+ [-yJ补， -y的补码是连同符号位取\n反加1, 最终减法变成加法， 得出结果为FFFFFF9EH。\n14. 解析："
       }
      ]
     }
@@ -1570,7 +1577,7 @@
     [
      {
       "type": "text",
-      "text": "第 13 题"
+      "text": "利用补码转换成原码的规则 ：负数符号位不变数值位取反加 1; 正数补码等于原码"
      }
     ],
     [
@@ -1604,9 +1611,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 13"
+     "locator": "PDF page 3; answer 13"
     },
     "crosschecks": [
      {
@@ -1621,7 +1628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1685,7 +1692,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "IEEE754 单精度浮点数的符号位、 阶码位、尾数位（省去正数位 1)所 占的位数分别是1、\n8、23 位。最小 正数， 数符位取O, 移码的取值范围是1�254, 取1, 得阶码值 1 一 127= -126 \nCl27为我们规定的偏置值）， 尾数取全 O, 最终推出最小规格化正数为A 选项。\n15. 解析："
       }
      ]
     }
@@ -1694,7 +1701,7 @@
     [
      {
       "type": "text",
-      "text": "第 14 题"
+      "text": "IEEE754 单精度浮点数的符号位、 阶码位、尾数位（省去正数位 1)所 占的位数分别是1、 8、23 位"
      }
     ],
     [
@@ -1728,9 +1735,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 14"
+     "locator": "PDF page 3; answer 14"
     },
     "crosschecks": [
      {
@@ -1745,7 +1752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1809,7 +1816,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "按字节编址， 采用小端方式， 低位的数据存储在低地址位、高位的数据存储在高地址位，\n并且按照一个字节相对不变的顺序存储。 由题意知机器代码的地址是递减的， 存储 0 的位数是\n后32位，那么我们只需要把-64 的补码按字节存储在其中即可，而-64 表示成 32 位的十六进制\n数是FFFFFF CO, 根据小端方式的特点，高字节存储在低地址， 就是CO FF FF FF, 故选A。\n16. 解析："
       }
      ]
     }
@@ -1818,7 +1825,7 @@
     [
      {
       "type": "text",
-      "text": "第 15 题"
+      "text": "按字节编址， 采用小端方式， 低位的数据存储在低地址位、高位的数据存储在高地址位， 并且按照一个字节相对不变的顺序存储"
      }
     ],
     [
@@ -1852,9 +1859,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 15"
+     "locator": "PDF page 3; answer 15"
     },
     "crosschecks": [
      {
@@ -1869,7 +1876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1933,7 +1940,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "逻辑移位：左移和右移空位都补 o, 并且所有数字参与移动。算术移位 ：符号位不参与移\n动， 右移空位补符号位， 左移空位补0。 根据该规则， 轻松选出B 选项。\n17. 解析："
       }
      ]
     }
@@ -1942,7 +1949,7 @@
     [
      {
       "type": "text",
-      "text": "第 16 题"
+      "text": "逻辑移位：左移和右移空位都补 o, 并且所有数字参与移动"
      }
     ],
     [
@@ -1976,9 +1983,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 16"
+     "locator": "PDF page 3; answer 16"
     },
     "crosschecks": [
      {
@@ -1993,7 +2000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2057,7 +2064,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "由题意， 首先根据 DRAM采用的是行列 地址线复用技术， 我们尽量选用行列差值不要太\n大的。对于B、C 选项， 地址线只需 6 根（取行或列所需地址线的最大值）， 轻松排除A、D 选\n项。其次，为了 减小刷新开销，而 DRAM 一般是按 行刷新的，所以应选行数值较少的，答案为C。\n18. 解析："
       }
      ]
     }
@@ -2066,7 +2073,7 @@
     [
      {
       "type": "text",
-      "text": "第 17 题"
+      "text": "由题意， 首先根据 DRAM采用的是行列 地址线复用技术， 我们尽量选用行列差值不要太 大的"
      }
     ],
     [
@@ -2100,9 +2107,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 17"
+     "locator": "PDF page 3; answer 17"
     },
     "crosschecks": [
      {
@@ -2117,7 +2124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2181,7 +2188,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "根据变址寻址的公式EA=(IX)+A, 则(IX) =2100H-2000H = IOOH = 256, sizeof(double) = 8\n（双精度浮点数用8 位字节表示）， 因此数组的下标为256/8= 32, 答案选B。\n19. 解析："
       }
      ]
     }
@@ -2190,7 +2197,7 @@
     [
      {
       "type": "text",
-      "text": "第 18 题"
+      "text": "根据变址寻址的公式EA=(IX)+A, 则(IX) =2100H-2000H = IOOH = 256, sizeof(double) = 8 （双精度浮点数用"
      }
     ],
     [
@@ -2224,9 +2231,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 18"
+     "locator": "PDF page 3; answer 18"
     },
     "crosschecks": [
      {
@@ -2241,7 +2248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2305,7 +2312,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "[x] 旷 [y]补 = [x]补+ [-y压[-R2J补 = 00000010H, 很明显[Rl ]补+ [-R2 J补的最高位进位和符号\n位进位都是1 (当最高位进位和符号位进位的 值不相同 时才产生溢出）， 可以判断溢出标志OF\n为0。同时， 减法 操作只需判断借位标志， Rl大于R2, 所以借位标志为O, 综上选A。\n20. 解析："
       }
      ]
     }
@@ -2314,7 +2321,7 @@
     [
      {
       "type": "text",
-      "text": "第 19 题"
+      "text": "[x] 旷 [y]补 = [x]补+ [-y压[-R2J补 = 00000010H, 很明显[Rl ]补+ [-R2 J补的最高位进位和符号 位进位都是1 (当"
      }
     ],
     [
@@ -2348,9 +2355,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 19"
+     "locator": "PDF page 3; answer 19"
     },
     "crosschecks": [
      {
@@ -2365,7 +2372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2429,7 +2436,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "指令流水线的每个流水段 时间单位为时钟周期， 题中指令流水线的指令需要用到A�E五\n个部件，所以每个流水段时间应取：最大部件时间80ps, 此外还有寄存器延时为20ps, 则CPU\n时钟周期至少是lOOps。答案选D。\n21. 解析："
       }
      ]
     }
@@ -2438,7 +2445,7 @@
     [
      {
       "type": "text",
-      "text": "第 20 题"
+      "text": "指令流水线的每个流水段 时间单位为时钟周期， 题中指令流水线的指令需要用到A�E五 个部件，所以每个流水段时间应取：最大部件时间80ps, 此外还有寄存器延时为"
      }
     ],
     [
@@ -2473,9 +2480,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 20"
+     "locator": "PDF page 3; answer 20"
     },
     "crosschecks": [
      {
@@ -2490,7 +2497,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2554,7 +2561,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "总线数据传输率＝ 总线工作频率x总线带宽（＝总线宽度/8), 所以 I 和II会影响总线数据传\n输率。采用突发传输方式（也称猝发传输），在一个总线周期内传输存储地址连 续的多个数据字，\n从而提高了传输效率。 采用地址I数据线复用只是减少了线的数量， 节省了成本， 并不能提高传\n输率。\n22. 解析："
       }
      ]
     }
@@ -2563,7 +2570,7 @@
     [
      {
       "type": "text",
-      "text": "第 21 题"
+      "text": "总线数据传输率＝ 总线工作频率x总线带宽（＝总线宽度/8), 所以 I 和II会影响总线数据传 输率"
      }
     ],
     [
@@ -2597,9 +2604,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 21"
+     "locator": "PDF page 3; answer 21"
     },
     "crosschecks": [
      {
@@ -2614,7 +2621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2678,7 +2685,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "中断优先级由屏蔽字决定， 而不是根据请求的先后次序， 因此 A错误。中断隐指令完成的\n淘宝店铺：光速考研工作室\n工作有：＠关中断；＠保存断点；＠引出中断服务程序， 通用寄存器的保护由中断服务程序完\n成，B错误。 中断允许状态即开中断后，才能响应中断请求，C正确。 有中断请求时， 先要由\n中断隐指令完成中断前程序的状态保存，D错误。\n23. 解析："
       }
      ]
     }
@@ -2687,7 +2694,7 @@
     [
      {
       "type": "text",
-      "text": "第 22 题"
+      "text": "中断优先级由屏蔽字决定， 而不是根据请求的先后次序， 因此 A错误"
      }
     ],
     [
@@ -2721,9 +2728,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      3
      ],
-     "locator": "answer table (page 1 assumed); answer 22"
+     "locator": "PDF page 3; answer 22"
     },
     "crosschecks": [
      {
@@ -2738,7 +2745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2802,7 +2809,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "多任务操作系统可以 在同 一时间内运行 多个应用程序， 故I 正确。 多个任务必须互斥地访\n问共享资源，为达到这一 目标必须对共享资源进行 必要的保护， 故II正确。 现代操作系统都是\n多任务的（主要特点是 并发和 并行），并不 一定需要运行在多CPU的硬件上，单个CPU也可以\n满足要求，III错误。 综上所述，I、II正确，III错误， 故选C。\n24. 解析："
       }
      ]
     }
@@ -2811,7 +2818,7 @@
     [
      {
       "type": "text",
-      "text": "第 23 题"
+      "text": "多任务操作系统可以 在同 一时间内运行 多个应用程序， 故I 正确"
      }
     ],
     [
@@ -2845,9 +2852,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 23"
+     "locator": "PDF page 4; answer 23"
     },
     "crosschecks": [
      {
@@ -2862,7 +2869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2926,7 +2933,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "由优 先权可知，进程的执行顺序为P2-P3-P1 o\nP.2的周转时间：1 + 15 + 24 = 40µs \nP3的周转时间： 18+ 1 +24+ 1 +36= 80µs\nP1的周转时间： 30 + 1 + 24 + 1 + 36 + 1 + 12 = 105µs\n平均周转时间： (40 + 80 + 105) /3 = 225/3 = 75µs, 故选D。\n25. 解析："
       }
      ]
     }
@@ -2935,7 +2942,7 @@
     [
      {
       "type": "text",
-      "text": "第 24 题"
+      "text": "由优 先权可知，进程的执行顺序为P2-P3-P1 o P.2的周转时间：1 + 15 + 24 = 40µs P3的周转时间： 18+ 1 +24+ 1 +36"
      }
     ],
     [
@@ -2969,9 +2976,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 24"
+     "locator": "PDF page 4; answer 24"
     },
     "crosschecks": [
      {
@@ -2986,7 +2993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3050,7 +3057,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "仔细阅读两个线程代码可知，threadl和thread2均是对x进行加1操作，x初始值为 o, 若\n要使得最终 X = 2, 只有先执行threadl 再执行thread2,或先执行thread2再执行threadl, 故只\n有2种可能， 选B。\n26. 解析："
       }
      ]
     }
@@ -3059,7 +3066,7 @@
     [
      {
       "type": "text",
-      "text": "第 25 题"
+      "text": "仔细阅读两个线程代码可知，threadl和thread2均是对x进行加1操作，x初始值为 o, 若 要使得最终 X = 2, 只有先执行threadl 再执行t"
      }
     ],
     [
@@ -3093,9 +3100,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 25"
+     "locator": "PDF page 4; answer 25"
     },
     "crosschecks": [
      {
@@ -3110,7 +3117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3174,7 +3181,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "由题中数据可知，仅剩最后 一个同类资源，若将其分给P 1或P2, 则均无法正常执行；若分\n给P3 , 则P3正常执行完成后， 释放的这个资源仍无法使P1、P2正常执行， 故不存在安全序列，\n选A。\n27. 解析："
       }
      ]
     }
@@ -3183,7 +3190,7 @@
     [
      {
       "type": "text",
-      "text": "第 26 题"
+      "text": "由题中数据可知，仅剩最后 一个同类资源，若将其分给P 1或P2, 则均无法正常执行；若分 给P3 , 则P3正常执行完成后， 释放的这个资源仍无法使P1、P2正"
      }
     ],
     [
@@ -3217,9 +3224,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 26"
+     "locator": "PDF page 4; answer 26"
     },
     "crosschecks": [
      {
@@ -3234,7 +3241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3298,7 +3305,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "进程 等待某资源为可用（不包括处理 机）或等待输入／输出完成均会进入阻塞状态，故 I、\nII 正确； III中情况发生时，进程进入就绪状态， 故III错误， 答案选C。\n28. 解析："
       }
      ]
     }
@@ -3307,7 +3314,7 @@
     [
      {
       "type": "text",
-      "text": "第 27 题"
+      "text": "进程 等待某资源为可用（不包括处理 机）或等待输入／输出完成均会进入阻塞状态，故 I、 II 正确； III中情况发生时，进程进入就绪状态， 故III错误， 答"
      }
     ],
     [
@@ -3341,9 +3348,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 27"
+     "locator": "PDF page 4; answer 27"
     },
     "crosschecks": [
      {
@@ -3358,7 +3365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3422,7 +3429,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "“\n条件变量\n”\n是管程内部说明和使用的 一种特殊变量，其作用类似于信号量机制中的\n“\n信\n号量\n”\n，都是用于实现进程同步的。需要注意的是，在同 一时刻，管程中 只能有 一个进程 在执行。\n如果进程A 执行了x.wa识）操作，那么该进程 会阻塞，并挂到条件变量 x对应的阻塞队列上。这\n样， 管程的使用权被释放， 就可以有另 一个进程进入管程。 如果进程B 执行了x.signal()操作，\n那么会唤醒x对应的阻塞队列队头进程。在Pascal语言的管 程中，规定只有 一个进程要离开管\n程时才能调用signal()操作。\n29. 解析："
       }
      ]
     }
@@ -3431,7 +3438,7 @@
     [
      {
       "type": "text",
-      "text": "第 28 题"
+      "text": "“ 条件变量 ” 是管程内部说明和使用的 一种特殊变量，其作用类似于信号量机制中的 “ 信 号量 ” ，都是用于实现进程同步的"
      }
     ],
     [
@@ -3466,9 +3473,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 28"
+     "locator": "PDF page 4; answer 28"
     },
     "crosschecks": [
      {
@@ -3483,7 +3490,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3547,7 +3554,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "时钟中断的 主要工作是处理和时间有关的信息以及决定是否执行调度程序，和时间有关的\n所有信息，包括系统时间、进程的时间片、延时、使用CPU的时间、各种定时器，故I、II、III\n均正确，选D。\n30. 解析："
       }
      ]
     }
@@ -3556,7 +3563,7 @@
     [
      {
       "type": "text",
-      "text": "第 29 题"
+      "text": "时钟中断的 主要工作是处理和时间有关的信息以及决定是否执行调度程序，和时间有关的 所有信息，包括系统时间、进程的时间片、延时、使用CPU的时间、各种定时器，故I"
      }
     ],
     [
@@ -3590,9 +3597,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 29"
+     "locator": "PDF page 4; answer 29"
     },
     "crosschecks": [
      {
@@ -3607,7 +3614,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3671,7 +3678,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "当系统总是持续出现某个磁道的访问请求时， 均持续满足最短寻道时间优先、 扫描算法和\n循环扫描算法 的访问条件，会 一直服务该访问请求。因此，先来先服务按照请求次序进行调度，\n比较公平， 故选A。\n31. 解析："
       }
      ]
     }
@@ -3680,7 +3687,7 @@
     [
      {
       "type": "text",
-      "text": "第 30 题"
+      "text": "当系统总是持续出现某个磁道的访问请求时， 均持续满足最短寻道时间优先、 扫描算法和 循环扫描算法 的访问条件，会 一直服务该访问请求"
      }
     ],
     [
@@ -3714,9 +3721,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      4
      ],
-     "locator": "answer table (page 1 assumed); answer 30"
+     "locator": "PDF page 4; answer 30"
     },
     "crosschecks": [
      {
@@ -3731,7 +3738,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3795,7 +3802,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "II和IV显然均能提高文件访问速度。 对于I , 提前读是指在读当前盘块时， 将下一个可能\n要访问的盘块数据读入缓冲区， 以便需要时直接从缓冲区中读取， 提高了文件的访问速度。 对\n于III, 延迟写是先将写数据写入缓冲区， 并置上\n“\n延迟写\n”\n标志， 以备不久之后访问， 当缓冲\n区需要再次被分配出去时才将缓冲区数据写入磁盘， 减少了访问磁盘的次数， 提高了文件的访\n问速度，III 也正确， 答案选D。\n32. 解析："
       }
      ]
     }
@@ -3804,7 +3811,7 @@
     [
      {
       "type": "text",
-      "text": "第 31 题"
+      "text": "II和IV显然均能提高文件访问速度"
      }
     ],
     [
@@ -3838,9 +3845,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      5
      ],
-     "locator": "answer table (page 1 assumed); answer 31"
+     "locator": "PDF page 5; answer 31"
     },
     "crosschecks": [
      {
@@ -3855,7 +3862,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3919,7 +3926,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "硬件方法实现进程同步不能实现让权等待（见王道单科书）， 故B、D错误； Pet erson算法\n满足有限等待但不满足让权等待， 故A 错误；记录型信号量由于引入阻塞机制， 消除了不让权\n等待的情况， 故C正确。\n33. 解析："
       }
      ]
     }
@@ -3928,7 +3935,7 @@
     [
      {
       "type": "text",
-      "text": "第 32 题"
+      "text": "硬件方法实现进程同步不能实现让权等待（见王道单科书）， 故B、D错误； Pet erson算法 满足有限等待但不满足让权等待， 故A 错误；记录型信号量由于引入"
      }
     ],
     [
@@ -3962,9 +3969,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      5
      ],
-     "locator": "answer table (page 1 assumed); answer 32"
+     "locator": "PDF page 5; answer 32"
     },
     "crosschecks": [
      {
@@ -3979,7 +3986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4043,7 +4050,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "FTP用来传输文件， SMTP用来发送电子邮件，HTTP用来传输网页文件， 都对 可靠性的\n要求较高， 因此都用传输层有连接的 TCP服务。 无连接UDP服务效率更高、 开销小，DNS在\n传输层采用无连接的UDP服务。\n34. 解析："
       }
      ]
     }
@@ -4052,7 +4059,7 @@
     [
      {
       "type": "text",
-      "text": "第 33 题"
+      "text": "FTP用来传输文件， SMTP用来发送电子邮件，HTTP用来传输网页文件， 都对 可靠性的 要求较高， 因此都用传输层有连接的 TCP服务"
      }
     ],
     [
@@ -4086,9 +4093,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      5
      ],
-     "locator": "answer table (page 1 assumed); answer 33"
+     "locator": "PDF page 5; answer 33"
     },
     "crosschecks": [
      {
@@ -4103,7 +4110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4167,7 +4174,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "物理 层的接口规范主要分为4种：机械特性、 电气特性、 功能特性、 规程特性。 机械特性\n规定连接所用设备的规格，即 A 所说的接口形状。电气特性规定信号的电压高低、阻抗匹配等，\n如D所说的信号电平。功能特性规定线路上出现的电平代表什么意义、 接口部件的信号线（数\n据线、 控制线、 定时线等） 的用途， 如B 所说的引脚功能。选项C中的物理地址就是M AC地\n址， 它属于数据链路层的范畴。\n35. 解析："
       }
      ]
     }
@@ -4176,7 +4183,7 @@
     [
      {
       "type": "text",
-      "text": "第 34 题"
+      "text": "物理 层的接口规范主要分为4种：机械特性、 电气特性、 功能特性、 规程特性"
      }
     ],
     [
@@ -4210,9 +4217,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      5
      ],
-     "locator": "answer table (page 1 assumed); answer 34"
+     "locator": "PDF page 5; answer 34"
     },
     "crosschecks": [
      {
@@ -4227,7 +4234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4291,7 +4298,7 @@
      "content": [
       {
        "type": "text",
-       "text": "本题解析暂缺文字版，请通过来源页查看答案卷扫描件。"
+       "text": "CSMA/CA协议进行信道预约主要使用的是请求发送帧RTS (R equest to Send) 和允许发送\n帧CTS (Clear to Send)。当一 台主机想要发送信息时， 先向无线站点发送一个RTS帧， 说明要\n传输的 数据及相应的时间。 当无线站点收到RTS帧之后， 会广播一个CTS帧作为对此的响应，\n既给发送端发送许可，又指示其他主机不要在这个时间内发送数据， 从而预约信道，避免碰撞。\n发送确认帧， 主要是保证信息的可靠传输；二进制指数退避法是在CSMA/CD中的一种冲突处\n理方 法； C选项则与预约信道无关。\n36. 解 析：\n信道利用率＝传输帧的有效时间／传输帧的周期。假设帧的长度为x比特。对于有效时间，\n应该用帧的大小除以数据传输速率， 即x/3kbps。对于帧的传输周期， 应包含4个部分：帧在发\n送端的发送时延、 帧从发送端到接收端的单程传播时延、 确认帧在接收端的发送时延、 确认帧\n从接收端到发送端的单程传播时延。这4 个时延中， 由于题目中说\n“\n忽略确认帧的传输延时,,'\n因此不计算确认帧的发送时延（注意传输时延和传播时延的区别， 传输时延也称发送时延， 和\n传播时延只有 一字之差）。所以帧的传输周期由三部分组成 ： 首先是帧在 发送端的发送时延\nx/3kbps, 其次是帧从发送端到接收端的单程传播时延200ms, 最后是确认帧从接收端到发送端\n的单程传播时延200ms, 三者相加可得其周期应为x/3kbps + 400ms。代入信道利用率的公式，\n求出 X = 800bit。 答案选D。\n37. 解析：\n在网络的信息传递中，会经常用到两个地址： MAC地址和I P地址。其中， MAC地址会随\n着信息被发往不同的网络而改变， 但I P地址当且仅当信息在私人网络中传递时才会改变。分组\nP在如题图所示的网络中传递时， 首先由主机Hl将分组发往路由器R, 此时源MAC 地址为\nH1 主机本身的MAC地址， 即00-1a-2b-3c-4d-52, 目的 MAC地址 为路由器R的MAC地址，\n即O O-la-2b-3c-4d-51。当路由器R收到分组P后，根据分组P的目的IP地址，得知应 将分组从\n另 一个端口转发出去，于是会给分组P更换新的MAC地址，此 时由于从另外的端口转发出去，\n因此P的新源MAC地址变为负责转发的端口MAC地址， 即OO-al-b2-c3-d4-61, 目的MAC地\n址应为主机H2的MAC地址， 即OO-al-b2-c3-d4-62。根据分析过程，题目 所问的MAC地址应\n为路由器R两个端口的MAC地址，故选D。\n38. 解析：\n对于此类题目，先分析需要聚合的IP地址 。观察发现，题中的4个路由地址，前16位完\n全相同， 不同之处在于第3段的8位中， 将这8位展开写成二进制，分别如下：\n--------------- 7 6 5 4 3 2 I 。\n32 。 。 I 。 。 。 。 。\n40 。 。 I 。 I 。 。 。\n48 。 。 I I 。 。 。 。\n56 。 。 I I I 。 。 。\n观察发现，4个地址的第3段中，从前向后最多有3位相同， 因此这3位是能聚合的最大\n位数 。将这些相同的位都保留，将第3段第 3位之后的所有位都置 o, 就得到了聚合后的IP地\n址3 5:230.32.0, 其网络前缀为16+ 3, 也即前19 位，故聚合后的网络地址为35.230.32.0/19, 答\n案为C。\n39. 解析：\n传输层分用的定义是：接收方的传输层剥去报文首部后， 能把这些数据 正确交付到目的进\n程。C和D选项显然不符。 端口号是传输层服务访问点TSAP, 用来标识主机中的应用 进程。\n对于A和B选项，源端口号是在 需要对方回信时选用，不需要时可用全0。 目的端口号是在终\n点交付报文 时使用到， 符合题意，故选B。\n40. 解析：\n电子邮件出现得较早，当时的数据 传输 能力较弱，使用者们往往也不需要传输较大的图片、\n视频等， 因此SMTP具有 一 些目前来看较为老旧的性质，例如限制 所有邮件报文的体部分，只\n能采用7位 ASCII来表示。在 如今的传输 过程中，如果 传输了非文本文件， 往往需要将这些多\n媒体文件重新编码为ASCII再传输 。因此无须转换即可传输的是ASCII文本，答案为D。\n二、综 合应用题\n41. 解答：\n1) 题目要求算法时间上尽可能高效， 因此采用空间换时间的办法。分配 一个用千标记的\n数组B[n], 用来记录A中 是否出现了I-n中的正整数，B[O]对应正整数 1, B[n -1]对应正整数\nn, 初始化B中 全部 为0。由于A中含有n个整数，因此可能返回的值是l-n + 1, 当A中n\n个数恰好为l-n 时返回 n + l。 当数组A中出现了小于等于0或大于n的值时， 会导致l-n\n中出现空余位置，返回结果必然 在l -n中， 因此对于A中出现了小于等于0或大于n的值 可\n以不采取任何操作。\n经过以上分析可以得出算法流程：从A[O]开始遍历A, 若0 <A [i] <= n, 则令B[A[i]-1]= 1; \n否则不进行操作。对A 遍历结束后，开始遍历数组B, 若能查找到 第一个满足B[i]== 0的下标\ni' 返回i+ l即 为结果， 此时说明A中未出现的最小正整数 在 l-n之间。若B[i]全部不为o,\n返回i+ l (跳出循环时 i= n, i+ 1等 于n+ 1), 此时说明A中未出现的最小正整数是n+l。\nint findMissMin(int A[],int n) \nint i,*B; . .. .. . \n//标记数组\nB=(int *)malloc(sizeof(int)*n);//分配空间\nmemset (B, 0, sizebf (int) *n); . , //赋初值为0\nfor(i=O;i<n;i++) \nif(A(i]>O&&A[i]<=n) \nB[A[i]一l] =l; \nfor (i=O\"; i<nf if+) \nif (B[i]==O) break; \nreturn i+l,; \n／／若A[i]的值介于1-n, 则标记数组B\nII扫描数组B, 找到目标值\nII返回结果\n2)时间复杂度：遍历A 一 次，遍历B 一 次，两次循环内操作步骤为0(1)量级， 因此时间\n复杂度为O(n)。空间复杂度：额外分配了B[n], 空间复杂度为O(n)。\n42. 解答：\n1)为了求解最经济的方案，可以把问题抽象为求无向带权图的最小生成树。可以采用手\n动Prim算法或Kruskal算法作图。注意本题最小生成树有两种构造， 如下图所示。\n2 ,,.....---.... .,.-:--... �2 ,,.....---.... 3 \n2\n方案l\n方案的总费用为16。\n2)存储题中的图可以采用邻接矩阵（或邻接表）。构造最小生成树采用Prim算法（或Kruskal\n算法）。\n3) TTL= 5, 即IP分组的生存时间（最大传递距离） 为5, 方案1 中TL和BJ的距离过远，\nTTL = 5不足以让IP分组从Hl传送到H2, 因此H2不能收到IP分组。而方案2中 TL和BJ\n邻近，H2可以收到IP分组。\n43. 解答：\n1)程序定时向缓存端口查询数据， 由于缓存端口大小有限，必须在传输完端口大小的数\n据时访问端口， 以防止部分数据未被及时读取而丢失。 设备 A准备 32 位数据所用的时间为\n4B/2MB = 2µs, 所以最多每隔2µs必须查询一 次， 每秒的查询次数至少是ls/2µs= 5xl0 5, 每秒\nCPU用于设备A输入／输出的时间至少为5xI0\n5xIOx4= 2xl0 7 个时钟周期， 占整个CPU时间的\n百分比至少是2x 10 7 /SOOM = 4%。\n2)中断响应和中断处理的时间为400x(l/500M)= 0.8µs, 这时只需判断设备B准备32位\n数据要多久， 如果准备数据的时间小于中断响应和中断处理的时间， 那么数据就会被刷新， 造\n成丢失。经过计算，设备B准备32位数据所用的时间为4B/40MB= O.lµs, 因此设备B不适合\n采用中断1/0方式。\n3)在DMA 方式中， 只有预处理和后处理需要CPU处理，数据的传送过程是由DMA控\n制的。设 备B 每秒的DMA 次数最多为40MB/IOOOB = 40000, CPU用于设备B输入／输出的时\n间最多为40000x500= 2x 10 7 个时钟周期， 占CPU总时间的百分比最多为2x10 7/5QOM=4%。\n44. 解答：\n1) 物理地址由 实页号和页 内地址拼接， 因此其位数为 16 + 12 = 28 或直接可得 20 + 3 +\n5 =28。\n2) TLB 采用全相联映射，可以把页表内容调入任一块空 TLB 项中， TLB 中每项都有一个\n比较器，没有映射规则，只要空闲就行。TLB 采用静态存储器 SRAM, 读写速度快，但成本高，\n多用于容量较小的高速缓冲存储器。\n3) 从图 中可以看到， Cache 中每组有两行，故采用 2 路组相联映射方式。\n因为是 2 路组相联并采用 LRU 替换算法 ，所以每行（或每组）需要 1 位 LRU 位；因为采\n用回写策略，所以每行有1位修改位（脏位）， 根据脏位判断数据是否被更新，若脏位为1则需\n要写回内存。\n28 位物理地址中 Tag 字段占 20 位， 组索引字段占 3 位，块内偏移地址占 5 位，故 Cache\n共有 �\n3 =8 组， 每组 2 行， 每行有 25 =32B, 故 Cache 总容量为 8x2x(20 + 1 + 1 + 132x8) = 4464\n位 =558 字节。\nCache 中有效位用来指出所在 Cache 行中的信息是否有效。\n4)虚拟地址分为两部分：虚页号、页内地址；物理地址分为两部分：实页号、页内地址。\n利用虚拟地址的虚页号部分去查找 TLB 表（缺失时从页表调入），将实页号取出后和虚拟地址\n的页内地址拼接，就形成了物理地址。虚页号 008CH 恰好在 TLB 表中对应实页号 0040H (有\n效位为 1, 说明存在）， 虚拟地址的后 3 位为页内地址 040H, 则对应的物理地址是 0040040H。\n物理地址为 0040040H, 其中高 20 位 00400H 为标志字段，低 5 位 OOOOOB 为块内偏移量，\n中间 3 位 010B 为组号 2, 因此将 00400H 与 Cache 中的第 2 组两行中的标志字段同时比较，可\n以看出，虽然有一个 Cache 行中的标志字段与 00400H 相等，但对应的有效位为 o, 而另 一 Cache\n行的标志字段与 00400H 不相等，故访问 Cache 不命中。\n因为物理地址的低 12 位与虚拟地址低 12 位相同，即为 001001100000B。根据物理地址的\n结构，物理地址的后八位 01100000B 的前三位 011B 是组号，因此该地址所在的主存映射到 Cache\n的组号为3。\n45. 解答：\n1)由图可知， 地址总长度为 32 位， 高 20 位为虚页号，低 12 位为页内地址， 且虚页号高\n10位为页目录号，低10位为页号。展开成二进制表示为\n0000 0001 1000 0000 01100000 0000 1000 B \nI I 11 -- I 11 I I \n页目录号 页号 页内地址d\n故十六进制表示为 0180 6008H。\n2) PDBR 为页目录基址地址寄存器 (Page-Directory Base Register), 其存储页目录表物理\n内存基地址。进程切换时， PDBR 的内容会变化；同 一进程的线程切换时， PDBR 的内容不会\n变化。每个进程的地址空间、页目录和 PDBR 的内容存在一一对应的关系。进程切换时， 地址\n空间发生了变化， 对应的页目录及其起始地址也相应变化， 因此需要用进程切换后当前进程的\n页目录起始地址刷新 PDBR。同一进程中的线程共享该进程的地址空间，其线程发生切换时，\n地址空间不变，线程使用的页目录不变， 因此 PDBR 的内容也不变。\n3)改进型 CLOCK 置换算法需要用到使用位和修改位，故需要设置访问字段（使用位） 和\n修改字段（脏位）。\n46. 解答：\n1)簇大小为 4KB, 每个地址项长度为 4B, 故每簇有 4KB/4B = 1024 个地址项。最大文件\n的物理块 数可达8+ lx1024 + lx10242+ lx10243, 每个物理块（簇） 大小为4KB, 故最大文件\n长度为(8+ }x1024 + }x10242+ lxl024扣4KB= 32KB + 4MB + 4GB + 4TB。\n(2)文件索引节点总个数为1Mx4KB/64B = 64M, 5600B的文件占2个簇， 512M个簇可\n存放的文件总个数为512M/2 ,;= 256M。可表示的文件总个数受限于文件索引节点总个数， 故能\n存储64M个大小为5600B的图像文件。\n(3)文件Fl的大小为6KB < 4KBx8 = 32KB, 故获取文件Fl的最后 一个簇的簇 号只需要\n访问索引节点的直接地址项。 文件F2的大小为40KB, 4KBx8 < 40KB < 4KBx8 + 4KBx 1024, \n故获取F2的最后 一个簇的簇号还需要读 一级索引表。 综上，需要的时间不相同。\n47. 解答：\n1)广播地址是网络地址中主机号全 l的地址（主机号全0的地址代表网 络本身）。 销售部\n和技术部均分配了192.168.1.0/24的IP地址空间，IP地址的前24位为子网的网络号。于是在 后\n8位中划分部门的子网，选择前1位作为部门 子网的网络号。令销售部子网的网络号为o, 技术\n部子网的网络号为I, 则技术部子网的完整地址为192.168.1.128; 令销售部子网的主机号全I,\n可以得到该部门的广播地址为192.168.1.127。\n每个主机仅分配 一个IP地址，计算目前还可以分配的主机数， 用技术部可以分配的主机数 减\n去已分配的主机数，技术部总共可以分配给计算机的主机数为2\n7-2 =126 (减去全0和全 l的主机\n号）。已经分配了208-129+ I =80个，此外还有1个IP地址 分配给了路由器的端口(192.168.1.254),\n因此还可以分配 126-80 - 1 = 45台。\n2)判断分片的大小，需要考虑各个网段的MTU, 而且注意分片的数据长度必须是 8B的\n整数倍。 由题可知， 在技术部子网内， MTU = 800B, IP分组头部长20B, 最大1P分片封装数\n据的字节数为L(8oo- 20)/8」x8= 776。 至少需要的分片 数为「(1500- 20)/7767 = 2。 第1个分片的\n偏移量为0; 第2个分片的偏移量为776/8= 97。"
       }
      ]
     }
@@ -4300,7 +4307,7 @@
     [
      {
       "type": "text",
-      "text": "第 35 题"
+      "text": "CSMA/CA协议进行信道预约主要使用的是请求发送帧RTS (R equest to Send) 和允许发送 帧CTS (Clear to Send)"
      }
     ],
     [
@@ -4334,9 +4341,9 @@
      "fileName": "2018-answer.pdf",
      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
      "pages": [
-      1
+      5
      ],
-     "locator": "answer table (page 1 assumed); answer 35"
+     "locator": "PDF page 5; answer 35"
     },
     "crosschecks": [
      {
@@ -4351,7 +4358,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4475,7 +4482,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4488,6 +4495,11 @@
     {
      "type": "text",
      "text": "路由器R通过以太网交换机S1 和S2 连接两个网络，R的接口、主机H1 和H2 的IP地址与\nMAC地址如下图所示。若H1 向H2 发送 1 个IP分组P，则H1 发出的封装P的以太网帧的目的\nMAC地址、H2 收到的封装P的以太网帧的源MAC地址分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-4",
+     "alt": "2018 年第 37 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4562,7 +4574,9 @@
     "subject-computer-networks",
     "topic-2018-q37"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4599,7 +4613,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4723,7 +4737,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4847,7 +4861,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4972,7 +4986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5072,7 +5086,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5085,6 +5099,16 @@
     {
      "type": "text",
      "text": "（12 分）拟建设一个光通信骨干网络连通BJ、CS、XA、QD、JN、NJ、TL和WH等 8 个城\n市，题 42 图中无向边上的权值表示两个城市间备选光纤的铺设费用。 \n 题 42 图 \n请回答下列问题。 \n（1）仅从铺设费用角度出发，给出所有可能的最经济的光纤铺设方案（用带权图表示） ，并计算\n相应方案的总费用。 \n（2）题 42 图可采用图的哪种存储结构？给出求解问题（1）所使用的算法名称。 \n（3）假设每个城市采用一个路由器按（1）中得到的最经济方案组网，主机H1 直接连接在TL\n的路由器上，主机H2 直接连接在BJ的路由器上。若H1 向H2 发送一个TTL=5 的IP分组，则\nH2 是否可以收到该IP分组？ \n  \n\n2018 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 7 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-6",
+     "alt": "2018 年第 42 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-7",
+     "alt": "2018 年第 42 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5134,7 +5158,10 @@
     "subject-data-structures",
     "topic-2018-q42"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-6",
+    "cn408-2018-source-questions-page-7"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5172,7 +5199,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5272,7 +5299,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5285,6 +5312,16 @@
     {
      "type": "text",
      "text": "（15 分）某计算机采用页式虚拟存储管理方式，按字节编址。CPU进行存储访问的过程如题 44\n图所示。 \n \n题 44 图 \n根据题 44 图回答下列问题。 \n（1）主存物理地址占多少位？ \n（2）TLB采用什么映射方式？TLB是用SRAM还是用DRAM实现？ \n（3）Cache采用什么映射方式？若Cache采用LRU替换算法和回写（Write Back）策略，则\nCache每行中除数据（Data） 、Tag和有效位外，还应有哪些附加位？Cache的总容量是多少？\nCache中有效位的作用是什么？ \n（4）若CPU给出的虚拟地址为 0008 C040H，则对应的物理地址是多少？是否在Cache中命\n中？说明理由。若CPU给出的虚拟地址为 0007 C260H，则该地址所在主存块映射到的Cache组\n号是多少？ \n  \n\n2018 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 9 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-8",
+     "alt": "2018 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-9",
+     "alt": "2018 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5334,7 +5371,10 @@
     "subject-computer-organization",
     "topic-2018-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-8",
+    "cn408-2018-source-questions-page-9"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5372,7 +5412,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5385,6 +5425,16 @@
     {
      "type": "text",
      "text": "（8 分）请根据题 44 图给出的虚拟存储管理方式，回答下列问题。 \n（1）某虚拟地址对应的页目录号为 6，在相应的页表中对应的页号为 6，页内偏移量为 8，该虚\n拟地址的十六进制表示是什么？ \n（2）寄存器PDBR用于保存当前进程的页目录起始地址，该地址是物理地址还是虚拟地址？进\n程切换时，PDBR的内容是否会变化？说明理由。同一进程的线程切换时，PDBR的内容是否会\n变化？说明理由。 \n（3）为了支持改进型CLOCK置换算法，需要在页表项中设置哪些字段？ \n  \n2018 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 10 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-9",
+     "alt": "2018 年第 45 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-10",
+     "alt": "2018 年第 45 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5434,7 +5484,10 @@
     "subject-operating-systems",
     "topic-2018-q45"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-9",
+    "cn408-2018-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5472,7 +5525,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5572,7 +5625,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5585,6 +5638,11 @@
     {
      "type": "text",
      "text": "（7 分）某公司的网络如题 47 图所示。IP地址空间 192.168.1.0/24 被均分给销售部和技术部两个\n子网，并已分别为部分主机和路由器接口分配了IP地址，销售部子网的MTU = 1500B，技术部\n子网的MTU = 800B。 \n \n题 47 图 \n请回答下列问题。 \n（1）销售部子网的广播地址是什么？技术部子网的子网地址是什么？若每个主机仅分配一个IP\n地址，则技术部子网还可以连接多少台主机？ \n（2）假设主机 192.168.1.1 向主机 192.168.1.208 发送一个总长度为 1500B的IP分组，IP分组的\n头部长度为 20B，路由器在通过接口F1 转发该IP分组时进行了分片。若分片时尽可能分为最大\n片，则一个最大IP分片封装数据的字节数是多少？至少需要分为几个分片？每个分片的片偏移\n量是多少？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2018-source-questions-page-11",
+     "alt": "2018 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5634,7 +5692,9 @@
     "subject-computer-networks",
     "topic-2018-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2018-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5671,7 +5731,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2018.0-draft.1",
+   "contentVersion": "2018.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],
@@ -5699,211 +5759,211 @@
   {
    "id": "topic-2018-q01",
    "subject": "data-structures",
-   "name": "第 1 题",
+   "name": "第一次调用：＠从 S1 中弹出 2 和 3; ® 从 S2 中弹出＋；＠执行 3+2=5;@将 5 压入 S1 中， 第一次调用结束后 S1 中剩余 5, 8,",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q02",
    "subject": "data-structures",
-   "name": "第 2 题",
+   "name": "A 的操作顺序：＠＠＠＠＠＠＠＠",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q03",
    "subject": "data-structures",
-   "name": "第 3 题",
+   "name": "数组 N 的下标从 0 开始，第一个元素 m1,1 对应存入 n",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q04",
    "subject": "data-structures",
-   "name": "第 4 题",
+   "name": "非叶结点的度均为 2, 且所有叶结点都位于同一层的完全二叉树就是满二叉树",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q05",
    "subject": "data-structures",
-   "name": "第 5 题",
+   "name": "构造一棵符合题意的哈夫曼树，如下图所示",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q06",
    "subject": "data-structures",
-   "name": "第 6 题",
+   "name": "根据二叉排序树的特性：中序遍历(LNR)得到的是一个递增序列 ",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q07",
    "subject": "data-structures",
-   "name": "第 7 题",
+   "name": "拓扑 排序每次选取入度为0的结点输出， 经观察不难发现拓扑序列前两位 一定是1, 5或 5, 1 (因为只有1和5的入度均为o, 且其他结点都不满足仅有1或仅有",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q08",
    "subject": "data-structures",
-   "name": "第 8 题",
+   "name": "m阶B树的基本性质：根结点以外的非叶结点最少 含有「m/2 1-1个关键字，代入m = 3得 到每 个 非叶结点中 最少包含1个关键字， 而根结点含有1个关键字",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q09",
    "subject": "data-structures",
-   "name": "第 9 题",
+   "name": "根据题意， 得到的HT如下： 二 2 3 4 5 6 43 15 ASL 成功 = (1 + 2 + 3)/3 = 2",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q10",
    "subject": "data-structures",
-   "name": "第 10 题",
+   "name": "初始序列： 8, 3, 9, 11, 2, 1, 4, 7, 5, 10, 6 第 一趟： 1, 3, 7, 5, 2, 6, 4, 9, 11, 10, 8 ",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q11",
    "subject": "data-structures",
-   "name": "第 11 题",
+   "name": "要熟练掌握建堆、 堆的调整方法， 从序列末尾开始向前遍历， 变换过程如下图所示",
    "parentId": "subject-data-structures"
   },
   {
    "id": "topic-2018-q12",
    "subject": "computer-organization",
-   "name": "第 12 题",
+   "name": "对于I, 二进制由于只有0,1 两种数值，运算规则较简单，都是通过ALU部件转换成加法 运算",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q13",
    "subject": "computer-organization",
-   "name": "第 13 题",
+   "name": "利用补码转换成原码的规则 ：负数符号位不变数值位取反加 1; 正数补码等于原码",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q14",
    "subject": "computer-organization",
-   "name": "第 14 题",
+   "name": "IEEE754 单精度浮点数的符号位、 阶码位、尾数位（省去正数位 1)所 占的位数分别是1、 8、23 位",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q15",
    "subject": "computer-organization",
-   "name": "第 15 题",
+   "name": "按字节编址， 采用小端方式， 低位的数据存储在低地址位、高位的数据存储在高地址位， 并且按照一个字节相对不变的顺序存储",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q16",
    "subject": "computer-organization",
-   "name": "第 16 题",
+   "name": "逻辑移位：左移和右移空位都补 o, 并且所有数字参与移动",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q17",
    "subject": "computer-organization",
-   "name": "第 17 题",
+   "name": "由题意， 首先根据 DRAM采用的是行列 地址线复用技术， 我们尽量选用行列差值不要太 大的",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q18",
    "subject": "computer-organization",
-   "name": "第 18 题",
+   "name": "根据变址寻址的公式EA=(IX)+A, 则(IX) =2100H-2000H = IOOH = 256, sizeof(double) = 8 （双精度浮点数用",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q19",
    "subject": "computer-organization",
-   "name": "第 19 题",
+   "name": "[x] 旷 [y]补 = [x]补+ [-y压[-R2J补 = 00000010H, 很明显[Rl ]补+ [-R2 J补的最高位进位和符号 位进位都是1 (当",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q20",
    "subject": "computer-organization",
-   "name": "第 20 题",
+   "name": "指令流水线的每个流水段 时间单位为时钟周期， 题中指令流水线的指令需要用到A�E五 个部件，所以每个流水段时间应取：最大部件时间80ps, 此外还有寄存器延时为",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q21",
    "subject": "computer-organization",
-   "name": "第 21 题",
+   "name": "总线数据传输率＝ 总线工作频率x总线带宽（＝总线宽度/8), 所以 I 和II会影响总线数据传 输率",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q22",
    "subject": "computer-organization",
-   "name": "第 22 题",
+   "name": "中断优先级由屏蔽字决定， 而不是根据请求的先后次序， 因此 A错误",
    "parentId": "subject-computer-organization"
   },
   {
    "id": "topic-2018-q23",
    "subject": "operating-systems",
-   "name": "第 23 题",
+   "name": "多任务操作系统可以 在同 一时间内运行 多个应用程序， 故I 正确",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q24",
    "subject": "operating-systems",
-   "name": "第 24 题",
+   "name": "由优 先权可知，进程的执行顺序为P2-P3-P1 o P.2的周转时间：1 + 15 + 24 = 40µs P3的周转时间： 18+ 1 +24+ 1 +36",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q25",
    "subject": "operating-systems",
-   "name": "第 25 题",
+   "name": "仔细阅读两个线程代码可知，threadl和thread2均是对x进行加1操作，x初始值为 o, 若 要使得最终 X = 2, 只有先执行threadl 再执行t",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q26",
    "subject": "operating-systems",
-   "name": "第 26 题",
+   "name": "由题中数据可知，仅剩最后 一个同类资源，若将其分给P 1或P2, 则均无法正常执行；若分 给P3 , 则P3正常执行完成后， 释放的这个资源仍无法使P1、P2正",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q27",
    "subject": "operating-systems",
-   "name": "第 27 题",
+   "name": "进程 等待某资源为可用（不包括处理 机）或等待输入／输出完成均会进入阻塞状态，故 I、 II 正确； III中情况发生时，进程进入就绪状态， 故III错误， 答",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q28",
    "subject": "operating-systems",
-   "name": "第 28 题",
+   "name": "“ 条件变量 ” 是管程内部说明和使用的 一种特殊变量，其作用类似于信号量机制中的 “ 信 号量 ” ，都是用于实现进程同步的",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q29",
    "subject": "operating-systems",
-   "name": "第 29 题",
+   "name": "时钟中断的 主要工作是处理和时间有关的信息以及决定是否执行调度程序，和时间有关的 所有信息，包括系统时间、进程的时间片、延时、使用CPU的时间、各种定时器，故I",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q30",
    "subject": "operating-systems",
-   "name": "第 30 题",
+   "name": "当系统总是持续出现某个磁道的访问请求时， 均持续满足最短寻道时间优先、 扫描算法和 循环扫描算法 的访问条件，会 一直服务该访问请求",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q31",
    "subject": "operating-systems",
-   "name": "第 31 题",
+   "name": "II和IV显然均能提高文件访问速度",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q32",
    "subject": "operating-systems",
-   "name": "第 32 题",
+   "name": "硬件方法实现进程同步不能实现让权等待（见王道单科书）， 故B、D错误； Pet erson算法 满足有限等待但不满足让权等待， 故A 错误；记录型信号量由于引入",
    "parentId": "subject-operating-systems"
   },
   {
    "id": "topic-2018-q33",
    "subject": "computer-networks",
-   "name": "第 33 题",
+   "name": "FTP用来传输文件， SMTP用来发送电子邮件，HTTP用来传输网页文件， 都对 可靠性的 要求较高， 因此都用传输层有连接的 TCP服务",
    "parentId": "subject-computer-networks"
   },
   {
    "id": "topic-2018-q34",
    "subject": "computer-networks",
-   "name": "第 34 题",
+   "name": "物理 层的接口规范主要分为4种：机械特性、 电气特性、 功能特性、 规程特性",
    "parentId": "subject-computer-networks"
   },
   {
    "id": "topic-2018-q35",
    "subject": "computer-networks",
-   "name": "第 35 题",
+   "name": "CSMA/CA协议进行信道预约主要使用的是请求发送帧RTS (R equest to Send) 和允许发送 帧CTS (Clear to Send)",
    "parentId": "subject-computer-networks"
   },
   {

@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2017",
   "schemaVersion": 1,
-  "contentVersion": "2017.0-draft.1",
+  "contentVersion": "2017.0-draft.2",
   "title": "2017 年计算机学科专业基础综合试题",
   "year": 2017,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:13:57.520Z",
-  "sha256": "8c70b036fedf6168f80d2691bbc0b11fe641238634d2c5fb251b9a6d9fe8c73c",
+  "createdAt": "2026-09-03T00:27:56.203Z",
+  "sha256": "9e1b607a9c4c2b82122be0374f9e699ab1c29ced64a52b9cac2dced2edb17c4b",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -517,6 +517,11 @@
     {
      "type": "text",
      "text": "已知一棵二叉树的树形如右图所示，其后序序列为e, a, c, b, d, g, f，树中与结点a同\n层的结点是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-1",
+     "alt": "2017 年第 5 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -568,7 +573,7 @@
      "content": [
       {
        "type": "text",
-       "text": "后序序列是先左子树，接着右子树，最后父结点，递归进行。根结点左子树的叶结点首先\n被访问，它是 e 。接下来是它的父结点 a, 然后是 a 的父结点 c 。接着访问根结点的右子树。它\n的叶结点 b 首先被访问，然后是 b 的父结点 d, 再者是 d 的父结点 g 。最后是根结点 f。因此 d\n与 a 同层， B 正确。\nCBBDD 3. \n11. \n19. \n27. \n35. \n4. \n12. \n20. \n28. \n36. \n5. \n13. \n21. \n29. \n37. \n6. \n14. \n22. \n30. \n38. \n7. \n15. \n23. \n31. \n39. \nAACBC BDDBA DABDC BCDBD BCDDA ADABB 8. \n16. \n24. \n32. \n40. \f6. 解析："
+       "text": "后序序列是先左子树，接着右子树，最后父结点，递归进行。根结点左子树的叶结点首先\n被访问，它是 e 。接下来是它的父结点 a, 然后是 a 的父结点 c 。接着访问根结点的右子树。它\n的叶结点 b 首先被访问，然后是 b 的父结点 d, 再者是 d 的父结点 g 。最后是根结点 f。因此 d\n与 a 同层， B 正确。\nCBBDD 3. \n11. \n19. \n27. \n35. \n4. \n12. \n20. \n28. \n36. \n5. \n13. \n21. \n29. \n37. \n6. \n14. \n22. \n30. \n38. \n7. \n15. \n23. \n31. \n39. \nAACBC BDDBA DABDC BCDBD BCDDA ADABB 8. \n16. \n24. \n32. \n40. \n6. 解析："
       }
      ]
     }
@@ -591,7 +596,9 @@
     "subject-data-structures",
     "topic-2017-q05"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2017-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -628,7 +635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1007,7 +1014,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1131,7 +1138,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1256,7 +1263,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1380,7 +1387,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1504,7 +1511,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1568,7 +1575,7 @@
      "content": [
       {
        "type": "text",
-       "text": "由4个DRAM芯片采用交叉编址方式构成主存可知主存地址最低二位表示该字节存储的\f芯片编号。double型变量占64位， 8 个字节。 它的主存地址804 001 AH最低二位是 10, 说明 \n它从编号为 2 的 芯片开始存储（编号从0 开始）。一个存储周期可以对所有芯片各读取一个字节，\n因此需要 3轮， 故选C。\n14. 解析："
+       "text": "由4个DRAM芯片采用交叉编址方式构成主存可知主存地址最低二位表示该字节存储的\n芯片编号。double型变量占64位， 8 个字节。 它的主存地址804 001 AH最低二位是 10, 说明 \n它从编号为 2 的 芯片开始存储（编号从0 开始）。一个存储周期可以对所有芯片各读取一个字节，\n因此需要 3轮， 故选C。\n14. 解析："
       }
      ]
     }
@@ -1628,7 +1635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1752,7 +1759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1876,7 +1883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2000,7 +2007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2124,7 +2131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2248,7 +2255,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2372,7 +2379,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2496,7 +2503,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2620,7 +2627,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2684,7 +2691,7 @@
      "content": [
       {
        "type": "text",
-       "text": "多重中断系统在保护被中断进程现场时关中断， 执行中断处理程序时开中断，B错误。\fCPU 一般在 一条指令执行结束的阶段采样 中断请求信号，查看是否存在中断请求，然后决定\n是否响应 中断 ，A、D正确。中断请求 一般来自CPU以外的事件，异常 一般发生在 CPU内部，\nC正确。\n23. 解析："
+       "text": "多重中断系统在保护被中断进程现场时关中断， 执行中断处理程序时开中断，B错误。\nCPU 一般在 一条指令执行结束的阶段采样 中断请求信号，查看是否存在中断请求，然后决定\n是否响应 中断 ，A、D正确。中断请求 一般来自CPU以外的事件，异常 一般发生在 CPU内部，\nC正确。\n23. 解析："
       }
      ]
     }
@@ -2745,7 +2752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2869,7 +2876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2993,7 +3000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3117,7 +3124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3241,7 +3248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3365,7 +3372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3489,7 +3496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3613,7 +3620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3738,7 +3745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3802,7 +3809,7 @@
      "content": [
       {
        "type": "text",
-       "text": "硬链接指通过索引结点进行连接。一个文件在 物理存储器上有 一个索引节点号。存在多个\n文件名指向同 一个索引节点，II正确。两个进程各自维护自己的文件描述符，III正确，I错误。\n所以选择B。\f32. 解析："
+       "text": "硬链接指通过索引结点进行连接。一个文件在 物理存储器上有 一个索引节点号。存在多个\n文件名指向同 一个索引节点，II正确。两个进程各自维护自己的文件描述符，III正确，I错误。\n所以选择B。\n32. 解析："
       }
      ]
     }
@@ -3862,7 +3869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3986,7 +3993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4110,7 +4117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4234,7 +4241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4247,6 +4254,11 @@
     {
      "type": "text",
      "text": "在下图所示的网络中，若主机H 发送一个封装访问Internet的IP分组的IEEE 802.11 数据帧F，\n则帧F的地址 1、地址 2 和地址 3 分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-4",
+     "alt": "2017 年第 35 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4321,7 +4333,9 @@
     "subject-computer-networks",
     "topic-2017-q35"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2017-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4358,7 +4372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4482,7 +4496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4606,7 +4620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4730,7 +4744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4854,7 +4868,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4918,7 +4932,7 @@
      "content": [
       {
        "type": "text",
-       "text": "FTP协议使用控制连接和数据连接，控制连接存在于整个FTP会话过程中，数据连接在每\n次文件传输时才建立，传输结束就关闭，A 和 B是正确的。默认情况下 FTP协议使用TCP 20 \n端口进行 数据连接，TCP 21端口进行控制连接。 但是是否使用TCP 20端口建立数据连接与传\n输模式 有关，主动方式使用TCP20端口， 被动方式由服务器和客户端自行协商决定，C错， D\n对。所以选C。\f二、综合应用题\n41. 解答："
+       "text": "FTP协议使用控制连接和数据连接，控制连接存在于整个FTP会话过程中，数据连接在每\n次文件传输时才建立，传输结束就关闭，A 和 B是正确的。默认情况下 FTP协议使用TCP 20 \n端口进行 数据连接，TCP 21端口进行控制连接。 但是是否使用TCP 20端口建立数据连接与传\n输模式 有关，主动方式使用TCP20端口， 被动方式由服务器和客户端自行协商决定，C错， D\n对。所以选C。\n二、综合应用题\n41. 解答："
       }
      ]
     }
@@ -4979,7 +4993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5007,7 +5021,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\f＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
+      "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
      }
     ]
    },
@@ -5018,7 +5032,7 @@
      "content": [
       {
        "type": "text",
-       "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\f＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
+       "text": "(I)算法的基本设计思想\n表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历\n策略得到所需的表达式。(3分）\n表达式树中分支结点所对应的子表达式的计算次序， 由该分支结点所处的位置决定。为得\n到正确的中缀表达式， 需要在生成遍历序列的同时，在适当位置增加必要的括号。显然， 表达\n式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）\n(2)算法实现(IQ分）\n将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外， 遍历到其\n他结点时在遍历其左子树之前加上左括号， 在遍历完右子树后加上右括号。\nvoid B 七reeToE(BTree *root \nBtreeToExp(root, 1); ／／根的高度为1\nvoid. 13七reeToE:xp(BTree *roqt, int deep) \n｛ \n／／空结点返回if(root == NULL) return; \nelse if(root->left==NULL&&r�ot 今right==NULL) !/若为叶结点\nprintf (\"%s\", root->data); //输出操作数，不加括号\nelse{ \nif (deep>l) printf (\" (\"); //若有子表达式则加1层括号\nBtreeToExp(root->left, deep+l); \nprintf(\"%s\", root->da七a); / /输出操作符\nBtree'1'6Exp (roo七 一>right, .'\\ieep+l l; \nif (deep>l) printf (\") \"); / /若有子表达式则加1层括号\n【评分说明】CD若考生设计的算法满足题目的功能要求， 则(1)、(2)根据所实现算法的\n策略及输出结果给分， 评分标准见下表。\n分数\n15 \n14 \nII \n9 \n:,;;7 \n备注\n采用中序遍历算法且正确， 括号嵌套正确， 层数适当\n采用中序遍历算法且正确， 括号嵌套正确， 但括号嵌套层数过多。 例如， 表达式最外层加\n上括号， 或操作数加括号， 如(a)\n采用中序遍历算法， 但括号嵌套层数不完全正确。 例如， 左右括号数量不匹配\n采用中序遍历算法， 但没有考虑括号\n其他\n＠若考生采用其他方法得到正确结果， 可参照＠的评分标准给分。\n＠如果程序中使用了求结点深度等辅助函数， 但没有给出相应的实现过程， 只要考生进\n行了必要的说明， 可不扣分。\n＠若在算法的基本设计思想描述中因文字表达没有清晰反映出算法思路， 但在算法实现\n中能够表达出算法思想且正确的， 则可参照心的标准给分。\n＠若算法的基本设计思想描述或算法实现中部分正确 ，可 参照＠中各种情况的相应给分\n标准酌情给分。\n＠参考答案中只给出了 使用C 语言的版本，使用C++语言的答案参照以上评分标准。\n42. 解答："
       }
      ]
     }
@@ -5079,7 +5093,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5179,7 +5193,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5207,7 +5221,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\f作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对千第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
+      "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\n作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对于第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
      }
     ]
    },
@@ -5218,7 +5232,7 @@
      "content": [
       {
        "type": "text",
-       "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\f作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对千第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
+       "text": "(1)由于i和n是u nsigned型，故\"i <= n-1\"是无符号 数比较，n= O时 ，n- 1 的机器数\n为全1, 值是2 32_ 1, 为 unsigned型可表示的最 大数 ，条件\"i <= n-1\"永真，因此出现死循环。\n(2分）\n若i 和n改为int类型，则不会出现死循环。(1分）\n因为\"i <= n-1\"是带符号整数比较，n= O时，n-1 的值是- 1, 当i = 0时 条件\"i <= n-1\" \n不成立，此 时退出for循环。(1分）\n(2) fl(23)与双23)的 返回值相等。(1分）f(23) = 2 23+!_ 1 = 2 24 -1, 它 的二进制形式是24个1。\nint占32位，没有溢出。float有1个符号位，8个指数位，23个底数位，23个底数位可以表示\n24位的底数。所以两者返回值相等。\nfl(23)的机器数 是O OFF FFFFH。(1分）\n位(23)的机器数 是4 B7F FFFFH。(1分）\n显而易见前者是24个1, 即0000 0000 1111 1111 1111 1111 llll llllc2)'后者符号位是o,\n指数位为23 + 127c10) =1001 OllOc 2)'底数位是111 1111 1111 llll llll llllc2J• \n(3) 当n= 24时，f(24) = 1 1111 1111 1111 1111 1111 1111 B, 而 float型数只有24位有效位，\n舍入后数值增大，所以讫(24)比fl(24)大 1。(1分）\n【评分说明】只要说明双24)需舍入处理即可给分。\n(4)显然f(31)已超出了 int型数据的表示范围，用fl(31)实现时得到的机器数 为32个1,\n作为 int 型数解释时其值为-1, 即 fl(31)的返回值为-1。(I分）\n因为 int 型最大可表示数是 0 后面加 31 个 I, 故使 fl(n)的返回值与 f(n)相等的最大 n 值是\n30。(1分）\n【评分说明】对于第二问，只要给出 n = 30 即可给分。\n(5) IEEE 754 标准用\n“\n阶码全 L 尾数全O\" 表示无穷大。位返回值为 float 型，机器数 7F80\nOOOOH 对应的值是+=。(1分）\n当 n = 126 时， f(126) = 2'27 - 1 = 1.1…1 x2126' 对应阶码为 127 + 126 = 253, 尾数部分舍入\n后阶码加 1, 最终阶码为 254, 是 IEEE 754 单精度格式表示的最大阶码 。故使位结果不溢出的\n最大 n 值为 126。(1分）\n当 n = 23 时， f(23)为 24 位 1, float 型数有 24 位有效位， 所以不需舍入， 结果精确。故使\n仅获得精确结果的最大n值为 23。(1分）\n【评分说明】对于第二问，只要给出 n = 23, 即可给分。 对于第三问，只要给出 n = 126,\n即可给分。\n44. 解答："
       }
      ]
     }
@@ -5279,7 +5293,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5292,6 +5306,16 @@
     {
      "type": "text",
      "text": "（10 分）在按字节编址的计算机M 上， 题 43 中f1 的部分源程序（阴影部分）与对应的机器\n级代码（包括指令的虚拟地址）如下图所示。 \n int f1(unsigned n) \n1 00401020 55 push ebp \n … … … \n for(unsigned i =0; i<=n-1;i++) \n … … … \n20 0040105E 39 4D F4 cmp dword ptr[ebp-0Ch], ecx \n … … … \n { power *= 2; \n23 00401066 D1 E2 shl edx,1 \n … … … \n return sum; \n35 0040107F C3 ret \n其中，机器级代码行包括行号、虚拟地址、机器指令和汇编指令。请回答下列问题。 \n（1）计算机M是RISC还是CISC? 为什么？ \n（2）f1 的机器指令代码共占多少字节？要求给出计算过程。 \n（3）第 20 条指令cmp通过i减n-1 实现对i和n-1 的比较。执行f1(0)过程中，当i=0 时，cmp\n指令执行后， 进/借位标志CF的内容是什么？要求给出计算过程。 \n（4）第 23 条指令shl通过左移操作实现了power*2 运算，在f2 中能否也用shl指令实现power \n*2? 为什么？ \n \n  \n2017 年全国硕士研究生入学统一考试计算机科学与技术学科联考计算机学科专业基础综合试题 第 9 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-8",
+     "alt": "2017 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-9",
+     "alt": "2017 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5341,7 +5365,10 @@
     "subject-computer-organization",
     "topic-2017-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2017-source-questions-page-8",
+    "cn408-2017-source-questions-page-9"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5379,7 +5406,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5407,7 +5434,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\f46. 解答："
+      "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\n46. 解答："
      }
     ]
    },
@@ -5418,7 +5445,7 @@
      "content": [
       {
        "type": "text",
-       "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\f46. 解答："
+       "text": "(1)函数 fl 的代码段中所有指令的虚拟地址 的高 20 位相同，因此 fl 的机器指令代码在同\n一页中，仅占用1页。(I分）页目录号用于寻找页目录的表项，该表项包含页表的位置。页 表\n索引用于寻找页表的表项，该表项包含页的位置。\n(2) push ebp 指令的虚拟地址 的最高 10 位（页目录号）为 00 0000 0001 , 中间 10 位（页\n表索引）为 00 0000 0001, 所以，取该指令时访问了页目录的第 1 个表项，(1分）在对应的页\n表中访问了第1个表项。(1分）\n(3)在执行 scanf()的过程中，进程 P 因等待输入而从执行态变为阻塞态。(1分）输入结束\n时，P 被中断处理程序唤醒，变为就绪态。(I分）P 被调度程序调度 ，变为运行态。(1 分）CPU\n状态会从用户态变为内核态。(I分）\n46. 解答："
       }
      ]
     }
@@ -5479,7 +5506,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5579,7 +5606,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5592,6 +5619,11 @@
     {
      "type": "text",
      "text": "（9 分）甲乙双方均采用后退N帧协议(GBN)进行持续的双向数据传输， 且双方始终采用捎带\n确认，帧长均为 1000B。Sx, y和Rx, y分别表示甲方和乙方发送的数据帧，其中x是发送序号，y\n是确认序号（表示希望接收对方的下一帧序号） ；数据帧的发送序号和确认序号字段均为比 3 \n特。 信道传输速率为 100Mpbs，RTT = 0.96ms。下图给出了甲方发送数据帧和接收数据帧的两\n种场景，其中t0为初始时刻，此时甲方的发送和确认序号均为 0，t1时刻甲方有足够多的数据待\n发送。 \n \n请回答下列问题。 \n（1）对于图（a） ，t0时刻到t1时刻期间，甲方可以断定乙方已正确接收的数据帧数是多少？正确\n接收的是哪几个帧？（请用Sx, y形式给出。 ） \n（2）对于图 （a） ，从t1时刻起，甲方在不出现超时且未收到乙方新的数据帧之前，最多还可以发\n送多少个数据帧？其中第一个帧和最后一个帧分别是哪个？（请用Sx, y形式给出。 ） \n（3）对于图 （b） ，从t1时刻起，甲方在不出现新的超时且未收到乙方新的数据帧之前，需要重发\n多少个数据帧？重发的第一个帧是哪个？（请用Sx, y形式给出。 ） \n（4）甲方可以达到的最大信道利用率是多少？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2017-source-questions-page-11",
+     "alt": "2017 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5607,7 +5639,7 @@
     "reference": [
      {
       "type": "text",
-      "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\f8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
+      "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\n8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
      }
     ]
    },
@@ -5618,7 +5650,7 @@
      "content": [
       {
        "type": "text",
-       "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\f8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
+       "text": "给分\n1分\n3分\n1分\n(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,\nS 1 ,0, S2 ,0 C 1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙\n已经接收了序号为0�2的数据帧。\n(2)从/1 时刻起， 甲方最多还可以发送5个数据帧Cl分），其中第 一个帧是Ss,2C 1分），\n最后一个数据帧是S 1 ,2C 1分）。 发送序号3位，有8个序号。在GBN协议中，序号个数>发送\n窗口+1, 所以这里发送窗口最大为 7。 此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。\n(3)甲方需要重发3个数据帧 (1分），重发的第 一个帧是S 2 ,3C 1分）。在GBN协议中，\n接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S 2 ,0超时，所以重发的第\n一帧是S 2。已 收到乙的R 2 $.贞，所以确认号应为3。\n(4)甲方可以达到的最大信道利用率是\n8x1000 7x \n100x106 \n8xl000 0.96x10-3 +2x \n100x106 \nX 100% = 50% (2分）\nU= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间 =Nfd/(Td+ RTT+Ta) \nU 是信道利用率， N 是发送窗口的最大值， Td 是发送一数据帧的时间， RTT 是往返时间，\nTa 是发送一确认帧的时间。 这里采用捎带确认， Td=Ta。\n【评分说明】答案部分正确，酌情给分。"
       }
      ]
     }
@@ -5641,7 +5673,9 @@
     "subject-computer-networks",
     "topic-2017-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2017-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5678,7 +5712,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2017.0-draft.1",
+   "contentVersion": "2017.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

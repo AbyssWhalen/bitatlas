@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2023",
   "schemaVersion": 1,
-  "contentVersion": "2023.0-draft.1",
+  "contentVersion": "2023.0-draft.2",
   "title": "2023 年计算机学科专业基础综合试题",
   "year": 2023,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:23:00.734Z",
-  "sha256": "c2a81253077f2892a07009bd823ead9a9d469a585c784f412843852dba3e3e3c",
+  "createdAt": "2026-09-03T00:28:04.784Z",
+  "sha256": "4c63b0b0129a9162078212c9ee19ac986b151d5257ee025a6728f2babcd77a95",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -517,6 +517,11 @@
     {
      "type": "text",
      "text": "已知一棵二叉树的树形如下图所示，若其后序遍历为f, d, b, e, c, a，则其先\n（前）序遍历序列是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-1",
+     "alt": "2023 年第 5 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -591,7 +596,9 @@
     "subject-data-structures",
     "topic-2023-q05"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -628,7 +635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1000,7 +1007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1124,7 +1131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1248,7 +1255,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1881,7 +1888,7 @@
    "stem": [
     {
      "type": "text",
-     "text": "己知x、y 为int类型，当x=100、y=200 时，执行“x 减y”指令得到的溢出标志OF和借位标志\nCF分别为 0、1，那么当x=10，y=–20 时，执行该指令得到的OF和CF分别是        。"
+     "text": "已知x、y 为int类型，当x=100、y=200 时，执行“x 减y”指令得到的溢出标志OF和借位标志\nCF分别为 0、1，那么当x=10，y=–20 时，执行该指令得到的OF和CF分别是        。"
     }
    ],
    "options": [
@@ -1993,7 +2000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2489,7 +2496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2613,7 +2620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +2993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3613,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3730,7 +3737,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3854,7 +3861,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3978,7 +3985,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3991,6 +3998,16 @@
     {
      "type": "text",
      "text": "在下图所示的分组交换网络中，主机H1 和H2 通过路由器互连，2 段链路的带宽均为 100Mb/s、\n时延带宽积（即单向传播时延×宽带）均为 1000b。若H1 向H2 发送 1 个大小为 1MB的文件，\n分组长度为 1000B， 则从H1 开始发送时刻起到H2 收到文件全部数据时刻止， 所需的时间至少是\n（注：M=106）        。 \n2023 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 4 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-3",
+     "alt": "2023 年第 33 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-4",
+     "alt": "2023 年第 33 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4065,7 +4082,10 @@
     "subject-computer-networks",
     "topic-2023-q33"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-3",
+    "cn408-2023-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4103,7 +4123,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4227,7 +4247,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4351,7 +4371,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4475,7 +4495,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4599,7 +4619,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4612,6 +4632,11 @@
     {
      "type": "text",
      "text": "某网络拓扑如下图所示，其中路出器R2 实现NAT功能。若主机H向Internet发送 1 个IP分组，\n则经过R2 转发后，该IP分组的源IP地址是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-4",
+     "alt": "2023 年第 38 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4686,7 +4711,9 @@
     "subject-computer-networks",
     "topic-2023-q38"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4723,7 +4750,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4847,7 +4874,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4972,7 +4999,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4985,6 +5012,16 @@
     {
      "type": "text",
      "text": "（13 分）已知有向图G采用邻接矩阵存储，类型定义如下： \ntypedef struct       // 图的类型定义 \n{ \n    int numVertices, numEdges;  // 图的顶点数和有向边数 \n    char VerticesList[MAXV];   // 顶点表，MAXV为已定义常量 \n    int Edge[MAXV][MAXV];   // 邻接矩阵 \n}MGraph \n \n题 41 图 \n将图中出度大于入度的顶点称为K顶点。例如题 41 图中，顶点a和顶点b为K顶点。请设计算\n法：int printVertices(MGraph G)，对给定的任意非空有向图G，输出图G中所有的K\n顶点，并返回K顶点的个数。要求： \n（1）给出算法的基本设计思想。 \n（2）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 \n  \n\n2023 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 6 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-5",
+     "alt": "2023 年第 41 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-6",
+     "alt": "2023 年第 41 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5034,7 +5071,10 @@
     "subject-data-structures",
     "topic-2023-q41"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-5",
+    "cn408-2023-source-questions-page-6"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5072,7 +5112,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5172,7 +5212,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5272,7 +5312,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5372,7 +5412,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5385,6 +5425,16 @@
     {
      "type": "text",
      "text": "（7 分）现要求学生使用swap指令和布尔型变量lock，实现临界区互斥。lock为线程间共享的\n变量。lock的值为TRUE时线程不能进入临界区，为FALSE时，线程能进入临界区。某同学编\n写的实现临界区互斥的伪代码如题 45（a）图所示：请回答下列问题。 \n某同学写的伪代码  newSwap() 的代码 \nbool lock=false;   // 共享变量 \n...... \nbool key=True \nif(key == TRUE) \n  swap key,lock; \n进入区 \n临界区 \nlock=TRUE; 退出区 \n \n void newSwap(bool*a, bool*b) \n{ \nbool temp=*a \n*a=*b; \n*b=temp; \n} \n题 45(a)图  题 45(b)图 \n请回答下列问题： \n（1）题 45(a)图的伪代码中哪些语句存在错误？将其改为正确的语句（不增加语句条数） 。 \n（2）题 45(b)图给出了两个变量值的函数newSwap()的代码，是否可以用函数调用语句\n“newSwap(&key，&lock)”代替指令“swap key, lock”以实现临界区的互斥？为什么？ \n  \n2023 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 10 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-9",
+     "alt": "2023 年第 45 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-10",
+     "alt": "2023 年第 45 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5434,7 +5484,10 @@
     "subject-operating-systems",
     "topic-2023-q45"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-9",
+    "cn408-2023-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5472,7 +5525,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5572,7 +5625,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5585,6 +5638,11 @@
     {
      "type": "text",
      "text": "（9 分）某网络拓扑如题 47 图所示，主机H登录FTP服务器后，向服务器上传一个大小为\n18000B的文件F。假设H为传输F建立数据连接时，选择的初始序号为 100，MSS=1000B，拥\n塞控制初始阈值为 4MSS，RTT=10ms，忽略TCP段的传输时延；在F的传输过程中，H均以\nMSS段向服务器发送数据，且未发生差错、丢包和乱序现象。 \n \n题 47 题图 \n请回答下列问题。 \n（1）FTP的控制连接是持久的还是非持久的？FTP的数据连接是持久的还是非持久的？H登录\nFTP服务器时，建立的TCP连接是控制连接还是数据连接？ \n（2）H通过数据连接发送F时，F的第 1 个字节的序号是多少？在断开数据连接的过程中，FTP\n服务器发送的第二次挥手ACK段的确认序号是多少？ \n（3）H通过数据连接发送F时，当H收到确认序号为 2101 的确认段时，H的拥塞窗口调整为\n多少？收到确认序号为 7101 的确认段时，H的拥塞窗口调整为多少？ \n（4）H从请求建立数据连接开始，到确认F已被服务全部接收为止，至少需要多长时间？期间\n应用层数据的平均发送速率是多少？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2023-source-questions-page-11",
+     "alt": "2023 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5634,7 +5692,9 @@
     "subject-computer-networks",
     "topic-2023-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2023-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5671,7 +5731,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2023.0-draft.1",
+   "contentVersion": "2023.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

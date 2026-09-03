@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2022",
   "schemaVersion": 1,
-  "contentVersion": "2022.0-draft.1",
+  "contentVersion": "2022.0-draft.2",
   "title": "2022 年计算机学科专业基础综合试题",
   "year": 2022,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:22:59.504Z",
-  "sha256": "3edb64e8bbe6abde2a739523a910d22f11a0a0988df51ad23dcae9ab7179e2fa",
+  "createdAt": "2026-09-03T00:28:03.417Z",
+  "sha256": "be57d120f60355bd565845c54983cbff7b64fed5328b70abc9f4ed713b114150",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -765,6 +765,11 @@
     {
      "type": "text",
      "text": "下图是一个有 10 个活动的AOE网，时间余量最大的活动是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-1",
+     "alt": "2022 年第 7 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -839,7 +844,9 @@
     "subject-data-structures",
     "topic-2022-q07"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -876,7 +883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -889,6 +896,11 @@
     {
      "type": "text",
      "text": "在下图所示的 5 阶B树T中，删除关键字 260 之后需要进行必要的调整，得到新的B树T1。下\n列选项中，不．可能是T1 根结点中关键字序列的是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-1",
+     "alt": "2022 年第 8 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -963,7 +975,9 @@
     "subject-data-structures",
     "topic-2022-q08"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -1000,7 +1014,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1125,7 +1139,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1263,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1387,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1511,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +2007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2255,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2379,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2490,7 +2504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +3000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3731,7 +3745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3855,7 +3869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3979,7 +3993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4103,7 +4117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4227,7 +4241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4351,7 +4365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4364,6 +4378,11 @@
     {
      "type": "text",
      "text": "下图所示网络中的主机H的子网掩码与默认网关分别是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-4",
+     "alt": "2022 年第 36 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4438,7 +4457,9 @@
     "subject-computer-networks",
     "topic-2022-q36"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4475,7 +4496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4599,7 +4620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4723,7 +4744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4847,7 +4868,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4972,7 +4993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4985,6 +5006,16 @@
     {
      "type": "text",
      "text": "（13 分）已知非空二叉树T的结点值均为正整数，采用顺序存储方式保存，数据结构定义如\n下： \ntypedef struct{     //MAX_SIZE为已定义常量 \n    int SqBiTNode[MAX_SIZE];  //保存二叉树结点值的数组 \n    int ElemNum;     //实际占用的数组元素个数 \n}SqBiTree \nT中不存在的结点在数组SqBiTNode中用–1 表示。例如，对于下图所示的两棵非空二叉树T1 和\nT2， \n \nT1 的存储结果如下： \nT1.SqBiTNode 40 25 60 –1 30 –1 80 –1 –1 27   \n    T 1.ElemNum = 10 \nT2 的存储结果如下： \nT2.SqBiTNode 40 50 60 –1 30 –1 –1 –1 –1 –1 35  \n    T 1.ElemNum = 11 \n请设计一个尽可能高效的算法，判断一棵采用这种方式存储的二叉树是否为二叉搜索树，若是，\n则返回true，否则，返回false。要求： \n（1）给出算法的基本设计思想。 \n（2）根据设计思想，采用C或C++语言描述算法，关键之处给出注释。 \n  \n\n2022 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 6 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-5",
+     "alt": "2022 年第 41 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-6",
+     "alt": "2022 年第 41 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5034,7 +5065,10 @@
     "subject-data-structures",
     "topic-2022-q41"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-5",
+    "cn408-2022-source-questions-page-6"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5072,7 +5106,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5172,7 +5206,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5185,6 +5219,16 @@
     {
      "type": "text",
      "text": "（15 分）某CPU中部分数据通路如题 43 图所示，其中，GPRs为通用寄存器组；FR为标志寄\n存器，用于存放ALU产生的标志信息；带箭头虚线表示控制信号，如控制信号Read、Write分\n别表示主存读、主存写，MDRin表示内部总线上数据写入MDR，MDRout表示MDR的内容送\n内部总线。 \n \n请回答下列问题 \n（1）设ALU的输入端A、B及输出端F的最高位分别为A15、B15及F15，FR中的符号标志和溢\n出标志分别为SF和OF，则SF的逻辑表达式是什么？A加B、A减B时OF的逻辑表达式分别\n是什么？要求逻辑表达式的输入变量为A15、B15及F15。 \n（2）为什么要设置暂存器Y和Z？ \n（3）若GPRs的输入端rs、rd分别为所读、写的通用寄存器的编号，则GPRs中最多有多少个\n通用寄存器？rs和rd来自图中的哪个寄存器？已知GPRs内部有一个地址译码器和一个多路选\n择器，rd应连接地址译码器还是多路选择器？ \n（4）取指令阶段（不考虑PC增量操作）的控制信号序列是什么？若从发出主存读命令到主存\n读出数据并传送到MDR共需 5 个时钟周期，则取指令阶段至少需要几个时钟周期？ \n（5）图中控制信号由什么部件产生？图中哪些寄存器的输出信号会连到该部件的输入端？ \n  \n\n2022 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 8 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-7",
+     "alt": "2022 年第 43 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-8",
+     "alt": "2022 年第 43 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5234,7 +5278,10 @@
     "subject-computer-organization",
     "topic-2022-q43"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-7",
+    "cn408-2022-source-questions-page-8"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5272,7 +5319,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5372,7 +5419,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5385,6 +5432,16 @@
     {
      "type": "text",
      "text": "（7 分）某文件系统的磁盘块大小为 4KB，目录项由文件名和索引结点号\n构成，每个索引结点占 256 字节，其中包含直接地址项 10 个，一级、二\n级和三级间接地址项各 1 个，每个地址项占 4 字节。该文件系统中子目录\nstu的结构如题 45（a）图所示，stu包含子目录course和文件doc，course\n子目录包含文件course1 和course2。各文件的文件名、索引结点号、占用\n磁盘块的块号如题 45（b）图所示。 \n请回答下列问题。 \n（1）目录文件stu中每个目录项的内容是什么？ \n（2）文件doc占用的磁盘块的块号x的值是多少？ \n（3）若目录文件course的内容己在内存，则打开文\n件course1 并将其读入内存，需要读几个磁盘块？说\n明理由。 \n（4）若文件course2 的大小增长到 6MB，则为了存\n取course2 需要使用该文件索引结点的哪几级间接地\n址项？说明理由。 \n  \n\n2022 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 10 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-9",
+     "alt": "2022 年第 45 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-10",
+     "alt": "2022 年第 45 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5434,7 +5491,10 @@
     "subject-operating-systems",
     "topic-2022-q45"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-9",
+    "cn408-2022-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5472,7 +5532,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5485,6 +5545,16 @@
     {
      "type": "text",
      "text": "（8 分）某进程的两个线程T1 和T2 并发执行A、B、C、\nD、E和F共 6 个操作，其中T1 执行A、E和F，T2 执行\nB、C和D。题 46 图表示上述 6 个操作的执行顺序所必须满\n足的约束；C在A和B完成后执行，D和E在C完成后执\n行，F在E完成后执行。请使用信号量的wait()、signal()操作\n描述T1 和T2 之间的同步关系，并说明所用信号量的作用及\n其初值。 \n \n \n  \n\n2022 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 11 页（共 11 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-10",
+     "alt": "2022 年第 46 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-11",
+     "alt": "2022 年第 46 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5534,7 +5604,10 @@
     "subject-operating-systems",
     "topic-2022-q46"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-10",
+    "cn408-2022-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5572,7 +5645,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5585,6 +5658,11 @@
     {
      "type": "text",
      "text": "（9 分）某网络拓扑如题 47 图所示，R为路由器，S为以太网交换机，AP是 802.11 接入点，路\n由器的E0 接口和DHCP服务器的IP地址配置如图中所示；H1 与H2 属于同一个广播域，但不\n属于同一个冲突域；H2 和H3 属于同一个冲突域；H4 和H5 已经接入网络，并通过DHCP动态\n获取了IP地址。现有路由器、100BaseT以太网交换机和 100BaseT集线器（Hub）三类设备各若\n干台。 \n \n题 47 题图 \n请回答下列问题。 \n（1）设备 1 和设备 2 应该分别选择哪类设备？ \n（2）若信号传播速度为 2×108m/s，以太网最小帧长为 64B，信号通过设备 2 时会产生额外的\n1.51μs的时间延迟，则H2 与H3 之间可以相距的最远距离是多少？ \n（3）在H4 通过DHCP动态获取IP地址过程中，H4 首先发送了DHCP报文M，M是哪种\nDHCP报文？路由器E0 接口能否收到封装M的以太网帧？S向DHCP服务器转发的封装M的\n以太网帧的目的MAC地址是什么？ \n（4）若H4 向H5 发送一个IP分组P，则H5 收到的封装P的 802.11 帧的地址 1、地址 2 和地址\n3 分别是什么？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2022-source-questions-page-11",
+     "alt": "2022 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5634,7 +5712,9 @@
     "subject-computer-networks",
     "topic-2022-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2022-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5671,7 +5751,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2022.0-draft.1",
+   "contentVersion": "2022.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

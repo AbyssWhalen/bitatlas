@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2019",
   "schemaVersion": 1,
-  "contentVersion": "2019.0-draft.1",
+  "contentVersion": "2019.0-draft.2",
   "title": "2019 年计算机学科专业基础综合试题",
   "year": 2019,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:22:55.634Z",
-  "sha256": "23f86d8dcc2d501d4eaf8416c49030700a170ebdf04d1014febfb91fe1f6a3aa",
+  "createdAt": "2026-09-03T00:27:59.102Z",
+  "sha256": "6fef58eb73a9dbc41c477f32e616e2d05ddc66b0027710e915e66d0194fa3155",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -517,6 +517,11 @@
     {
      "type": "text",
      "text": "下图所示的AOE网表示一项包含 8 个活动的工程。活动d的最早开始时间和最迟开始时间分别\n是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2019-source-questions-page-1",
+     "alt": "2019 年第 5 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -591,7 +596,9 @@
     "subject-data-structures",
     "topic-2019-q05"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2019-source-questions-page-1"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -628,7 +635,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +759,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +883,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1000,7 +1007,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1124,7 +1131,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +2000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2490,7 +2497,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2993,7 +3000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3117,7 +3124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3241,7 +3248,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3365,7 +3372,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3489,7 +3496,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3613,7 +3620,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3738,7 +3745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3862,7 +3869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3986,7 +3993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4110,7 +4117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4234,7 +4241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4358,7 +4365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4482,7 +4489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4606,7 +4613,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4619,6 +4626,11 @@
     {
      "type": "text",
      "text": "某客户通过一个TCP连接向服务器发送数据的部分过程如题 38 图所示。客户在t0时刻第一次收\n到确认序列号ack_seq = 100 的段，并发送序列号seq = 100 的段，但发生丢失。若TCP支持快速\n重传，则客户重新发送seq = 100 段的时刻是        。"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2019-source-questions-page-4",
+     "alt": "2019 年第 38 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4693,7 +4705,9 @@
     "subject-computer-networks",
     "topic-2019-q38"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2019-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4730,7 +4744,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4854,7 +4868,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4979,7 +4993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5079,7 +5093,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5179,7 +5193,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5279,7 +5293,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5379,7 +5393,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5479,7 +5493,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5579,7 +5593,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5592,6 +5606,11 @@
     {
      "type": "text",
      "text": "（9 分）某网络拓扑如题 47 图所示，其中R为路由器，主机H1～H4 的IP地址配置以及R的各\n接口IP地址配置如图中所示。现有若干以太网交换机（无VLAN功能）和路由器两类网络互连\n设备可供选择。 \n \n题 47 图 \n请回答下列问题： \n（1）设备 1、设备 2 和设备 3 分别应选择什么类型的网络设备？ \n（2）设备 1、设备 2 和设备 3 中，哪几个设备的接口需要配置IP地址？为对应的接口配置正确\n的IP地址。 \n（3）为确保主机H1～H4 能够访问Internet，R需要提供什么服务？ \n（4）若主机H3 发送一个目的地址为 192.168.1.127 的IP数据报，网络中哪几个主机会接收该数\n据报？"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2019-source-questions-page-11",
+     "alt": "2019 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5641,7 +5660,9 @@
     "subject-computer-networks",
     "topic-2019-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2019-source-questions-page-11"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5678,7 +5699,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2019.0-draft.1",
+   "contentVersion": "2019.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],

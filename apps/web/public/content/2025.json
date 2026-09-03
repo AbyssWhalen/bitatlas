@@ -2,12 +2,12 @@
  "manifest": {
   "id": "cn408-2025",
   "schemaVersion": 1,
-  "contentVersion": "2025.0-draft.1",
+  "contentVersion": "2025.0-draft.2",
   "title": "2025 年计算机学科专业基础综合试题",
   "year": 2025,
   "questionCount": 47,
-  "createdAt": "2026-09-02T14:22:00.093Z",
-  "sha256": "df0780b579defbc976d4363658630442b5811ee7a487c848c3ad5fbd65bb43c1",
+  "createdAt": "2026-09-03T00:28:07.645Z",
+  "sha256": "77152a100d89ebe3fc20d929409bc00a7792991b59a3d471d1409a6d63a264e4",
   "reviewStatus": "needs-review"
  },
  "questions": [
@@ -132,7 +132,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -256,7 +256,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -380,7 +380,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -504,7 +504,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -628,7 +628,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -752,7 +752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -876,7 +876,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1000,7 +1000,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1124,7 +1124,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1249,7 +1249,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1373,7 +1373,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1497,7 +1497,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1621,7 +1621,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1745,7 +1745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1869,7 +1869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -1993,7 +1993,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2117,7 +2117,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2241,7 +2241,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2365,7 +2365,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2490,7 +2490,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2614,7 +2614,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2738,7 +2738,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2862,7 +2862,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -2986,7 +2986,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3110,7 +3110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3234,7 +3234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3358,7 +3358,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3482,7 +3482,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3606,7 +3606,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3730,7 +3730,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3854,7 +3854,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3979,7 +3979,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -3992,6 +3992,11 @@
     {
      "type": "text",
      "text": "某网络拓扑及各链路带宽如题 33 图所示。网络按电路交换方式运行时，主机H1 与H2 建立一条\n带宽为 10Mb/s的电路，建立电路时间为 32μs；按分组交换方式运行时，分组长度为 400B，忽略\n分组首部开销。现H1 向H2 发送一个 2MB（1M = 106）的文件，分别采用电路交换、报文交换、\n分组交换方式时，H2 至少需要TCS、TMS、TPS时间才能接收到全部文件内容，则TCS、TMS、TPS满\n足的关系是 \n \n题 33 图"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-4",
+     "alt": "2025 年第 33 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4066,7 +4071,9 @@
     "subject-computer-networks",
     "topic-2025-q33"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4103,7 +4110,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4227,7 +4234,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4351,7 +4358,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4364,6 +4371,11 @@
     {
      "type": "text",
      "text": "一台新接入网络的主机H通过DHCP服务器动态请求IP地址过程中， 与DHCP服务器交换DHCP\n报文的部分过程如题 36 图所示。封装DHCPREQUEST报文的IP数据报的目的IP地址和源IP地\n址分别是 \n \n题 36 图"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-4",
+     "alt": "2025 年第 36 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4438,7 +4450,9 @@
     "subject-computer-networks",
     "topic-2025-q36"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-4"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4475,7 +4489,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4600,7 +4614,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4613,6 +4627,11 @@
     {
      "type": "text",
      "text": "主机甲通过TCP向主机乙发送数据的部分过程如题 38 图所示，seq为序号，ack_seq为确认序号，\nrcvwnd为接收窗口。甲在t0时刻的拥塞窗口和发送窗口均为 2000B，拥塞控制值为 8000B，\nMSS=1000B，甲始终以MSS发送TCP段。若甲在t1时刻收到如图所示的确认段，则甲在未收到\n新的确认段之前，还可以继续向乙发送的TCP段数是 \n \n题 38 图"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-5",
+     "alt": "2025 年第 38 题原卷页面（题干含图）"
     }
    ],
    "options": [
@@ -4687,7 +4706,9 @@
     "subject-computer-networks",
     "topic-2025-q38"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-5"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -4724,7 +4745,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4848,7 +4869,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -4973,7 +4994,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5073,7 +5094,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5086,6 +5107,16 @@
     {
      "type": "text",
      "text": "（本题 10 分）某工程包含 12 个活动，使用题 42 图所示的AOE网描述，图中各边上标注了活动\n及其持续时间。 \n \n题 42 图 \n请回答下列问题（活动均用活动名表示） 。 \n（1）完成该工程的最短时间是多少？哪些活动是关键活动？（3 分） \n（2）若以最短时间完成工程，则与活动e同时进行的活动可能有哪些？（3 分） \n（3）时间余量最大的活动是哪个？其时间余量是多少？（2 分） \n（4）假设工程从时刻 0 启动，因某种原因，活动b在时刻 6 开始。为了保证工程不延期，在其\n他活动持续时间均不变的情况下，b的持续时间最多是多少？若不改变b的持续时间，则压缩哪\n个活动的持续时间也能保证工程不延期？（2 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 8 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-7",
+     "alt": "2025 年第 42 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-8",
+     "alt": "2025 年第 42 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5135,7 +5166,10 @@
     "subject-data-structures",
     "topic-2025-q42"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-7",
+    "cn408-2025-source-questions-page-8"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5173,7 +5207,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5186,6 +5220,16 @@
     {
      "type": "text",
      "text": "（本题 12 分）现有C语言程序P的部分代码如题 43 图所示。假定运行程序P的计算机M字长\n为 32 位，按字节编址，数据Cache的数据区大小为 32KB，采用 8 路组相联映射方式，主存块\n大小为 64B，Cache的命中时间为 2 个时钟周期，缺失损失为 200 个时钟周期；采用页式虚拟存\n储管理方式，页大小为 4KB。数组d的起始虚拟地址V A31～V A0，为 0180 0020H。 \nint x, d[2048], i; \n... \nfor(i=0; i<2048; i++) \n  d[i]=d[i]/x; \n... \n题 43 图 \n请回答下列问题。 \n（1）主存地址中Cache组号字段和块内地址字段分别占几位？虚拟地址中哪些位可作为Cache\n索引？（3 分） \n（2）d[100]的虚拟地址为多少？d[100]所在主存块对应的Cache组号是多少？（2 分） \n（3）假定执行for语句时对应代码已在Cache，变量i和x已装入寄存器，数组d已调入主存但\n不在Cache， 则d[0]在其所在主存块内的偏移量是多少 （用十六进制表示）？for语句执行过程中，\n访问数组d的Cache缺失率和数组元素的平均访问时间分别是多少（Cache缺失率的计算结果要\n求用百分比表示，保留两位小数）？（5 分） \n（4）数组d分布在几个页中？若执行for语句时对应代码已在主存，但数组d还未调入主存，\n则执行for语句过程中，访问数组d所引起的缺页次数是多少？（2 分） \n \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 9 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-8",
+     "alt": "2025 年第 43 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-9",
+     "alt": "2025 年第 43 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5235,7 +5279,10 @@
     "subject-computer-organization",
     "topic-2025-q43"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-8",
+    "cn408-2025-source-questions-page-9"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5273,7 +5320,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5286,6 +5333,16 @@
     {
      "type": "text",
      "text": "（本题 11 分）对于题 43 中计算机M和程序P，假定P的部分机器级代码如题 44 图（a）所\n示，其中，R0～R4 为通用寄存器，SEXT表示按符号扩展；M中补码除法器逻辑结构如题 44 图\n（b）所示。 \n... \n//x在R2中，i在R4中 \n//数组d的首地址在R3中 \nmov   R1, (R3+R4*4)  //R1←d[i] \nscov  R1               //{R0, R1}←SEXT(R1) \nidiv  R1, R2          //R1←{R0, R1}/R2 \n... \n题 44 图（a） \n \n题 44 图（b） \n请回答下列问题。 \n（1）若执行题 44 图（a）中idiv指令的除运算时，d[i]=0x87654321、x=0xff，则补码除法器中\n寄存器R、Q和Y的初始内容分别是什么（用十六进制表示）？题 44 图（b）中哪个部件包含\n计数器？在补码除法器执行过程中，由ALUop所控制的ALU运算有哪几种？（6 分） \n（2）假设idiv指令执行过程中会检测并触发除法异常，则执行idiv指令时，哪些情况下会发生\n除法异常（要求给出此时d[i]和x的十六进制表示机器数）？发生除法异常时，在异常响应过程\n中CPU需要完成哪些操作？（5 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 10 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-9",
+     "alt": "2025 年第 44 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-10",
+     "alt": "2025 年第 44 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5335,7 +5392,10 @@
     "subject-computer-organization",
     "topic-2025-q44"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-9",
+    "cn408-2025-source-questions-page-10"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5373,7 +5433,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5473,7 +5533,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5486,6 +5546,16 @@
     {
      "type": "text",
      "text": "（本题 8 分）某系统中进程的虚拟地址空间包括内核区、用户栈运行时堆、可读写数据段、只读\n代码段等区域，其布局如题 46 图所示，图中阴影部分表示未占用区域。现有C语言程序的部分\n代码如下。 \nchar *ptr; \nvoid main() \n{ \n    int length; \n    ptr=(char *)malloc(100); \n    scanf(\"%s\", ptr); \n    length=strlen(ptr); \n    printf(\"length=%d\\n\", length); \n    free(ptr); \n} \n 题 46 图 \n请回答下列问题。 \n（1）上述程序执行时，其进程控制块位于哪个区域？执行scanf()等待键盘输入时，该进程处于什\n么状态？（2 分） \n（2）main()函数的代码位于哪个区域？其直接调用的哪些函数的功能需要通过执行驱动程序实现？\n（3 分） \n（3） 变量ptr被分配在哪个区域？若变量length没有被分配在寄存器中， 则会被分配在哪个区域？\nptr指向的字符串位于哪个区域？（3 分） \n  \n \n2025 年全国硕士研究生入学统一考试计算机学科专业基础综合试题 第 12 页（共 12 页）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-11",
+     "alt": "2025 年第 46 题原卷页面（题干含图）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-12",
+     "alt": "2025 年第 46 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5535,7 +5605,10 @@
     "subject-operating-systems",
     "topic-2025-q46"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-11",
+    "cn408-2025-source-questions-page-12"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5573,7 +5646,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   },
   {
@@ -5586,6 +5659,11 @@
     {
      "type": "text",
      "text": "（本题 9 分）某公司在承建国家重大工程项目时，工程部需要较长时间驻扎在偏远山区，工程部\n网络需要连接公司总部网络。假设综合考虑方案的技术可行性、安全性与经济成本等因素后，决\n定租用我国自主建设的天通一号卫星通信链路，连接工程部网络的路由器R1 和公司总部网络的\n路由器R2，如题 47 图所示。S1 和S2 为千兆以太网交换机；TR1 和TR2 是卫星信号地面收发设\n备， 实现全双工调制解调。 天通一号卫星轨道高度是 36 000km， 电磁波信号传播速度为 300 000km/s。\n租用的卫星链路为R1 和R2 之间提供对称全双工信道，每个方向的数据传输速率为 200kb/s。 \n \n题 47 题图 \n请回答下列问题。 \n（1）若忽略卫星信号中继以及TR1 和TR2 调制解调的时间开销，则R1 到R2 之间卫星链路的单\n向传播时延是多少？主机H向总部服务器传输数据时可以达到的最大吞吐量是多少？若忽略各层\n协议数据包的首部开销以及以太网内的传播时延， 则主机H向总部服务器上传一个 4000B大小的\n工程进度报告文件，至少需要多长时间？（3 分） \n（2） 现需要基于GBN滑动窗口协议为卫星链路设计单向可靠的数据链路层协议SLP， 支持R1 向\nR2 发送数据，SLP数据帧长为 1500 B，忽略ACK帧长度。若要求SLP的单向信道利用率不低于\n80%，则SLP的发送窗口至少为多少？SLP帧的序号字段至少需要多少位？（3 分） \n（3）若公司总部为工程部网络分配的IP地址空间是 10.10.10.0/24，工程部进一步将该IP地址空\n间分配给 3 个子网，其中生活区子网可分配IP地址数不少于 120 个，作业区子网和管理区子网可\n分配IP地址数均不少于 60 个，且主机H已正确配置了IP地址，则作业区子网、管理区子网和生\n活区子网的子网地址分别是什么（给出CIDR地址形式）？（3 分）"
+    },
+    {
+     "type": "image",
+     "assetId": "cn408-2025-source-questions-page-12",
+     "alt": "2025 年第 47 题原卷页面（题干含图）"
     }
    ],
    "answer": {
@@ -5635,7 +5713,9 @@
     "subject-computer-networks",
     "topic-2025-q47"
    ],
-   "assetIds": [],
+   "assetIds": [
+    "cn408-2025-source-questions-page-12"
+   ],
    "source": {
     "question": {
      "publisher": "Neville Studio 408-exam-paper（重构版）",
@@ -5672,7 +5752,7 @@
     ],
     "redistribution": "unknown"
    },
-   "contentVersion": "2025.0-draft.1",
+   "contentVersion": "2025.0-draft.2",
    "reviewStatus": "needs-review"
   }
  ],
