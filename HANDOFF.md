@@ -2439,3 +2439,11 @@ npx playwright test                              # 8 workers，参照 run D 约 
 ### 后续方向（维护者 2026-09-03 提出，暂不实施）
 
 - 用户登录与管理功能：数据库 + 邮件验证码；预期用户 ≤10 人，倾向 Cloudflare 托管方案（D1/Turnstile/Email 等）；当前 local-first 架构需先设计云同步边界（408-user schema v1-v3 与备份兼容是稳定合同，不得破坏）。
+
+## 2026-09-04 - 复核接手会话：修复 content:validate 2019 漂移（commit 4e3b3cb）
+
+- 复核发现：接手会话在清理后验证管线时重建了 2019 题包（刷新 `local-data/generated/2019.pack.json`），但未同步 `apps/web/public/content/2019.json`，导致 `content:validate` 在 HEAD 上 FAIL（16/17，2019 严格相等校验不通过；差异仅 createdAt/sha256 元数据，内容逐字节一致）。
+- 修复：重跑 `npx tsx tools/content-importer/src/build-year.mjs --year 2019` 对齐两侧；content:validate 17/17 PASS；内容与上游一致仅元数据移动。lint 通过。
+- 提交/推送：`4e3b3cb`（连同接手会话遗留未推送的 `201323b` 验收记录与 `2e101c0` 收尾记录一并入库），Actions 部署成功；线上 `/content/2019.json` sha256 与本地 HEAD 完全一致（399370a6…），Q1 解析为 OCR 恢复的真实文本。
+- 观察记录（未改动）：OCR 批次（d9aa8ac）改动了 2019/2021/2024/2025 的 explanation/hints 但 contentVersion 保持 draft.2——有利于保留维护者既有练习进度（作答/答案未变），与"内容变更即升版"合同存在取舍；如后续要升版需一并评估进度过滤影响。
+- 本日不重复全量 E2E：4e3b3cb 仅元数据移动（发布包与生成产物对齐），Run F4（201/201，4 workers）仍为最新全量事实；接手会话记录的 8-worker 环境容量结论不变。
