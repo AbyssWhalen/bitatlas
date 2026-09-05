@@ -4,7 +4,7 @@
 
 - 当前定位：可展示、可本地使用的“2009 工程 Beta”，不是 P0-P7 全量平台，也不是已人工审核的正式题库。
 - 当前公开显示名为 `BitAtlas`；`@408os/*`、`408-user`、`408-content`、缓存键和目录名继续作为兼容标识。公开代码默认不带私有 2009 题包，显式 HTTP 缺失进入可用的 code-only 模式，意外网络/解析/存储错误仍 fail closed。
-- 当前封板门禁：lint/typecheck 通过，Vitest `97 files / 1090 tests`，release `10/10`，content `47 questions / 19 assets` 且 `needs-review; verified 0/47`，最新 build `1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`；最新 code-only 三视口真实 Chrome `3/3`。
+- 当前封板门禁：lint/typecheck 通过，Vitest `97 files / 1094 tests`，全量 E2E `201/201`（4 workers，UI 刷新 commit e1e91c4 后复跑），content:validate 17 套题包（799 题）全 PASS 且全部 `needs-review; verified 0/47`，最新 build `1920 modules / 198 static-copy / 88 PWA entries (2789.28 KiB)`；2026-09-05 UI 视觉刷新后线上验收通过。
 - 当前公开部署：仓库为公开的 `AbyssWhalen/bitatlas`，远端 `main` 已部署；Cloudflare `408.fytjut.com` CNAME、GitHub Pages 证书和 HTTPS 强制均已生效。代码通过 merge 保留旧 `cpu-explorer` 历史，但不恢复或 iframe 嵌入旧站点。
 - 已完成：P0 工程地基、2009 导入/校验/复核/发布门禁、47 题刷题闭环、错题/笔记/收藏/掌握度、版本化统计、知识证据图、备份恢复和 PWA 离线闭环。
 - 已完成：本地 PDF 资料库与阅读器；支持导入、校验、页码深链、恢复、重命名、移除、适宽/缩放、CJK 标准字体和离线重开。
@@ -2447,3 +2447,29 @@ npx playwright test                              # 8 workers，参照 run D 约 
 - 提交/推送：`4e3b3cb`（连同接手会话遗留未推送的 `201323b` 验收记录与 `2e101c0` 收尾记录一并入库），Actions 部署成功；线上 `/content/2019.json` sha256 与本地 HEAD 完全一致（399370a6…），Q1 解析为 OCR 恢复的真实文本。
 - 观察记录（未改动）：OCR 批次（d9aa8ac）改动了 2019/2021/2024/2025 的 explanation/hints 但 contentVersion 保持 draft.2——有利于保留维护者既有练习进度（作答/答案未变），与"内容变更即升版"合同存在取舍；如后续要升版需一并评估进度过滤影响。
 - 本日不重复全量 E2E：4e3b3cb 仅元数据移动（发布包与生成产物对齐），Run F4（201/201，4 workers）仍为最新全量事实；接手会话记录的 8-worker 环境容量结论不变。
+
+## 2026-09-05 - UI 视觉与交互刷新（commit e1e91c4，已部署线上验收）
+
+经维护者要求（"把 UI 界面从视觉和用户交互体验的角度优化改进"）完成全站 UI 刷新。改动只触及 `apps/web/src/styles.css` 与三个页面的展示层（DashboardPage/QuestionsPage/WrongPage），无路由、存储、领域逻辑或 aria 合同变化。
+
+### 改动内容
+
+- 设计基座：radius（6/9/12px）与分层阴影（xs/sm/md）令牌化；页面底色 #eef1ed→#f2f4f0、描边变浅；品牌红焦点环（原蓝色半透明）；细滚动条、`::selection`、`prefers-reduced-motion` 守卫；标题字距与中文字体栈（补 PingFang/HarmonyOS Sans）。
+- 按钮体系：主按钮渐变+hover 抬升+按压反馈；disabled 从"洗白的红色 opacity .45"改为中性灰实底（提交答案禁用态不再像错误态）；图标/次级按钮统一 8px 圆角与过渡。
+- 卡片系统：指标卡图标改浅色底色圆角芯片（四色区分）；总览/模考/统计/知识/资料/实验的面板统一 12px 圆角+xs 阴影；每日计划从通栏条改为卡片；真题行从分隔线列表改为 hover 卡片（悬停描边加深+阴影）；筛选栏改卡片；模考规则条改卡片（移动端不再负边距通栏）。
+- 练习页：选项卡 10px 圆角+hover 抬升，选中态改品牌红描边+浅红底+红色字母芯片（原灰绿底辨识度低）；答对/答错保留绿/红；进度条 5px 渐变+宽度过渡；答题卡当前格加外圈；判分结果面板/提示面板/笔记与自评输入全面圆角化+焦点环。
+- 文案与信息密度：真题/错题列表的掌握度由裸英文（`unseen`）改为中文彩色芯片（未练习/学习中/熟悉/已掌握）；今日计划条目去掉"新题补充"文案与状态芯片的重复（副行改为到期日或"按记忆间隔排入"）。
+- 移动端：底部导航激活项加红色顶条；390px 筛选栏/每日计划保持卡片观感；既有 390 合同（`.app-shell` minHeight 0、`.practice-shell` 100%、底部导航/操作栏 boundingBox 非空）逐项保留。
+
+### 验证证据
+
+- `npm run lint` 0 error；`npm run typecheck` 全 workspace 通过；`npx vitest run --maxWorkers=4`：97 files / 1094 tests 全过；`npm run build`：88 PWA entries (2789.28 KiB)。
+- 全量 E2E `npx playwright test --workers=4`：**201/201（5.0 分钟）**，无失败无跳过；390 视口 min-height 契约与横向溢出断言全部随用例通过。
+- 截图对比：`output/playwright/ui-before/` 与 `ui-after/`（本地，dev server）各 16 张（桌面 1440×900 十页 + 练习作答/提交态 + 移动 390×844 四页），人工逐张检查无布局破损、无横向溢出。
+- 部署：commit `e1e91c4` 推送后 Actions run `33958813595` 构建部署成功；线上真实 Chrome（1440+390，`node output/ui-shot.mjs live https://408.fytjut.com`）复核：总览/真题/练习作答+提交/知识/实验/统计/数据/模考 + 移动四页渲染正常，无 pageerror、无资源级 4xx/5xx；仅存的 console 404 为既有 GitHub Pages 深链接文档回退（RELEASE.md 已文档化，非回归）。
+- 本地工具 `output/ui-shot.mjs`（未提交，output/ 忽略）可用于 before/after/live 三态截图巡检。
+
+### 边界与未动项
+
+- 未动：路由/存储/领域代码、aria/role 合同、`408-user` schema、题包内容与 needs-review 状态、Q44、`/mock` 门禁。
+- 未做（可作后续迭代）：暗色主题（工作量大需逐段适配）、模拟考页（MockExamSessionPage）的深度重绘、知识图 Cytoscape 节点样式、8-worker 空闲机全量基线复跑。

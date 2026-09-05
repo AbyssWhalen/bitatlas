@@ -2852,3 +2852,11 @@
 - 效果与审计：2019/2021 恢复 47/47（逐题详解版答案卷），2024/2025 恢复 7 道综合题【答案要点】；合计 108 解析 + 108 首提示；`output/audit-pack-diff.mjs` 确认 216 处变更全部落在四个年份的 explanation/hints（2019:94、2021:94、2024:14、2025:14），其余 12 年仅 createdAt/sha256 元数据变化、内容逐字节一致。
 - 保护项复核：2025 Q44 `needs-review` 不变，hints[0] 变为来源解析首句（全库既有约定，与 2010-2023 综合题一致）；`parallel-5/split-6` 在 CPU 实验代码中不受影响。
 - 风险与未解：80 题占位为来源极限（2024/2025 选择题无官方解析文字）；OCR 文本仍含少量水印残字与形近错字（如 `3Z.D`），needs-review 状态覆盖，不冒充人工审核；E2E 未重跑（不触应用代码），Run F 全量建议在维护者终端空闲时段复跑；待办③ CF /sw.js Bypass 仍需维护者操作。详见 docs/content-quality-backlog.md。
+
+## 2026-09-05 UI 视觉与交互刷新（实际命令与结果）
+
+- 维护者要求从视觉与交互体验角度优化 UI，达不到预期会换 kimi-k3 重做。先以 `node output/ui-shot.mjs before`（Playwright channel=chrome，桌面 1440×900 + 移动 390×844，SW 屏蔽）截 16 张现状图确定问题清单：8-10px 小字过多、卡片层级平淡、练习页选中/判分反馈弱、disabled 主按钮像洗红的错误态、掌握度裸英文 `unseen`、今日计划"新题补充"文案重复、筛选/计划区无卡片层级。
+- 实施：styles.css 303 行变更（令牌化 radius/shadow/focus-ring、按钮体系、卡片系统、练习页选项与判分反馈、移动端导航/卡片）+ DashboardPage 一行（计划副行去重）+ QuestionsPage/WrongPage 掌握度中文芯片映射。测试契约先排查：`study-flow.spec.ts:440` 固定 390 视口 `.app-shell` minHeight '0px'/`.practice-shell` '100%'、`.question-list .question-row` 计数与文本、`.daily-plan-list article` 8 项含 Q01——全部保留类名与结构，仅改样式层。
+- 命令与结果：`npm run lint` 0 error；`npm run typecheck` 通过；`npx vitest run --maxWorkers=4` 97 files / 1094 tests；`npm run build` 88 entries (2789.28 KiB)；`npx playwright test --workers=4` **201/201（5.0m）**；`node output/ui-shot.mjs after` 复截 16 张人工比对；commit `e1e91c4` 部署 run `33958813595` 后 `node output/ui-shot.mjs live https://408.fytjut.com` 线上复核通过（仅既有深链接 404 回退，无资源错误/pageerror）。
+- 决策：不做暗色主题与 MockExamSessionPage 深度重绘（工作量大、需单独一批）；IAB 截图通道在本机不稳定（偶发渲染中间态），UI 巡检统一走 Playwright channel=chrome 脚本。
+- 风险与未解：`.row-play` 悬停显隐、Cytoscape 画布与 PDF 阅读器样式未动；若维护者对方向不满意，可在同一令牌层快速调整主色/密度而不必重做结构。
