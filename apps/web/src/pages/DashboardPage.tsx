@@ -113,7 +113,7 @@ export function DashboardPage() {
             return (
               <article key={item.questionId} className={item.completedToday ? 'completed' : ''}>
                 <span className="daily-plan-number">Q{String(question.number).padStart(2, '0')}</span>
-                <div><strong>{subjectMeta[question.subject].label}</strong><small>{reason}{item.dueOn ? ` · ${item.dueOn}` : ''}</small></div>
+                <div><strong>{subjectMeta[question.subject].label}</strong><small>{item.dueOn ? `到期 ${item.dueOn}` : '按记忆间隔排入'}</small></div>
                 <span className={`daily-plan-state reason-${item.reason}`}>{item.completedToday ? '已完成' : reason}</span>
               </article>
             );

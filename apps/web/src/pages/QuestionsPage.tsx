@@ -20,6 +20,13 @@ const subjectLabels: Record<Subject, string> = {
   'computer-networks': '计算机网络',
 };
 
+const masteryLabels = {
+  unseen: '未练习',
+  learning: '学习中',
+  familiar: '熟悉',
+  mastered: '已掌握',
+} as const;
+
 export function QuestionsPage() {
   const { packs, questions, currentProgress, collections, createSession } = useStudy();
   const navigate = useNavigate();
@@ -73,7 +80,7 @@ export function QuestionsPage() {
             <article key={question.id} className="question-row">
               <button className="question-number" onClick={() => void start([question.id])} title={`开始第 ${question.number} 题`} aria-label={`开始第 ${question.number} 题`}>{String(question.number).padStart(2, '0')}</button>
               <div className="question-row-content">
-                <div className="question-meta"><span className={`subject-tag subject-${question.subject}`}>{subjectLabels[question.subject]}</span><span>{question.year}</span><span>{question.kind === 'single-choice' ? '单项选择' : '综合应用'}</span><span>{itemProgress?.mastery ?? 'unseen'}</span>{collections.has(question.id) && <Bookmark size={14} fill="currentColor" />}</div>
+                <div className="question-meta"><span className={`subject-tag subject-${question.subject}`}>{subjectLabels[question.subject]}</span><span>{question.year}</span><span>{question.kind === 'single-choice' ? '单项选择' : '综合应用'}</span><span className={`mastery-chip mastery-${itemProgress?.mastery ?? 'unseen'}`}>{masteryLabels[itemProgress?.mastery ?? 'unseen']}</span>{collections.has(question.id) && <Bookmark size={14} fill="currentColor" />}</div>
                 <LazyContentRenderer blocks={question.stem.filter((block) => block.type !== 'image').slice(0, 1)} compact />
               </div>
               <button className="icon-command row-play" onClick={() => void start([question.id])} title="快速开始" aria-label={`快速开始第 ${question.number} 题`}><Play size={18} /></button>
