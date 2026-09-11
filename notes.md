@@ -2877,3 +2877,8 @@
 - 过程记录：第一轮 200/201，唯一失败 chromium-390 system-labs Q47（goBack 后 GBN 标题 5s 未渲染），单测隔离复跑 2/2 通过（5.5s），定性为 HANDOFF 既有"并发冷启动"抖动类别；按惯例仅复跑一轮，复跑 201/201，两轮事实均如实记录，不做无界重跑。
 - 环境经验（本机跑 Playwright/Vite 必须遵守）：① 沙箱 node-safe-delete shim 拦截单次 >50 文件的目录删除（dist、results 目录），须先以 shell 预清 `apps/web/dist` 与输出目录再用全新 `--output=` 目录开跑；② 8 workers 在本机多服务并存时产生 context teardown 30s 假失败，验收固定 workers=4；③ git stash 会被 SIGTERM 破坏 .git/refs，用 local-data/work/ 文件备份替代。
 - 交付物：styles.css 全量换肤 + index.html/vite.config.ts 主题色 #0f1511（未提交，等维护者授权）；截图在 output/playwright/ui-final/。
+
+## 2026-09-11 推送与线上复核
+
+- 维护者授权后提交：`396b46c` style(web)（+237/-215）、`eb274e4` docs（+18）；`git push origin main`（b19b6d0..eb274e4）。
+- Pages 部署 run `34548137782` 约 1 分钟成功；`node output/ui-shot.mjs live https://408.fytjut.com` 16 张线上截图复核：仅既有深链接 404 回退（与 2026-09-05 相同行为），无资源错误/pageerror，新 UI 已在线上生效。
