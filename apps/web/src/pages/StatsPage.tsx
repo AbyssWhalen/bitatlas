@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 
 const subjects = [
-  ['data-structures', '数据结构', '#287a5a'],
-  ['computer-organization', '组成原理', '#d04c35'],
-  ['operating-systems', '操作系统', '#d29822'],
-  ['computer-networks', '计算机网络', '#3d64a6'],
+  ['data-structures', '数据结构', '#3ecf8e'],
+  ['computer-organization', '组成原理', '#f26d54'],
+  ['operating-systems', '操作系统', '#e5b04a'],
+  ['computer-networks', '计算机网络', '#7aa5f0'],
 ] as const;
 
 export function StatsPage() {

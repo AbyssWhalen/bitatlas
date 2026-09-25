@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 
 const subjectMeta = {
-  'data-structures': { label: '数据结构', color: '#287a5a' },
-  'computer-organization': { label: '计算机组成原理', color: '#d04c35' },
-  'operating-systems': { label: '操作系统', color: '#d29822' },
-  'computer-networks': { label: '计算机网络', color: '#3d64a6' },
+  'data-structures': { label: '数据结构', color: '#3ecf8e' },
+  'computer-organization': { label: '计算机组成原理', color: '#f26d54' },
+  'operating-systems': { label: '操作系统', color: '#e5b04a' },
+  'computer-networks': { label: '计算机网络', color: '#7aa5f0' },
 } as const;
 
 export function DashboardPage() {

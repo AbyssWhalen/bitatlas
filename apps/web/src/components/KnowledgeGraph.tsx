@@ -11,16 +11,16 @@ interface KnowledgeGraphProps {
 }
 
 const subjectColors: Record<Subject, string> = {
-  'data-structures': '#287a5a',
-  'computer-organization': '#d04c35',
-  'operating-systems': '#d29822',
-  'computer-networks': '#3d64a6',
+  'data-structures': '#3ecf8e',
+  'computer-organization': '#f26d54',
+  'operating-systems': '#e5b04a',
+  'computer-networks': '#7aa5f0',
 };
 
 function evidenceColor(value: KnowledgePointPerformance | undefined, subject: Subject): string {
-  if (value?.performance === null || value?.performance === undefined) return '#dfe4e0';
-  if (value.performance < 0.5) return '#d84c35';
-  if (value.performance < 0.8) return '#d29822';
+  if (value?.performance === null || value?.performance === undefined) return '#39443d';
+  if (value.performance < 0.5) return '#e8573f';
+  if (value.performance < 0.8) return '#e5b04a';
   return subjectColors[subject];
 }
 
@@ -88,9 +88,9 @@ export function KnowledgeGraph({ forest, performance, subject, selectedId, onSel
             height: 34,
             shape: 'round-rectangle',
             'background-color': 'data(color)',
-            'border-color': '#ffffff',
+            'border-color': '#0a0e0c',
             'border-width': 2,
-            color: '#263029',
+            color: '#0c110e',
             label: 'data(label)',
             'font-family': 'Inter, Segoe UI, Microsoft YaHei, sans-serif',
             'font-size': 9,
@@ -106,7 +106,7 @@ export function KnowledgeGraph({ forest, performance, subject, selectedId, onSel
           style: {
             width: 126,
             height: 42,
-            color: '#ffffff',
+            color: '#0c110e',
             'background-color': subjectColors[subject],
             'font-size': 10,
             'text-valign': 'center',
@@ -116,7 +116,7 @@ export function KnowledgeGraph({ forest, performance, subject, selectedId, onSel
         {
           selector: 'node:selected',
           style: {
-            'border-color': '#202823',
+            'border-color': '#edf3ee',
             'border-width': 4,
             'overlay-color': subjectColors[subject],
             'overlay-opacity': 0.1,
@@ -127,8 +127,8 @@ export function KnowledgeGraph({ forest, performance, subject, selectedId, onSel
           selector: 'edge',
           style: {
             width: 1.25,
-            'line-color': '#b9c1bb',
-            'target-arrow-color': '#b9c1bb',
+            'line-color': '#46524b',
+            'target-arrow-color': '#46524b',
             'target-arrow-shape': 'triangle',
             'curve-style': 'bezier',
           },

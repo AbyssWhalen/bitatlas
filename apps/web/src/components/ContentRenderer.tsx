@@ -73,7 +73,7 @@ function ContentImage({ block, asset, compact }: { block: ImageBlock; asset: Ass
         width: compact ? 'min(100%, 240px)' : 'min(100%, 760px)',
         aspectRatio: `${asset.width * width} / ${asset.height * height}`,
         margin: compact ? '8px auto' : '18px auto',
-        border: '1px solid #d8ddd8',
+        border: '1px solid #2e3a33',
         background: '#fff',
       }}
     >
