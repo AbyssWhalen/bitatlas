@@ -2902,3 +2902,9 @@
 - 门禁（实际命令与结果）：`npm run lint` 0 error；`npm run typecheck` 通过；`npx vitest run apps/web` 49 files / 370 tests；`rm -rf apps/web/dist && npm run build` 88 PWA entries (2799.73 KiB)；`node output/ui-shot.mjs dark1 http://127.0.0.1:5199` 16 张截图零 console/pageerror/http≥400，人工目检 12+ 页面通过；全量 E2E `npx playwright test --workers=4 --output=output/playwright/results-dark2` **201/201（5.0m）一轮通过**。首轮 results-dark1 因 build 门禁后 dist 又满、webServer emptyDir 触发 SAFE_DELETE_BULK_CONFIRM_REQUIRED（741 文件），按规程清 dist 后重跑通过——e2e-acceptance-local 技能已补充"dist 必须在 Playwright 启动那一刻不存在"的时序要点。
 - 环境备注：学科四色在暗色下统一提亮为 #3ecf8e/#f26d54/#e5b04a/#7aa5f0（KnowledgeGraph 与 Dashboard/Stats 同步）；浅色基线备份 `local-data/work/styles.css.bak2-light-20260925`。
 - 未经维护者授权不 commit/不部署；线上 408.fytjut.com 仍为 2026-09-11 浅色版本。
+
+## 2026-09-25 推送与线上复核（Console 暗色版）
+
+- 维护者授权后提交：`1b752a6` style(web)（7 文件，+581/-559）、`049e4cb` docs（HANDOFF/notes）、`6213a58` docs（补入 2026-09-16 代码审查报告，此前一直未入库）。
+- 推送遇网络故障：本地代理 127.0.0.1:52541 失效 + github.com:443 直连超时（SNI 阻断特征），baidu 200 且 github SSH 22 可达但 portpeek 键未授权本账号。改经 ~/.ssh/config 既有 `github-myweb` 别名（ssh.github.com:443 + id_ed25519_github）推送成功：`4d71c84..6213a58 main -> main`。origin 仍保持 HTTPS 不动，网络恢复后照常。
+- Pages 部署 run `36150940035` 约 1 分钟成功；`node output/ui-shot.mjs live https://408.fytjut.com` 16 张线上截图复核：仅既有深链接 404 回退（与 2026-09-05/09-11 相同行为），无资源错误/pageerror，暗色 Console 主题已在线上生效。
