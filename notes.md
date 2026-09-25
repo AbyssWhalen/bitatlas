@@ -1,5 +1,16 @@
 # Notes
 
+## 2026-09-17 - 代码审查完成（2026-09-16 开始）
+
+- 基线与范围：HEAD `4d71c84`；检查当前本地源码、内容与生产构建，未修改产品实现。既有 `.workbuddy/` 未跟踪目录保持原状。
+- 审查产物：`docs/code-review-2026-09-16.md`；可复现脚本和原始日志在 `output/code-review-2026-09-16/`，截图在 `output/playwright/review-2026-09-16-*-2025.png`。
+- 实际验证：lint/typecheck 通过；Vitest `97 files / 1094 tests`（4 workers）；release `10/10`；importer `27/27`；content:validate `17/17`（799 题，verified 0）；production build 1920 modules / 198 static-copy / 88 PWA entries（2796.56 KiB）。构建指定独立 outDir 且 emptyOutDir=false，未手动清理旧产物。
+- 浏览器：继承原配置的完整 E2E 集合，3 projects、4 workers，**200/201 passed（4.4m）**；唯一失败 mock-exam:144 chromium-1440，在“恢复持久化模考”阶段等待标题超时。1 worker 定向复跑 `1/1 passed`，根因未确定；保留两轮事实，未再次运行全量，也未跑默认 8 workers。
+- 人工驱动 Chrome：2009 Q1 手动已掌握但列表未练习复现；2025 Q1 可判分、390px 真实断网 reload 后恢复已提交记录；SW activated；1440/390 截图目检通过且发现年份标题写死 2009。浏览器和本次 preview 已关闭。
+- 确认缺陷：P1 导入器固定题面版本（2012 Q1 历史 fact(n-10)→fact(n-1) 仍 draft.2，旧 Attempt 算当前）；P2 扩展年份 verified 被启动草稿降级；P2 手动 mastery 与 currentProgress 展示不一致；P2 HTTP 503 误判缺题包；P3 练习年份标题写死。前四项有隔离内存探针，未修改真实用户数据库。
+- 完成度判断：个人本地学习 Beta 主干较完整；正式内容未完成。仓库 17 年题包全部 needs-review，80 道缺文字解析、791 道第二提示为通用模板；README/ARCHITECTURE 存在过期事实。没有终版验收清单，不编造整体完成百分比。
+- 决策：本轮只审查，修复顺序建议为题面版本/防降级→掌握度/HTTP/年份→人工内容复核→浏览器稳定性与文档同步。未知项包括全量超时根因、未逐题审核内容的正确性、线上当前状态和依赖漏洞；报告中明确边界。
+
 ## 2026-08-05 - 项目启动
 
 ### 已确认决策
@@ -2882,3 +2893,12 @@
 
 - 维护者授权后提交：`396b46c` style(web)（+237/-215）、`eb274e4` docs（+18）；`git push origin main`（b19b6d0..eb274e4）。
 - Pages 部署 run `34548137782` 约 1 分钟成功；`node output/ui-shot.mjs live https://408.fytjut.com` 16 张线上截图复核：仅既有深链接 404 回退（与 2026-09-05 相同行为），无资源错误/pageerror，新 UI 已在线上生效。
+
+## 2026-09-25 BitAtlas Console 暗色终端大改版封板
+
+- 维护者要求"前端大改、更有计算机设计风格、更前卫、小巧思、精简、零 bug，允许联网参考"。调研结论：克制的终端美学（低饱和深色 + 单色磷光 + 排版承载风格），保留品牌红作主 accent。
+- 契约自查：E2E 存在 `getByRole(..., exact: true)` 与 `.mobile-nav` `toHaveCSS('position','static')` 契约，且 Chrome 可访问名会计入 ::before/::after 文字——因此全部装饰采用 `content:""` 图形伪元素，零 DOM/类名/布局几何变更。
+- 实施：自研 `local-data/work/dark-migrate.mjs`（HSL 感知，逐声明按 BG/TEXT/BORDER/SHADOW 分类）转换 styles.css 736 条声明；脚本两个关键 bug 已修：hex/rgb 两次 replace 双重变换 → 单遍联合正则；HSL 饱和度在近白处爆炸（#fbfcfa 算得 s=0.25 被误判 pastel）→ 加 chroma=max-min>=10 门槛。手工精修令牌/侧边栏/热力图/答题卡/题号按键/代码块/焦点环；终端签名细节（扫描线、块光标、开机闪烁、四角瞄准框、分段进度条、点阵网格、LED、等宽 eyebrow）；KnowledgeGraph/Dashboard/Stats/ContentRenderer 色值与 index.html/vite.config 主题色同步。
+- 门禁（实际命令与结果）：`npm run lint` 0 error；`npm run typecheck` 通过；`npx vitest run apps/web` 49 files / 370 tests；`rm -rf apps/web/dist && npm run build` 88 PWA entries (2799.73 KiB)；`node output/ui-shot.mjs dark1 http://127.0.0.1:5199` 16 张截图零 console/pageerror/http≥400，人工目检 12+ 页面通过；全量 E2E `npx playwright test --workers=4 --output=output/playwright/results-dark2` **201/201（5.0m）一轮通过**。首轮 results-dark1 因 build 门禁后 dist 又满、webServer emptyDir 触发 SAFE_DELETE_BULK_CONFIRM_REQUIRED（741 文件），按规程清 dist 后重跑通过——e2e-acceptance-local 技能已补充"dist 必须在 Playwright 启动那一刻不存在"的时序要点。
+- 环境备注：学科四色在暗色下统一提亮为 #3ecf8e/#f26d54/#e5b04a/#7aa5f0（KnowledgeGraph 与 Dashboard/Stats 同步）；浅色基线备份 `local-data/work/styles.css.bak2-light-20260925`。
+- 未经维护者授权不 commit/不部署；线上 408.fytjut.com 仍为 2026-09-11 浅色版本。

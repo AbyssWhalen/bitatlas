@@ -1,11 +1,26 @@
 # HANDOFF
 
+## 2026-09-16 / 09-17 代码审查（已完成）
+
+- 范围：按当前 HEAD `4d71c84` 审查功能完成度、核心数据路径、内容质量和验证门禁；不修改产品实现。
+- 初始工作区：仅 `.workbuddy/` 为未跟踪目录，保持不动。
+- 已确认：当前有 2009–2025 共 17 年题包；README 仍描述只导入 2009，需以源码与本次验证区分真实现状和旧文档。
+- 本次已跑：lint/typecheck 通过；Vitest 97 files / 1094 tests（4 workers）；release 10/10；importer 27/27；content:validate 17/17、799 题全部 needs-review；独立 output 目录 production build 通过（88 PWA entries / 2796.56 KiB）。
+- 本次全量 E2E：3 视口、4 workers，200/201 passed（4.4 分钟），唯一失败 `tests/e2e/mock-exam.spec.ts:144` chromium-1440，停留“恢复持久化模考”超过 15 秒；单独 1 worker 复跑 1/1 passed（测试 2.9 秒）。保留原始失败，不将定向通过描述为全量通过；未跑默认 8 workers。
+- 已复现：导入器沿用题面版本导致旧证据穿透、扩展年份 verified 被启动草稿覆盖、手动 mastery 与列表/总览派生状态不一致、HTTP 503 被视为缺题包；另发现 2025 练习标题写死 2009。证据：`output/code-review-2026-09-16/probes.ts` 与 `probe-results.json`、CLI 页面快照。
+- 浏览器抽验：2025 Q1 作答判定和 390px 离线刷新后的记录恢复成功，SW activated；1440px/390px 截图已目检，位置 `output/playwright/review-2026-09-16-*-2025.png`。产品源码未改。
+- 关键文件：`apps/web/src/app/StudyContext.tsx`、`apps/web/src/app/storage.ts`、`packages/storage/src/`、`tools/content-importer/src/`；审查日志将放入 `output/code-review-2026-09-16/`。
+- 交付：`docs/code-review-2026-09-16.md` 已给出 5 项缺陷、功能完成情况、真实门禁结果及建议；`notes.md` 已记录本轮决策、验证和未解问题。临时 Chrome 与 preview 已关闭。
+- 后续待办：本轮用户仅要求审查，未执行修复；建议优先修题面版本与 verified 防降级，再处理掌握度/HTTP/年份标题，随后推进人工内容审核。模考并发启动超时根因仍待诊断。
+- 下一会话开场 prompt：先读 docs/code-review-2026-09-16.md 和本节；若用户要求修复，从 F1/F2 开始，保留历史学习数据，使用 output/code-review-2026-09-16/probes.ts 复现。不要把此前定向复跑通过描述为全量通过。
+
 ## 任务现状
 
 - 当前定位：可展示、可本地使用的“2009 工程 Beta”，不是 P0-P7 全量平台，也不是已人工审核的正式题库。
 - 当前公开显示名为 `BitAtlas`；`@408os/*`、`408-user`、`408-content`、缓存键和目录名继续作为兼容标识。公开代码默认不带私有 2009 题包，显式 HTTP 缺失进入可用的 code-only 模式，意外网络/解析/存储错误仍 fail closed。
 - 当前封板门禁：lint/typecheck 通过，Vitest `97 files / 1094 tests`，全量 E2E `201/201`（4 workers，UI 刷新 commit e1e91c4 后复跑），content:validate 17 套题包（799 题）全 PASS 且全部 `needs-review; verified 0/47`，最新 build `1920 modules / 198 static-copy / 88 PWA entries (2789.28 KiB)`；2026-09-05 UI 视觉刷新后线上验收通过。
 - 当前公开部署：仓库为公开的 `AbyssWhalen/bitatlas`，远端 `main` 已部署；Cloudflare `408.fytjut.com` CNAME、GitHub Pages 证书和 HTTPS 强制均已生效。代码通过 merge 保留旧 `cpu-explorer` 历史，但不恢复或 iframe 嵌入旧站点。
+- 已完成（2026-09-25 封板，未提交）：BitAtlas Console 暗色终端大改版——浅色"纸质学术风"整体转为深色"磷光控制台"：`apps/web/src/styles.css` 经自研 HSL 感知迁移脚本（`local-data/work/dark-migrate.mjs`，按 background/color/border/shadow 逐声明变换，736 条声明）全量暗色化 + 手工精修；设计令牌新增 `--ink-strong/--faint/--line-strong/--surface-raised/--mono`，圆角锐化（13→10/9→6/6→4），阴影黑色化，accent 保留品牌红（#e8573f 提亮）。终端签名细节（全部 content:"" 图形化，保护 getByRole exact 契约）：h1 块光标闪烁、brand-mark 开机自检闪烁、body 扫描线、卡片四角瞄准框、分段式进度条、main-area 点阵网格、eyebrow 等宽+红方块、pack-status LED、题号等宽按键、代码块磷光绿字；热力图反转为 GitHub-dark 绿阶。TSX 侧仅色值变更：KnowledgeGraph cytoscape 13 处、DashboardPage/StatsPage 科目色、ContentRenderer 来源图边框；index.html/vite.config.ts 主题色 #0a0e0c。零 DOM/类名/布局几何变更。最终门禁：lint 0 error、typecheck 通过、`npx vitest run apps/web` 49 files / 370 tests、production build（88 PWA entries / 2799.73 KiB）、`node output/ui-shot.mjs dark1` 16 张三视口截图零 console/pageerror/http≥400 且人工目检通过、全量 E2E **201/201**（workers=4，5.0m，一轮通过；首轮 webServer 因 dist 非空被 safe-delete 拦截，按 e2e-acceptance-local 规程清 dist 后通过）。浅色基线与成果备份在 `local-data/work/`（styles.css.bak2-light-20260925、KnowledgeGraph.tsx.bak-20260925）；未经维护者授权不 commit/不部署。
 - 已完成（2026-09-11 封板）：全面 UI 视觉刷新第二批——`apps/web/src/styles.css` 全量换肤（设计令牌 ink/bg/radius-lg 13px/分层阴影；侧边栏 radial 辉光+激活态渐变描边；按钮渐变+按压 inset；卡片族微渐变+图标内描边；进度条全圆角发光；练习页选项/题号徽标/代码块；模考 rule 卡/status pill；StepExplorer；PDF 阅读器；内容复核工作区；移动端底部导航红色指示+answer-actions 毛玻璃），`index.html` 与 `vite.config.ts` 主题色同步 #0f1511。严格 CSS-only，未动 DOM/类名/布局几何。最终门禁：lint 0 error、typecheck 通过、`npx vitest run apps/web` 49 files / 370 tests、production build（88 PWA entries / 2796.56 KiB）、`node output/ui-shot.mjs final` 16 张三视口截图零 console/pageerror/http≥400 且人工目检通过、全量 E2E **201/201**（workers=4，4.1m）；复跑前一轮 200/201 的唯一失败（chromium-390 system-labs Q47 goBack 后 GBN 标题 5s 未出现）经单测隔离复跑 2/2 通过，定性为既有并发冷启动抖动类别，非本次改动引入。维护者 2026-09-11 授权提交并推送：`396b46c` style(web)、`eb274e4` docs 已入 `main`；Pages 部署 run `34548137782` 成功后 `node output/ui-shot.mjs live https://408.fytjut.com` 线上复核通过（仅既有深链接 404 回退，无资源错误/pageerror，新 UI 已在线上生效）。基线与成果备份在 `local-data/work/`（styles.css.bak-20260910、*.new-20260910）。
 - 已完成：P0 工程地基、2009 导入/校验/复核/发布门禁、47 题刷题闭环、错题/笔记/收藏/掌握度、版本化统计、知识证据图、备份恢复和 PWA 离线闭环。
 - 已完成：本地 PDF 资料库与阅读器；支持导入、校验、页码深链、恢复、重命名、移除、适宽/缩放、CJK 标准字体和离线重开。
