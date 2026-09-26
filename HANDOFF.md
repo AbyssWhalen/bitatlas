@@ -2489,3 +2489,34 @@ npx playwright test                              # 8 workers，参照 run D 约 
 
 - 未动：路由/存储/领域代码、aria/role 合同、`408-user` schema、题包内容与 needs-review 状态、Q44、`/mock` 门禁。
 - 未做（可作后续迭代）：暗色主题（工作量大需逐段适配）、模拟考页（MockExamSessionPage）的深度重绘、知识图 Cytoscape 节点样式、8-worker 空闲机全量基线复跑。
+
+## 2026-09-25 - BitAtlas Console 暗色终端大改版（commit 1b752a6，已部署线上验收；2026-09-26 补记）
+
+经维护者要求"前端大改、更有计算机设计风格、更前卫、小巧思、精简、零 bug"，全站从浅色迁移至暗色终端主题（克制的终端美学：低饱和深色 + 磷光文字 + 品牌红主 accent，扫描线/块光标/四角瞄准框等签名细节）。改动主体为 `apps/web/src/styles.css`（自研 HSL 感知迁移脚本 `local-data/work/dark-migrate.mjs` 转换 736 条声明 + 手工精修），另含 KnowledgeGraph/Dashboard/Stats/ContentRenderer 色值与 index.html/vite.config 主题色同步；零 DOM/类名/布局几何变更，aria/role、路由、存储、题包合同均未动。此前"未做"清单中的暗色主题项由此节销项。
+
+### 验证证据（2026-09-25 实测）
+
+- `npm run lint` 0 error；`npm run typecheck` 通过；`npx vitest run apps/web` 49 files / 370 tests 全过；`npm run build` 88 PWA entries (2799.73 KiB)。
+- 全量 E2E `npx playwright test --workers=4`：**201/201（5.0m）** 一轮通过（results-dark2）。
+- `node output/ui-shot.mjs dark1` 16 张截图零 console/pageerror/http≥400，人工目检通过。
+- 部署：`1b752a6`（style）+ `049e4cb`/`6213a58`/`2b80867`（docs）经 `github-myweb` SSH 别名推送（HTTPS 与本地代理均故障，详见 notes.md）；Pages run `36150940035` 成功；`ui-shot.mjs live https://408.fytjut.com` 16 张线上复核通过，暗色主题线上生效。
+
+### 备注
+
+- 浅色基线备份 `local-data/work/styles.css.bak2-light-20260925`。
+- 已知产品问题（待维护者决策）：PWA `registerType: 'prompt'` 但无更新提示 UI，老客户端可能滞留旧版本（2026-09-25 用户实遇）；可选修复为 `autoUpdate` 或"有更新"toast + `updateSW(true)`。
+
+## 2026-09-26 - 自适应布局修复：年份换行 + 侧边栏可滚动（门禁全绿，待提交授权）
+
+维护者反馈：真题页年份筛选 17 项（2009-2025）一行放不下被裁切不可达；侧边导航在窗口偏矮/页面放大时底部被切且无法滚动，需频繁手调窗口。修复全部在 `apps/web/src/styles.css`（+13/-4，5 处纯 CSS）：`.filter-band` 三列 grid→`flex-wrap`（空间不足筛选组整体换行展开）、`.segmented-control` `max-width:100% + overflow-x:auto` + 4px 细滚动条（条内可滑，实验室分段组同受益）、`.sidebar` `overflow-y:auto`、新增 `@media (max-height:780px) and (min-width:1121px)` 矮窗压缩档。零 DOM/类名/合同变更。
+
+### 验证证据
+
+- 指标实测（自研 output/adaptive-shot.mjs）：1440/1152/960/390 四档 docOverflow=0；1440 年份 17/17 全展（861/859px，无需滚动）；1152/960/390 条内可滑可达；1440×500 矮窗侧边栏可滚动至末项完全可见。截图 `output/playwright/ui-adaptive/`。
+- `npm run lint` 0 error；`npm run typecheck` 通过；`npx vitest run apps/web` 370/370。
+- 全量 E2E：**201/201（4.0m）** 一轮全绿（2026-09-26 由维护者在 WorkBuddy 外原生终端执行 `npx playwright test --workers=4`；当日会话内 6 轮复跑均被 WorkBuddy 沙箱故障污染——webServer 编排挂死/覆盖写 EPERM/file-read 拒绝，跨 90+ 用例零断言失败，详见 notes.md 与 e2e-acceptance-local 技能"沙箱病态兜底"节）。
+
+### 边界与未动项
+
+- 未动：路由/存储/领域代码、aria/role 合同、题包内容、`408-user` schema、Q44。
+- 提交推送待维护者授权；授权后走 Pages 部署 + 线上复核（重点：真题页年份带 17 项全展、矮窗侧边栏可滚动）。

@@ -2908,3 +2908,13 @@
 - 维护者授权后提交：`1b752a6` style(web)（7 文件，+581/-559）、`049e4cb` docs（HANDOFF/notes）、`6213a58` docs（补入 2026-09-16 代码审查报告，此前一直未入库）。
 - 推送遇网络故障：本地代理 127.0.0.1:52541 失效 + github.com:443 直连超时（SNI 阻断特征），baidu 200 且 github SSH 22 可达但 portpeek 键未授权本账号。改经 ~/.ssh/config 既有 `github-myweb` 别名（ssh.github.com:443 + id_ed25519_github）推送成功：`4d71c84..6213a58 main -> main`。origin 仍保持 HTTPS 不动，网络恢复后照常。
 - Pages 部署 run `36150940035` 约 1 分钟成功；`node output/ui-shot.mjs live https://408.fytjut.com` 16 张线上截图复核：仅既有深链接 404 回退（与 2026-09-05/09-11 相同行为），无资源错误/pageerror，暗色 Console 主题已在线上生效。
+
+## 2026-09-25 自适应布局修复（年份裁切/侧边栏不可滚动，2026-09-26 封板）
+
+- 用户反馈：真题页年份（2009-2025 共 17 个）一行放不下被裁、左侧导航在窗口偏矮/放大时底部被切且无法滚动，需频繁手调窗口。
+- 根因：`.filter-band` 桌面端为三列 grid 且 `.segmented-control` `overflow: hidden`（年份按钮裁切不可达，移动端早已 overflow-x:auto）；`.sidebar` `position:fixed` 无 `overflow-y`，超高内容被视口裁掉且页面滚动救不了 fixed 元素。
+- 修复（styles.css 纯 CSS，5 处）：①`.filter-band` grid→`flex; flex-wrap: wrap`，搜索框 `flex: 1 1 240px`——空间不足时筛选组整体换行展开（用户要"自适应展开"）；②`.segmented-control` 基底 `max-width:100%; overflow-x:auto; scrollbar-width:thin` + webkit 横条 4px + 按钮 `flex: 0 0 auto`——换行后仍不够时条内可滑，实验室分段组同受益；③`.sidebar` `overflow-y:auto; overflow-x:hidden`；④新增 `@media (max-height:780px) and (min-width:1121px)` 矮窗压缩（padding 14/导航 40px/状态卡 9px）。
+- 验证（output/adaptive-shot.mjs，自研指标脚本）：1440/1152/960/390 四档 docOverflow=0；1440 年份 17/17 全展（861/859px 无需滚动）；1152/960/390 条内可滑可达；1440×500 矮窗 sidebar scrollable 且滚动后末项（数据）完全可见。截图 `output/playwright/ui-adaptive/`。lint 0 error、typecheck 通过、vitest 370/370。
+- E2E 事故记录：复跑时僵尸 vite dev server（TaskStop 报 killed 实际存活，占 5199，PID 24484）抢资源，4 workers 下 72 例 `Test timeout of 30000ms exceeded`（非断言失败、非 teardown 类别，error-context.md 为证），且进程在收尾阶段被杀（无总结行、无 .last-run.json）。按 PID 精确杀僵尸后干净复跑（results-adaptive4）——该轮结果待明日确认。教训已补进 e2e-acceptance-local：预清 rm 必须独立命令（串联 && 会触发拦截）；跑 E2E 前确认无 dev server/残留 node 进程抢资源。
+- 2026-09-26 E2E 收口：会话内 6 轮复跑全被 WorkBuddy 执行沙箱污染（webServer 编排挂死 40 分钟零输出、截图与 dist 覆盖写 EPERM、esbuild temp Access denied、最终沙箱连 `package.json`/系统 DLL 的 file-read 都拒绝、bash fork Permission denied），跨 90+ 已执行用例**零断言失败**；判定沙箱病态后由维护者在 WorkBuddy 外原生终端执行 `npx playwright test --workers=4`：**201/201（4.0m）一轮全绿**，与 09-25 results-dark2 基线一致，自适应修复无回归。分段定位法与兜底规程已固化进 e2e-acceptance-local"沙箱病态兜底"节。
+- 状态：全量门禁绿；待维护者授权 commit+push，之后线上复核 + HANDOFF 补封板行。
