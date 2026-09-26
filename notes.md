@@ -2926,3 +2926,4 @@
 - 风险研判：资源全带内容 hash，旧页面晚加载的懒块 404 风险极小（主包入口均首屏加载）；个人刷题站 autoUpdate 为标准做法。
 - 验证：`npm run build` 通过（88→87 entries 区间正常波动；构建时机坑：vite emptyDir 的 rm 被 shim 搁置后按决策时点数误报批量删除——dist 必须在构建启动那一刻**不存在**而非空目录，e2e-acceptance-local 技能此前记录的时序要点同样适用于手动 build）；产物 diff 对比确认 skipWaiting 语义变化（见上）。SW 在 E2E 中被 `serviceWorkers: 'block'` 屏蔽，本改动不影响 201 用例合同（09-26 全绿基线仍有效）。
 - 部署后用户侧动作：老客户端无需硬刷——旧 SW 会自动换新 SW（新 SW 无条件 skipWaiting 自愈）；当前已打开的标签页下次加载即新版。
+- 收口：提交 `28220c3`（fix）+ `131fd89`（docs），推送部署后线上复核通过——`408.fytjut.com/sw.js` 已是无条件 `self.skipWaiting()` 版本（6591B，旧版 6667B 仅监听 SKIP_WAITING 消息）。注意 GitHub Pages 边缘缓存约 10 分钟，验证时 sw.js 需带破缓存参数。
