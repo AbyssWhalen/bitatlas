@@ -2918,3 +2918,11 @@
 - E2E 事故记录：复跑时僵尸 vite dev server（TaskStop 报 killed 实际存活，占 5199，PID 24484）抢资源，4 workers 下 72 例 `Test timeout of 30000ms exceeded`（非断言失败、非 teardown 类别，error-context.md 为证），且进程在收尾阶段被杀（无总结行、无 .last-run.json）。按 PID 精确杀僵尸后干净复跑（results-adaptive4）——该轮结果待明日确认。教训已补进 e2e-acceptance-local：预清 rm 必须独立命令（串联 && 会触发拦截）；跑 E2E 前确认无 dev server/残留 node 进程抢资源。
 - 2026-09-26 E2E 收口：会话内 6 轮复跑全被 WorkBuddy 执行沙箱污染（webServer 编排挂死 40 分钟零输出、截图与 dist 覆盖写 EPERM、esbuild temp Access denied、最终沙箱连 `package.json`/系统 DLL 的 file-read 都拒绝、bash fork Permission denied），跨 90+ 已执行用例**零断言失败**；判定沙箱病态后由维护者在 WorkBuddy 外原生终端执行 `npx playwright test --workers=4`：**201/201（4.0m）一轮全绿**，与 09-25 results-dark2 基线一致，自适应修复无回归。分段定位法与兜底规程已固化进 e2e-acceptance-local"沙箱病态兜底"节。
 - 状态：全量门禁绿；维护者授权后提交 `ac4de3a`（style）+ `8202aa5`（docs），经 github-myweb SSH 别名推送（`2b80867..8202aa5`）；Pages 部署完成，线上 CSS 复核通过（`408.fytjut.com` 资产 `index-B1KZGGhr.css` 已含 `filter-band{display:flex;flex-wrap:wrap}`、`max-height:780px` 矮窗档、`overflow-y:auto` 侧边栏）。HANDOFF.md 已补 2026-09-25 暗色主题（补记）与 2026-09-26 自适应两节封板。
+
+## 2026-09-26 PWA 更新卡死修复：registerType prompt → autoUpdate
+
+- 背景：09-25 用户实遇"线上还是旧版"。根因 = `registerType: 'prompt'` 但 src 无任何 `virtual:pwa-register` 的 needRefresh/updateSW 处理——新 SW 装完后只在收到页面 `SKIP_WAITING` 消息时才 skipWaiting，页面永远不发，旧 SW 永久掌权。线上 sw.js 实证：`addEventListener("message", … "SKIP_WAITING" …)`（唯一入口）。
+- 修复：`apps/web/vite.config.ts` 一处，`registerType: 'prompt' → 'autoUpdate'`（维护者 2026-09-26 授权"改成自动更新"）。新 sw.js 实证：`self.skipWaiting()` 顶层无条件调用 + 既有 `clientsClaim()`——新 SW 装完即激活即接管，老客户端打开站点后后台换新 SW，下次进入自动新版，无需任何提示 UI。
+- 风险研判：资源全带内容 hash，旧页面晚加载的懒块 404 风险极小（主包入口均首屏加载）；个人刷题站 autoUpdate 为标准做法。
+- 验证：`npm run build` 通过（88→87 entries 区间正常波动；构建时机坑：vite emptyDir 的 rm 被 shim 搁置后按决策时点数误报批量删除——dist 必须在构建启动那一刻**不存在**而非空目录，e2e-acceptance-local 技能此前记录的时序要点同样适用于手动 build）；产物 diff 对比确认 skipWaiting 语义变化（见上）。SW 在 E2E 中被 `serviceWorkers: 'block'` 屏蔽，本改动不影响 201 用例合同（09-26 全绿基线仍有效）。
+- 部署后用户侧动作：老客户端无需硬刷——旧 SW 会自动换新 SW（新 SW 无条件 skipWaiting 自愈）；当前已打开的标签页下次加载即新版。

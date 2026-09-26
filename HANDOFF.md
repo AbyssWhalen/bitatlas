@@ -2520,3 +2520,17 @@ npx playwright test                              # 8 workers，参照 run D 约 
 
 - 未动：路由/存储/领域代码、aria/role 合同、题包内容、`408-user` schema、Q44。
 - 提交推送待维护者授权；授权后走 Pages 部署 + 线上复核（重点：真题页年份带 17 项全展、矮窗侧边栏可滚动）。
+
+## 2026-09-26 - PWA 更新卡死修复：SW 改 autoUpdate（维护者授权）
+
+`apps/web/vite.config.ts` 一处：`registerType: 'prompt' → 'autoUpdate'`。此前 prompt 模式要求页面实现"有更新提示 + updateSW()"，该 UI 从未实现，导致新 Service Worker 装完后永久 waiting、老客户端持续收旧版本（09-25 用户实遇）。修复后新 SW 顶层无条件 `self.skipWaiting()`（产物 diff 实证：旧=仅监听 SKIP_WAITING 消息，新=无条件调用），配合既有 `clientsClaim()`，装完即接管；老客户端打开站点后台自愈，下次进入自动新版。
+
+### 验证证据
+
+- `npm run build` 通过（tsc + vite + workbox 87 entries）；产物 `dist/sw.js` 与线上旧 sw.js 的 skipWaiting 上下文 diff 确认语义变化。
+- E2E 中 SW 被 `serviceWorkers: 'block'` 屏蔽，本改动不进 201 用例合同；09-26 全绿基线（201/201）仍为本阶段最新全量事实。
+- 构建环境备注：vite emptyDir 的 rm 会被本机 safe-delete shim 搁置并按决策时点数误报批量删除——手动 build 同样要求 dist 在启动那一刻不存在。
+
+### 后续
+
+- 部署后线上复核 sw.js 的 skipWaiting 语义；老客户端无需任何操作（旧 SW 后台换新即被新 SW 接管）。
