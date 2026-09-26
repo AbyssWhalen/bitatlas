@@ -60,7 +60,7 @@ h3 { font-size: 15px; }
 p { line-height: 1.72; }
 
 .app-shell { display: grid; grid-template-columns: 228px minmax(0, 1fr); min-height: 100vh; }
-.sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 228px; display: flex; flex-direction: column; padding: 22px 15px; color: #d5ddd7; background: radial-gradient(120% 40% at 50% 0%, rgb(232 87 63 / 7%) 0%, transparent 62%), linear-gradient(180deg, #0d1310, #090d0b 60%); border-right: 1px solid #1e2622; }
+.sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 228px; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; padding: 22px 15px; color: #d5ddd7; background: radial-gradient(120% 40% at 50% 0%, rgb(232 87 63 / 7%) 0%, transparent 62%), linear-gradient(180deg, #0d1310, #090d0b 60%); border-right: 1px solid #1e2622; }
 .brand-block { display: flex; align-items: center; gap: 11px; padding: 4px 7px 24px; }
 .brand-block strong { display: block; font-size: 19px; letter-spacing: .01em; }
 .brand-block small { display: block; margin-top: 3px; color: var(--sidebar-muted); font-size: 9px; letter-spacing: .08em; }
@@ -95,6 +95,13 @@ p { line-height: 1.72; }
 .content-unavailable-banner strong { font-size: 12px; }
 .content-unavailable-banner span { margin-top: 3px; color: #cbbb90; font-size: 10px; line-height: 1.5; }
 .content-pack-empty .command-row { justify-content: center; }
+
+@media (max-height: 780px) and (min-width: 1121px) {
+  .sidebar { padding-block: 14px; }
+  .brand-block { padding-bottom: 14px; }
+  .primary-nav a { height: 40px; }
+  .sidebar-status { padding: 9px 12px; }
+}
 
 .page { width: min(1180px, 100%); margin: 0 auto; padding: 35px 38px 52px; }
 .page-header { min-height: 78px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
@@ -171,15 +178,17 @@ p { line-height: 1.72; }
 .daily-plan-state.reason-due { color: #eec66d; background: rgb(234 191 83 / 13%); }
 .daily-plan-list article.completed .daily-plan-state { color: #80dbb4; background: rgb(114 202 152 / 13%); }
 
-.filter-band { display: grid; grid-template-columns: minmax(240px, 1fr) auto auto; align-items: center; gap: 12px; margin-bottom: 18px; padding: 12px; border: 1px solid #2e312c; border-radius: var(--radius-lg); background: linear-gradient(180deg, #121815, #161d19); box-shadow: var(--shadow-xs); }
+.filter-band { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px; padding: 12px; border: 1px solid #2e312c; border-radius: var(--radius-lg); background: linear-gradient(180deg, #121815, #161d19); box-shadow: var(--shadow-xs); }
+.filter-band .search-field { flex: 1 1 240px; }
 .search-field, .select-field { min-height: 39px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid #393d38; border-radius: 9px; background: #121815; transition: border-color .16s var(--ease), box-shadow .16s var(--ease); }
 .search-field { min-width: 0; }
 .search-field svg, .select-field svg { flex: 0 0 auto; color: #a7aaa8; }
 .search-field input, .select-field select { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 13px; }
 .search-field:focus-within, .select-field:focus-within { border-color: var(--red); box-shadow: var(--focus-ring); }
 .select-field select { cursor: pointer; }
-.segmented-control { display: flex; overflow: hidden; border: 1px solid #393d38; border-radius: 9px; background: #121815; box-shadow: var(--shadow-xs); }
-.segmented-control button { min-height: 37px; padding: 0 11px; border: 0; border-right: 1px solid #2e312d; background: transparent; color: #a7aaa8; font-size: 12px; font-weight: 700; cursor: pointer; transition: background-color .15s var(--ease), color .15s var(--ease), box-shadow .15s var(--ease); }
+.segmented-control { display: flex; max-width: 100%; overflow-x: auto; scrollbar-width: thin; border: 1px solid #393d38; border-radius: 9px; background: #121815; box-shadow: var(--shadow-xs); }
+.segmented-control::-webkit-scrollbar { height: 4px; }
+.segmented-control button { flex: 0 0 auto; min-height: 37px; padding: 0 11px; border: 0; border-right: 1px solid #2e312d; background: transparent; color: #a7aaa8; font-size: 12px; font-weight: 700; cursor: pointer; transition: background-color .15s var(--ease), color .15s var(--ease), box-shadow .15s var(--ease); }
 .segmented-control button:last-child { border-right: 0; }
 .segmented-control button:hover { color: var(--ink); background: #0c110e; }
 .segmented-control button.active { color: #ffffff; background: linear-gradient(180deg, #2b352e, #232c26); box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%); }
