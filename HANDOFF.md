@@ -1,5 +1,17 @@
 # HANDOFF
 
+## 2026-09-27 修复审查报告全部 5 项缺陷（F1-F5，已完成，改动未提交）
+
+- 依据 `docs/code-review-2026-09-16.md` 逐项修复，经维护者授权执行（"把有问题的地方修复一下"）。改动 10 个文件，未提交，等维护者授权提交。
+- **F1（P1 题面版本）**：`build-year.mjs` 的 contentVersion 可经 `--content-version <year>.0-draft.<N>` 显式提升（格式校验 `<year>.<major>-draft.<revision>`）；新增 `assertSemanticContentVersioned` 语义门禁——与已发布题包逐题比对"作答表面"（题干结构/文本/选项/答案，`semanticQuestionFingerprint`），表面变化而版本未提升即构建失败（fail closed）。解析/提示有意排除在指纹外（OCR 批次"不动作答表面保持 draft.2 保进度"的既定取舍）；题干图按 assetId 参与指纹，图片字节重渲染不触发。不做历史数据迁移（保守保留已混合记录）。
+- **F2（P2 verified 防降级）**：抽出 `verifiedDowngradeBlocked` 助手，2009 `installResponse` 与扩展年份 `installExtraContent` 共用同一合同——已安装 verified 的年份/包只接受通过 `requireVerified` 校验的覆盖；草稿/needs-review 版本跳过安装且不写入 validated 缓存。
+- **F3（P2 手动掌握度不一致）**：domain 新增纯函数 `overlayManualMastery`——手动掌握度（versioned progress）覆盖 Attempt 重放投影的 mastery，手动标记但无作答的题以零作答统计入投影；`StudyContext.currentProgress` 改为统一数据源（重放 + 覆盖）。语义决策：手动掌握度=用户显式判定，练习页/真题列表/错题页/总览共用；作答统计（次数/对错/正确率）仍只来自真实 Attempt；Dashboard"已练题目/完成进度"显式按 `attemptCount > 0` 计数（保持作答证据语义），"已掌握"数含手动标记。
+- **F4（P2 HTTP 故障误判缺失）**：仅 404 视为合同内"显式缺失"（code-only 模式合同不变）；其他非 2xx：2009 路径抛 `HTTP <status>` 错误（fail closed 进错误态而非空内容模式），扩展年份记录 `<year>: HTTP <status>` 诊断（经 contentIssues 展示）且不覆盖已有数据。
+- **F5（P3 年份写死）**：练习页顶栏年份改随 `question.year`；新增三视口 E2E 回归（2019 筛选 → Q1 → 顶栏"2019 全国统考"）。
+- 门禁：`npm run lint` 0 error；typecheck 全 workspace 通过；`npx vitest run --maxWorkers=4` 97 files / **1102 tests**（+8：domain overlay 4、storage F2×2 + F4×2）；`npm run test:year` importer 27→**31**；`npm run test:release` 10/10；`npm run content:validate` 17/17（无内容变更）；`npm run build` 88 PWA entries / 2800.73 KiB；全量 E2E **204/204**（workers=4，4.2m；68 用例 × 3 视口，新 F5 用例 3/3）。
+- 未动：`408-user` schema v1-v3 与备份合同、Q44（parallel-5/split-6 needs-review）、题包内容与 contentVersion（仍 draft.2，本次无内容变更）、`reviewStatus` 存储。
+- 测试计数口径：E2E "204" = 68 个唯一用例 × 3 视口项目（修复前 67 × 3 = 201）；vitest 计数为文件/用例，勿混用。
+
 ## 2026-09-16 / 09-17 代码审查（已完成）
 
 - 范围：按当前 HEAD `4d71c84` 审查功能完成度、核心数据路径、内容质量和验证门禁；不修改产品实现。
@@ -18,7 +30,7 @@
 
 - 当前定位：可展示、可本地使用的“2009 工程 Beta”，不是 P0-P7 全量平台，也不是已人工审核的正式题库。
 - 当前公开显示名为 `BitAtlas`；`@408os/*`、`408-user`、`408-content`、缓存键和目录名继续作为兼容标识。公开代码默认不带私有 2009 题包，显式 HTTP 缺失进入可用的 code-only 模式，意外网络/解析/存储错误仍 fail closed。
-- 当前封板门禁：lint/typecheck 通过，Vitest `97 files / 1094 tests`，全量 E2E `201/201`（4 workers，UI 刷新 commit e1e91c4 后复跑），content:validate 17 套题包（799 题）全 PASS 且全部 `needs-review; verified 0/47`，最新 build `1920 modules / 198 static-copy / 88 PWA entries (2789.28 KiB)`；2026-09-05 UI 视觉刷新后线上验收通过。
+- 当前封板门禁：lint/typecheck 通过，Vitest `97 files / 1102 tests`，importer node-test `31`、release `10/10`，全量 E2E `204/204`（68 用例 × 3 视口，4 workers，2026-09-27 缺陷修复轮复跑），content:validate 17 套题包（799 题）全 PASS 且全部 `needs-review; verified 0/47`，最新 build `88 PWA entries (2800.73 KiB)`；`docs/code-review-2026-09-16.md` 的 F1-F5 缺陷已全部修复（见顶部章节，改动未提交）。
 - 当前公开部署：仓库为公开的 `AbyssWhalen/bitatlas`，远端 `main` 已部署；Cloudflare `408.fytjut.com` CNAME、GitHub Pages 证书和 HTTPS 强制均已生效。代码通过 merge 保留旧 `cpu-explorer` 历史，但不恢复或 iframe 嵌入旧站点。
 - 已完成（2026-09-25 封板并已上线）：BitAtlas Console 暗色终端大改版——浅色"纸质学术风"整体转为深色"磷光控制台"：`apps/web/src/styles.css` 经自研 HSL 感知迁移脚本（`local-data/work/dark-migrate.mjs`，按 background/color/border/shadow 逐声明变换，736 条声明）全量暗色化 + 手工精修；设计令牌新增 `--ink-strong/--faint/--line-strong/--surface-raised/--mono`，圆角锐化（13→10/9→6/6→4），阴影黑色化，accent 保留品牌红（#e8573f 提亮）。终端签名细节（全部 content:"" 图形化，保护 getByRole exact 契约）：h1 块光标闪烁、brand-mark 开机自检闪烁、body 扫描线、卡片四角瞄准框、分段式进度条、main-area 点阵网格、eyebrow 等宽+红方块、pack-status LED、题号等宽按键、代码块磷光绿字；热力图反转为 GitHub-dark 绿阶。TSX 侧仅色值变更：KnowledgeGraph cytoscape 13 处、DashboardPage/StatsPage 科目色、ContentRenderer 来源图边框；index.html/vite.config.ts 主题色 #0a0e0c。零 DOM/类名/布局几何变更。最终门禁：lint 0 error、typecheck 通过、`npx vitest run apps/web` 49 files / 370 tests、production build（88 PWA entries / 2799.73 KiB）、`node output/ui-shot.mjs dark1` 16 张三视口截图零 console/pageerror/http≥400 且人工目检通过、全量 E2E **201/201**（workers=4，5.0m，一轮通过；首轮 webServer 因 dist 非空被 safe-delete 拦截，按 e2e-acceptance-local 规程清 dist 后通过）。浅色基线与成果备份在 `local-data/work/`（styles.css.bak2-light-20260925、KnowledgeGraph.tsx.bak-20260925）。维护者 2026-09-25 授权提交并推送：`1b752a6` style(web)、`049e4cb` docs 已入 `main`；github.com:443 直连与本地代理当时均不可用，推送改经 `github-myweb`（ssh.github.com:443）通道完成；Pages 部署 run `36150940035` 成功后 `node output/ui-shot.mjs live https://408.fytjut.com` 线上复核通过（仅既有深链接 404 回退，无资源错误/pageerror，暗色主题已在线上生效）。
 - 已完成（2026-09-11 封板）：全面 UI 视觉刷新第二批——`apps/web/src/styles.css` 全量换肤（设计令牌 ink/bg/radius-lg 13px/分层阴影；侧边栏 radial 辉光+激活态渐变描边；按钮渐变+按压 inset；卡片族微渐变+图标内描边；进度条全圆角发光；练习页选项/题号徽标/代码块；模考 rule 卡/status pill；StepExplorer；PDF 阅读器；内容复核工作区；移动端底部导航红色指示+answer-actions 毛玻璃），`index.html` 与 `vite.config.ts` 主题色同步 #0f1511。严格 CSS-only，未动 DOM/类名/布局几何。最终门禁：lint 0 error、typecheck 通过、`npx vitest run apps/web` 49 files / 370 tests、production build（88 PWA entries / 2796.56 KiB）、`node output/ui-shot.mjs final` 16 张三视口截图零 console/pageerror/http≥400 且人工目检通过、全量 E2E **201/201**（workers=4，4.1m）；复跑前一轮 200/201 的唯一失败（chromium-390 system-labs Q47 goBack 后 GBN 标题 5s 未出现）经单测隔离复跑 2/2 通过，定性为既有并发冷启动抖动类别，非本次改动引入。维护者 2026-09-11 授权提交并推送：`396b46c` style(web)、`eb274e4` docs 已入 `main`；Pages 部署 run `34548137782` 成功后 `node output/ui-shot.mjs live https://408.fytjut.com` 线上复核通过（仅既有深链接 404 回退，无资源错误/pageerror，新 UI 已在线上生效）。基线与成果备份在 `local-data/work/`（styles.css.bak-20260910、*.new-20260910）。

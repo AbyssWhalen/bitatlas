@@ -2927,3 +2927,22 @@
 - 验证：`npm run build` 通过（88→87 entries 区间正常波动；构建时机坑：vite emptyDir 的 rm 被 shim 搁置后按决策时点数误报批量删除——dist 必须在构建启动那一刻**不存在**而非空目录，e2e-acceptance-local 技能此前记录的时序要点同样适用于手动 build）；产物 diff 对比确认 skipWaiting 语义变化（见上）。SW 在 E2E 中被 `serviceWorkers: 'block'` 屏蔽，本改动不影响 201 用例合同（09-26 全绿基线仍有效）。
 - 部署后用户侧动作：老客户端无需硬刷——旧 SW 会自动换新 SW（新 SW 无条件 skipWaiting 自愈）；当前已打开的标签页下次加载即新版。
 - 收口：提交 `28220c3`（fix）+ `131fd89`（docs），推送部署后线上复核通过——`408.fytjut.com/sw.js` 已是无条件 `self.skipWaiting()` 版本（6591B，旧版 6667B 仅监听 SKIP_WAITING 消息）。注意 GitHub Pages 边缘缓存约 10 分钟，验证时 sw.js 需带破缓存参数。
+
+## 2026-09-27 缺陷修复批次：F1-F5 全部修复（实际命令与结果）
+
+- 背景：维护者授权执行"把有问题的地方修复一下"。对象为 `docs/code-review-2026-09-16.md` 的 F1-F5（审查产出后一直未修，本轮核实相关文件自审查以来零改动）。
+- 修复明细：
+  - F1 `tools/content-importer/src/build-year.mjs`：`buildYear(year, inputs, { contentVersion })`；`--content-version` 显式升版（正则 `^<year>\.\d+-draft\.\d+$`）；导出 `semanticQuestionFingerprint`（作答表面=number/kind/stem/options/answer，含题干图 assetId，排除 explanation/hints——OCR 批次"不动作答表面保 draft.2 保进度"的既定取舍）与 `assertSemanticContentVersioned`（对照 `apps/web/public/content/<year>.json`，表面变化版本未升即抛错）。不做历史迁移。
+  - F2 `apps/web/src/app/storage.ts`：`verifiedDowngradeBlocked(installed, pack)` 助手；`installExtraContent` 变更路径安装前先过防降级检查，命中即跳过安装且不写 validated 缓存（与 2009 kept-verified 一致，静默）。sha256 相同路径天然无降级（reviewStatus 在 hash 内）。
+  - F3 `packages/domain/src/study.ts` + `apps/web/src/app/StudyContext.tsx` + `DashboardPage.tsx`：`overlayManualMastery(projected, manualEntries, currentVersions)`；`currentProgress` 统一为"重放+手动覆盖"；Dashboard 已练/完成进度改按 `attemptCount > 0`（保持作答证据语义），已掌握数含手动。错题页/真题页无需改动（同一数据源后自动一致）。
+  - F4 `storage.ts`：`installResponse` 仅 404 抛 `LocalContentUnavailableError`，其他非 2xx 抛 `本地题包请求失败（HTTP <status>）`；`installExtraContent` 404 静默、其他非 2xx push `<year>: HTTP <status>` 进 issues。
+  - F5 `PracticePage.tsx:463`：`<span>{question.year} 全国统考</span>`。
+- 新增测试：domain `study.test.ts` overlay 4 例（覆盖重放、无作答手动条目、陈旧版本/unseen 忽略、无变化不复制对象）；`storage.test.ts` F2 两例（草稿降级被拒+verified 覆盖放行）、F4 两例（2009 路径 503 fail closed、扩展年份 503 记诊断 404 静默）；importer node-test 4 例（指纹稳定性/门禁放行三种/失配抛错带题号/新题号忽略）；E2E `study-flow.spec.ts` 新增"shows the practiced pack year in the practice topbar for non-2009 packs"。
+- 实际命令与结果：`npm run test:year -w @408os/content-importer` 31/31；`npm run lint` 0 error；`npm run typecheck` 通过（首跑暴露 2 处测试笔误：数组双重包裹、`questions[0]` 需非空断言，已修）；`npx vitest run --maxWorkers=4` 97 files / 1102 tests；`npm run content:validate` 17/17；`npm run test:release` 10/10；`npm run build` 88 entries / 2800.73 KiB；`PLAYWRIGHT_TEST_PORT=4319 npx playwright test --workers=4` **204/204（4.2m）**，新 F5 用例定向复跑 3/3（三视口）。
+- E2E 计数口径澄清：本轮"204"=68 唯一用例 × 3 视口项目；修复前 201=67 × 3。此前 HANDOFF/notes 一直按执行数记录（201），两种口径并存时以"唯一用例数 × 视口数"为准。
+- 风险与未解：
+  - F1 门禁仅覆盖 build-year（2010-2025）；2009 管线（build-2009/release-2009）未加同门禁，2009 题面修订仍靠 release 门禁+人工纪律，如需对齐另行小批次。
+  - 存储层既有语义未改：手动掌握度后的一次错误作答仍会把 mastery 重置为 learning（`applyAttemptToProgress`→`deriveMastery`），即手动标记与作答证据的合并仍以"最后一次写入为准"；若要"手动钉住"语义需另立批次并评估复习计划影响。
+  - F2 命中防降级时静默跳过（与 2009 路径一致），UI 无提示；如需可见反馈需另议。
+  - F4 扩展年份 HTTP 故障诊断经 `contentIssues` 展示，首屏仍可用（不阻塞），符合"显式缺失才降级"合同。
+  - 改动未提交，等维护者授权；工作垃圾已清理（见下条）。
