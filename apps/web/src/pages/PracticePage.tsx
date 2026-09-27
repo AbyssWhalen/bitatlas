@@ -460,7 +460,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
     <div className="practice-shell">
       <header className="practice-topbar">
         <button className="icon-command" onClick={() => navigate('/questions')} title="退出练习" aria-label="退出练习"><ArrowLeft size={19} /></button>
-        <div><span>2009 全国统考</span><strong>第 {question.number} 题 <small>/ {session.questionIds.length}</small></strong></div>
+        <div><span>{question.year} 全国统考</span><strong>第 {question.number} 题 <small>/ {session.questionIds.length}</small></strong></div>
         <div className="practice-progress"><span style={{ width: `${((session.currentIndex + 1) / session.questionIds.length) * 100}%` }} /></div>
         <button className="secondary-command compact-command" disabled={Boolean(saveError) || writeBlocked} onClick={() => void finish()}><Flag size={16} />结束</button>
       </header>

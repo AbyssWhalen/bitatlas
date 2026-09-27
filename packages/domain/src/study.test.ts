@@ -5,6 +5,7 @@ import {
   createStudySession,
   evaluateResponse,
   filterQuestions,
+  overlayManualMastery,
   projectCurrentQuestionProgress,
   seededShuffle,
 } from './study';
@@ -174,5 +175,92 @@ describe('study domain', () => {
       mastery: 'learning',
       evidenceAttemptIds: ['a-first', 'z-last'],
     });
+  });
+});
+
+describe('overlayManualMastery', () => {
+  const currentVersions = new Map([[question.id, question.contentVersion]]);
+
+  it('manual mastery overrides the attempt-derived mastery on attempted questions', () => {
+    const projected = projectCurrentQuestionProgress([attempt(false)], [question]);
+    const manual = [{
+      questionId: question.id,
+      questionContentVersion: question.contentVersion,
+      mastery: 'mastered' as const,
+      attemptCount: 1,
+      correctCount: 0,
+      wrongCount: 1,
+      consecutiveCorrect: 0,
+      lastCorrect: false,
+    }];
+
+    const result = overlayManualMastery(projected, manual, currentVersions);
+
+    expect(result.get(question.id)).toMatchObject({
+      mastery: 'mastered',
+      attemptCount: 1,
+      wrongCount: 1,
+      lastCorrect: false,
+      evidenceAttemptIds: projected.get(question.id)?.evidenceAttemptIds,
+    });
+  });
+
+  it('adds manually marked questions without fabricating attempt evidence', () => {
+    const manual = [{
+      questionId: question.id,
+      questionContentVersion: question.contentVersion,
+      mastery: 'familiar' as const,
+      attemptCount: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      consecutiveCorrect: 0,
+      lastCorrect: null,
+    }];
+
+    const result = overlayManualMastery(new Map(), manual, currentVersions);
+
+    expect(result.get(question.id)).toMatchObject({
+      mastery: 'familiar',
+      attemptCount: 0,
+      correctCount: 0,
+      lastCorrect: null,
+      evidenceAttemptIds: [],
+    });
+  });
+
+  it('ignores manual entries from stale question content versions and unseen marks', () => {
+    const stale = {
+      questionId: question.id,
+      questionContentVersion: '2009.0-draft.0',
+      mastery: 'mastered' as const,
+      attemptCount: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      consecutiveCorrect: 0,
+      lastCorrect: null,
+    };
+    const unseen = { ...stale, questionContentVersion: question.contentVersion, mastery: 'unseen' as const };
+
+    const result = overlayManualMastery(new Map(), [stale, unseen], currentVersions);
+
+    expect(result.has(question.id)).toBe(false);
+  });
+
+  it('keeps replay-derived stats when manual mastery already matches', () => {
+    const projected = projectCurrentQuestionProgress([attempt(true)], [question]);
+    const manual = [{
+      questionId: question.id,
+      questionContentVersion: question.contentVersion,
+      mastery: 'learning' as const,
+      attemptCount: 1,
+      correctCount: 1,
+      wrongCount: 0,
+      consecutiveCorrect: 1,
+      lastCorrect: true,
+    }];
+
+    const result = overlayManualMastery(projected, manual, currentVersions);
+
+    expect(result.get(question.id)).toBe(projected.get(question.id));
   });
 });

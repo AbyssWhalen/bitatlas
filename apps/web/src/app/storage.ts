@@ -200,6 +200,20 @@ async function cachedPackResponse(
   }
 }
 
+// 已安装 verified 题包不接受低审核状态覆盖：与 2009 installResponse 共用的防降级合同。
+// 返回 true 表示本次安装应被跳过（keep-verified），不得写入仓库或缓存。
+function verifiedDowngradeBlocked(installed: readonly InstallManifest[], pack: LocalContentPack): boolean {
+  const protectedManifest = installed.find((entry) => (
+    entry.reviewStatus === 'verified'
+    && (entry.year === pack.manifest?.year || entry.id === pack.manifest?.id)
+  ));
+  if (!protectedManifest) return false;
+  return !validateContentPack(pack, {
+    requireVerified: true,
+    enforceExamShape: true,
+  }).success;
+}
+
 async function installResponse(
   response: Response,
   repository: InstallRepository,
@@ -208,7 +222,10 @@ async function installResponse(
   | { status: 'installed'; manifest: InstallManifest; pack: LocalContentPack }
   | { status: 'kept-verified' }
 > {
-  if (!response.ok) throw new LocalContentUnavailableError();
+  // 仅 404 是合同内的“显式缺失”（进入 code-only 模式）；503 等服务故障必须 fail closed，
+  // 不得伪装成“没有题包”。解析/校验失败由后续 json/校验路径抛出。
+  if (response.status === 404) throw new LocalContentUnavailableError();
+  if (!response.ok) throw new Error(`本地题包请求失败（HTTP ${response.status}），已阻止安装。`);
   const pack = (await response.json()) as LocalContentPack;
   if (pack.manifest?.year !== LOCAL_PACK_YEAR) throw new Error('本地题包年份不是 2009，拒绝安装。');
   const installedManifest = installed.find((entry) => entry.year === pack.manifest?.year);
@@ -219,17 +236,7 @@ async function installResponse(
     // 字节一致（sha256 相同）且首次安装已通过校验：跳过重复重写，避免每次启动都全量重装 2009。
     return { status: 'installed', manifest: installedManifest, pack };
   }
-  const protectedManifest = installed.find((entry) => (
-    entry.reviewStatus === 'verified'
-    && (entry.year === pack.manifest?.year || entry.id === pack.manifest?.id)
-  ));
-  if (protectedManifest) {
-    const incomingVerified = validateContentPack(pack, {
-      requireVerified: true,
-      enforceExamShape: true,
-    }).success;
-    if (!incomingVerified) return { status: 'kept-verified' };
-  }
+  if (verifiedDowngradeBlocked(installed, pack)) return { status: 'kept-verified' };
   const manifest = await repository.installPack(pack, false);
   if (manifest.year !== LOCAL_PACK_YEAR) throw new Error('题包安装结果年份不是 2009。');
   return { status: 'installed', manifest, pack };
@@ -398,7 +405,13 @@ export async function installExtraContent(
       continue;
     }
     try {
-      if (!entry.response.ok) continue;
+      // 404 = 合同内的“未安装”（正常，静默跳过）；其他非 2xx 是服务故障，
+      // 必须留下诊断信息而不是伪装成缺失（fail closed，已有数据不受影响）。
+      if (entry.response.status === 404) continue;
+      if (!entry.response.ok) {
+        issues.push(`${entry.year}: HTTP ${entry.response.status}`);
+        continue;
+      }
       const cacheResponse = entry.response.clone();
       const pack = (await entry.response.json()) as LocalContentPack;
       if (pack.manifest?.year !== entry.year) throw new Error(`题包年份不是 ${entry.year}，拒绝安装。`);
@@ -407,6 +420,8 @@ export async function installExtraContent(
         && installedManifest.id === pack.manifest?.id
         && installedManifest.sha256 === pack.manifest?.sha256;
       if (!unchanged) {
+        // sha256 相同即字节相同（reviewStatus 是 manifest 的一部分），降级只可能发生在内容变化路径。
+        if (verifiedDowngradeBlocked(installed, pack)) continue;
         const manifest = await repository.installPack(pack, false);
         if (manifest.year !== entry.year) throw new Error(`题包安装结果年份不是 ${entry.year}。`);
         installedYears.push(entry.year);

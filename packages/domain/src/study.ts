@@ -215,3 +215,28 @@ export function projectCurrentQuestionProgress(
   }
   return result;
 }
+
+// 手动掌握度（setMastery 写入版本化 progress）是用户对当前题面的显式判定：
+// 覆盖 Attempt 重放推导的 mastery，让练习页、真题列表、错题页与总览共用同一语义。
+// 作答统计字段（attemptCount/correctCount/lastCorrect 等）仍只来自真实 Attempt。
+export function overlayManualMastery(
+  projected: ReadonlyMap<string, CurrentQuestionProgress>,
+  manualEntries: readonly QuestionProgress[],
+  currentVersionByQuestionId: ReadonlyMap<string, string>,
+): Map<string, CurrentQuestionProgress> {
+  const result = new Map(projected);
+  for (const entry of manualEntries) {
+    if (currentVersionByQuestionId.get(entry.questionId) !== entry.questionContentVersion) continue;
+    if (entry.mastery === 'unseen') continue;
+    const existing = result.get(entry.questionId);
+    if (existing) {
+      if (existing.mastery !== entry.mastery) {
+        result.set(entry.questionId, { ...existing, mastery: entry.mastery });
+      }
+      continue;
+    }
+    // 手动标记但当前题面尚无作答：提供 mastery 供展示与筛选，作答统计保持为空。
+    result.set(entry.questionId, { ...entry, evidenceAttemptIds: [] });
+  }
+  return result;
+}

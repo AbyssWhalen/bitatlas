@@ -16,7 +16,13 @@ export function DashboardPage() {
   const navigate = useNavigate();
   const [startingPlan, setStartingPlan] = useState(false);
   const [planError, setPlanError] = useState<string | null>(null);
-  const attempted = currentProgress.size;
+  // “已练/完成”指标保持作答证据语义（attemptCount>0）：手动掌握度只影响掌握度统计，
+  // 不把未作答的题计入已练数量与完成进度。
+  const attempted = [...currentProgress.values()].filter((entry) => entry.attemptCount > 0).length;
+  const practicedIds = useMemo(
+    () => new Set([...currentProgress.values()].filter((entry) => entry.attemptCount > 0).map((entry) => entry.questionId)),
+    [currentProgress],
+  );
   const mastered = [...currentProgress.values()].filter((entry) => entry.mastery === 'mastered').length;
   const wrong = [...currentProgress.values()].filter((entry) => entry.lastCorrect === false).length;
   const questionById = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
@@ -30,9 +36,9 @@ export function DashboardPage() {
   }), [attempts, questions]);
   const subjectCounts = useMemo(() => Object.entries(subjectMeta).map(([subject, meta]) => {
     const subjectQuestions = questions2009.filter((question) => question.subject === subject);
-    const done = subjectQuestions.filter((question) => currentProgress.has(question.id)).length;
+    const done = subjectQuestions.filter((question) => practicedIds.has(question.id)).length;
     return { subject, ...meta, total: subjectQuestions.length, done };
-  }), [currentProgress, questions2009]);
+  }), [practicedIds, questions2009]);
   const remainingPlanIds = dailyPlan.items.filter((item) => !item.completedToday).map((item) => item.questionId);
   const manifest = packs.find((pack) => pack.year === 2009);
   const packVerified = manifest?.reviewStatus === 'verified';
@@ -124,7 +130,7 @@ export function DashboardPage() {
       <div className="dashboard-columns">
         <section className="year-band">
           <div className="section-heading"><div><span className="eyebrow">历年真题</span><h2>2009 全国统考</h2></div><span className="pack-status">{has2009Questions ? `${questions2009.length} 题` : '未安装'}</span></div>
-          <div className="year-progress"><span style={{ width: `${questions2009.length ? (questions2009.filter((question) => currentProgress.has(question.id)).length / questions2009.length) * 100 : 0}%` }} /></div>
+          <div className="year-progress"><span style={{ width: `${questions2009.length ? (questions2009.filter((question) => practicedIds.has(question.id)).length / questions2009.length) * 100 : 0}%` }} /></div>
           <div className="year-facts">
             <span><strong>{choiceCount}</strong> 单项选择</span><span><strong>{comprehensiveCount}</strong> 综合应用</span><span><strong>{mastered}</strong> 已掌握</span>
           </div>

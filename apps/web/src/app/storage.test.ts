@@ -199,6 +199,19 @@ describe('local content installation', () => {
     expect(repository.installPack).not.toHaveBeenCalled();
   });
 
+  it('fails closed on server errors instead of reporting missing content (F4)', async () => {
+    const repository = {
+      listPacks: vi.fn(async () => []),
+      installPack: vi.fn(),
+    };
+    const fetcher = vi.fn(async () => new Response('service unavailable', { status: 503 }));
+
+    // 503 不是合同内的“显式缺失”：错误信息必须带 HTTP 状态（区别于 LocalContentUnavailableError），
+    // 引导层据此进入错误态而非空内容模式。
+    await expect(installLocalContent({ repository, fetcher })).rejects.toThrow(/HTTP 503/u);
+    expect(repository.installPack).not.toHaveBeenCalled();
+  });
+
   it('keeps an unexpected network failure fail-closed when no local pack exists', async () => {
     const repository = {
       listPacks: vi.fn(async () => []),
@@ -557,5 +570,87 @@ describe('optional extra content installation', () => {
     expect(result.issues[1]).toMatch(/^2011: /u);
     expect(result.installedYears).toEqual(EXTRA_PACK_YEARS.filter((year) => year !== 2010 && year !== 2011));
     expect(fetcher).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
+  });
+
+  it('keeps an installed verified pack when the server offers a lower review status (F2)', async () => {
+    const draft = verifiedPack();
+    draft.manifest.reviewStatus = 'needs-review';
+    draft.questions[0]!.reviewStatus = 'needs-review';
+    draft.manifest.sha256 = computeContentPackHash(draft);
+    const installedVerifiedManifest = { id: 'cn408-2010', year: 2010, sha256: 'c'.repeat(64), reviewStatus: 'verified' as const };
+    const repository = {
+      listPacks: vi.fn(async () => [installed2009, installedVerifiedManifest]),
+      installPack: vi.fn(async (input: unknown) => {
+        const manifest = (input as { manifest: { year: number } }).manifest;
+        return yearManifest(manifest.year, 'f'.repeat(64));
+      }),
+    };
+    const put = vi.fn();
+    const open = vi.fn(async () => ({ put }) as unknown as Cache);
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const year = requestYear(input);
+      if (year !== 2010) return jsonResponse(year, 'f'.repeat(64));
+      return new Response(JSON.stringify(draft), { status: 200 });
+    });
+    const schedule = vi.fn();
+
+    const result = await installExtraContent({ repository, fetcher, cacheStorage: { open }, schedule });
+
+    expect(result.issues).toEqual([]);
+    expect(result.installedYears).toEqual(EXTRA_PACK_YEARS.filter((year) => year !== 2010));
+    const installedYearsFromCalls = repository.installPack.mock.calls
+      .map(([input]) => (input as { manifest: { year: number } }).manifest.year);
+    expect(installedYearsFromCalls).not.toContain(2010);
+    expect(put.mock.calls.map(([path]) => path)).not.toContain('/content/2010.json');
+  });
+
+  it('accepts a verified replacement for an installed verified pack (F2 upgrade path)', async () => {
+    const verified = verifiedPack();
+    const installedVerifiedManifest = { id: 'cn408-2010', year: 2010, sha256: 'c'.repeat(64), reviewStatus: 'verified' as const };
+    const repository = {
+      listPacks: vi.fn(async () => [installed2009, installedVerifiedManifest]),
+      installPack: vi.fn(async (input: unknown) => {
+        const manifest = (input as { manifest: { year: number } }).manifest;
+        return yearManifest(manifest.year, verified.manifest.sha256);
+      }),
+    };
+    const put = vi.fn();
+    const open = vi.fn(async () => ({ put }) as unknown as Cache);
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const year = requestYear(input);
+      if (year !== 2010) return jsonResponse(year, 'f'.repeat(64));
+      return new Response(JSON.stringify(verified), { status: 200 });
+    });
+    const schedule = vi.fn();
+
+    const result = await installExtraContent({ repository, fetcher, cacheStorage: { open }, schedule });
+
+    expect(result.issues).toEqual([]);
+    expect(result.installedYears).toEqual([...EXTRA_PACK_YEARS]);
+    const installed2010 = repository.installPack.mock.calls
+      .find(([input]) => (input as { manifest: { year: number } }).manifest.year === 2010);
+    expect(installed2010).toBeDefined();
+  });
+
+  it('reports server failures for extra years instead of treating them as missing (F4)', async () => {
+    const repository = {
+      listPacks: vi.fn(async () => [installed2009]),
+      installPack: vi.fn(async (input: unknown) => {
+        const manifest = (input as { manifest: { year: number } }).manifest;
+        return yearManifest(manifest.year, 'f'.repeat(64));
+      }),
+    };
+    const open = vi.fn(async () => ({ put: vi.fn() }) as unknown as Cache);
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => {
+      const year = requestYear(input);
+      if (year === 2015) return new Response('service unavailable', { status: 503 });
+      if (year === 2016) return new Response('', { status: 404 });
+      return jsonResponse(year, 'f'.repeat(64));
+    });
+
+    const result = await installExtraContent({ repository, fetcher, cacheStorage: { open } });
+
+    expect(result.issues).toEqual(['2015: HTTP 503']);
+    expect(result.installedYears).toEqual(EXTRA_PACK_YEARS.filter((year) => year !== 2015 && year !== 2016));
   });
 });

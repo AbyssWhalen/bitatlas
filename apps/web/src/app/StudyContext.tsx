@@ -3,6 +3,7 @@ import {
   createStudySession,
   evaluateResponse,
   projectCurrentQuestionProgress,
+  overlayManualMastery,
   seededShuffle,
   type AssetRef,
   summarizeContentReviews,
@@ -214,17 +215,23 @@ export function StudyProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => storage.mockExamRepository.subscribeExams(setMockExams), []);
 
-  const progress = useMemo(() => {
-    const currentVersions = new Map(questions.map((question) => [question.id, question.contentVersion]));
-    return new Map(
+  const currentVersions = useMemo(
+    () => new Map(questions.map((question) => [question.id, question.contentVersion])),
+    [questions],
+  );
+  const progress = useMemo(
+    () => new Map(
       progressEntries
         .filter((entry) => currentVersions.get(entry.questionId) === entry.questionContentVersion)
         .map((entry) => [entry.questionId, entry]),
-    );
-  }, [progressEntries, questions]);
+    ),
+    [progressEntries, currentVersions],
+  );
+  // 展示层统一数据源：Attempt 重放 + 手动掌握度覆盖。练习页的掌握度控件、真题/错题列表、
+  // 总览的掌握度统计读取同一张投影，手动标记不再只在练习页可见。
   const currentProgress = useMemo(
-    () => projectCurrentQuestionProgress(attempts, questions),
-    [attempts, questions],
+    () => overlayManualMastery(projectCurrentQuestionProgress(attempts, questions), progressEntries, currentVersions),
+    [attempts, questions, progressEntries, currentVersions],
   );
   const assets = useMemo(() => new Map(assetEntries.map((entry) => [entry.id, entry])), [assetEntries]);
   const collections = useMemo(() => new Set(collectionEntries.map((entry) => entry.questionId)), [collectionEntries]);

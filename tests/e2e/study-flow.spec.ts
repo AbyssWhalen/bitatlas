@@ -100,6 +100,19 @@ test('loads all 47 questions and exposes both ends of the 2009 paper', async ({ 
   await expect(page.getByLabel('作答草稿')).toBeVisible();
 });
 
+test('shows the practiced pack year in the practice topbar for non-2009 packs', async ({ page }) => {
+  await page.goto('/questions');
+
+  await expect(page.locator('.question-list .question-row')).toHaveCount(47);
+  // F5 回归：练习页顶栏年份必须跟随当前题包，跨年份练习不再误标 2009。
+  await page.locator('.segmented-control[aria-label="年份筛选"] button', { hasText: /^2019$/u }).click();
+  await expect(page.locator('.result-summary strong')).toHaveText('47');
+  await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
+
+  await expect(page.locator('.practice-topbar')).toContainText('2019 全国统考');
+  await expect(page.locator('.practice-topbar strong')).toContainText('第 1 题');
+});
+
 test('traps focus inside the practice source dialog and restores it on Escape', async ({ page }) => {
   await page.goto('/questions');
   await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
