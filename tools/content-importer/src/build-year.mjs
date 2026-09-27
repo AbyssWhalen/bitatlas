@@ -347,7 +347,8 @@ function stemFigureBlocks(year, number, pages, assetIdByFile) {
   });
 }
 
-export function buildYear(year, inputs) {
+export function buildYear(year, inputs, options = {}) {
+  const contentVersion = options.contentVersion ?? `${year}.0-draft.2`;
   const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
   // 重构答案键：几何片段（含扫描件 OCR）与 layout 密排列组两条路线合并，冲突即失败。
   const rebuildKey = new Map();
@@ -524,7 +525,7 @@ export function buildYear(year, inputs) {
         }],
         redistribution: 'unknown',
       },
-      contentVersion: `${year}.0-draft.2`,
+      contentVersion,
       reviewStatus: 'needs-review',
     });
     quality.push({ number, subject, figureOptions, hasExplanation: Boolean(explanationText), verifiedAgainstRebuild: rebuildKey.has(number) });
@@ -534,7 +535,7 @@ export function buildYear(year, inputs) {
     manifest: {
       id: packId,
       schemaVersion: 1,
-      contentVersion: `${year}.0-draft.2`,
+      contentVersion,
       title: `${year} 年计算机学科专业基础综合试题`,
       year,
       questionCount: questions.length,
@@ -554,10 +555,49 @@ export function buildYear(year, inputs) {
   return { pack, quality };
 }
 
+// 题面语义指纹（F1 门禁输入）：只覆盖影响作答与判定的表面（题干结构/文本、选项、答案）。
+// 解析与提示是有意排除的——OCR 批次在不动作答表面的前提下恢复解析并保持 draft.2，
+// 以保留维护者既有练习进度（notes.md 2026-09-04 记录的取舍）；题干图引用按 assetId 参与，
+// 但图片字节重渲染不改变指纹（表面未变时不应强迫丢进度）。
+export function semanticQuestionFingerprint(question) {
+  return JSON.stringify({
+    number: question.number,
+    kind: question.kind,
+    stem: question.stem,
+    options: question.options ?? null,
+    answer: question.answer,
+  });
+}
+
+// F1 语义门禁：与已发布题包相比，任何题的作答表面发生变化而 contentVersion 未提升时构建失败。
+// 提升方式：build-year --year <year> --content-version <year>.<major>-draft.<revision+1>。
+// 不做历史数据迁移——已混合的旧作答按“保守保留”处理（docs/code-review-2026-09-16.md F1）。
+export function assertSemanticContentVersioned(nextPack, publishedPack) {
+  if (!publishedPack?.manifest || !Array.isArray(publishedPack.questions)) return;
+  if (publishedPack.manifest.contentVersion !== nextPack.manifest.contentVersion) return;
+  const publishedByNumber = new Map(publishedPack.questions.map((question) => [question.number, question]));
+  for (const question of nextPack.questions) {
+    const previous = publishedByNumber.get(question.number);
+    if (!previous) continue;
+    if (semanticQuestionFingerprint(previous) !== semanticQuestionFingerprint(question)) {
+      throw new Error(
+        `题面语义内容已变化但 contentVersion 仍为 ${nextPack.manifest.contentVersion}（${question.id}）。`
+        + `请显式升级版本后重建：--content-version ${nextPack.manifest.year}.0-draft.3。`
+        + '否则旧题面下的作答会混入新题面的统计、错题与复习计划。',
+      );
+    }
+  }
+}
+
 export async function main() {
   const flagIndex = process.argv.indexOf('--year');
   const year = Number(process.argv[flagIndex + 1]);
-  if (!Number.isInteger(year) || year < 2010) throw new Error('Usage: tsx src/build-year.mjs --year <2010+>');
+  if (!Number.isInteger(year) || year < 2010) throw new Error('Usage: tsx src/build-year.mjs --year <2010+> [--content-version <year>.0-draft.<N>]');
+  const versionFlagIndex = process.argv.indexOf('--content-version');
+  const contentVersion = versionFlagIndex === -1 ? `${year}.0-draft.2` : process.argv[versionFlagIndex + 1];
+  if (!new RegExp(`^${year}\\.\\d+-draft\\.\\d+$`).test(contentVersion)) {
+    throw new Error(`--content-version 需匹配 ${year}.<major>-draft.<revision>（如 ${year}.0-draft.3），收到：${contentVersion}`);
+  }
   const workDir = path.join(root, 'local-data', 'work', 'rebuild', String(year));
   const sourcesDir = path.join(root, 'local-data', 'sources');
   const renderBuffers = new Map();
@@ -604,11 +644,17 @@ export async function main() {
     answerRenders,
   };
 
-  const { pack, quality } = buildYear(year, inputs);
+  const { pack, quality } = buildYear(year, inputs, { contentVersion });
   const generatedDir = path.join(root, 'local-data', 'generated');
   const publicDir = path.join(root, 'apps', 'web', 'public', 'content');
   await mkdir(generatedDir, { recursive: true });
   await mkdir(path.join(publicDir, `cn408-${year}`, 'source'), { recursive: true });
+  // F1 语义门禁：对照已发布题包检查“表面变了版本没变”，失配即构建失败（fail closed）。
+  let publishedPack;
+  try {
+    publishedPack = JSON.parse(await readFile(path.join(publicDir, `${year}.json`), 'utf8'));
+  } catch { /* 首次构建或无已发布题包 */ }
+  assertSemanticContentVersioned(pack, publishedPack);
   const packText = JSON.stringify(pack, null, 1);
   await writeFile(path.join(generatedDir, `${year}.pack.json`), packText);
   await writeFile(path.join(generatedDir, `${year}.quality.json`), JSON.stringify({

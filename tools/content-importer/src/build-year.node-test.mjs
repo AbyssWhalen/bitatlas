@@ -10,6 +10,8 @@ import {
   splitExplanations,
   splitNumberedBlocks,
   splitOptions,
+  assertSemanticContentVersioned,
+  semanticQuestionFingerprint,
   stemReferencesFigure,
   trimExplanationNoise,
   tryParseAnswerTablePage,
@@ -327,5 +329,68 @@ describe('build-year pure parsers', () => {
     assert.ok(stemReferencesFigure('采用流程图描述算法'));
     assert.ok(!stemReferencesFigure('下列选项中，可能会将进程唤醒的事件是'));
     assert.ok(!stemReferencesFigure('图的定义中不允许边权为负')); // “图的”不在白名单
+  });
+});
+
+describe('F1 semantic version gate', () => {
+  const question = (overrides = {}) => ({
+    id: 'cn408-2010-q01',
+    number: 1,
+    kind: 'single-choice',
+    stem: [{ type: 'text', text: '题干原文' }],
+    options: [
+      { id: 'A', content: [{ type: 'text', text: '甲' }] },
+      { id: 'B', content: [{ type: 'text', text: '乙' }] },
+    ],
+    answer: { type: 'choice', optionId: 'B' },
+    explanation: [{ id: 'q1-analysis', title: '来源解析', content: [{ type: 'text', text: '解析一' }] }],
+    hints: [['提示一']],
+    ...overrides,
+  });
+  const pack = (contentVersion, questions) => ({
+    manifest: { id: 'cn408-2010', contentVersion, year: 2010 },
+    questions,
+  });
+
+  it('semanticQuestionFingerprint 覆盖作答表面并排除解析与提示', () => {
+    assert.equal(
+      semanticQuestionFingerprint(question()),
+      semanticQuestionFingerprint(question({
+        explanation: [{ id: 'q1-analysis', title: '来源解析', content: [{ type: 'text', text: 'OCR 恢复后的全新解析。' }] }],
+        hints: [['全新提示']],
+      })),
+    );
+    assert.notEqual(
+      semanticQuestionFingerprint(question()),
+      semanticQuestionFingerprint(question({ stem: [{ type: 'text', text: '题干已修订' }] })),
+    );
+    assert.notEqual(
+      semanticQuestionFingerprint(question()),
+      semanticQuestionFingerprint(question({ answer: { type: 'choice', optionId: 'A' } })),
+    );
+  });
+
+  it('assertSemanticContentVersioned 放行未变化、无已发布包与已升版本三种情况', () => {
+    const current = pack('2010.0-draft.2', [question()]);
+    assert.doesNotThrow(() => assertSemanticContentVersioned(current, current));
+    assert.doesNotThrow(() => assertSemanticContentVersioned(pack('2010.0-draft.2', [question()]), undefined));
+    assert.doesNotThrow(() => assertSemanticContentVersioned(
+      pack('2010.0-draft.3', [question({ stem: [{ type: 'text', text: '题干已修订' }] })]),
+      pack('2010.0-draft.2', [question()]),
+    ));
+  });
+
+  it('assertSemanticContentVersioned 在表面变化而版本未提升时失败并指明题号', () => {
+    const published = pack('2010.0-draft.2', [question()]);
+    const next = pack('2010.0-draft.2', [question({ answer: { type: 'choice', optionId: 'A' } })]);
+    assert.throws(
+      () => assertSemanticContentVersioned(next, published),
+      /cn408-2010-q01[\s\S]*--content-version/u,
+    );
+  });
+
+  it('assertSemanticContentVersioned 忽略已发布包中不存在的题号', () => {
+    const published = pack('2010.0-draft.2', []);
+    assert.doesNotThrow(() => assertSemanticContentVersioned(pack('2010.0-draft.2', [question()]), published));
   });
 });
