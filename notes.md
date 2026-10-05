@@ -1,7 +1,14 @@
 # Notes
 
-## 2026-10-05 - 继续定位 E2E 超时与推送（默认验收通过）
+## 2026-10-05 - 发布与清理（已完成）
 
+- 完成结论：代码提交 `0c5a03c831cd7efeb9dc76c16397166ac5406367` 已正常推送 origin/main，Pages run `37261850931` 构建/部署成功。默认完整 204/204（2 workers）与 1120 单测等门禁通过；最近一次固定 8 workers 为 195/204，尚未验证为通过，不把默认资源预算当成压力问题的修复。2009 人工 verified 仍 0/47，Q44 边界保留。
+- 线上复验：入口 JS 与 2009 JSON 字节匹配本地构建；1440×900、390×844 均为 47 题、draft.3，离线刷新和 6 个公式渲染通过，无横向溢出、运行时异常和正常导航时的控制台错误。最终截图已目检，记录 production-ready/verification.json。首轮误把既有 Pages 深链接 404 跳转页视为未知资源失败；第二轮截图早于公式懒加载完成，补充 aria-busy 消失、KaTeX 数量一致及字体就绪检查后确认。初次日志与截图保留，未为这两项烟测脚本问题改产品逻辑。
+- 实际清理：`final-cleanup/cleanup-generated.ps1 -Mode after-push -Apply` 删除 5 目标 / 754 文件 / 1059977873 bytes（1010.87 MiB），保留 86208780 bytes（82.22 MiB）的 Chrome trace ZIP，解压往返 SHA-256 为 c218d7cd2cbfb47845f1359bfbf6383180f9859180e364c39a25e1152690a8d4。本次净减少 928.66 MiB；加上此前 616.17 MiB，共按逻辑文件长度净减少 1544.83 MiB / 1.51 GiB。旧回执未覆盖，14 份保护文件哈希未变，`.workbuddy/`、PDF/overrides/Q42 C 源码、学习数据和证据均保留。本轮浏览器与本地预览服务已关闭。
+
+### 诊断过程与历史检查时点
+
+- preflight 审核 36 个候选文件、14 份文档，无失效本地链接和明确密钥模式；仅暂存这 36 个文件，排除 .workbuddy/local-data/output/CI/生成物。提交 `0c5a03c831cd7efeb9dc76c16397166ac5406367` 已正常推送 origin/main，远端读回一致；Pages run `37261850931` 进行中。没有强推、修改 CI/schema/密钥或标记人工审核。
 - 新默认完整验收 **204/204**，实际 2 workers、三视口、零跳过/零 flaky，400.93s；生产构建 8.34s、87 PWA entries / 2804.50 KiB。命令仍为 npm run test:e2e（只将日志/报告重定向到 release-acceptance），源码、204 个用例、原超时/trace 均实际运行；修正的复核自动保存用例三个视口均通过。固定 8 workers 的旧结果仍为 195/204，未当成通过。新配置/用例 eslint 通过，其余运行代码沿用已通过 1120 单测等完整门禁的版本；没有为文档或测试编排再次无意义重复全部单测。
 - 资源预算首轮 0 项执行即在 webServer 的 build+preview 组合步骤超过 60s；保留 resource-budget-acceptance。修正启动编排：package.json 的 test:e2e 先 build 再 Playwright，webServer 只启动 preview，保留构建失败阻止验收与原服务启动超时；AGENTS/README 同步直接 npx 命令须先构建。新默认完整结果另记 release-acceptance。
 - 原生 Chromium 时间线（5116370 events）捕捉渲染提交等待 2138.72ms、GPU 光栅化 2038.64ms；采集本身有开销，不能当纯产品基准。软件渲染同组 12 项仍 7/12，未采用禁用 GPU 或共享浏览器。调整日常 E2E 默认并发为资源预算（预留 1 GiB、每独立 worker 2 GiB、上限 4），先更新规范再更新配置；完整 204 项与所有断言/超时/trace 保留。固定 8 workers 的 195/204 仍为未解决的压力限制，不会把新默认通过描述为原压力检查已修复。

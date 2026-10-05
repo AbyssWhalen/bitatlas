@@ -1,23 +1,17 @@
 # HANDOFF
 
-## 2026-10-05 E2E 超时定位与推送（默认验收通过，准备推送）
+## 2026-10-05 发布与清理（已完成）
 
-- 用户授权继续解决剩余 11 项超时，验证通过后沿用现有提交/推送/清理授权；保留之前全部修复、2009 draft.3 和已清理回执。
-- 从原生产构建采集 IndexedDB 事务、fetch/body/cache、长任务、计时器与 requestAnimationFrame 等时序。诊断仅置于 `output/playwright/timeout-profile-2026-10-05/`；复用原测试断言、8 workers、三视口、超时和 trace，唯一额外行为为采集与分离截图位置。
-- 已确认本轮开始时 4196/4197 无监听，可用内存约 3207 MiB，Chrome 27 进程。尚未修改产品代码或重跑门禁；先用有因果信息的测量缩小范围，避免重复盲跑。
-- 首批测量：扩展年份的 16 个请求先进入同源队列，懒加载页面的 JS 紧随其后，资源耗时约 3–4.5s；数据库打开多为几十毫秒。准备以最多 2 个后台下载为页面保留连接，新增 6 连接模型中后台 body 未释放时路由仍可启动的回归，先红后绿。采集仍读取原构建，未改变运行中的基线。
-- 双页另有独立线索：复核页某主线程长任务 9375ms，事务首个请求已在约 83ms 内完成，最终提交回调却被长任务拖延；不能把这类等待归因于 IndexedDB 锁。待当前采集结束后取目标页面 CPU 栈进一步区分页面逻辑与浏览器采集开销。
-- 诊断完整运行已结束：195/204（270.90s），仅用于采集，不替代正式门禁。9 个双页用例的 CPU 采样为 7/9（41.0s）；长停顿多落在原生执行/采样间隙，不能定位为特定 React 或 IndexedDB 函数。增加显式激活标签页的对照仍为 7/9（39.0s），未采用该测试改写。
-- 后台连接保留回归已红转绿：旧代码 routeStarted=false；实现最多 2 个下载并及时读完 body。两个 Web 测试文件 36/36、内容 repository 78/78 通过（合计 114）；原校验/顺序安装/verified 防降级/缓存合同不变。下一步对该实际改动运行原配置完整门禁，不带任何诊断 fixture。
-- 新 lint/typecheck、Vitest 1120、release 10/10、importer 35/35、content 17/17 通过。首次正式 E2E 启动后发现默认后缀 glob 收入 output 中的诊断副本，已立即停止本轮唯一执行树（根 PID 4076），该运行无效，不作为验收；4196/4197 已无监听，日志保留于 `after-download-limit/`。
-- 已将 34 份诊断副本在原忽略目录内改名为 `.probe.ts` 并同步专用 config；默认发现恢复原 **204 tests / 28 files**。为防再次误收生成物，原配置仅补 `testIgnore: ['**/output/**']`，原测试、断言、超时、8 workers 和三视口均保留。下一次真实 E2E 结果单独放 `after-download-limit-original/`。
-- 自动 build+preview 的一次启动超过 webServer 默认 60s，0 项 E2E 执行；已单独运行 `npm run build` 成功（Vite 9.79s，87 PWA entries / 2804.50 KiB），没有 Node 安全 hook 或残留 4196/4197 服务。接续验收将显式使用这份生产构建，仅把测试 webServer 命令分离为 preview；204 原用例/8 workers/三视口/断言/超时/trace 保持原值，记录 `download-limit-acceptance/`，不将启动失败冒充用例结果。
-- 上述 204 项验收结束为 **195/204**，9 项失败，389.39s；本轮自身进程资源快照记录可用内存 782 MiB、PagesInputPersec=2445、总提交内存约 29.50 GiB（物理内存约 15.71 GiB）。一次失败 trace 为不完整 ZIP，已在 trace-overview.json 标明，不当成已读取的证据。
-- 12 项同用例 separate/shared Chrome 对照：5/12、8/12，最低可用内存 992/2083 MiB；共享浏览器仍未解决超时，未改仓库浏览器启动方案。新 trace 明确复核用例会在 650ms 自动保存已经触发冲突后继续填字段/点击禁用按钮；已改为首次编辑后直接等待自动保存冲突，保留防降级、输入保留、控件禁用、重读及数据库日志断言。继续采集 Chromium 原生时间线，定位剩余原生主线程停顿。
-- Chromium 时间线记录到渲染提交等待约 2.14s 与 GPU 光栅化约 2.04s；同一 12 项软件渲染对照仍为 7/12，未采用共享浏览器或禁用 GPU。最终调整的是日常 E2E 的资源预算：先在 AGENTS/README 记录规则，再让默认 workers 按可用内存计算（预留 1 GiB、每 worker 2 GiB、上限 4）。原 204 项、三视口、Chrome、断言、超时和 trace 不变；固定 `--workers=8` 的 **195/204** 作为已知压力限制保留，不能宣称压力问题已解决。接下来运行新的默认完整门禁并明确实际 worker 数，尚未提交或推送。
-- 资源预算首轮在执行用例前再次触发原 build+preview 共用 60s 的 webServer 启动超时（0 项执行，记录 resource-budget-acceptance）。已将生产构建前移到 `npm run test:e2e` 脚本，Playwright webServer 仅负责 preview，构建失败仍阻止测试；未增大超时。下一轮新默认完整验收记录到 release-acceptance，使用原生独立 Chrome，不使用任何诊断启动参数。
-- 最终默认完整验收通过：**204/204，2 workers，三视口，0 skipped / 0 flaky，400.93s**；生产构建 8.34s、87 PWA entries / 2804.50 KiB。新配置/用例 eslint 通过；其余运行代码与已通过 lint/typecheck/1120 单测/release/importer/content 的版本相同。4196/4197 已停止，当前无 E2E runner；报告 `output/pre-push-2026-10-05/release-acceptance/`。
-- 下一会话开场 prompt：默认 2 workers 完整 204/204 已通过，固定 8 workers 的 195/204 仍是已知压力限制。不要重跑题包核对或用默认结果覆盖压力结果。先完成 preflight/staged diff 核验，再按现有授权提交、推送、验证 Pages 和清理生成物；旧 616.17 MiB 回执不可覆盖。
+- 运行代码已提交并正常推送 `0c5a03c831cd7efeb9dc76c16397166ac5406367`，origin/main 读回一致；[Pages run 37261850931](https://github.com/AbyssWhalen/bitatlas/actions/runs/37261850931) 构建和部署均成功。本节是代码发布后的收尾记录，后续仅文档提交不改变该运行代码基线。
+- 已交付 R1–R5：等待式 PWA 更新、路由恢复、版本防回退、内容库事务内 verified 防降级、北京时间跨日刷新和年度统计范围。另修复扩展题包响应体背压，后台下载最多 2 路；代码在 `apps/web/src/app/storage.ts`，两个回归均有旧代码失败证据。
+- 2009 的 47 题 AI 来源核对和 draft.3 校订已完成；18 题字段变化，40 个选择题答案字母与 19 张来源资产不变。正式人工 verified 仍 **0/47**，Q44 保持 needs-review 和 parallel-5/split-6 边界；不能把本次推送当成人工审核或正式模考开放。
+- 默认门禁通过：lint、全 workspace typecheck、Vitest **101 files / 1120 tests**、release 10/10、importer 35/35、content 17/17（799 题）；完整 E2E **204/204**，实际 **2 workers**、三视口、零跳过/零 flaky、400.93s。构建 87 PWA entries / 2804.50 KiB；[完整报告](output/pre-push-2026-10-05/release-acceptance/e2e-report/index.html)。
+- E2E 编排：`npm run test:e2e` 先构建，webServer 只负责 preview；默认按可用内存预算 worker（预留 1 GiB、每 worker 2 GiB、上限 4）。复核双页测试等待首次编辑触发的自动保存冲突，保留防覆盖和恢复断言。用例数、三视口、超时和 trace 保留；未采用共享浏览器或禁用 GPU。
+- **已知限制**：最近一次固定 8 workers 完整压力检查为 **195/204**，9 项失败；该记录早于最后的复核用例时序修正，未再次运行固定 8 并发，不宣称压力问题已解决。默认通过与该压力记录分开，不能互相替代。诊断、无效副本运行和 0 用例启动失败均保留在 notes 与 output。
+- 线上 `https://408.fytjut.com/` 的入口 `index-COz9kYZm.js` 与 2009 JSON 字节均匹配本地构建。1440×900、390×844 均显示 47 题、安装 draft.3；离线刷新通过，Q12 的 6 个公式在线/离线数量一致且无 KaTeX 错误，无横向溢出、运行时异常或正常导航时的控制台错误。3 张最终截图已目检；[机器记录](output/pre-push-2026-10-05/production-ready/verification.json)。
+- 清理已完成：[新回执](output/pre-push-2026-10-05/final-cleanup/cleanup-receipt.json) 删除 5 个生成目标、754 文件、1010.87 MiB；保留 82.22 MiB 的原生时间线 ZIP，往返 SHA-256 一致，本次净减少 928.66 MiB。此前 616.17 MiB 的原回执未覆盖；两次累计按逻辑文件长度净减少 **1544.83 MiB / 1.51 GiB**，不是整盘空闲测量。14 份保护文件哈希不变，原始 PDF、overrides、Q42 源码、学习数据、全部审查证据和 `.workbuddy/` 保留。
+- 浏览器验证会话和 4196/4197 本地服务已关闭；当前构建与工具缓存已清理，需要复验时通过 `npm run test:e2e` 重建。未改 CI、密钥、数据库 schema 或其他年份题包。关键文档为 `docs/RELEASE.md`、`docs/2009-source-audit-2026-10-04.md` 和 `notes.md`。
+- 下一会话开场 prompt：先读本节和 RELEASE。代码、默认验收、线上验证及生成物清理已完成；不要重做 47 题核对或伪造人工批准，不用默认 2 workers 的通过覆盖固定 8 并发压力失败。按用户后续选择推进独立压力问题、提示质量或正式审核决策；保留 `.workbuddy/` 和证据。
 
 ## 2026-10-05 推送前检查与临时产物清理（检查/清理完成，推送暂缓）
 

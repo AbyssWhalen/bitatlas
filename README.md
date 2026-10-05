@@ -99,13 +99,13 @@ npm run test:e2e
 
 `npm run test:e2e` 先完成生产构建，再使用真实 Chrome 验证桌面和移动端流程，生成 `apps/web/dist/` 与 `output/playwright/` 产物。默认按启动时可用内存分配 workers：预留 1 GiB，每个 worker 预算 2 GiB，上限 4，并受可用 CPU 数限制；报告须记录实际并发数。`npm run test:e2e -- --workers=8` 可单独复现固定并发压力场景；直接使用 `npx playwright test` 时须先运行 `npm run build`。窄改动优先运行直接相关测试，阶段封板再执行相应全量门禁。`tests/e2e/code-only-mode.spec.ts` 通过拦截 `/content/2009.json` 模拟无题包部署，验证空状态合同。
 
-2026-10-05 推送前检查：lint、typecheck、1120 个单元测试、内容/发布工具检查及生产构建通过；默认完整 E2E **204/204**（本次资源预算为 2 workers，三视口，零跳过）。固定 8 workers 的完整压力检查仍为 **195/204**，9 项失败；默认通过不代表该压力限制已经解决。提交与部署状态见 [发布检查](docs/RELEASE.md) 和 [HANDOFF](HANDOFF.md)。
+2026-10-05 发布验证：lint、typecheck、1120 个单元测试、内容/发布工具检查及生产构建通过；默认完整 E2E **204/204**（本次资源预算为 2 workers，三视口，零跳过）。修复已推送 main 并部署，线上桌面、手机和离线公式渲染复验通过。最近一次固定 8 workers 完整压力检查为 **195/204**，尚未重新验证为通过；默认结果不代表该压力限制已经解决。详见 [发布检查](docs/RELEASE.md) 和 [HANDOFF](HANDOFF.md)。
 
 架构与运行模式见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，本地题包工作流见 [docs/LOCAL_CONTENT.md](docs/LOCAL_CONTENT.md)，公开发布检查见 [docs/RELEASE.md](docs/RELEASE.md)。项目约束、当前检查点和决策记录分别见 [AGENTS.md](AGENTS.md)、[HANDOFF.md](HANDOFF.md) 与 [notes.md](notes.md)。
 
 ## 历史部署验证基线
 
-以下保留 2026-09-02 当时的部署与验收记录。2026-10-04 的重新审查见 [复审报告](docs/code-review-2026-10-04.md)，随后修复与最新本地验证见 [修复记录](docs/review-fixes-2026-10-04.md)；本轮没有重新部署线上站点。
+以下保留 2026-09-02 当时的部署与验收记录。2026-10-04 的重新审查见 [复审报告](docs/code-review-2026-10-04.md)，随后修复见 [修复记录](docs/review-fixes-2026-10-04.md)；2026-10-05 的实际部署和最新验证以 [发布检查](docs/RELEASE.md) 为准。
 
 - lint 与全部 workspace typecheck 通过。
 - 全仓 Vitest 为 `97 files / 1090 tests passed`。
