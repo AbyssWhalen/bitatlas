@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, CalendarCheck2, Check, CircleCheck, Clock3, Flame
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { useBeijingDate } from '../app/useBeijingDate';
 
 const subjectMeta = {
   'data-structures': { label: '数据结构', color: '#3ecf8e' },
@@ -16,6 +17,7 @@ export function DashboardPage() {
   const navigate = useNavigate();
   const [startingPlan, setStartingPlan] = useState(false);
   const [planError, setPlanError] = useState<string | null>(null);
+  const today = useBeijingDate();
   // “已练/完成”指标保持作答证据语义（attemptCount>0）：手动掌握度只影响掌握度统计，
   // 不把未作答的题计入已练数量与完成进度。
   const attempted = [...currentProgress.values()].filter((entry) => entry.attemptCount > 0).length;
@@ -23,17 +25,17 @@ export function DashboardPage() {
     () => new Set([...currentProgress.values()].filter((entry) => entry.attemptCount > 0).map((entry) => entry.questionId)),
     [currentProgress],
   );
-  const mastered = [...currentProgress.values()].filter((entry) => entry.mastery === 'mastered').length;
   const wrong = [...currentProgress.values()].filter((entry) => entry.lastCorrect === false).length;
   const questionById = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
   // 2009 是旗舰年份：总览页的复习卡片、科目分布与顺序练习都限定 2009；
   // 其他年份通过 /questions 的年份筛选练习，日计划保持跨年份。
   const questions2009 = useMemo(() => questions.filter((question) => question.year === 2009), [questions]);
+  const mastered2009 = questions2009.filter((question) => currentProgress.get(question.id)?.mastery === 'mastered').length;
   const dailyPlan = useMemo(() => buildDailyReviewPlan(attempts, questions, {
-    today: new Date(),
+    today: new Date(`${today}T00:00:00+08:00`),
     timeZone: 'Asia/Shanghai',
     dailyLimit: 8,
-  }), [attempts, questions]);
+  }), [attempts, questions, today]);
   const subjectCounts = useMemo(() => Object.entries(subjectMeta).map(([subject, meta]) => {
     const subjectQuestions = questions2009.filter((question) => question.subject === subject);
     const done = subjectQuestions.filter((question) => practicedIds.has(question.id)).length;
@@ -132,7 +134,7 @@ export function DashboardPage() {
           <div className="section-heading"><div><span className="eyebrow">历年真题</span><h2>2009 全国统考</h2></div><span className="pack-status">{has2009Questions ? `${questions2009.length} 题` : '未安装'}</span></div>
           <div className="year-progress"><span style={{ width: `${questions2009.length ? (questions2009.filter((question) => practicedIds.has(question.id)).length / questions2009.length) * 100 : 0}%` }} /></div>
           <div className="year-facts">
-            <span><strong>{choiceCount}</strong> 单项选择</span><span><strong>{comprehensiveCount}</strong> 综合应用</span><span><strong>{mastered}</strong> 已掌握</span>
+            <span><strong>{choiceCount}</strong> 单项选择</span><span><strong>{comprehensiveCount}</strong> 综合应用</span><span><strong>{mastered2009}</strong> 已掌握</span>
           </div>
           <div className="command-row">
             <button className="primary-command" disabled={!has2009Questions} onClick={() => void startAll()}><Play size={17} />顺序练习</button>

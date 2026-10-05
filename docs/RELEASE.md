@@ -9,7 +9,27 @@
 - Pages 使用 `.github/workflows/deploy.yml` 构建并上传 `apps/web/dist`，正式地址为 `https://408.fytjut.com/`。应用使用无 `basename` 的 `createBrowserRouter`，PWA `id/scope/start_url` 均为 `/`，与自定义域名根路径一致。
 - 仓库仍没有 `LICENSE`。公开可访问不等于授予源码复制、修改或再分发许可；许可证必须由维护者另行选择，不能擅自假定 MIT 或其他授权。
 
-本次仓库替换、CI、推送和公开部署已经获得用户明确授权并完成。后续新的仓库破坏性操作、权限调整或部署目标变更仍需单独授权。
+2026-09-02 的仓库替换、CI、推送和公开部署已获用户授权并完成。后续新的仓库破坏性操作、权限调整或部署目标变更仍需单独授权。
+
+## 2026-10-05 推送前检查结果
+
+用户已授权“检查没问题就推送并清理工作垃圾”。R1–R5、扩展题包下载修复及 2009 draft.3 校订已通过默认功能验收，准备按现有授权提交、推送并验证 Pages。固定 8 并发仍有已知压力限制，详见下表；这不是已解决的产品性能结论。
+
+| 检查 | 结果 |
+| --- | --- |
+| lint、全 workspace typecheck | 通过 |
+| Vitest | 101 files / 1120 tests 通过 |
+| release / importer | 10/10、35/35 通过 |
+| content:validate | 17/17 年份，799 题通过 |
+| production build | 通过；87 PWA entries / 2804.50 KiB |
+| 默认完整 E2E，本次 2 workers / 三视口 | **204/204**，0 skipped / 0 flaky，400.93s |
+| 固定 8 workers 完整压力检查 / 三视口 | **195/204**，9 项失败，尚未解决 |
+
+新增修复及时读取扩展题包响应体，并将后台下载限制为 2 路，为路由模块保留同源连接；两个回归均先失败后通过。复核双页用例改为等待第一次编辑触发的自动保存冲突，避免后续操作与 650ms 自动保存竞态；防覆盖、输入保留、禁用状态、重新读取和数据库日志断言仍保留。
+
+完整功能验收仍是 204 项、三视口、独立 Chrome，超时和 trace 未放宽。启动流程改为先构建、后启动 Playwright，webServer 只负责 preview。默认并发依据启动时可用内存计算（预留 1 GiB、每 worker 2 GiB、上限 4）；本次实际 2 workers。固定 `--workers=8` 可以复现压力场景，但与默认通过结果分开记录。共享 Chrome 和禁用 GPU 对照均未解决问题，没有采用这些启动方式。最新 [默认完整报告](../output/pre-push-2026-10-05/release-acceptance/e2e-report/index.html)、[8 并发报告](../output/pre-push-2026-10-05/download-limit-acceptance/e2e-report/index.html) 与 [早期五轮记录](../output/pre-push-2026-10-05/e2e-comparison.json) 均保留在本机忽略目录。
+
+此前已按授权删除 12 个旧生成目标（5165 文件、616.17 MiB）；[原回执](../output/pre-push-2026-10-05/cleanup-receipt.json) 保留。完成推送和线上验证后再清理当前构建与新缓存；较大的 Chromium 原生时间线先做 ZIP 往返哈希校验，再删除未压缩副本。原始来源、校订、学习数据、`.workbuddy/` 和审查证据继续保留。
 
 ## 可提交内容
 
@@ -25,7 +45,7 @@
 - `node_modules/`、`.venv/`、`dist/`
 - `.playwright-cli/`、`graphify-out/` 和其他生成缓存
 
-`apps/web/public/content/` 中的 2009 题包（`2009.json` 与 `cn408-2009/`）经维护者 2026-09-02 明确授权随仓库公开发布；其余年份题包公开前须逐次授权。
+`apps/web/public/content/` 中的 2009 题包（`2009.json` 与 `cn408-2009/`）经维护者 2026-09-02 明确授权随仓库公开发布。之后的历史提交已纳入 2010–2025；2026-10-05 核对现有范围为 17 年、799 题。新年份首次公开仍须逐次授权，现有分发不等于内容已完成人工审核。
 
 ## 封板门禁
 
@@ -51,6 +71,8 @@ npm run content:validate
 
 用户流程变更必须有桌面和移动端真实浏览器证据。默认全量 E2E 若运行，应记录准确通过数和失败 ID；不得把定向 `.last-run.json` 写成全量通过，也不得无界重跑。
 
+完整浏览器命令为 `npm run test:e2e`，它会先构建。直接使用 `npx playwright test` 运行定向用例前须手动构建；固定 8 并发压力命令为 `npm run test:e2e -- --workers=8`，应独立保存并报告结果。
+
 ## 推送前核对
 
 ```powershell
@@ -60,9 +82,11 @@ git ls-files local-data apps/web/public/content output tmp
 git grep -n -I -E "(api[_-]?key|secret|token|password)"
 ```
 
-最后一条只能作为辅助检查，不能替代对 staged diff 的人工复核。确认远端 URL、目标分支、可见性、许可证和 staged 文件后，才可请求最终推送授权。
+最后一条只能作为辅助检查，不能替代对 staged diff 的人工复核。推送前确认远端 URL、目标分支、可见性、许可证和 staged 文件；用户已经明确授权当前推送时，完成核对后直接执行，无需重复请求。
 
-## 本次公开托管记录
+## 历史公开托管记录（2026-09-02）
+
+以下保留早期迁移与部署时的验证结果，不代表当前线上构建或最新完整测试结果。
 
 - 目标仓库：`https://github.com/AbyssWhalen/bitatlas`
 - Pages 自定义域名：`https://408.fytjut.com/`
@@ -71,11 +95,11 @@ git grep -n -I -E "(api[_-]?key|secret|token|password)"
 - 构建目录：`apps/web/dist`
 - 深链接回退：`apps/web/public/404.html` 将未知 Pages 路径交回应用路由
 - 域名声明：`apps/web/public/CNAME`，内容为 `408.fytjut.com`
-- 公开边界：不上传 `local-data/`、`apps/web/public/content/`、`output/`、`tmp/`、依赖目录或密钥
+- 首次代码迁移不含题包；同日后续题包分发见下节。`local-data/`、`output/`、`tmp/`、依赖目录及密钥始终不上传。
 - 最终部署：Actions run `33574067291`（提交 `f15eea0`）成功，Node `22.23.2`，`1920 modules / 198 static-copy / 88 PWA entries (2780.31 KiB)`；workflow 使用 `checkout@v7`、`setup-node@v7`、`configure-pages@v6`、`upload-pages-artifact@v5`、`deploy-pages@v5`。
 - 线上验收：根路径、`/lab`、`/knowledge`、Q34 网络深链接、Q24 操作系统深链接与 390px 移动端通过；manifest、favicon、`registerSW.js`、`sw.js`、192/512 图标均返回 HTTP 200
 - 浏览器日志：上述页面无 console error；`/knowledge` 仍有一条既有 Cytoscape 自定义滚轮敏感度 warning。Pages deploy action 日志另有其依赖触发的 `punycode` 弃用提示，不影响 run 成功。
-- 未重跑默认 189 项全量 E2E；最近一次完整事实保持 `187/189 passed`
+- 该次未重跑默认 189 项全量 E2E；当时完整事实保持 `187/189 passed`
 
 ## 2026-09-02 题包随仓库发布
 

@@ -49,7 +49,10 @@ export default defineConfig({
       ],
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      // Registration and the waiting notice live in the app. Never replace a
+      // worker while an open tab can still reference its precached chunks.
+      injectRegister: false,
       includeAssets: ['favicon.svg'],
       manifest: {
         name: PRODUCT_NAME,
@@ -69,8 +72,9 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
-        // 不 claim 的话，SW 激活前的已打开页面（及其后续 reload）永远不会被控制，
-        // 离线 reload 会直接走网络失败（线上验收实测 controller 恒为 null）。
+        skipWaiting: false,
+        // Control the first visit for offline reload. Updates wait until all
+        // existing tabs close; no tab can discard another tab's unsaved input.
         clientsClaim: true,
         globPatterns: ['**/*.{js,mjs,css,html,svg,png,woff2,json}'],
         globIgnores: ['**/content/**/*', '**/assets/pdf.worker.*.mjs', '**/pdfjs/**/*'],

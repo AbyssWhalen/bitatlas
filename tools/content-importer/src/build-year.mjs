@@ -569,20 +569,64 @@ export function semanticQuestionFingerprint(question) {
   });
 }
 
-// F1 语义门禁：与已发布题包相比，任何题的作答表面发生变化而 contentVersion 未提升时构建失败。
+function parseDraftVersion(year, version) {
+  const match = typeof version === 'string' && /^(\d{4})\.(0|[1-9]\d*)-draft\.(0|[1-9]\d*)$/u.exec(version);
+  if (!match || Number(match[1]) !== year) {
+    throw new Error(`contentVersion 需匹配 ${year}.<major>-draft.<revision>，数字不得有前导零，收到：${version}`);
+  }
+  return { major: BigInt(match[2]), revision: BigInt(match[3]) };
+}
+
+export function resolveContentVersion(year, requestedVersion, publishedPack) {
+  if (publishedPack !== undefined && (
+    publishedPack?.manifest?.year !== year
+    || publishedPack.manifest.id !== `cn408-${year}`
+    || !Array.isArray(publishedPack.questions)
+  )) throw new Error('已发布题包结构或年份不匹配，拒绝绕过版本门禁。');
+
+  const publishedVersion = publishedPack?.manifest.contentVersion;
+  const version = requestedVersion ?? publishedVersion ?? `${year}.0-draft.2`;
+  const next = parseDraftVersion(year, version);
+  if (publishedPack !== undefined) {
+    const previous = parseDraftVersion(year, publishedVersion);
+    if (next.major < previous.major || (next.major === previous.major && next.revision < previous.revision)) {
+      throw new Error(`contentVersion 不得回退：${publishedVersion} → ${version}。请沿用当前版本或显式提升版本。`);
+    }
+  }
+  return version;
+}
+
+export async function readPublishedPack(filePath, read = readFile) {
+  let text;
+  try {
+    text = await read(filePath, 'utf8');
+  } catch (reason) {
+    if (reason?.code === 'ENOENT') return undefined;
+    throw reason;
+  }
+  const pack = JSON.parse(text);
+  const validation = validateContentPack(pack, { enforceExamShape: true });
+  if (!validation.success) throw new Error('已发布题包校验失败，拒绝绕过版本门禁；请先修复已有文件。');
+  return pack;
+}
+
+// 与已发布题包相比，版本必须单调递增；相同版本只允许不改变作答表面的修订。
 // 提升方式：build-year --year <year> --content-version <year>.<major>-draft.<revision+1>。
 // 不做历史数据迁移——已混合的旧作答按“保守保留”处理（docs/code-review-2026-09-16.md F1）。
 export function assertSemanticContentVersioned(nextPack, publishedPack) {
-  if (!publishedPack?.manifest || !Array.isArray(publishedPack.questions)) return;
+  const year = nextPack.manifest.year;
+  const version = resolveContentVersion(year, nextPack.manifest.contentVersion, publishedPack);
+  if (publishedPack === undefined) return;
   if (publishedPack.manifest.contentVersion !== nextPack.manifest.contentVersion) return;
   const publishedByNumber = new Map(publishedPack.questions.map((question) => [question.number, question]));
   for (const question of nextPack.questions) {
     const previous = publishedByNumber.get(question.number);
     if (!previous) continue;
     if (semanticQuestionFingerprint(previous) !== semanticQuestionFingerprint(question)) {
+      const { major, revision } = parseDraftVersion(year, version);
       throw new Error(
         `题面语义内容已变化但 contentVersion 仍为 ${nextPack.manifest.contentVersion}（${question.id}）。`
-        + `请显式升级版本后重建：--content-version ${nextPack.manifest.year}.0-draft.3。`
+        + `请显式升级版本后重建：--content-version ${year}.${major}-draft.${revision + 1n}。`
         + '否则旧题面下的作答会混入新题面的统计、错题与复习计划。',
       );
     }
@@ -592,12 +636,16 @@ export function assertSemanticContentVersioned(nextPack, publishedPack) {
 export async function main() {
   const flagIndex = process.argv.indexOf('--year');
   const year = Number(process.argv[flagIndex + 1]);
-  if (!Number.isInteger(year) || year < 2010) throw new Error('Usage: tsx src/build-year.mjs --year <2010+> [--content-version <year>.0-draft.<N>]');
+  if (flagIndex === -1 || !Number.isInteger(year) || year < 2010 || year > 9999) throw new Error('Usage: tsx src/build-year.mjs --year <2010+> [--content-version <year>.0-draft.<N>]');
   const versionFlagIndex = process.argv.indexOf('--content-version');
-  const contentVersion = versionFlagIndex === -1 ? `${year}.0-draft.2` : process.argv[versionFlagIndex + 1];
-  if (!new RegExp(`^${year}\\.\\d+-draft\\.\\d+$`).test(contentVersion)) {
-    throw new Error(`--content-version 需匹配 ${year}.<major>-draft.<revision>（如 ${year}.0-draft.3），收到：${contentVersion}`);
-  }
+  if (versionFlagIndex !== -1 && process.argv[versionFlagIndex + 1] === undefined) throw new Error('--content-version 缺少版本参数。');
+  const publicDir = path.join(root, 'apps', 'web', 'public', 'content');
+  const publishedPack = await readPublishedPack(path.join(publicDir, `${year}.json`));
+  const contentVersion = resolveContentVersion(
+    year,
+    versionFlagIndex === -1 ? undefined : process.argv[versionFlagIndex + 1],
+    publishedPack,
+  );
   const workDir = path.join(root, 'local-data', 'work', 'rebuild', String(year));
   const sourcesDir = path.join(root, 'local-data', 'sources');
   const renderBuffers = new Map();
@@ -646,15 +694,10 @@ export async function main() {
 
   const { pack, quality } = buildYear(year, inputs, { contentVersion });
   const generatedDir = path.join(root, 'local-data', 'generated');
-  const publicDir = path.join(root, 'apps', 'web', 'public', 'content');
+  // Run all version checks before creating or writing any build output.
+  assertSemanticContentVersioned(pack, publishedPack);
   await mkdir(generatedDir, { recursive: true });
   await mkdir(path.join(publicDir, `cn408-${year}`, 'source'), { recursive: true });
-  // F1 语义门禁：对照已发布题包检查“表面变了版本没变”，失配即构建失败（fail closed）。
-  let publishedPack;
-  try {
-    publishedPack = JSON.parse(await readFile(path.join(publicDir, `${year}.json`), 'utf8'));
-  } catch { /* 首次构建或无已发布题包 */ }
-  assertSemanticContentVersioned(pack, publishedPack);
   const packText = JSON.stringify(pack, null, 1);
   await writeFile(path.join(generatedDir, `${year}.pack.json`), packText);
   await writeFile(path.join(generatedDir, `${year}.quality.json`), JSON.stringify({

@@ -306,9 +306,8 @@ test('prevents a stale review tab from downgrading an approved record', async ({
       .filter((entry) => entry.entityType === 'setting' && entry.entityId.startsWith('content-review:v1:'));
 
     await peer.getByLabel('复核人', { exact: true }).fill('tab-b-stale');
-    await peer.getByLabel('问题记录', { exact: true }).fill('must-not-downgrade-approved');
-    await peer.getByRole('button', { name: '保存草稿' }).click();
-
+    // The 650ms autosave is itself a stale write. Wait for its conflict rather
+    // than racing it with more edits or clicking a button it may have disabled.
     const conflict = peer.getByRole('alert', { name: '复核记录冲突' });
     await expect(conflict).toContainText('不会覆盖权威复核记录');
     await expect(peer.locator('.review-decision')).toContainText('待重新读取');

@@ -1,5 +1,5 @@
 import { parseContentPack, validateContentPack } from '@408os/content-schema';
-import { createStorage } from '@408os/storage';
+import { ContentPackDowngradeError, createStorage } from '@408os/storage';
 
 export const CONTENT_ASSET_CACHE_NAME = '408os-content-assets-v2';
 export const CONTENT_PACK_CACHE_NAME = '408os-content-packs-v2';
@@ -10,6 +10,9 @@ const LOCAL_PACK_YEAR = 2009;
 // 旗舰年份（2009）走 installLocalContent 的空内容模式合同；
 // 扩展年份按“可选内容”安装：显式 404 = 未安装（正常），解析/校验失败记录为问题但不阻塞其他年份。
 export const EXTRA_PACK_YEARS = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+// Keep background downloads below the browser's per-origin connection limit so
+// route chunks and a second tab's foreground requests can start immediately.
+const EXTRA_PACK_DOWNLOAD_CONCURRENCY = 2;
 const VALIDATION_QUERY = '__408os_validate';
 const SHA256_PATTERN = /^[a-f0-9]{64}$/i;
 
@@ -217,7 +220,6 @@ function verifiedDowngradeBlocked(installed: readonly InstallManifest[], pack: L
 async function installResponse(
   response: Response,
   repository: InstallRepository,
-  installed: readonly InstallManifest[] = [],
 ): Promise<
   | { status: 'installed'; manifest: InstallManifest; pack: LocalContentPack }
   | { status: 'kept-verified' }
@@ -228,6 +230,7 @@ async function installResponse(
   if (!response.ok) throw new Error(`本地题包请求失败（HTTP ${response.status}），已阻止安装。`);
   const pack = (await response.json()) as LocalContentPack;
   if (pack.manifest?.year !== LOCAL_PACK_YEAR) throw new Error('本地题包年份不是 2009，拒绝安装。');
+  const installed = await repository.listPacks();
   const installedManifest = installed.find((entry) => entry.year === pack.manifest?.year);
   const unchanged = installedManifest != null
     && installedManifest.id === pack.manifest?.id
@@ -237,7 +240,13 @@ async function installResponse(
     return { status: 'installed', manifest: installedManifest, pack };
   }
   if (verifiedDowngradeBlocked(installed, pack)) return { status: 'kept-verified' };
-  const manifest = await repository.installPack(pack, false);
+  let manifest: InstallManifest;
+  try {
+    manifest = await repository.installPack(pack, false);
+  } catch (reason) {
+    if (reason instanceof ContentPackDowngradeError) return { status: 'kept-verified' };
+    throw reason;
+  }
   if (manifest.year !== LOCAL_PACK_YEAR) throw new Error('题包安装结果年份不是 2009。');
   return { status: 'installed', manifest, pack };
 }
@@ -325,7 +334,7 @@ export async function installLocalContent(options: InstallLocalContentOptions = 
       { cache: 'no-store' },
     );
     const cacheResponse = response.clone();
-    const result = await installResponse(response, repository, installed);
+    const result = await installResponse(response, repository);
     if (result.status === 'kept-verified') return;
     const { manifest, pack } = result;
     await cacheInstalledPackDocument(LOCAL_PACK_PATH, cacheResponse, cacheStorage);
@@ -345,7 +354,7 @@ export async function installLocalContent(options: InstallLocalContentOptions = 
   const cached = await cachedPackResponse(LOCAL_PACK_PATH, cacheStorage);
   if (cached) {
     try {
-      const result = await installResponse(cached, repository, installed);
+      const result = await installResponse(cached, repository);
       if (result.status === 'kept-verified') return;
       const { pack } = result;
       scheduleInstalledPackAssetCaching(pack, false, schedule, cacheStorage, fetcher);
@@ -371,6 +380,13 @@ export interface ExtraContentInstallResult {
   installedYears: number[];
 }
 
+interface FetchedExtraPack {
+  year: number;
+  response?: Response;
+  body?: string;
+  fetchError?: unknown;
+}
+
 export async function installExtraContent(
   options: InstallExtraContentOptions = {},
 ): Promise<ExtraContentInstallResult> {
@@ -378,21 +394,32 @@ export async function installExtraContent(
   const fetcher = options.fetcher ?? defaultFetcher;
   const cacheStorage = options.cacheStorage ?? defaultCacheStorage();
   const schedule = options.schedule ?? defaultScheduler;
-  const installed = await repository.listPacks();
-  // 16 份文档并行拉取（I/O），安装（解析+校验+写库，主线程 CPU）串行执行并在年份之间让出
-  // 事件循环：同源页面共享渲染进程主线程，连续校验 16 套题包会阻塞其他页面首屏。
-  const fetched = await Promise.all(EXTRA_PACK_YEARS.map(async (year): Promise<{
-    year: number;
-    response?: Response;
-    fetchError?: unknown;
-  }> => {
+  // Drain each body while fetching: waiting for all response headers before
+  // reading bodies can exhaust the origin's connections and stall route chunks.
+  // Parsing, validation and writes still run serially with an event-loop yield.
+  const download = async (year: number): Promise<FetchedExtraPack> => {
     try {
+      const response = await fetcher(validationRequestPath(`/content/${year}.json`, String(Date.now())), { cache: 'no-store' });
+      if (!response.ok) {
+        await response.body?.cancel().catch(() => undefined);
+        return { year, response };
+      }
+      const cacheResponse = response.clone();
       return {
         year,
-        response: await fetcher(validationRequestPath(`/content/${year}.json`, String(Date.now())), { cache: 'no-store' }),
+        response: cacheResponse,
+        body: await response.text(),
       };
     } catch (reason) {
       return { year, fetchError: reason };
+    }
+  };
+  const fetched: FetchedExtraPack[] = new Array(EXTRA_PACK_YEARS.length);
+  let nextDownload = 0;
+  await Promise.all(Array.from({ length: EXTRA_PACK_DOWNLOAD_CONCURRENCY }, async () => {
+    while (nextDownload < EXTRA_PACK_YEARS.length) {
+      const index = nextDownload++;
+      fetched[index] = await download(EXTRA_PACK_YEARS[index]!);
     }
   }));
   const issues: string[] = [];
@@ -412,9 +439,12 @@ export async function installExtraContent(
         issues.push(`${entry.year}: HTTP ${entry.response.status}`);
         continue;
       }
-      const cacheResponse = entry.response.clone();
-      const pack = (await entry.response.json()) as LocalContentPack;
+      const cacheResponse = entry.response;
+      const pack = JSON.parse(entry.body ?? '') as LocalContentPack;
       if (pack.manifest?.year !== entry.year) throw new Error(`题包年份不是 ${entry.year}，拒绝安装。`);
+      // This fresh read only optimizes unchanged packs; installPack performs the
+      // authoritative verified guard in its transaction, across connections.
+      const installed = await repository.listPacks();
       const installedManifest = installed.find((manifest) => manifest.year === entry.year);
       const unchanged = installedManifest != null
         && installedManifest.id === pack.manifest?.id
@@ -430,6 +460,7 @@ export async function installExtraContent(
       // 未变化的题包不重复预热资产：refresh 会重新下载并校验全部来源页图（17 套约 78MB）。
       if (!unchanged) scheduleInstalledPackAssetCaching(pack, true, schedule, cacheStorage, fetcher);
     } catch (reason) {
+      if (reason instanceof ContentPackDowngradeError) continue;
       issues.push(`${entry.year}: ${reason instanceof Error ? reason.message : '安装失败'}`);
     }
     await new Promise<void>((resolve) => { defaultScheduler(resolve, 0); });

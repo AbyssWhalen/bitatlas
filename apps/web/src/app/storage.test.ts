@@ -500,6 +500,102 @@ describe('optional extra content installation', () => {
     return Number(path.split('/').pop()!.replace('.json', ''));
   };
 
+  it('leaves an origin connection available for a route while optional pack bodies are pending', async () => {
+    let active = 0;
+    const queued: Array<() => void> = [];
+    const acquire = () => new Promise<void>((resolve) => {
+      const enter = () => { active += 1; resolve(); };
+      if (active < 6) enter();
+      else queued.push(enter);
+    });
+    const release = () => { active -= 1; queued.shift()?.(); };
+    let releaseBodies!: () => void;
+    const pendingBodies = new Promise<void>((resolve) => { releaseBodies = resolve; });
+    let routeStarted = false;
+    const fetcher = async (input: RequestInfo | URL) => {
+      await acquire();
+      if (String(input).startsWith('/assets/')) {
+        routeStarted = true;
+        release();
+        return new Response('export {}');
+      }
+      const manifest = yearManifest(requestYear(input), 'c'.repeat(64));
+      return new Response(new ReadableStream<Uint8Array>({
+        async pull(controller) {
+          await pendingBodies;
+          controller.enqueue(new TextEncoder().encode(JSON.stringify({ manifest, assets: [] })));
+          controller.close();
+          release();
+        },
+      }, { highWaterMark: 0 }));
+    };
+    const installing = installExtraContent({
+      repository: {
+        listPacks: async () => [],
+        installPack: async (input) => (input as { manifest: ReturnType<typeof yearManifest> }).manifest,
+      },
+      fetcher,
+      cacheStorage: { open: async () => ({ put: async () => undefined }) as unknown as Cache },
+      schedule: vi.fn(),
+    });
+    const route = fetcher('/assets/current-route.js');
+    try {
+      // Flush acquisition microtasks without releasing any background response.
+      await Promise.resolve();
+      await Promise.resolve();
+      expect(routeStarted).toBe(true);
+    } finally {
+      releaseBodies();
+      await Promise.all([installing, route]);
+    }
+    expect(await installing).toEqual({ issues: [], installedYears: EXTRA_PACK_YEARS });
+    expect(active).toBe(0);
+  });
+
+  it('drains an available response body before waiting for later response headers', async () => {
+    const manifest = yearManifest(2010, 'c'.repeat(64));
+    let releaseHeaders!: () => void;
+    const queuedHeaders = new Promise<void>((resolve) => { releaseHeaders = resolve; });
+    let bodyRead = false;
+    const response = new Response(new ReadableStream<Uint8Array>({
+      pull(controller) {
+        bodyRead = true;
+        controller.enqueue(new TextEncoder().encode(JSON.stringify({ manifest, assets: [] })));
+        controller.close();
+        releaseHeaders();
+      },
+    }, { highWaterMark: 0 }));
+    const repository = {
+      listPacks: vi.fn(async () => []),
+      installPack: vi.fn(async () => manifest),
+    };
+    const cached: string[] = [];
+    const installing = installExtraContent({
+      repository,
+      fetcher: async (input) => {
+        if (requestYear(input) === 2010) return response;
+        // Model a queued connection whose headers cannot arrive until the
+        // earlier body has been read and its connection becomes reusable.
+        await queuedHeaders;
+        return new Response('', { status: 404 });
+      },
+      cacheStorage: { open: async () => ({
+        put: async (_path: string, cachedResponse: Response) => { cached.push(await cachedResponse.text()); },
+      }) as unknown as Cache },
+      schedule: vi.fn(),
+    });
+
+    try {
+      await vi.waitFor(() => expect(bodyRead).toBe(true));
+    } finally {
+      releaseHeaders();
+      await installing;
+    }
+    expect(await installing).toEqual({ issues: [], installedYears: [2010] });
+    expect(repository.installPack).toHaveBeenCalledExactlyOnceWith({ manifest, assets: [] }, false);
+    expect(cached.map((body) => JSON.parse(body))).toEqual([{ manifest, assets: [] }]);
+  });
+
   it('skips reinstall and asset warming when an extra pack is unchanged', async () => {
     const sha = 'c'.repeat(64);
     const repository = {

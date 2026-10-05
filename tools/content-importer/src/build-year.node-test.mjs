@@ -11,6 +11,8 @@ import {
   splitNumberedBlocks,
   splitOptions,
   assertSemanticContentVersioned,
+  resolveContentVersion,
+  readPublishedPack,
   semanticQuestionFingerprint,
   stemReferencesFigure,
   trimExplanationNoise,
@@ -392,5 +394,42 @@ describe('F1 semantic version gate', () => {
   it('assertSemanticContentVersioned 忽略已发布包中不存在的题号', () => {
     const published = pack('2010.0-draft.2', []);
     assert.doesNotThrow(() => assertSemanticContentVersioned(pack('2010.0-draft.2', [question()]), published));
+  });
+
+  it('draft.2 → draft.3 后省略参数沿用 draft.3，不能重新使用 draft.2', () => {
+    const original = pack('2010.0-draft.2', [question()]);
+    const revised = pack('2010.0-draft.3', [question({ answer: { type: 'choice', optionId: 'A' } })]);
+    assert.doesNotThrow(() => assertSemanticContentVersioned(revised, original));
+    assert.equal(resolveContentVersion(2010, undefined, revised), '2010.0-draft.3');
+    assert.throws(() => assertSemanticContentVersioned(pack('2010.0-draft.2', revised.questions), revised), /不得回退/u);
+    assert.throws(() => assertSemanticContentVersioned(original, revised), /不得回退/u);
+    assert.equal(resolveContentVersion(2010, undefined, undefined), '2010.0-draft.2');
+  });
+
+  it('按数值比较 major/revision，拒绝前导零、其他年份与版本别名', () => {
+    const current = pack('2010.1-draft.9', [question()]);
+    for (const version of ['2010.1-draft.10', '2010.2-draft.0', '2010.1-draft.9007199254740993']) {
+      assert.equal(resolveContentVersion(2010, version, current), version);
+    }
+    for (const version of ['2010.0-draft.100', '2010.1-draft.8', '2010.01-draft.9', '2010.1-draft.09', '2011.1-draft.10', '2010.1', '']) {
+      assert.throws(() => resolveContentVersion(2010, version, current), /不得回退|需匹配/u);
+    }
+    assert.throws(() => resolveContentVersion(2010, '2010.1-draft.9007199254740992', pack('2010.1-draft.9007199254740993', [])), /不得回退/u);
+  });
+
+  it('沿用版本时仍检查题面，并从当前版本计算升级提示', () => {
+    const published = pack('2010.2-draft.19', [question()]);
+    const version = resolveContentVersion(2010, undefined, published);
+    const changed = pack(version, [question({ answer: { type: 'choice', optionId: 'A' } })]);
+    assert.throws(() => assertSemanticContentVersioned(changed, published), /--content-version 2010\.2-draft\.20/u);
+    assert.throws(() => resolveContentVersion(2010, undefined, {}), /结构或年份/u);
+  });
+
+  it('仅 ENOENT 视为首次构建，损坏或不可读的已发布文件必须阻止构建', async () => {
+    const readError = (code) => async () => { throw Object.assign(new Error(code), { code }); };
+    assert.equal(await readPublishedPack('missing.json', readError('ENOENT')), undefined);
+    await assert.rejects(readPublishedPack('denied.json', readError('EACCES')), /EACCES/u);
+    await assert.rejects(readPublishedPack('broken.json', async () => '{broken'), SyntaxError);
+    await assert.rejects(readPublishedPack('invalid.json', async () => '{}'), /校验失败/u);
   });
 });

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { StudyProvider } from './app/StudyContext';
 import { AppShell } from './components/AppShell';
+import { PwaUpdateNotice } from './components/PwaUpdateNotice';
+import { RouteErrorPage } from './components/RouteErrorPage';
 import './styles.css';
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((module) => ({ default: module.DashboardPage })));
@@ -27,10 +29,11 @@ function route(element: ReactNode) {
 }
 
 const router = createBrowserRouter([
-  { path: '/review/2009', element: route(<ContentReviewPage />) },
+  { path: '/review/2009', element: route(<ContentReviewPage />), errorElement: <RouteErrorPage /> },
   {
     path: '/',
     element: <AppShell />,
+    errorElement: <RouteErrorPage />,
     children: [
       { index: true, element: route(<DashboardPage />) },
       { path: 'questions', element: route(<QuestionsPage />) },
@@ -53,6 +56,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <StudyProvider><RouterProvider router={router} /></StudyProvider>
+    <StudyProvider><PwaUpdateNotice /><RouterProvider router={router} /></StudyProvider>
   </StrictMode>,
 );

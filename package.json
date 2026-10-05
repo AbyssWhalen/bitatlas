@@ -19,7 +19,7 @@
     "test": "vitest run",
     "test:release": "npm run test:release -w @408os/content-importer",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "npm run build && playwright test",
     "content:validate": "npm run validate -w @408os/content-importer",
     "release:2009": "tsx tools/content-importer/src/release-2009.mjs"
   },

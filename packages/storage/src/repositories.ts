@@ -29,6 +29,13 @@ export interface ContentRepository {
   listAssets(): Promise<AssetRef[]>;
 }
 
+export class ContentPackDowngradeError extends Error {
+  constructor(manifest: ContentPackManifest) {
+    super(`已保留 ${manifest.year} 年 verified 题包，拒绝用未审核内容覆盖。`);
+    this.name = 'ContentPackDowngradeError';
+  }
+}
+
 export type ContentQuestionFilter = Pick<QuestionFilter, 'year' | 'subjects' | 'kinds' | 'search'>;
 
 const USER_STATE_FILTERS = ['mastery', 'onlyWrong', 'onlyCollected'] as const;
@@ -430,6 +437,9 @@ export class DexieContentRepository implements ContentRepository {
       throw new Error(`Content pack validation failed:\n${validation.issues.map((issue) => `${issue.path}: ${issue.message}`).join('\n')}`);
     }
     const pack = parseContentPack(input) as ContentPack;
+    const verifiedReplacement = pack.manifest.reviewStatus === 'verified' && (
+      requireVerified || validateContentPack(pack, { requireVerified: true, enforceExamShape: true }).success
+    );
     await this.database.transaction(
       'rw',
       this.database.questions,
@@ -437,6 +447,13 @@ export class DexieContentRepository implements ContentRepository {
       this.database.assets,
       this.database.packs,
       async () => {
+        // The check must share the write transaction: another tab may finish a
+        // verified import while the bundled draft is downloading or validating.
+        const protectedManifest = await this.database.packs
+          .where('reviewStatus').equals('verified')
+          .filter((manifest) => manifest.year === pack.manifest.year || manifest.id === pack.manifest.id)
+          .first();
+        if (protectedManifest && !verifiedReplacement) throw new ContentPackDowngradeError(protectedManifest);
         const [currentQuestions, currentKnowledgePoints] = await Promise.all([
           this.database.questions.toArray(),
           this.database.knowledgePoints.toArray(),

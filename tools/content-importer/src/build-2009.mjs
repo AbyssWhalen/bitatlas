@@ -237,11 +237,14 @@ const questionPageMap = pageMapFromRanges([
 ]);
 const answerPageMap = pageMapFromRanges([
   { from: 1, to: 4, pages: [1] },
-  { from: 5, to: 8, pages: [2] },
-  { from: 9, to: 13, pages: [3] },
+  { from: 5, to: 7, pages: [2] },
+  { from: 8, to: 8, pages: [2, 3] },
+  { from: 9, to: 12, pages: [3] },
+  { from: 13, to: 13, pages: [3, 4] },
   { from: 14, to: 20, pages: [4] },
   { from: 21, to: 30, pages: [5] },
-  { from: 31, to: 39, pages: [6] },
+  { from: 31, to: 38, pages: [6] },
+  { from: 39, to: 39, pages: [6, 7] },
   { from: 40, to: 41, pages: [7] },
   { from: 42, to: 42, pages: [7, 8] },
   { from: 43, to: 43, pages: [8] },

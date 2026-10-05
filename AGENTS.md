@@ -49,6 +49,8 @@ npm run content:validate
 - 用户流程改动必须用真实浏览器验证桌面与手机视口。
 - 内容包必须通过 schema、题数、题号、答案、来源、资产和审核状态校验。
 - 默认全量 E2E 结果必须按实际通过数报告；定向 `.last-run.json` 不能覆盖完整运行事实，也不得用无界重跑掩盖并发冷启动失败。
+- 默认 E2E 按启动时可用内存分配并发：预留 1 GiB，每个独立 Chrome worker 预算 2 GiB，上限 4，并受可用 CPU 数限制。报告必须同时记录实际 workers 和完整用例数；`npm run test:e2e -- --workers=8` 保留为固定并发压力检查，其已知失败必须单列，不能写成默认运行已修复了压力问题。
+- `npm run test:e2e` 先完成生产构建再启动 Playwright；webServer 只启动 preview。直接使用 `npx playwright test` 做定向验收时，先独立运行 `npm run build`，避免读取旧构建。
 - 每完成关键步骤立即更新 `HANDOFF.md`；每阶段在 `notes.md` 记录实际命令、结果、风险和未解问题。
 - 未验证结果不得描述为已完成。
 
