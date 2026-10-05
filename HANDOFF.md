@@ -1,5 +1,14 @@
 # HANDOFF
 
+## 2026-10-05 移除首页核对栏与重试缓存清理（本地验收完成，待发布）
+
+- 用户明确要求正常首页不再展示已完成的核对状态，同时授权重新用更明确的删除命令清理上一轮 4 个生成目录。本轮移除有题包时的整条首页状态栏，来源核对和人工审核记录留在数据管理页；无题包时保留引导进入实验的提示。
+- 范围：`DashboardPage.tsx` 及其测试、首页专用样式、相应文档；题包和模考状态不变。保持数据管理页对核对记录版本/hash 的匹配检查。
+- 清理限定：`apps/web/dist`、`node_modules/.vite-temp`、`apps/web/node_modules/.vite-temp`、`node_modules/.vite`。重新检查绝对路径、Git 追踪/忽略和链接边界后，字面绝对路径的单目录 `Remove-Item` 仍被策略拒绝；未改变权限或策略。随后采用可恢复的 Windows 回收站操作，4 目录均已移走，读取本用户回收站 `$I` 元数据和 `$R` 实体确认 4/4 可恢复；不是磁盘空闲回收。见 `cleanup-before-build-receipt.json`，旧 blocked 回执不覆盖。
+- 首页移除已实现，仅缺失 2009 题包时保留提示；数据管理的 hash/版本不匹配回归保留在 SettingsPage 测试中。Dashboard/Settings/MockExam/ContentReview 共 4 files / 27 tests、lint、全 workspace typecheck、构建通过（87 PWA entries / 2804.90 KiB，Vite 6.67s）。真实 Chrome 1440/390 首页无状态栏/无横向溢出，继续学习打开 Q1，数据管理仍保留两种审核进度，console 0 errors / 0 warnings；两张截图已目检。
+- 本地验收见 `local-verification.json`，构建入口 `index-yi8k89J3.js`。完整 204 项和固定 8 workers 压力检查未重跑，既有结果不变。接下来沿用授权提交/推送、线上复核，随后停止 `dashboardclean` 浏览器与 4196 预览并将新生成目录移入回收站。
+- 证据目录：`output/playwright/dashboard-cleanup-2026-10-05/`。下一会话继续本节的小改动、相关验证、既有 main 发布流程及最终清理核验。
+
 ## 2026-10-05 首页核对进度提示（已发布，清理被策略阻止）
 
 - 用户反馈首页仍显示“2009 题包等待逐题人工复核 0/47”。已确认 `DashboardPage.tsx` 只展示正式人工批准记录，没有呈现已完成的 47 题 AI 来源核对；线上部署和题包版本均正常。

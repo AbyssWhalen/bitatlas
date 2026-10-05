@@ -46,8 +46,8 @@ describe('SettingsPage content and backup imports', () => {
     expect(screen.getByText('当前已通过 0 / 47，题包状态为 needs-review。')).toBeVisible();
   });
 
-  it('does not show source checking for an unrecognized pack with the same version', () => {
-    study.packs = [{ ...manifest, sha256: 'different' }];
+  it.each(['sha256', 'contentVersion'] as const)('does not show source checking when the installed %s differs', (field) => {
+    study.packs = [{ ...manifest, [field]: 'different' }];
     render(<MemoryRouter><SettingsPage /></MemoryRouter>);
 
     expect(screen.queryByRole('heading', { name: '2009 来源核对' })).not.toBeInTheDocument();

@@ -41,35 +41,15 @@ function renderDashboard() {
   return render(<MemoryRouter><DashboardPage /></MemoryRouter>);
 }
 
-describe('dashboard source audit status', () => {
-  it('shows completed source checking without claiming human approval', () => {
-    study({ packs: [pack(2009).manifest] });
+describe('dashboard content availability', () => {
+  it.each(['needs-review', 'verified'] as const)('keeps review status out of the dashboard for an installed %s pack', (reviewStatus) => {
+    study({ packs: [{ ...pack(2009).manifest, reviewStatus }] });
     renderDashboard();
 
-    expect(screen.getByText('2009 题包已完成 AI 来源核对，可开始练习。')).toBeVisible();
-    expect(screen.getByText('AI 核对 47/47')).toBeVisible();
-    expect(screen.getByText('正式模考仍待人工审核。')).toBeVisible();
-    expect(screen.queryByText('2009 题包等待逐题人工复核。')).not.toBeInTheDocument();
-    expect(screen.queryByText('0/47')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '查看详情' })).toBeEnabled();
-  });
-
-  it.each(['sha256', 'contentVersion'] as const)('does not reuse audit evidence when the installed %s differs', (field) => {
-    const manifest = { ...pack(2009).manifest, [field]: 'different' };
-    study({ packs: [manifest] });
-    renderDashboard();
-
-    expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
-    expect(screen.getByText('2009 题包可用于练习，正式模考待审核。')).toBeVisible();
-  });
-
-  it('retains the verified state without an outstanding audit message', () => {
-    study({ packs: [{ ...pack(2009).manifest, reviewStatus: 'verified' }] });
-    renderDashboard();
-
-    expect(screen.getByText('2009 Verified 题包已激活。')).toBeVisible();
-    expect(screen.queryByText('正式模考仍待人工审核。')).not.toBeInTheDocument();
-    expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
+    expect(screen.queryByText(/AI.*核对|人工复核|正式模考|Verified 题包/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '查看详情' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '继续学习' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: '顺序练习' })).toBeEnabled();
   });
 
   it('does not advertise an absent pack as ready to practice', () => {

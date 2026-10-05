@@ -1,5 +1,13 @@
 # Notes
 
+## 2026-10-05 - 移除首页核对栏与重试缓存清理（本地验收完成，待发布）
+
+- 用户修正：首页无需持续展示已完成的 AI 核对进度。移除有题包时的首页状态栏，数据管理继续保留来源核对/人工审核记录，缺包引导与模考门禁保持。
+- 用户明确授权改用更直接的命令重试上一轮 4 个生成目录清理。先核实路径和内容，再逐个使用带字面绝对路径的 PowerShell 原生命令；不改变安全配置或扩大目标。旧 blocked 回执保留，新证据写入 `output/playwright/dashboard-cleanup-2026-10-05/`。
+- 清理进展：明确的单目录永久删除命令仍被自动审批拒绝，仅返回 `blocked by policy`。改用 Windows 原生可恢复回收站操作（`Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory` + `RecycleOption.SendToRecycleBin`），4 个旧生成目录已从项目中移走；逐项读取本用户回收站 `$I` 原路径元数据并确认 `$R` 实体仍在，4/4 可恢复，合计 89765857 bytes / 85.61 MiB。没有清空回收站或宣称释放磁盘空间；旧 blocked 回执保持不变。新回执为 `cleanup-before-build-receipt.json`。
+- 验证：4 files / 27 个相关测试通过（Dashboard/Settings/MockExam/ContentReview），lint、全 workspace typecheck、生产构建通过；87 PWA entries / 2804.90 KiB，Vite 6.67s。根据新需求替换首页展示断言，将版本/hash 边界回归保留在数据管理页；未减少审核或模考逻辑校验。
+- 本地 Chrome 1440×900、390×844：首页无核对栏、无横向溢出，继续学习成功打开 2009 Q1，数据管理仍有 AI 47/47 和人工 0/47，console 0 errors / 0 warnings；截图已目检，证据 `local-verification.json`。本次未重复完整 E2E 或 8 workers 压力运行。发布结果待补；本轮构建后会再清理新生成的相同目录，旧件与新件不重复计入最终项目占用减少。
+
 ## 2026-10-05 - 首页核对进度提示（已发布，清理被策略阻止）
 
 - 原因：总览只读取 `reviewSummary.approved` 和 `manifest.reviewStatus`，已完成的 AI 来源核对仅记录在报告中，所以新版仍显示黄色“等待逐题人工复核 0/47”。

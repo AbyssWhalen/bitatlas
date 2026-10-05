@@ -3,7 +3,6 @@ import { ArrowRight, BookOpen, CalendarCheck2, Check, CircleCheck, Clock3, Flame
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
-import { getSourceAudit } from '../app/sourceAudit';
 import { useBeijingDate } from '../app/useBeijingDate';
 
 const subjectMeta = {
@@ -44,8 +43,6 @@ export function DashboardPage() {
   }), [practicedIds, questions2009]);
   const remainingPlanIds = dailyPlan.items.filter((item) => !item.completedToday).map((item) => item.questionId);
   const manifest = packs.find((pack) => pack.year === 2009);
-  const packVerified = manifest?.reviewStatus === 'verified';
-  const sourceAudit = getSourceAudit(manifest);
   const hasQuestions = questions.length > 0;
   const has2009Questions = questions2009.length > 0;
   const choiceCount = questions2009.filter((question) => question.kind === 'single-choice').length;
@@ -88,19 +85,11 @@ export function DashboardPage() {
         <button className="primary-command" disabled={!hasQuestions} onClick={() => void resume()}><Play size={18} fill="currentColor" />继续学习</button>
       </header>
 
-      <div className={`review-warning ${packVerified ? 'verified' : sourceAudit ? 'source-audited' : ''}`}>
-        {packVerified ? <CircleCheck size={17} /> : sourceAudit ? <BookOpen size={17} /> : <Flame size={17} />}
-        <div className="review-warning-copy">
-          <span>{!manifest ? '本地 2009 题包未安装。' : packVerified ? '2009 Verified 题包已激活。' : sourceAudit ? '2009 题包已完成 AI 来源核对，可开始练习。' : '2009 题包可用于练习，正式模考待审核。'}</span>
-          {!packVerified && sourceAudit && <small>正式模考仍待人工审核。</small>}
-        </div>
-        <div className="review-warning-actions">
-          <strong>{!manifest ? '未安装' : packVerified ? 'verified' : sourceAudit ? `AI 核对 ${sourceAudit.questionCount}/${sourceAudit.questionCount}` : '练习可用'}</strong>
-          {!manifest
-            ? <button className="secondary-command" onClick={() => navigate('/lab')}>进入实验<ArrowRight size={16} /></button>
-            : !packVerified && <button className="secondary-command" onClick={() => navigate('/settings')}>查看详情<ArrowRight size={16} /></button>}
-        </div>
-      </div>
+      {!manifest && <div className="review-warning">
+        <Flame size={17} />
+        <span>本地 2009 题包未安装。</span>
+        <button className="secondary-command" onClick={() => navigate('/lab')}>进入实验<ArrowRight size={16} /></button>
+      </div>}
 
       <section className="metric-grid" aria-label="学习指标">
         <article><BookOpen /><span>已练题目</span><strong>{attempted}<small> / {questions.length}</small></strong></article>
