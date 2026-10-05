@@ -1,14 +1,16 @@
 # HANDOFF
 
-## 2026-10-05 首页核对进度提示（本地验收完成，待发布）
+## 2026-10-05 首页核对进度提示（已发布，清理被策略阻止）
 
 - 用户反馈首页仍显示“2009 题包等待逐题人工复核 0/47”。已确认 `DashboardPage.tsx` 只展示正式人工批准记录，没有呈现已完成的 47 题 AI 来源核对；线上部署和题包版本均正常。
 - 本轮仅修正状态表达：对与已核对版本及 hash 完全匹配的题包显示 AI 来源核对完成与练习可用，数据管理页分别展示 AI 核对和人工审核进度；未匹配题包不沿用核对结论。正式审核状态、Q44、模考门禁和学习数据不变。
 - 已实现首页蓝色提示“AI 来源核对已完成，可开始练习 / AI 核对 47/47”，详情进入数据管理并分别展示 AI 核对与人工批准进度。匹配绑定 id、年份、版本、题数和 hash，缺包保留实验入口，verified 包保留正式状态。
 - 验证：旧实现新增展示回归 3 项失败；修正后 Dashboard/Settings/MockExam/ContentReview 共 4 files / 28 tests 通过，lint、全 workspace typecheck、生产构建通过（88 PWA entries / 2806.17 KiB）。真实 Chrome 1440×900、390×844 首页与详情显示正确，详情按钮跳转正常，无横向溢出或控制台错误，正式模考仍受 needs-review 限制；三张截图已目检。
 - 关键文件：`apps/web/src/app/sourceAudit.ts`、`apps/web/src/pages/DashboardPage.tsx`、`apps/web/src/pages/SettingsPage.tsx`、`apps/web/src/styles.css`。本轮证据目录：`output/playwright/source-audit-banner-2026-10-05/`。
-- 下一步沿用用户的检查后推送授权发布并验证线上提示；本轮是展示修正，完整 204 项验收和固定 8 workers 压力检查未重复运行，不覆盖上一节的既有结果。
-- 下一会话开场 prompt：本节的首页状态修正已完成本地验收，继续发布和线上读回；保持 AI 来源核对与人工批准含义独立，不修改题包审核状态或放宽模考门禁。
+- 代码提交 `868f8dabf7152cd22d89573ad39fabcf710b7bbc` 已推送 main，远端 SHA 读回一致，[Pages run 37297384316](https://github.com/AbyssWhalen/bitatlas/actions/runs/37297384316) 成功。线上 1440/390 均显示新提示，详情入口及 AI/人工进度分开展示通过，模考仍关闭，console 0 errors / 0 warnings；入口为 `index-D3Ipi3tH.js`，与本地构建相符。证据见 [verification.json](output/playwright/source-audit-banner-2026-10-05/verification.json)。
+- 浏览器 session `auditbanner` 及 4196 预览已关闭，4196/4197 无监听，14 份保护文件哈希不变。本轮 4 个生成目录的删除被自动审批拒绝（仅返回 `blocked by policy`），未重试删除；`apps/web/dist`、根及 Web 的 `node_modules/.vite-temp`、根 `node_modules/.vite` 共 85.61 MiB 暂留。[清理回执](output/playwright/source-audit-banner-2026-10-05/cleanup-receipt.json) 状态为 blocked，旧清理回执仍保持原事实。
+- 本轮是展示修正，完整 204 项验收和固定 8 workers 压力检查未重复运行，不覆盖上一节的既有结果。已打开的旧客户端在保存当前操作、关闭所有 BitAtlas 页面后重新打开即可更新，无需清空学习数据。
+- 下一会话开场 prompt：首页状态表达已修复并上线，AI 来源核对和人工批准仍独立。不要重复核对题包或放宽模考门禁；本轮 4 个生成目录因策略阻止暂留，未经解除限制不重试同一删除操作。
 
 ## 2026-10-05 发布与清理（已完成）
 

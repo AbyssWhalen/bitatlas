@@ -13,6 +13,8 @@
 
 ## 2026-10-05 发布与验证结果
 
+首页状态补充修复：提交 `868f8da` 已部署，[Pages run 37297384316](https://github.com/AbyssWhalen/bitatlas/actions/runs/37297384316) 成功。与 2009 draft.3 核对版本及 hash 匹配时显示“AI 核对 47/47，可开始练习”，数据管理分别呈现 AI 核对和人工批准；正式审核状态及模考门禁不变。相关回归 28/28、lint、全 workspace typecheck、构建通过，线上 1440/390、新提示、详情跳转及模考门禁检查通过；[验收记录](../output/playwright/source-audit-banner-2026-10-05/verification.json)。本次未重复下表的完整 E2E 或固定 8 workers 压力检查。新的 85.61 MiB 构建/缓存清理被自动审批阻止，仍保留在本地；历史清理结果不受影响。
+
 R1–R5、扩展题包下载修复及 2009 draft.3 校订已按用户授权提交并推送至 origin/main，代码提交为 `0c5a03c831cd7efeb9dc76c16397166ac5406367`。[Pages 构建与部署](https://github.com/AbyssWhalen/bitatlas/actions/runs/37261850931) 成功，随后线上桌面、手机和离线功能复验通过。固定 8 并发仍未验证为通过，详见下表；默认验收不是已解决压力问题的性能结论。
 
 | 检查 | 结果 |
