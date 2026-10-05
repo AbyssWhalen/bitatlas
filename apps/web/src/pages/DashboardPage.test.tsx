@@ -41,6 +41,48 @@ function renderDashboard() {
   return render(<MemoryRouter><DashboardPage /></MemoryRouter>);
 }
 
+describe('dashboard source audit status', () => {
+  it('shows completed source checking without claiming human approval', () => {
+    study({ packs: [pack(2009).manifest] });
+    renderDashboard();
+
+    expect(screen.getByText('2009 题包已完成 AI 来源核对，可开始练习。')).toBeVisible();
+    expect(screen.getByText('AI 核对 47/47')).toBeVisible();
+    expect(screen.getByText('正式模考仍待人工审核。')).toBeVisible();
+    expect(screen.queryByText('2009 题包等待逐题人工复核。')).not.toBeInTheDocument();
+    expect(screen.queryByText('0/47')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '查看详情' })).toBeEnabled();
+  });
+
+  it.each(['sha256', 'contentVersion'] as const)('does not reuse audit evidence when the installed %s differs', (field) => {
+    const manifest = { ...pack(2009).manifest, [field]: 'different' };
+    study({ packs: [manifest] });
+    renderDashboard();
+
+    expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
+    expect(screen.getByText('2009 题包可用于练习，正式模考待审核。')).toBeVisible();
+  });
+
+  it('retains the verified state without an outstanding audit message', () => {
+    study({ packs: [{ ...pack(2009).manifest, reviewStatus: 'verified' }] });
+    renderDashboard();
+
+    expect(screen.getByText('2009 Verified 题包已激活。')).toBeVisible();
+    expect(screen.queryByText('正式模考仍待人工审核。')).not.toBeInTheDocument();
+    expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
+  });
+
+  it('does not advertise an absent pack as ready to practice', () => {
+    study({ packs: [], questions: [] });
+    renderDashboard();
+
+    expect(screen.getByText('本地 2009 题包未安装。')).toBeVisible();
+    expect(screen.getByRole('button', { name: '进入实验' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: '继续学习' })).toBeDisabled();
+    expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
+  });
+});
+
 describe('dashboard calendar and year scope', () => {
   it('reopens the daily plan at Beijing midnight without changing attempts or questions', () => {
     const attempt: Attempt = {

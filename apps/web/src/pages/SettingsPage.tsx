@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BACKUP_DOWNLOAD_PREFIX } from '../app/brand';
 import { useStudy } from '../app/StudyContext';
+import { getSourceAudit } from '../app/sourceAudit';
 
 export function SettingsPage() {
   const { packs, questions, attempts, notes, reviewSummary, contentIssues, exportBackup, importBackup, installVerifiedPack } = useStudy();
@@ -10,7 +11,9 @@ export function SettingsPage() {
   const backupInput = useRef<HTMLInputElement>(null);
   const verifiedPackInput = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const packStatus = packs.find((candidate) => candidate.year === 2009)?.reviewStatus ?? 'unavailable';
+  const manifest = packs.find((candidate) => candidate.year === 2009);
+  const packStatus = manifest?.reviewStatus ?? 'unavailable';
+  const sourceAudit = getSourceAudit(manifest);
 
   const downloadBackup = async () => {
     const json = await exportBackup();
@@ -53,6 +56,9 @@ export function SettingsPage() {
     <div className="page settings-page">
       <header className="page-header"><div><span className="eyebrow">LOCAL DATA</span><h1>数据管理</h1><p>学习记录只保存在当前浏览器。</p></div></header>
       <section className="data-summary"><article><Database /><span>本地题目</span><strong>{questions.length}</strong></article><article><HardDrive /><span>作答记录</span><strong>{attempts.length}</strong></article><article><FileJson /><span>个人笔记</span><strong>{notes.size}</strong></article></section>
+      {sourceAudit && <section className="backup-band">
+        <div><span className="eyebrow">SOURCE CHECK</span><h2>2009 来源核对</h2><p>AI 已完成 {sourceAudit.questionCount} / {sourceAudit.questionCount} 题的来源核对与校订（{sourceAudit.completedAt}），可用于日常练习。</p><p>人工审核进度单独记录，正式模考仍需通过人工审核。</p></div>
+      </section>}
       <section className="backup-band">
         <div><span className="eyebrow">CONTENT REVIEW</span><h2>2009 人工复核</h2><p>当前已通过 {reviewSummary.approved} / {reviewSummary.total}，题包状态为 {packStatus}。</p></div>
         <div className="command-row"><button className="secondary-command" onClick={() => navigate('/review/2009')}><ShieldCheck size={17} />进入复核<ArrowRight size={17} /></button></div>

@@ -1,5 +1,13 @@
 # Notes
 
+## 2026-10-05 - 首页核对进度提示（本地验收完成，待发布）
+
+- 原因：总览只读取 `reviewSummary.approved` 和 `manifest.reviewStatus`，已完成的 AI 来源核对仅记录在报告中，所以新版仍显示黄色“等待逐题人工复核 0/47”。
+- 决策：增加只用于展示的来源核对记录，绑定题包 id、年份、版本、题数和 hash。首页显示练习可用与 AI 核对完成，详情保留真实人工审核进度；旧版本、修改过的题包和未知版本均不继承本轮结论。不改变题包、数据库、审核 ledger、模考门禁或 Q44。
+- 验证：旧实现新增展示回归 3 项失败（缺少 AI 核对与可练习说明）；修正后 Dashboard/Settings/MockExam/ContentReview 4 files / 28 tests 通过，覆盖 hash/版本不匹配、缺包、verified 状态和人工复核/模考门禁。lint、全 workspace typecheck、生产构建通过（88 PWA entries / 2806.17 KiB，Vite 8.19s）。日志保存在 `output/playwright/source-audit-banner-2026-10-05/`。
+- 本地真实 Chrome：1440×900 与 390×844 的首页新提示、详情按钮、AI 47/47 与人工 0/47 分别展示通过，正式模考仍关闭；无横向溢出（1440 的滚动内容宽 1431、390 为 390），console 0 errors / 0 warnings。三张截图已目检，浏览器 session 为 `auditbanner`，预览为本任务的 4196 端口；发布验收后关闭。
+- 本次窄改动未重复完整 E2E 或固定 8 workers 压力检查，不能用 28 项相关回归覆盖上一轮 204/204 与压力 195/204 的事实。部署结果待补。
+
 ## 2026-10-05 - 发布与清理（已完成）
 
 - 完成结论：代码提交 `0c5a03c831cd7efeb9dc76c16397166ac5406367` 已正常推送 origin/main，Pages run `37261850931` 构建/部署成功。默认完整 204/204（2 workers）与 1120 单测等门禁通过；最近一次固定 8 workers 为 195/204，尚未验证为通过，不把默认资源预算当成压力问题的修复。2009 人工 verified 仍 0/47，Q44 边界保留。

@@ -1,10 +1,14 @@
 import '@testing-library/jest-dom/vitest';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import type { ContentPack } from '@408os/domain';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SettingsPage } from './SettingsPage';
 
 const study = vi.hoisted(() => ({
+  packs: [] as ContentPack['manifest'][],
   importBackup: vi.fn(async () => undefined),
   installVerifiedPack: vi.fn(async () => undefined),
   exportBackup: vi.fn(async () => '{}'),
@@ -12,7 +16,6 @@ const study = vi.hoisted(() => ({
 
 vi.mock('../app/StudyContext', () => ({
   useStudy: () => ({
-    packs: [{ id: 'cn408-2009', year: 2009, reviewStatus: 'needs-review' }],
     questions: Array.from({ length: 47 }),
     attempts: [],
     notes: new Map(),
@@ -22,14 +25,33 @@ vi.mock('../app/StudyContext', () => ({
   }),
 }));
 
+const manifest = (JSON.parse(readFileSync(path.resolve('apps', 'web', 'public', 'content', '2009.json'), 'utf8')) as ContentPack).manifest;
+
 describe('SettingsPage content and backup imports', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    study.packs = [manifest];
   });
 
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+  });
+
+  it('shows source checking and human approval as separate progress', () => {
+    render(<MemoryRouter><SettingsPage /></MemoryRouter>);
+
+    expect(screen.getByRole('heading', { name: '2009 来源核对' })).toBeVisible();
+    expect(screen.getByText(/AI 已完成 47 \/ 47 题的来源核对与校订/)).toBeVisible();
+    expect(screen.getByText('当前已通过 0 / 47，题包状态为 needs-review。')).toBeVisible();
+  });
+
+  it('does not show source checking for an unrecognized pack with the same version', () => {
+    study.packs = [{ ...manifest, sha256: 'different' }];
+    render(<MemoryRouter><SettingsPage /></MemoryRouter>);
+
+    expect(screen.queryByRole('heading', { name: '2009 来源核对' })).not.toBeInTheDocument();
+    expect(screen.getByText('当前已通过 0 / 47，题包状态为 needs-review。')).toBeVisible();
   });
 
   it('keeps verified content installation separate from user backup restore', async () => {
