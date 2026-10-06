@@ -8,7 +8,8 @@
 - 验证：4 files / 27 个相关测试通过（Dashboard/Settings/MockExam/ContentReview），lint、全 workspace typecheck、生产构建通过；87 PWA entries / 2804.90 KiB，Vite 6.67s。根据新需求替换首页展示断言，将版本/hash 边界回归保留在数据管理页；未减少审核或模考逻辑校验。
 - 本地 Chrome 1440×900、390×844：首页无核对栏、无横向溢出，继续学习成功打开 2009 Q1，数据管理仍有 AI 47/47 和人工 0/47，console 0 errors / 0 warnings；截图已目检，证据 `local-verification.json`。本次未重复完整 E2E 或 8 workers 压力运行，既有默认 204/204（2 workers）和压力 195/204 的记录保持独立。
 - 发布：代码提交 `55295a82057e1f6035e295bd6e623e4f3bff6bb0` 已推送 main，远端读回一致，Pages run `37299799639` 成功。线上 1440×900、390×844 均无首页核对栏和横向溢出，入口 `index-yi8k89J3.js` 与本地构建一致；console 0 errors / 0 warnings，两张截图已目检，记录 `production-verification.json`。2026-10-06 补齐最终回执与收尾文档。
-- 最终清理：重新验证同 4 个生成目录均位于本项目、被 Git 忽略、不含 tracked 文件或链接后，使用 `SendToRecycleBin` 移入回收站，共 730 文件 / 89764515 bytes（85.61 MiB）。原路径全部不存在；排除旧回收站记录后，新增 4 个 `$I` 元数据均匹配原路径且 `$R` 实体存在，4/4 可恢复，见 `cleanup-final-receipt.json`。未再重试永久删除，未清空回收站，旧件与新件不累计为磁盘空间释放量。
+- 最终清理：重新验证同 4 个生成目录均位于本项目、被 Git 忽略、不含 tracked 文件或链接后，使用 `SendToRecycleBin` 移入回收站，共 730 文件 / 89764515 bytes（85.61 MiB）。移入时原路径全部不存在；排除旧回收站记录后，新增 4 个 `$I` 元数据均匹配原路径且 `$R` 实体存在，当时 4/4 可恢复，见 `cleanup-final-receipt.json`。本任务未再重试永久删除、未清空回收站，旧件与新件不累计为磁盘空间释放量。
+- 2026-10-06 后续复查：四个原路径仍不存在，但原回收站元数据和实体均已不存在；枚举当前用户回收站也没有匹配原路径的记录。无法确认现在仍可恢复，原因未知，不推断是谁或什么程序清除了回收站；未测量磁盘空闲变化。保留原始清理回执，新增 `cleanup-recheck-2026-10-06.json` 记录此后状态，不能将原先的可恢复验证当成当前结果。
 - 收尾核对：原 PDF、overrides、审查证据、Q42 C 源码及 `.workbuddy/` 等 14 份保护文件 SHA-256 不变；浏览器 session `dashboardclean` 与本地 preview 已关闭，4196/4197 无监听，见 `preservation-verification.json`。本节是代码部署后的文档同步；最终提交、远端和 HTTP 复核见同目录 `finalization.json`。
 
 ## 2026-10-05 - 首页核对进度提示（已发布，清理被策略阻止）
