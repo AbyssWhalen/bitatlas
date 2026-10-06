@@ -1,13 +1,15 @@
 # HANDOFF
 
-## 2026-10-05 移除首页核对栏与重试缓存清理（本地验收完成，待发布）
+## 2026-10-05/06 移除首页核对栏与缓存清理（代码已发布，清理完成）
 
 - 用户明确要求正常首页不再展示已完成的核对状态，同时授权重新用更明确的删除命令清理上一轮 4 个生成目录。本轮移除有题包时的整条首页状态栏，来源核对和人工审核记录留在数据管理页；无题包时保留引导进入实验的提示。
 - 范围：`DashboardPage.tsx` 及其测试、首页专用样式、相应文档；题包和模考状态不变。保持数据管理页对核对记录版本/hash 的匹配检查。
 - 清理限定：`apps/web/dist`、`node_modules/.vite-temp`、`apps/web/node_modules/.vite-temp`、`node_modules/.vite`。重新检查绝对路径、Git 追踪/忽略和链接边界后，字面绝对路径的单目录 `Remove-Item` 仍被策略拒绝；未改变权限或策略。随后采用可恢复的 Windows 回收站操作，4 目录均已移走，读取本用户回收站 `$I` 元数据和 `$R` 实体确认 4/4 可恢复；不是磁盘空闲回收。见 `cleanup-before-build-receipt.json`，旧 blocked 回执不覆盖。
 - 首页移除已实现，仅缺失 2009 题包时保留提示；数据管理的 hash/版本不匹配回归保留在 SettingsPage 测试中。Dashboard/Settings/MockExam/ContentReview 共 4 files / 27 tests、lint、全 workspace typecheck、构建通过（87 PWA entries / 2804.90 KiB，Vite 6.67s）。真实 Chrome 1440/390 首页无状态栏/无横向溢出，继续学习打开 Q1，数据管理仍保留两种审核进度，console 0 errors / 0 warnings；两张截图已目检。
-- 本地验收见 `local-verification.json`，构建入口 `index-yi8k89J3.js`。完整 204 项和固定 8 workers 压力检查未重跑，既有结果不变。接下来沿用授权提交/推送、线上复核，随后停止 `dashboardclean` 浏览器与 4196 预览并将新生成目录移入回收站。
-- 证据目录：`output/playwright/dashboard-cleanup-2026-10-05/`。下一会话继续本节的小改动、相关验证、既有 main 发布流程及最终清理核验。
+- 本地验收见 `local-verification.json`，构建入口 `index-yi8k89J3.js`。代码提交 `55295a82057e1f6035e295bd6e623e4f3bff6bb0` 已推送 main，远端读回一致，[Pages run 37299799639](https://github.com/AbyssWhalen/bitatlas/actions/runs/37299799639) 成功。线上 1440×900、390×844 首页均无核对栏、无横向溢出，入口与本地构建一致，console 0 errors / 0 warnings；两张截图已目检，见 `production-verification.json`。完整 204 项和固定 8 workers 压力检查未重跑，既有结果不变。
+- 最终清理：本轮验证重新生成的同 4 个目录已移入回收站，共 730 文件 / 89764515 bytes（85.61 MiB），原路径均不存在，新增 4/4 回收站记录可恢复；见 `cleanup-final-receipt.json`。旧件与新件不累计为净释放量，回收站未清空，不宣称释放磁盘空间。14 份保护文件哈希不变，`dashboardclean` 浏览器和预览已关闭，4196/4197 无监听，见 `preservation-verification.json`。
+- 证据目录：`output/playwright/dashboard-cleanup-2026-10-05/`。本节为代码发布后的收尾文档，后续文档提交不改变运行代码基线；最终提交与轻量 HTTP 复核记录保存为该目录的 `finalization.json`。
+- 下一会话开场 prompt：首页核对栏已移除并上线，记录在数据管理页；4 个生成目录已移入回收站，无需重做清理或题包核对。先读本节与 RELEASE，保留 `.workbuddy/`、学习数据和验收证据；仍见旧页面时，保存操作、关闭全部 BitAtlas 标签页再打开网站，不清空学习数据。
 
 ## 2026-10-05 首页核对进度提示（已发布，清理被策略阻止）
 

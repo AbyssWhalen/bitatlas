@@ -11,9 +11,13 @@
 
 2026-09-02 的仓库替换、CI、推送和公开部署已获用户授权并完成。后续新的仓库破坏性操作、权限调整或部署目标变更仍需单独授权。
 
-## 2026-10-05 发布与验证结果
+## 2026-10-05/06 发布与验证结果
 
-首页状态补充修复：提交 `868f8da` 已部署，[Pages run 37297384316](https://github.com/AbyssWhalen/bitatlas/actions/runs/37297384316) 成功。与 2009 draft.3 核对版本及 hash 匹配时显示“AI 核对 47/47，可开始练习”，数据管理分别呈现 AI 核对和人工批准；正式审核状态及模考门禁不变。相关回归 28/28、lint、全 workspace typecheck、构建通过，线上 1440/390、新提示、详情跳转及模考门禁检查通过；[验收记录](../output/playwright/source-audit-banner-2026-10-05/verification.json)。本次未重复下表的完整 E2E 或固定 8 workers 压力检查。新的 85.61 MiB 构建/缓存清理被自动审批阻止，仍保留在本地；历史清理结果不受影响。
+最终首页行为（2026-10-06 记录）：提交 `55295a8` 已移除有题包时的整条首页核对栏，来源核对和人工审核进度留在数据管理页；缺包时仍显示进入实验的引导。[Pages run 37299799639](https://github.com/AbyssWhalen/bitatlas/actions/runs/37299799639) 成功。27 项相关回归、lint、全 workspace typecheck 和生产构建通过；线上 1440×900、390×844 均无状态栏、无横向溢出或控制台错误，入口 `index-yi8k89J3.js` 与本地一致，两张截图已目检。[本轮验收](../output/playwright/dashboard-cleanup-2026-10-05/production-verification.json) 不替代下表的历史完整 E2E 与固定 8 workers 压力检查。
+
+本轮清理完成：`apps/web/dist`、根及 Web 的 `node_modules/.vite-temp`、根 `node_modules/.vite` 已从项目移入 Windows 回收站，最终一轮共 730 文件 / 85.61 MiB，4/4 记录可恢复，原路径均不存在；[清理回执](../output/playwright/dashboard-cleanup-2026-10-05/cleanup-final-receipt.json)。14 份保护文件哈希不变，浏览器与预览已关闭。本轮重试的永久删除命令被自动审批拒绝；回收站未清空，不能将移入回收站记为磁盘空间释放，构建前后两轮也不累计为净释放量。2026-10-06 收尾文档的最终同步记录见 [finalization.json](../output/playwright/dashboard-cleanup-2026-10-05/finalization.json)。
+
+前一轮首页提示（已被上述改动替代）：提交 `868f8da` 已部署，[Pages run 37297384316](https://github.com/AbyssWhalen/bitatlas/actions/runs/37297384316) 成功。当时与 2009 draft.3 核对版本及 hash 匹配时显示“AI 核对 47/47，可开始练习”，数据管理分别呈现 AI 核对和人工批准；正式审核状态及模考门禁不变。相关回归 28/28、lint、全 workspace typecheck、构建通过，线上 1440/390、新提示、详情跳转及模考门禁检查通过；[验收记录](../output/playwright/source-audit-banner-2026-10-05/verification.json)。该轮未重复下表的完整 E2E 或固定 8 workers 压力检查，当时新的 85.61 MiB 构建/缓存清理被自动审批阻止；后续处理见上方回收站清理记录。
 
 R1–R5、扩展题包下载修复及 2009 draft.3 校订已按用户授权提交并推送至 origin/main，代码提交为 `0c5a03c831cd7efeb9dc76c16397166ac5406367`。[Pages 构建与部署](https://github.com/AbyssWhalen/bitatlas/actions/runs/37261850931) 成功，随后线上桌面、手机和离线功能复验通过。固定 8 并发仍未验证为通过，详见下表；默认验收不是已解决压力问题的性能结论。
 
