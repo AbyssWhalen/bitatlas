@@ -1,0 +1,81 @@
+题目ID	年份	题号	题包当前答案	关联的叶概念ID	对应概念名称	已有短讲解	记忆卡总数
+cn408-2024-q01	2024	1	D	ds.foundations.list	链表与指针操作	否	1
+cn408-2024-q02	2024	2	A	ds.foundations.stack	栈与表达式	是	1
+cn408-2024-q03	2024	3	A	ds.trees.traversal	树的遍历与重建	否	1
+cn408-2024-q04	2024	4	B	ds.graphs.graph-model	图的存储、度与连通性	是	3
+cn408-2024-q05	2024	5	D	ds.trees.search	顺序、折半与分块查找	否	1
+cn408-2024-q06	2024	6	A	ds.foundations.string	字符串与 KMP 匹配	否	1
+cn408-2024-q07	2024	7	D	ds.trees.bst	二叉搜索树	否	2
+cn408-2024-q08	2024	8	A	ds.sorting.quick	快速排序与划分	否	3
+cn408-2024-q09	2024	9	B	ds.sorting.heap	堆的构建与调整	否	1
+cn408-2024-q10	2024	10	C	ds.sorting.merge	归并排序与有序合并	否	2
+cn408-2024-q11	2024	11	D	ds.sorting.external	外部排序与多路归并	否	2
+cn408-2024-q12	2024	12	B	co.representation.integer	整数编码、扩展与溢出	是	2
+cn408-2024-q13	2024	13	B	co.processor.isa	指令格式与寻址	是	2
+cn408-2024-q14	2024	14	C	co.representation.integer,co.representation.float	整数编码、扩展与溢出,浮点表示与运算	是	4
+cn408-2024-q15	2024	15	D	co.representation.arithmetic	ALU 与加减乘除	否	3
+cn408-2024-q16	2024	16	D	co.memory.virtual	虚拟地址、页表与 TLB	否	1
+cn408-2024-q17	2024	17	C	co.memory.virtual	虚拟地址、页表与 TLB	否	1
+cn408-2024-q18	2024	18	B	co.memory.virtual	虚拟地址、页表与 TLB	否	1
+cn408-2024-q19	2024	19	C	co.processor.pipeline	流水线与相关冲突	否	2
+cn408-2024-q20	2024	20	B	co.io.bus	总线时序与带宽	是	1
+cn408-2024-q21	2024	21	A	co.io.interrupt	异常、中断与优先级	是	1
+cn408-2024-q22	2024	22	C	co.io.dma	DMA 与设备传送	否	1
+cn408-2024-q23	2024	23	A	os.io.interrupt	中断、异常与保护	否	3
+cn408-2024-q24	2024	24	A	os.process.state	进程状态与切换	否	1
+cn408-2024-q25	2024	25	D	os.process.state,os.memory.paging	进程状态与切换,分页、分段与地址转换	是	3
+cn408-2024-q26	2024	26	A	os.files.free-space	空闲空间与位示图	否	2
+cn408-2024-q27	2024	27	A	os.memory.allocation	连续分配与地址保护	否	1
+cn408-2024-q28	2024	28	B	os.process.thread	线程模型与共享资源	否	1
+cn408-2024-q29	2024	29	A	os.files.file-open	文件打开、读写与权限	否	1
+cn408-2024-q30	2024	30	C	os.process.scheduling	处理机调度与周转时间	是	1
+cn408-2024-q31	2024	31	C	os.io.interrupt	中断、异常与保护	否	3
+cn408-2024-q32	2024	32	C	os.files.disk	磁盘调度与访问时间	否	1
+cn408-2024-q33	2024	33	B	cn.foundations.delay	时延、吞吐与交换方式	否	1
+cn408-2024-q34	2024	34	C	cn.foundations.channel	信道容量、编码与调制	是	1
+cn408-2024-q35	2024	35	D	cn.link.switch,cn.network.arp	交换机、网桥与 VLAN,ARP 与地址解析	否	2
+cn408-2024-q36	2024	36	B	cn.link.wifi	无线局域网与 CSMA/CA	否	1
+cn408-2024-q37	2024	37	D	cn.link.arq	可靠传输与滑动窗口	是	2
+cn408-2024-q38	2024	38	D	cn.transport.tcp-sequence	TCP 序号、确认与重传	否	1
+cn408-2024-q39	2024	39	C	cn.transport.udp	UDP 与端口复用	否	2
+cn408-2024-q40	2024	40	D	cn.application.http	HTTP 与 Web 连接	否	3
+cn408-2025-q01	2025	1	B	ds.foundations.complexity	时间与空间复杂度	否	1
+cn408-2025-q02	2025	2	D	ds.foundations.stack	栈与表达式	是	1
+cn408-2025-q03	2025	3	D	ds.trees.tree-shape	树的结构与计数	否	1
+cn408-2025-q04	2025	4	B	ds.trees.forest	树、森林与二叉树转换	否	1
+cn408-2025-q05	2025	5	D	ds.trees.huffman	哈夫曼编码与最优合并	是	1
+cn408-2025-q06	2025	6	C	ds.graphs.graph-model	图的存储、度与连通性	是	3
+cn408-2025-q07	2025	7	C	ds.trees.search	顺序、折半与分块查找	否	1
+cn408-2025-q08	2025	8	C	ds.trees.btree	B 树与 B+ 树	是	1
+cn408-2025-q09	2025	9	A	ds.trees.hash	散列冲突与查找长度	否	1
+cn408-2025-q10	2025	10	D	ds.sorting.sort-properties	内部排序性质与稳定性	是	1
+cn408-2025-q11	2025	11	A	ds.sorting.sort-properties	内部排序性质与稳定性	是	1
+cn408-2025-q12	2025	12	D	co.representation.integer	整数编码、扩展与溢出	是	2
+cn408-2025-q13	2025	13	D	co.representation.float	浮点表示与运算	否	2
+cn408-2025-q14	2025	14	D	co.representation.arithmetic	ALU 与加减乘除	否	3
+cn408-2025-q15	2025	15	C	co.representation.endian	字节序与数据对齐	否	1
+cn408-2025-q16	2025	16	B	co.processor.isa	指令格式与寻址	是	2
+cn408-2025-q17	2025	17	C	co.processor.risc	RISC 与 CISC	否	2
+cn408-2025-q18	2025	18	B	co.processor.performance	CPU 性能与加速比	否	1
+cn408-2025-q19	2025	19	A	co.processor.datapath,co.processor.control	数据通路与微操作,控制器与微程序	否	4
+cn408-2025-q20	2025	20	A	co.io.bus	总线时序与带宽	是	1
+cn408-2025-q21	2025	21	B	co.io.dma	DMA 与设备传送	否	1
+cn408-2025-q22	2025	22	A	co.io.interrupt	异常、中断与优先级	是	1
+cn408-2025-q23	2025	23	D	os.process.state,os.memory.paging	进程状态与切换,分页、分段与地址转换	是	3
+cn408-2025-q24	2025	24	C	os.io.boot	系统引导与虚拟机	否	2
+cn408-2025-q25	2025	25	C	os.process.scheduling	处理机调度与周转时间	是	1
+cn408-2025-q26	2025	26	B	os.memory.replacement	缺页、页面置换与工作集	是	2
+cn408-2025-q27	2025	27	D	os.memory.allocation-page	页面分配与局部性	否	2
+cn408-2025-q28	2025	28	C	os.files.file-open	文件打开、读写与权限	否	1
+cn408-2025-q29	2025	29	C	os.files.directory	目录、链接与文件控制块	否	1
+cn408-2025-q30	2025	30	A	os.memory.paging	分页、分段与地址转换	是	2
+cn408-2025-q31	2025	31	C	os.files.free-space	空闲空间与位示图	否	2
+cn408-2025-q32	2025	32	B	os.files.file-open	文件打开、读写与权限	否	1
+cn408-2025-q33	2025	33	B	cn.foundations.delay	时延、吞吐与交换方式	否	1
+cn408-2025-q34	2025	34	C	cn.link.framing	成帧、差错检测与 CRC	否	1
+cn408-2025-q35	2025	35	C	cn.link.ethernet	以太网与 CSMA/CD	是	1
+cn408-2025-q36	2025	36	C	cn.application.dhcp	DHCP 动态地址配置	否	1
+cn408-2025-q37	2025	37	B	cn.network.nat	NAT 与私有地址	否	2
+cn408-2025-q38	2025	38	A	cn.transport.tcp-flow,cn.transport.congestion,cn.transport.tcp-sequence	TCP 流量控制与接收窗口,TCP 拥塞控制,TCP 序号、确认与重传	否	3
+cn408-2025-q39	2025	39	B	cn.transport.udp	UDP 与端口复用	否	2
+cn408-2025-q40	2025	40	A	cn.application.ftp-mail	FTP 与电子邮件	否	3
