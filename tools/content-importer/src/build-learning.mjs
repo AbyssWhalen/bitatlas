@@ -29,20 +29,30 @@ const mappings = questions.map((question) => {
   };
 });
 const cards = cardRows.map((row) => {
-  const [id, conceptId, front, back] = row.split('\t');
+  const [id, conceptId, front, back, version, sourceQuestionIds] = row.split('\t');
   if (!id || !front?.trim() || !back?.trim()) throw new Error(`Incomplete card: ${id}`);
   const concept = concepts.find((item) => item.id === conceptId);
   if (!concept) throw new Error(`Unknown card concept: ${conceptId}`);
   const related = mappings.filter((mapping) => mapping.conceptIds.includes(conceptId));
   const byYear = [...new Map(related.map((mapping) => [mapping.questionId.slice(6, 10), mapping])).values()];
+  const legacy = /^card-(ds|co|os|cn)-(0[1-9]|1\d|20)$/.test(id);
+  if (!legacy && (!version || !sourceQuestionIds)) throw new Error(`New card needs explicit version and sources: ${id}`);
+  const sourceIds = sourceQuestionIds?.split(',');
+  if (sourceIds && new Set(sourceIds).size !== sourceIds.length) throw new Error(`Duplicate card source: ${id}`);
+  const sources = sourceIds ? sourceIds.map((questionId) => {
+    const mapping = related.find((entry) => entry.questionId === questionId);
+    if (!mapping) throw new Error(`Card source does not map to its concept: ${id} / ${questionId}`);
+    return mapping.source;
+  }) : byYear.slice(0, 4).map((mapping) => mapping.source);
   return {
-    id, version: '2026.11.20.1', subject: concept.subject, conceptIds: [conceptId],
+    id, version: version ?? '2026.11.20.1', subject: concept.subject, conceptIds: [conceptId],
     front: [{ type: 'text', text: front }], back: [{ type: 'text', text: back }],
-    sources: byYear.slice(0, 4).map((mapping) => mapping.source), reviewStatus: 'needs-review',
+    sources, reviewStatus: 'needs-review',
   };
 });
-for (const [subject, prefix] of Object.entries(prefixes)) {
-  if (cards.filter((card) => card.subject === subject).length !== 20) throw new Error(`Expected 20 ${prefix} cards`);
+const cardQuotas = { 'data-structures': 39, 'computer-organization': 39, 'operating-systems': 36, 'computer-networks': 42 };
+for (const [subject, count] of Object.entries(cardQuotas)) {
+  if (cards.filter((card) => card.subject === subject).length !== count) throw new Error(`Expected ${count} ${subject} cards`);
 }
 if (Object.keys(assignments).length !== 799 || mappings.length !== 799) throw new Error('Expected exactly 799 mappings');
 const selectedConceptIds = Object.keys(prefixes).flatMap((subject) => concepts.filter((concept) => concept.level === 'concept' && concept.subject === subject)
@@ -56,7 +66,7 @@ const articles = [...articleDrafts].sort((a, b) => a.conceptId.localeCompare(b.c
   const concept = concepts.find((entry) => entry.id === draft.conceptId);
   const related = mappings.filter((mapping) => mapping.conceptIds.includes(draft.conceptId));
   return {
-    id: `article:${draft.conceptId}`, version: '2026.11.20.1', conceptId: draft.conceptId, subject: concept.subject,
+    id: `article:${draft.conceptId}`, version: draft.version ?? '2026.11.20.1', conceptId: draft.conceptId, subject: concept.subject,
     explanation: [{ type: 'text', text: draft.explanation }],
     workedExample: [{ type: 'text', text: draft.workedExample }],
     commonMistake: [{ type: 'text', text: draft.commonMistake }],
@@ -67,8 +77,8 @@ const articles = [...articleDrafts].sort((a, b) => a.conceptId.localeCompare(b.c
   };
 });
 const pack = {
-  id: 'bitatlas-learning', schemaVersion: 1, version: '2026.11.20.2',
-  createdAt: '2026-11-20T00:00:00.000Z', sha256: '0'.repeat(64), concepts, mappings, cards, articles,
+  id: 'bitatlas-learning', schemaVersion: 1, version: '2026.11.25.1',
+  createdAt: '2026-11-25T00:00:00.000Z', sha256: '0'.repeat(64), concepts, mappings, cards, articles,
 };
 pack.sha256 = computeLearningPackHash(pack);
 parseLearningPack(pack);

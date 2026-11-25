@@ -1,8 +1,8 @@
 {
-  "version": "2026.11.20.2",
-  "sha256": "f326d8c217dc1a3f14835d69c2251cee7e2e4f7e7a95ad89b2ad030eaa98cdf6",
+  "version": "2026.11.25.1",
+  "sha256": "b66bab4555401943df6e595a39ba3bdf0999e3806f7c12143aaae4d76eb1075f",
   "questionCount": 799,
-  "cardCount": 80,
+  "cardCount": 156,
   "articleCount": 20,
   "articleConceptIds": [
     "cn.foundations.channel",
@@ -75,7 +75,11 @@
         "cn408-2023-q01",
         "cn408-2025-q41"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-21",
+        "card-ds-22",
+        "card-ds-23"
+      ]
     },
     {
       "id": "ds.foundations.list",
@@ -252,7 +256,10 @@
         "cn408-2013-q05",
         "cn408-2014-q04"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-24",
+        "card-ds-25"
+      ]
     },
     {
       "id": "ds.trees.bst",
@@ -268,7 +275,10 @@
         "cn408-2022-q41",
         "cn408-2024-q07"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-26",
+        "card-ds-27"
+      ]
     },
     {
       "id": "ds.trees.avl",
@@ -400,7 +410,11 @@
         "cn408-2024-q04",
         "cn408-2025-q06"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-28",
+        "card-ds-29",
+        "card-ds-30"
+      ]
     },
     {
       "id": "ds.graphs.graph-traversal",
@@ -449,7 +463,10 @@
         "cn408-2018-q42",
         "cn408-2020-q07"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-31",
+        "card-ds-32"
+      ]
     },
     {
       "id": "ds.graphs.topological",
@@ -556,7 +573,11 @@
         "cn408-2023-q11",
         "cn408-2024-q08"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-33",
+        "card-ds-34",
+        "card-ds-35"
+      ]
     },
     {
       "id": "ds.sorting.merge",
@@ -570,7 +591,10 @@
         "cn408-2022-q10",
         "cn408-2024-q10"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-36",
+        "card-ds-37"
+      ]
     },
     {
       "id": "ds.sorting.external",
@@ -584,7 +608,10 @@
         "cn408-2023-q42",
         "cn408-2024-q11"
       ],
-      "cards": []
+      "cards": [
+        "card-ds-38",
+        "card-ds-39"
+      ]
     },
     {
       "id": "co.representation.integer",
@@ -664,7 +691,11 @@
         "cn408-2025-q14",
         "cn408-2025-q44"
       ],
-      "cards": []
+      "cards": [
+        "card-co-21",
+        "card-co-22",
+        "card-co-23"
+      ]
     },
     {
       "id": "co.representation.endian",
@@ -694,7 +725,10 @@
       "questions": [
         "cn408-2013-q15"
       ],
-      "cards": []
+      "cards": [
+        "card-co-24",
+        "card-co-25"
+      ]
     },
     {
       "id": "co.memory.ram",
@@ -797,7 +831,10 @@
         "cn408-2019-q20",
         "cn408-2022-q44"
       ],
-      "cards": []
+      "cards": [
+        "card-co-26",
+        "card-co-27"
+      ]
     },
     {
       "id": "co.memory.locality",
@@ -879,7 +916,11 @@
         "cn408-2024-q44",
         "cn408-2025-q19"
       ],
-      "cards": []
+      "cards": [
+        "card-co-28",
+        "card-co-29",
+        "card-co-30"
+      ]
     },
     {
       "id": "co.processor.control",
@@ -963,7 +1004,10 @@
         "cn408-2009-q17",
         "cn408-2025-q17"
       ],
-      "cards": []
+      "cards": [
+        "card-co-31",
+        "card-co-32"
+      ]
     },
     {
       "id": "co.processor.parallel",
@@ -974,7 +1018,10 @@
       "questions": [
         "cn408-2022-q22"
       ],
-      "cards": []
+      "cards": [
+        "card-co-33",
+        "card-co-34"
+      ]
     },
     {
       "id": "co.processor.architecture",
@@ -989,7 +1036,10 @@
         "cn408-2019-q12",
         "cn408-2022-q20"
       ],
-      "cards": []
+      "cards": [
+        "card-co-35",
+        "card-co-36"
+      ]
     },
     {
       "id": "co.io.bus",
@@ -1095,7 +1145,11 @@
         "cn408-2021-q20",
         "cn408-2023-q22"
       ],
-      "cards": []
+      "cards": [
+        "card-co-37",
+        "card-co-38",
+        "card-co-39"
+      ]
     },
     {
       "id": "os.process.kernel",
@@ -1286,7 +1340,10 @@
       "questions": [
         "cn408-2014-q31"
       ],
-      "cards": []
+      "cards": [
+        "card-os-21",
+        "card-os-22"
+      ]
     },
     {
       "id": "os.process.monitor",
@@ -1298,7 +1355,10 @@
         "cn408-2016-q32",
         "cn408-2018-q28"
       ],
-      "cards": []
+      "cards": [
+        "card-os-23",
+        "card-os-24"
+      ]
     },
     {
       "id": "os.memory.allocation",
@@ -1395,7 +1455,10 @@
         "cn408-2015-q30",
         "cn408-2025-q27"
       ],
-      "cards": []
+      "cards": [
+        "card-os-25",
+        "card-os-26"
+      ]
     },
     {
       "id": "os.files.file-layout",
@@ -1485,7 +1548,10 @@
         "cn408-2024-q26",
         "cn408-2025-q31"
       ],
-      "cards": []
+      "cards": [
+        "card-os-27",
+        "card-os-28"
+      ]
     },
     {
       "id": "os.files.disk",
@@ -1524,7 +1590,11 @@
         "cn408-2023-q32",
         "cn408-2023-q46"
       ],
-      "cards": []
+      "cards": [
+        "card-os-29",
+        "card-os-30",
+        "card-os-31"
+      ]
     },
     {
       "id": "os.io.buffer",
@@ -1560,7 +1630,11 @@
         "cn408-2024-q23",
         "cn408-2024-q31"
       ],
-      "cards": []
+      "cards": [
+        "card-os-32",
+        "card-os-33",
+        "card-os-34"
+      ]
     },
     {
       "id": "os.io.boot",
@@ -1575,7 +1649,10 @@
         "cn408-2022-q24",
         "cn408-2025-q24"
       ],
-      "cards": []
+      "cards": [
+        "card-os-35",
+        "card-os-36"
+      ]
     },
     {
       "id": "cn.foundations.layers",
@@ -1651,7 +1728,10 @@
       "questions": [
         "cn408-2014-q37"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-21",
+        "card-cn-22"
+      ]
     },
     {
       "id": "cn.foundations.interface",
@@ -1663,7 +1743,10 @@
         "cn408-2012-q34",
         "cn408-2018-q34"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-23",
+        "card-cn-24"
+      ]
     },
     {
       "id": "cn.link.framing",
@@ -1880,7 +1963,10 @@
         "cn408-2012-q33",
         "cn408-2024-q47"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-27",
+        "card-cn-28"
+      ]
     },
     {
       "id": "cn.network.nat",
@@ -1895,7 +1981,10 @@
         "cn408-2025-q37",
         "cn408-2025-q47"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-29",
+        "card-cn-30"
+      ]
     },
     {
       "id": "cn.network.ipv6",
@@ -1906,7 +1995,10 @@
       "questions": [
         "cn408-2023-q40"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-31",
+        "card-cn-32"
+      ]
     },
     {
       "id": "cn.network.sdn",
@@ -1917,7 +2009,10 @@
       "questions": [
         "cn408-2022-q37"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-33",
+        "card-cn-34"
+      ]
     },
     {
       "id": "cn.transport.tcp-sequence",
@@ -2010,7 +2105,10 @@
         "cn408-2024-q39",
         "cn408-2025-q39"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-35",
+        "card-cn-36"
+      ]
     },
     {
       "id": "cn.application.dns",
@@ -2042,7 +2140,11 @@
         "cn408-2022-q40",
         "cn408-2024-q40"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-37",
+        "card-cn-38",
+        "card-cn-39"
+      ]
     },
     {
       "id": "cn.application.ftp-mail",
@@ -2060,7 +2162,11 @@
         "cn408-2023-q47",
         "cn408-2025-q40"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-40",
+        "card-cn-41",
+        "card-cn-42"
+      ]
     },
     {
       "id": "cn.application.dhcp",
@@ -2097,7 +2203,10 @@
       "questions": [
         "cn408-2019-q40"
       ],
-      "cards": []
+      "cards": [
+        "card-cn-45",
+        "card-cn-46"
+      ]
     }
   ]
 }

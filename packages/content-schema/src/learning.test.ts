@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { ContentPack, LearningPack } from '@408os/domain';
+import { canonicalSerialize, sha256 } from './hash';
 import { computeLearningPackHash, parseLearningPack } from './learning';
 
 const pack = JSON.parse(readFileSync(path.resolve('apps/web/public/content/learning.json'), 'utf8')) as LearningPack;
@@ -29,10 +30,22 @@ describe('independent cross-year learning content', () => {
     expect(card.reviewStatus).toBe('needs-review');
     expect(card.sources.every((source) => questions.some((question) => question.id === source.questionId && question.contentVersion === source.questionContentVersion))).toBe(true);
   });
-  it('contains exactly 20 authored cards per subject', () => {
-    expect(pack.cards).toHaveLength(80);
-    for (const subject of new Set(questions.map((question) => question.subject))) {
-      expect(pack.cards.filter((card) => card.subject === subject)).toHaveLength(20);
+  it('contains the approved card quota per subject', () => {
+    expect(pack.cards).toHaveLength(156);
+    for (const [subject, count] of Object.entries({ 'data-structures': 39, 'computer-organization': 39, 'operating-systems': 36, 'computer-networks': 42 })) {
+      expect(pack.cards.filter((card) => card.subject === subject)).toHaveLength(count);
+    }
+  });
+  it('preserves the original 80 card objects and the explicit draft sources', () => {
+    const legacy = pack.cards.filter((card) => /^card-(ds|co|os|cn)-(0[1-9]|1\d|20)$/.test(card.id));
+    expect(legacy).toHaveLength(80);
+    expect(sha256(canonicalSerialize(legacy))).toBe('8ae3ebad82e7e0c5588a8990535abd7b5178971be395c76b855c096d7b2f554f');
+    const drafts = readFileSync(path.resolve('content/learning/drafts/cards-draft-2026-11-25.tsv'), 'utf8').trim().split(/\r?\n/).slice(1).map((row) => row.split('\t'));
+    for (const [id, , , back, sources] of drafts) {
+      const card = pack.cards.find((entry) => entry.id === id);
+      if (!back?.trim() || !sources?.trim()) { expect(card).toBeUndefined(); continue; }
+      expect(card?.version).toBe('2026.11.25.1');
+      expect(card?.sources.map((source) => source.questionId)).toEqual(sources.split(','));
     }
   });
   it('contains five complete articles per subject with exact source and card links', () => {

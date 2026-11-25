@@ -11,14 +11,15 @@ import { seedServer, TEST_PASSWORD } from './server-fixture.ts';
 
 const root = process.cwd();
 const phase = path.resolve(root, 'output/request-sync-2026-11-22');
-const build = path.join(phase, 'dist-server');
+const build = path.join(root, 'apps', 'web', 'dist-server');
 const output = path.resolve(root, process.argv[2] ?? `output/playwright/request-sync-2026-11-22/${Date.now()}`);
 assert(output.startsWith(path.join(root, 'output') + path.sep), 'Evidence must stay inside project output');
 await mkdir(output, { recursive: true });
 const serving = process.argv.includes('--serve');
 const port = serving ? 4323 : 4337;
 const origin = `http://127.0.0.1:${port}`;
-const fixture = path.join(phase, 'browser-fixture');
+const learning = JSON.parse(await readFile(path.join(root, 'apps', 'web', 'public', 'content', 'learning.json'), 'utf8'));
+const fixture = path.join(phase, 'browser-fixture', learning.sha256);
 const baseline = path.join(fixture, 'baseline.sqlite');
 try { await access(baseline); }
 catch {
@@ -56,9 +57,11 @@ async function ready(page) {
   await expect(page.getByRole('heading', { name: '今日学习', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: /开始剩余 [1-9]/ })).toBeEnabled({ timeout: 30_000 });
 }
-async function navigate(page, href, width) {
-  if (width === 390 && ['/settings', '/documents'].includes(href)) {
-    await page.locator('a[href="/more"]:visible').first().click();
+async function navigate(page, href) {
+  if (!await page.locator(`a[href="${href}"]:visible`).first().isVisible()) {
+    const menu = page.getByRole('button', { name: '更多', exact: true });
+    if (await menu.isVisible()) await menu.click();
+    else await page.locator('a[href="/more"]:visible').first().click();
   }
   await page.locator(`a[href="${href}"]:visible`).first().click();
   await expect(page).toHaveURL(new RegExp(`${href === '/' ? '/$' : `${href}$`}`));
@@ -108,8 +111,9 @@ async function verify() {
         assert.equal(plan.length, 1);
         assert.equal(requests.filter((url) => url === '/api/v1/content/bitatlas-learning').length, 1);
         assert.equal((await rows(page, `408-content:${id}`, 'questions')).length, 799);
-        assert.equal((await rows(page, `408-content:${id}`, 'learningPacks'))[0].cards.length, 80);
-        await record('cold-login-and-content', width, { questions: 799, cards: 80, learningBodyRequests: 1 });
+        const cardCount = (await rows(page, `408-content:${id}`, 'learningPacks'))[0].cards.length;
+        assert.equal(cardCount, 156);
+        await record('cold-login-and-content', width, { questions: 799, cards: cardCount, learningBodyRequests: 1 });
 
         requests.length = 0;
         await page.reload();
