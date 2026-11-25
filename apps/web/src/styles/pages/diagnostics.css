@@ -1,0 +1,96 @@
+/* Read-only diagnosis controls and excerpts; shared day/night semantic tokens. */
+.diagnostic-filters {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.diagnostic-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.diagnostic-filter-label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-right: 4px;
+}
+.diagnostic-filter-group button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.diagnostic-filter-group button[aria-pressed="true"] {
+  background: var(--lit);
+  color: var(--lit-ink);
+  border-color: var(--ink);
+  font-weight: 700;
+}
+.diagnostic-filter-group button:focus-visible,
+.diagnostic-note summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.diagnostic-reason {
+  color: var(--ink);
+  background: var(--paper-2);
+  border-radius: var(--radius-sm);
+  padding: 3px 7px;
+  font-size: 12px;
+}
+.diagnostic-note {
+  min-width: 0;
+  margin-top: 8px;
+  padding: 0 10px;
+  background: var(--paper-2);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+.diagnostic-note summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  cursor: pointer;
+}
+.diagnostic-note summary > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+.diagnostic-note-toggle {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.diagnostic-note p {
+  margin: 0;
+  padding: 4px 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.diagnostic-concept-state {
+  display: grid;
+  gap: 4px;
+  color: var(--ink);
+  font-size: 13px;
+}
+.diagnostic-concept-state strong {
+  border-left: 3px solid var(--signal-text);
+  padding-left: 8px;
+}
+.diagnostic-concept-state span {
+  color: var(--muted);
+}

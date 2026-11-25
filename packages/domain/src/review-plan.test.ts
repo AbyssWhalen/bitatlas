@@ -162,8 +162,8 @@ describe('review plan', () => {
       attempt('q1-today', questions[0]!, '2026-08-07T05:00:00.000Z', true),
     ], questions, options);
 
-    expect(before.items.map((item) => item.questionId)).toEqual(['q1', 'q2', 'q3']);
-    expect(after.items.map((item) => item.questionId)).toEqual(['q1', 'q2', 'q3']);
+    expect(before.items.map((item) => item.questionId)).toEqual(['q1', 'q3', 'q2']);
+    expect(after.items.map((item) => item.questionId)).toEqual(['q1', 'q3', 'q2']);
     expect(before.completedCount).toBe(0);
     expect(after.completedCount).toBe(1);
     expect(after.items[0]).toMatchObject({ reason: 'overdue', completedToday: true });
@@ -194,5 +194,51 @@ describe('review plan', () => {
     expect(() => buildDailyReviewPlan([], [q, q], {
       today: new Date(), timeZone: 'Asia/Shanghai', dailyLimit: 1,
     })).toThrow(/Duplicate question id/u);
+  });
+
+  const options = { today: new Date('2026-11-25T04:00:00Z'), timeZone: 'Asia/Shanghai', dailyLimit: 8 };
+  const subjects = ['data-structures', 'computer-organization', 'operating-systems', 'computer-networks'] as const;
+  const balanced = subjects.flatMap((subject, index) => [
+    { ...question(`${subject}-1`, index * 10 + 1), subject },
+    { ...question(`${subject}-2`, index * 10 + 2), subject },
+    { ...question(`${subject}-3`, index * 10 + 1), subject, year: 2010 },
+  ]);
+
+  it('rotates four subjects, sorts each queue by year/number/id, and is independent of input order', () => {
+    const plan = buildDailyReviewPlan([], balanced, options);
+    expect(plan.items.map((item) => item.questionId)).toEqual([
+      ...subjects.map((subject) => `${subject}-1`), ...subjects.map((subject) => `${subject}-2`),
+    ]);
+    expect(buildDailyReviewPlan([], [...balanced].reverse(), options)).toEqual(plan);
+    const tied = [
+      { ...balanced[0]!, id: 'b' }, { ...balanced[0]!, id: 'a' },
+    ];
+    expect(buildDailyReviewPlan([], tied, options).items.map((item) => item.questionId)).toEqual(['a', 'b']);
+  });
+
+  it('continues each subject into its next year and skips exhausted queues without losing quota', () => {
+    const questions = balanced.filter((q) => q.subject === 'data-structures' || q.id.endsWith('-1'));
+    const plan = buildDailyReviewPlan([], questions, options);
+    expect(plan.items.map((item) => item.questionId)).toEqual([
+      ...subjects.map((subject) => `${subject}-1`), 'data-structures-2', 'data-structures-3',
+    ]);
+    expect(plan.unseenCount).toBe(6);
+    const nextYear = balanced.filter((q) => q.subject !== 'computer-networks' || q.year === 2010);
+    expect(buildDailyReviewPlan([], nextYear, options).items[3]?.questionId).toBe('computer-networks-3');
+  });
+
+  it('keeps overdue/due questions ahead of rotating new questions and enforces every quota', () => {
+    const history = [
+      attempt('overdue', balanced[11]!, '2026-11-23T02:00:00Z', false),
+      attempt('due', balanced[8]!, '2026-11-24T02:00:00Z', false),
+    ];
+    for (const dailyLimit of [1, 2, 3, 5, 8, 12, 20]) {
+      const plan = buildDailyReviewPlan(history, balanced, { ...options, dailyLimit });
+      expect(plan.items).toHaveLength(Math.min(dailyLimit, balanced.length));
+      expect(plan.items[0]).toMatchObject({ questionId: 'computer-networks-3', reason: 'overdue' });
+      if (dailyLimit > 1) expect(plan.items[1]).toMatchObject({ questionId: 'operating-systems-3', reason: 'due' });
+      if (dailyLimit > 2) expect(plan.items[2]).toMatchObject({ questionId: 'data-structures-1', reason: 'unseen' });
+      expect(new Set(plan.items.map((item) => item.questionId)).size).toBe(plan.items.length);
+    }
   });
 });

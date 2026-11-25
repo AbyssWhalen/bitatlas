@@ -1,6 +1,6 @@
-import type { Attempt, PracticeEvidence, Question, StudySession } from '@408os/domain';
+import type { Attempt, Note, PracticeEvidence, Question, StudySession } from '@408os/domain';
 import '@testing-library/jest-dom/vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,6 +12,7 @@ import { WrongPage } from './WrongPage';
 const studyState = vi.hoisted(() => ({
   questions: [] as Question[],
   attempts: [] as Attempt[],
+  notes: new Map<string, Note>(),
   currentProgress: new Map(),
   stats: {
     attempted: 2,
@@ -49,6 +50,8 @@ const learningState = vi.hoisted(() => ({
   evidence: [] as PracticeEvidence[],
   contexts: [],
   events: [],
+  personal: [],
+  plan: null,
   loading: false,
   error: '',
 }));
@@ -107,6 +110,9 @@ describe('Stage 2b secondary pages contracts', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     studyState.questions = [sampleQuestion];
+    studyState.notes = new Map();
+    learningState.loading = false;
+    learningState.error = '';
     studyState.currentProgress = new Map([
       ['cn408-2009-q01', { lastCorrect: false, wrongCount: 1, mastery: 'learning', attemptCount: 1 }],
     ]);
@@ -207,6 +213,90 @@ describe('Stage 2b secondary pages contracts', () => {
     expect(metrics[0]).toHaveTextContent('有效作答');
     expect(metrics[1]).toHaveTextContent('答对题次');
     expect(container.querySelectorAll('.heatmap span')).toHaveLength(84);
+    const weakness = container.querySelector('.weakness-section')!;
+    expect(weakness).toHaveTextContent('队列');
+    expect(weakness).toHaveTextContent('练习中');
+    expect(weakness).toHaveTextContent('已练 1/1 题');
+    expect(weakness).not.toHaveTextContent('%');
+  });
+
+  it('WrongPage combines subject, reason and year filters and retries only the matching IDs', async () => {
+    const user = userEvent.setup();
+    const network = { ...sampleQuestion, id: 'network', year: 2020, subject: 'computer-networks' as const, stem: [{ type: 'text' as const, text: '子网题' }] };
+    const unmarked = { ...network, id: 'unmarked', year: 2021 };
+    studyState.questions.push(network, unmarked);
+    studyState.currentProgress.set(network.id, { lastCorrect: false, wrongCount: 2, mastery: 'learning' });
+    studyState.currentProgress.set(unmarked.id, { lastCorrect: false, wrongCount: 1, mastery: 'learning' });
+    learningState.evidence[0]!.mistakeReason = 'concept';
+    learningState.evidence.push({ ...learningState.evidence[0]!, id: 'network-proof', questionId: network.id, mistakeReason: 'calculation' });
+    render(<MemoryRouter><WrongPage /></MemoryRouter>);
+    expect(screen.getByRole('button', { name: '开始重练 3 题' })).toBeEnabled();
+    await user.click(within(screen.getByRole('group', { name: '错题科目' })).getByRole('button', { name: '计算机网络' }));
+    expect(screen.getByRole('button', { name: '开始重练 2 题' })).toBeEnabled();
+    await user.click(within(screen.getByRole('group', { name: '错因筛选' })).getByRole('button', { name: '计算' }));
+    expect(screen.getByRole('region', { name: '错题列表' })).toHaveTextContent('错因：计算');
+    await user.selectOptions(screen.getByLabelText('错题年份'), '2021');
+    expect(screen.getByRole('button', { name: '开始重练 0 题' })).toBeDisabled();
+    expect(screen.getByText('没有符合筛选条件的错题')).toBeVisible();
+    await user.selectOptions(screen.getByLabelText('错题年份'), '2020');
+    await user.click(screen.getByRole('button', { name: '开始重练 1 题' }));
+    await waitFor(() => expect(studyState.createSession).toHaveBeenCalledWith(['network'], 'review'));
+  });
+
+  it('WrongPage uses the latest current-version record, preserves cleared tags, and expands both note texts', async () => {
+    const user = userEvent.setup();
+    const proof = learningState.evidence[0]!;
+    proof.mistakeReason = 'method';
+    learningState.evidence.push(
+      { ...proof, id: 'latest', updatedAt: '2026-11-24T03:00:00Z', mistakeReason: 'reading', mistakeNote: '看漏了条件\n第二行完整说明' },
+      { ...proof, id: 'old-version', updatedAt: '2026-11-24T04:00:00Z', questionContentVersion: 'old', mistakeReason: 'calculation', mistakeNote: '旧题面笔记不可显示' },
+    );
+    studyState.notes.set(sampleQuestion.id, { id: 'note', questionId: sampleQuestion.id, body: '个人长笔记\n原文保留', createdAt: proof.updatedAt, updatedAt: proof.updatedAt });
+    const { container, rerender } = render(<MemoryRouter><WrongPage /></MemoryRouter>);
+    expect(screen.getByRole('region', { name: '错题列表' })).toHaveTextContent('错因：审题');
+    expect(screen.queryByText('旧题面笔记不可显示')).not.toBeInTheDocument();
+    const details = container.querySelectorAll('details');
+    expect(details).toHaveLength(2);
+    for (const detail of details) {
+      expect(detail).not.toHaveAttribute('open');
+      await user.click(detail.querySelector('summary')!);
+      expect(detail).toHaveAttribute('open');
+    }
+    expect(details[0]!.querySelector('p')!.textContent).toBe('看漏了条件\n第二行完整说明');
+    expect(details[1]!.querySelector('p')!.textContent).toBe('个人长笔记\n原文保留');
+    const cleared = { ...proof };
+    delete cleared.mistakeReason;
+    learningState.evidence = [...learningState.evidence, { ...cleared, id: 'cleared', updatedAt: '2026-11-24T05:00:00Z' }];
+    rerender(<MemoryRouter><WrongPage /></MemoryRouter>);
+    await user.click(within(screen.getByRole('group', { name: '错因筛选' })).getByRole('button', { name: '未标错因' }));
+    expect(screen.getByRole('button', { name: '开始重练 1 题' })).toBeEnabled();
+    expect(screen.getByRole('region', { name: '错题列表' })).toHaveTextContent('未标错因');
+    await user.click(within(screen.getByRole('group', { name: '错因筛选' })).getByRole('button', { name: '方法' }));
+    expect(screen.getByRole('button', { name: '开始重练 0 题' })).toBeDisabled();
+    await user.click(screen.getByRole('button', { name: '清除筛选' }));
+    expect(screen.getByRole('button', { name: '开始重练 1 题' })).toBeEnabled();
+  });
+
+  it.each(['missing', 'hinted', 'old-version', 'correct'] as const)('StatsPage does not label %s evidence as an objectively weak concept', (scenario) => {
+    if (scenario === 'missing') learningState.evidence = [];
+    if (scenario === 'hinted') learningState.evidence[0]!.hintsUsed = 1;
+    if (scenario === 'old-version') studyState.attempts[0]!.questionContentVersion = 'old';
+    if (scenario === 'correct') studyState.attempts[0]!.correct = true;
+    const { container } = render(<MemoryRouter><StatsPage /></MemoryRouter>);
+    expect(container.querySelector('.weakness-list')).not.toBeInTheDocument();
+    expect(container.querySelector('.weakness-section')).not.toHaveTextContent('%');
+    expect(screen.getByText('当前没有需要复习的客观错答概念；未检测不代表已掌握。')).toBeVisible();
+  });
+
+  it('StatsPage shows loading and failed evidence reads rather than a reassuring empty state', () => {
+    learningState.loading = true;
+    const { rerender } = render(<MemoryRouter><StatsPage /></MemoryRouter>);
+    expect(screen.getByRole('status')).toHaveTextContent('正在读取概念证据');
+    learningState.loading = false;
+    learningState.error = '读取失败';
+    rerender(<MemoryRouter><StatsPage /></MemoryRouter>);
+    expect(screen.getByRole('alert')).toHaveTextContent('读取失败');
+    expect(screen.queryByText('当前没有需要复习的客观错答概念；未检测不代表已掌握。')).not.toBeInTheDocument();
   });
 
   it('MorePage preserves .more-grid and 更多工具 navigation contract', () => {

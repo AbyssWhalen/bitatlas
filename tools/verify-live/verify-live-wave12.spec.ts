@@ -1,6 +1,7 @@
 // 线上验收（国内直连）：启动性能修复 + 内容重建（题干配图/解析恢复/错字）后的真实 Chrome 检查。
 // 运行：node --import tsx tools/verify-live/verify-live-wave12.spec.ts
 import { chromium } from 'playwright';
+import { expect as pollExpect } from '@playwright/test';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -112,7 +113,7 @@ await check('数据页：无假安装问题（Response.clone 回归已修）', a
 
 let warmed2019Asset = false;
 await check('等待 2019 来源页资产进入 Cache Storage（离线前置）', async () => {
-  await page.waitForFunction(async () => {
+  await pollExpect.poll(() => page.evaluate(async () => {
     if (typeof caches === 'undefined') return false;
     const keys = await caches.keys();
     for (const key of keys) {
@@ -120,16 +121,16 @@ await check('等待 2019 来源页资产进入 Cache Storage（离线前置）',
       if (hit) return true;
     }
     return false;
-  }, undefined, { timeout: 180_000, polling: 5_000 });
+  }), { timeout: 180_000, intervals: [5_000] }).toBe(true);
   warmed2019Asset = true;
 });
 
 await check('PWA 离线：断网重载后应用与 2009 题包可用', async () => {
   expect(warmed2019Asset, '前置：2019 资产未预热');
-  await page.waitForFunction(async () => {
+  await pollExpect.poll(() => page.evaluate(async () => {
     const registration = await navigator.serviceWorker?.getRegistration();
     return registration?.active?.state === 'activated';
-  }, undefined, { timeout: 120_000, polling: 2_000 });
+  }), { timeout: 120_000, intervals: [2_000] }).toBe(true);
   await context.setOffline(true);
   await page.reload({ timeout: 60_000 });
   await page.locator('.result-summary strong').getByText('47').waitFor({ timeout: 60_000 });

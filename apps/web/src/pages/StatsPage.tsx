@@ -1,5 +1,4 @@
 import {
-  aggregateKnowledgePerformance,
   buildActivityCalendar,
   buildKnowledgeForest,
   filterCurrentAttempts,
@@ -12,6 +11,7 @@ import { useStudy } from '../app/StudyContext';
 import { useBeijingDate } from '../app/useBeijingDate';
 import { useConceptQuestions, useLearning } from '../app/LearningContext';
 import { SubjectShape } from '../components/SubjectShape';
+import { useConceptRegister } from '../app/useConceptRegister';
 
 const subjects = [
   { key: 'data-structures', label: '数据结构', barClass: 'sec-bar-ds' },
@@ -24,6 +24,7 @@ export function StatsPage() {
   const { attempts, createSession, questions, stats } = useStudy();
   const { pack, evidence, events } = useLearning();
   const conceptQuestions = useConceptQuestions();
+  const register = useConceptRegister();
   const navigate = useNavigate();
   const [startingId, setStartingId] = useState<string | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
@@ -35,25 +36,15 @@ export function StatsPage() {
     timeZone: 'Asia/Shanghai',
     weeks: 12,
   }), [currentAttempts, today]);
-  const knowledge = useMemo(() => {
-    const forest = buildKnowledgeForest(pack?.concepts ?? [], conceptQuestions);
-    return {
-      forest,
-      performance: aggregateKnowledgePerformance(attempts, conceptQuestions, forest),
-    };
-  }, [attempts, pack, conceptQuestions]);
+  const forest = useMemo(() => buildKnowledgeForest(pack?.concepts ?? [], conceptQuestions), [pack, conceptQuestions]);
   const nodeById = useMemo(
-    () => new Map(knowledge.forest.nodes.map((node) => [node.point.id, node])),
-    [knowledge.forest.nodes],
+    () => new Map(forest.nodes.map((node) => [node.point.id, node])),
+    [forest.nodes],
   );
-  const leafIds = useMemo(
-    () => new Set(knowledge.forest.nodes.filter((node) => node.childIds.length === 0).map((node) => node.point.id)),
-    [knowledge.forest.nodes],
-  );
-  const weakPoints = knowledge.performance.weakPoints
-    .filter((entry) => leafIds.has(entry.knowledgePointId) && (entry.performance ?? 1) < 0.8)
+  const weakPoints = register.concepts
+    .filter((entry) => entry.state === 'practicing' && register.objectiveByConcept.get(entry.conceptId) === 'needs-review')
     .slice(0, 5);
-  const unassessedCount = knowledge.performance.unassessedPoints.filter((entry) => leafIds.has(entry.knowledgePointId)).length;
+  const unassessedCount = register.concepts.filter((entry) => register.objectiveByConcept.get(entry.conceptId) === 'untested').length;
 
   const startWeakPoint = async (knowledgePointId: string) => {
     const node = nodeById.get(knowledgePointId);
@@ -196,35 +187,33 @@ export function StatsPage() {
           <h2>薄弱知识点</h2>
           <div className="weakness-summary">
             <Target size={16} aria-hidden="true" />
-            <span><span className="sec-mono-num">{unassessedCount}</span> 个知识点尚未检测</span>
+            <span><span className="sec-mono-num">{unassessedCount}</span> 个概念暂无客观首答证据</span>
           </div>
         </div>
         {startError && <div className="sec-inline-alert" role="alert">{startError}</div>}
-        {weakPoints.length ? (
+        {register.error ? <p role="alert">{register.error}</p> : register.loading ? <p role="status">正在读取概念证据…</p> : weakPoints.length ? (
           <div className="weakness-list sec-weakness-list">
             {weakPoints.map((entry) => {
-              const node = nodeById.get(entry.knowledgePointId)!;
-              const score = Math.round((entry.performance ?? 0) * 100);
               const subjectInfo = subjects.find((item) => item.key === entry.subject);
               return (
-                <article key={entry.knowledgePointId}>
+                <article key={entry.conceptId}>
                   <div>
                     <span className={`subject-tag subject-${entry.subject} sec-subject-chip`}>
                       <SubjectShape subject={entry.subject} />
                       <span>{subjectInfo?.label}</span>
                     </span>
-                    <strong>{node.point.name}</strong>
+                    <strong>{entry.name}</strong>
                     <small>
-                      <span className="sec-mono-num">{entry.evidenceAttemptIds.length}</span> 条证据 · <span className="sec-mono-num">{entry.assessedQuestionCount}/{entry.totalQuestionCount}</span> 题已检测
+                      已练 <span className="sec-mono-num">{entry.attemptedQuestions}/{entry.questionCount}</span> 题
                     </small>
                   </div>
-                  <div className="weakness-score">
-                    <strong className="sec-mono-num">{score}%</strong>
-                    <span>当前表现</span>
+                  <div className="diagnostic-concept-state" data-state={entry.state}>
+                    <strong>练习中</strong>
+                    <span>有客观错答待复习</span>
                   </div>
-                  <button type="button" className="secondary-command compact-command" disabled={startingId !== null} onClick={() => void startWeakPoint(entry.knowledgePointId)}>
+                  <button type="button" className="secondary-command compact-command" disabled={startingId !== null || !nodeById.get(entry.conceptId)?.questionIds.length} onClick={() => void startWeakPoint(entry.conceptId)}>
                     <Play size={15} aria-hidden="true" />
-                    <span>{startingId === entry.knowledgePointId ? '创建中' : '专项练习'}</span>
+                    <span>{startingId === entry.conceptId ? '创建中' : '专项练习'}</span>
                   </button>
                 </article>
               );
@@ -233,7 +222,7 @@ export function StatsPage() {
         ) : (
           <div className="empty-result compact-empty">
             <CheckCircle2 size={22} aria-hidden="true" />
-            <p>当前没有低于 80% 的已检测知识点</p>
+            <p>当前没有需要复习的客观错答概念；未检测不代表已掌握。</p>
           </div>
         )}
       </section>

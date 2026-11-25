@@ -1,4 +1,5 @@
 import type { Attempt, Question } from './types';
+import { SUBJECTS } from './types';
 import type { PracticeEvidence } from './learning';
 import { questionAvailability } from './availability';
 
@@ -177,6 +178,22 @@ function compareQuestions(left: Question, right: Question): number {
   return left.year - right.year || left.number - right.number || left.id.localeCompare(right.id);
 }
 
+function interleaveSubjects(questions: readonly Question[]): Question[] {
+  // New questions rotate DS → CO → OS → CN. Each subject keeps year/number/id
+  // order; an exhausted subject is skipped, including across year boundaries.
+  // No date/random seed or input order affects selection. Persisted daily plans
+  // are read before this builder is called and are never reordered here.
+  const queues = SUBJECTS.map((subject) => questions.filter((question) => question.subject === subject).sort(compareQuestions));
+  const result: Question[] = [];
+  for (let index = 0; result.length < questions.length; index++) {
+    for (const queue of queues) {
+      const question = queue[index];
+      if (question) result.push(question);
+    }
+  }
+  return result;
+}
+
 export function buildDailyReviewPlan(
   attempts: readonly Attempt[],
   questions: readonly Question[],
@@ -220,9 +237,7 @@ export function buildDailyReviewPlan(
     }));
 
   const remaining = Math.max(0, options.dailyLimit - dueItems.length);
-  const unseenItems = [...questions]
-    .filter((question) => !scheduleByQuestion.has(question.id))
-    .sort(compareQuestions)
+  const unseenItems = interleaveSubjects(questions.filter((question) => !scheduleByQuestion.has(question.id)))
     .slice(0, remaining)
     .map<DailyReviewPlanItem>((question) => ({
       questionId: question.id,
