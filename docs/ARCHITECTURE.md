@@ -62,7 +62,7 @@ PWA 使用等待式更新。新 worker 下载完成后保持 waiting，所有旧
 
 ## 独立学习内容和复习
 
-`LearningPack` 自有版本和 SHA-256，含概念、799 条显式映射、80 张卡与来源审核信息。`content/learning/` 是编辑源，`learning:build` 生成发布 JSON，`learning:check` 验证确定性。映射逐题绑定 `questionContentVersion`，概念调整不改变题面版本或学习进度。
+`LearningPack` 自有版本和 SHA-256，含概念、799 条显式映射、156 张卡与来源审核信息。`content/learning/` 是编辑源，`learning:build` 生成发布 JSON，`learning:check` 验证确定性。映射逐题绑定 `questionContentVersion`，概念调整不改变题面版本或学习进度。
 
 卡片定义与用户评分事件分离，轮次冻结当时正文。个人修改存为独立副本，公共包安装不覆盖个人内容；暂停与恢复保持内容版本，编辑正文产生新版本。卡片同日同版本取最低自评分；题目同日取最低有效质量，提示后答对最高按 0.5 调度。首次成功间隔 1 天、再次 3 天，随后按难度延长；不足 0.6 则次日再练。轮内失败最多额外重试两次，完成轮次不等于掌握。
 
