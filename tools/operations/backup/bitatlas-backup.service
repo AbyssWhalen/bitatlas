@@ -1,0 +1,25 @@
+[Unit]
+Description=BitAtlas verified encrypted backup to Tencent Cloud
+Wants=network-online.target
+After=network-online.target bitatlas.service
+
+[Service]
+Type=oneshot
+User=bitatlas
+Group=bitatlas
+UMask=0077
+LoadCredential=ssh-key:<identity-path>
+LoadCredential=destination-policy:<destination-policy-path>
+ExecStart=/usr/bin/python3 /srv/bitatlas/backup/run-backup.py
+WorkingDirectory=/srv/bitatlas/current/apps/server
+MemoryMax=384M
+CPUQuota=50%
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=25min
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/bitatlas /var/lib/bitatlas-backup-work /var/lib/bitatlas-backups/automatic
+

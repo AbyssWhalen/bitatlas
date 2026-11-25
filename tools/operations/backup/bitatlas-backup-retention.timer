@@ -1,0 +1,10 @@
+[Unit]
+Description=BitAtlas backup retention at 05:30 Beijing time
+
+[Timer]
+OnCalendar=*-*-* 05:30:00 Asia/Shanghai
+Persistent=true
+Unit=bitatlas-backup-retention.service
+
+[Install]
+WantedBy=timers.target

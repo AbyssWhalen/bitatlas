@@ -1,0 +1,11 @@
+[Unit]
+Description=BitAtlas daily backup at 03:30 Beijing time
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 Asia/Shanghai
+RandomizedDelaySec=5min
+Persistent=true
+Unit=bitatlas-backup.service
+
+[Install]
+WantedBy=timers.target
