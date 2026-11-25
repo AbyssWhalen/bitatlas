@@ -86,7 +86,7 @@ describe('backup schema v3', () => {
     const target = setup();
     const bundle = await putBundle(source, 'exam-export', 'session-export');
 
-    const json = await source.backupService.exportJson('0.3.0');
+    const json = await source.backupService.exportJson('0.3.0', 3);
     const raw = JSON.parse(json) as {
       schemaVersion: number;
       data: { mockExams?: MockExam[] };

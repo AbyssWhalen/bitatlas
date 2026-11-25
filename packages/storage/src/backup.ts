@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { FIXED_MOCK_EXAM_RULES } from '@408os/domain';
+import { FIXED_MOCK_EXAM_RULES, practiceEvidenceId, type ReviewSession } from '@408os/domain';
+import { emptyLearningUserData, learningUserDataSchema, reviewLimitsSettingSchema, validateReviewEvidence } from './learning-schema';
 import type {
   Attempt,
   CollectionEntry,
@@ -20,6 +21,7 @@ import {
 import { migrateLegacySession, rebuildVersionedProgress } from './user-schema-v2';
 import { assertMockExamSessionConsistency } from './mock-repository';
 import { repairLegacyStudySelfScores } from './repositories';
+import { parseRecoverySnapshot, recoveryBackupCandidate } from './migration';
 
 const timestampSchema = z.iso.datetime();
 const userResponseSchema = z.discriminatedUnion('type', [
@@ -32,7 +34,7 @@ const userResponseSchema = z.discriminatedUnion('type', [
   }).strict(),
 ]);
 
-const attemptSchema = z.object({
+export const attemptSchema = z.object({
   id: z.string().min(1),
   questionId: z.string().min(1),
   questionContentVersion: z.string().min(1),
@@ -102,7 +104,7 @@ const progressSchema = z.object({
   }
 });
 
-const noteSchema = z.object({
+export const noteSchema = z.object({
   id: z.string().min(1),
   questionId: z.string().min(1),
   body: z.string().min(1),
@@ -110,12 +112,15 @@ const noteSchema = z.object({
   updatedAt: timestampSchema,
 }).strict();
 
-const collectionSchema = z.object({
+export const collectionSchema = z.object({
   questionId: z.string().min(1),
   createdAt: timestampSchema,
 }).strict();
 
-const settingSchema = z.object({ key: z.string().min(1), value: z.unknown() }).strict().superRefine((setting, context) => {
+export const settingSchema = z.object({ key: z.string().min(1), value: z.unknown() }).strict().superRefine((setting, context) => {
+  if (setting.key === 'review.limits' && !reviewLimitsSettingSchema.safeParse(setting.value).success) {
+    context.addIssue({ code: 'custom', path: ['value'], message: 'Review limits setting is invalid.' });
+  }
   if (!setting.key.startsWith(CONTENT_REVIEW_SETTING_PREFIX)) return;
   const parsed = contentReviewRecordSchema.safeParse(setting.value);
   if (!parsed.success) {
@@ -299,7 +304,7 @@ const backupSchema = z.object({
 
 type BackupData = z.infer<typeof backupSchema>;
 
-const versionedSessionSchema = z.object({
+export const versionedSessionSchema = z.object({
   id: z.string().min(1),
   mode: z.enum(['practice', 'review', 'mock']),
   questionIds: z.array(z.string().min(1)).min(1),
@@ -348,7 +353,7 @@ const versionedSessionSchema = z.object({
   }
 });
 
-const versionedProgressSchema = z.object({
+export const versionedProgressSchema = z.object({
   questionId: z.string().min(1),
   questionContentVersion: z.string().min(1),
   mastery: z.enum(['unseen', 'learning', 'familiar', 'mastered']),
@@ -553,7 +558,7 @@ const mockExamScoreSchema = z.object({
   pendingSelfScoreQuestionIds: z.array(z.string().min(1)),
 }).strict();
 
-const mockExamSchema = z.object({
+export const mockExamSchema = z.object({
   id: z.string().min(1),
   sessionId: z.string().min(1),
   blueprint: mockExamBlueprintSchema,
@@ -697,7 +702,58 @@ const backupV3Schema = z.object({
 });
 
 type BackupV3Data = z.infer<typeof backupV3Schema>;
-type AnyBackupData = BackupData | BackupV2Data | BackupV3Data;
+const LEARNING_TABLES = ['dailyPlans', 'reviewSessions', 'cardReviewEvents', 'personalCards', 'practiceEvidence', 'practiceContexts', 'noteConflicts'] as const;
+export const backupV4Schema = z.object({
+  schemaVersion: z.literal(4), exportedAt: timestampSchema, appVersion: z.string().min(1),
+  data: backupV3Schema.shape.data.extend(learningUserDataSchema.shape).strict(),
+}).strict().superRefine((backup, context) => {
+  const base = Object.fromEntries(Object.entries(backup.data).filter(([key]) => !LEARNING_TABLES.includes(key as typeof LEARNING_TABLES[number])));
+  const legacy = backupV3Schema.safeParse({ ...backup, schemaVersion: 3, data: base });
+  if (!legacy.success) for (const issue of legacy.error.issues) context.addIssue({ code: 'custom', path: issue.path, message: issue.message });
+  const fail = (message: string) => context.addIssue({ code: 'custom', path: ['data'], message });
+  for (const key of LEARNING_TABLES) {
+    const ids = backup.data[key].map((entry) => 'id' in entry ? entry.id : entry.sessionId);
+    if (new Set(ids).size !== ids.length) fail(`Duplicate ${key} key.`);
+  }
+  const overridden = backup.data.personalCards.flatMap((card) => card.baseCardId ? [card.baseCardId] : []);
+  if (new Set(overridden).size !== overridden.length) fail('Duplicate personal card override.');
+  const plans = new Set(backup.data.dailyPlans.map((plan) => plan.id));
+  const rounds = new Map(backup.data.reviewSessions.map((round) => [round.id, round]));
+  for (const event of backup.data.cardReviewEvents) if (!rounds.has(event.sessionId)) fail('Review event references missing session.');
+  for (const round of backup.data.reviewSessions) {
+    if (round.dailyPlanId && !plans.has(round.dailyPlanId)) fail('Review session references missing daily plan.');
+    try { validateReviewEvidence(round as ReviewSession, backup.data.cardReviewEvents.filter((event) => event.sessionId === round.id)); }
+    catch (reason) { fail(reason instanceof Error ? reason.message : 'Invalid review session.'); }
+  }
+  const sessions = new Map(backup.data.sessions.map((session) => [session.id, session]));
+  const attempts = new Map(backup.data.attempts.map((attempt) => [attempt.id, attempt]));
+  for (const evidence of backup.data.practiceEvidence) {
+    const session = sessions.get(evidence.sessionId);
+    if (evidence.id !== practiceEvidenceId(evidence.sessionId, evidence.questionId)
+      || !session || session.questionContentVersions[evidence.questionId] !== evidence.questionContentVersion) fail('Practice evidence does not match session version.');
+    if (evidence.attemptId) {
+      const attempt = attempts.get(evidence.attemptId);
+      if (!attempt || attempt.sessionId !== evidence.sessionId || attempt.questionId !== evidence.questionId
+        || attempt.questionContentVersion !== evidence.questionContentVersion) fail('Practice evidence references missing attempt.');
+      if (attempt?.response.type === 'choice' && evidence.firstResponse
+        && (evidence.firstResponse.type !== 'choice' || evidence.firstResponse.optionId !== attempt.response.optionId)) fail('Objective first response does not match attempt.');
+    }
+  }
+  const contexts = new Map(backup.data.practiceContexts.map((item) => [item.sessionId, item]));
+  for (const item of contexts.values()) {
+    if (!sessions.has(item.sessionId) || (item.parentSessionId && !sessions.has(item.parentSessionId))
+      || (item.dailyPlanId && !plans.has(item.dailyPlanId))) fail('Practice context references missing data.');
+    const visited = new Set<string>([item.sessionId]);
+    let parent = item.parentSessionId;
+    while (parent) {
+      if (visited.has(parent)) { fail('Practice context contains a cycle.'); break; }
+      visited.add(parent);
+      parent = contexts.get(parent)?.parentSessionId;
+    }
+  }
+});
+type BackupV4Data = z.infer<typeof backupV4Schema>;
+type AnyBackupData = BackupData | BackupV2Data | BackupV3Data | BackupV4Data;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -811,16 +867,31 @@ function migrateLegacyInvalidSelfScores(raw: unknown): unknown {
 
 function parseAnyBackup(json: string): AnyBackupData {
   let raw: unknown;
-  try {
-    raw = JSON.parse(json);
-  } catch {
-    throw new Error('Backup is not valid JSON.');
+  try { raw = JSON.parse(json); } catch { throw new Error('Backup is not valid JSON.'); }
+  const candidate = raw as { format?: string } | null;
+  if (candidate?.format === 'bitatlas-recovery-v1') {
+    const snapshot = parseRecoverySnapshot(json);
+    const legacy = recoveryBackupCandidate(snapshot);
+    const groups = new Map<string, Note[]>();
+    for (const note of legacy.data.notes as Note[]) groups.set(note.questionId, [...(groups.get(note.questionId) ?? []), note]);
+    const conflicts = [...groups.entries()].filter(([, notes]) => notes.length > 1).map(([questionId, originals]) => ({
+      id: `migration-v4:${questionId}`, questionId, originals, createdAt: snapshot.createdAt,
+    }));
+    legacy.data.notes = [...groups.values()].map((notes) => [...notes].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.id.localeCompare(b.id))[0]!);
+    if (snapshot.databaseVersion === 4) return backupV4Schema.parse({
+      ...legacy, data: { ...legacy.data, noteConflicts: [...(legacy.data.noteConflicts ?? []), ...conflicts] },
+    });
+    const parsed = parseAnyBackup(JSON.stringify(legacy));
+    const v3 = parsed.schemaVersion >= 3 ? parsed : migrateBackupToV3(parsed as BackupData | BackupV2Data);
+    return backupV4Schema.parse({ ...v3, schemaVersion: 4, data: {
+      ...v3.data, ...emptyLearningUserData(), noteConflicts: conflicts,
+    } });
   }
   raw = migrateLegacyInvalidSelfScores(raw);
   const schemaVersion = typeof raw === 'object' && raw !== null && 'schemaVersion' in raw
     ? raw.schemaVersion
     : undefined;
-  const schema = schemaVersion === 3
+  const schema = schemaVersion === 4 ? backupV4Schema : schemaVersion === 3
     ? backupV3Schema
     : schemaVersion === 2
       ? backupV2Schema
@@ -842,11 +913,12 @@ function previewAnyBackup(backup: AnyBackupData): BackupPreview {
       attempts: backup.data.attempts.length,
       sessions: backup.data.sessions.length,
       progresses: backup.data.progresses.length,
-      legacyProgresses: backup.schemaVersion === 2 ? backup.data.legacyProgresses.length : 0,
+      legacyProgresses: backup.schemaVersion !== 1 ? backup.data.legacyProgresses.length : 0,
       notes: backup.data.notes.length,
       collections: backup.data.collections.length,
       settings: backup.data.settings.length,
-      mockExams: backup.schemaVersion === 3 ? backup.data.mockExams.length : 0,
+      mockExams: backup.schemaVersion >= 3 ? (backup as BackupV3Data | BackupV4Data).data.mockExams.length : 0,
+      ...Object.fromEntries(LEARNING_TABLES.map((key) => [key, backup.schemaVersion === 4 ? backup.data[key].length : 0])) as Record<(typeof LEARNING_TABLES)[number], number>,
     },
   };
 }
@@ -884,10 +956,10 @@ function migrateBackupToV3(backup: BackupData | BackupV2Data): BackupV3Data {
 }
 
 export interface BackupPreview {
-  schemaVersion: 1 | 2 | 3;
+  schemaVersion: 1 | 2 | 3 | 4 | 5;
   exportedAt: string;
   counts: Record<
-    'attempts' | 'sessions' | 'progresses' | 'legacyProgresses' | 'notes' | 'collections' | 'settings' | 'mockExams',
+    'attempts' | 'sessions' | 'progresses' | 'legacyProgresses' | 'notes' | 'collections' | 'settings' | 'mockExams' | (typeof LEARNING_TABLES)[number],
     number
   >;
 }
@@ -900,8 +972,10 @@ export class BackupService {
     private readonly contentDatabase: ContentDatabase,
   ) {}
 
-  async exportJson(appVersion: string): Promise<string> {
-    await repairLegacyStudySelfScores(this.userDatabase);
+  async exportJson(appVersion: string, schemaVersion: 3 | 4 | 5 = 4, skipRepair = false): Promise<string> {
+    if (schemaVersion === 5) throw new Error('v5 备份需要账号数据仓储。');
+    if (!skipRepair) await repairLegacyStudySelfScores(this.userDatabase);
+    return this.userDatabase.transaction('r', this.userDatabase.tables, async () => {
     const [attempts, sessions, progresses, legacyProgresses, notes, collections, settings, mockExams] = await Promise.all([
       this.userDatabase.attempts.toArray(),
       this.userDatabase.sessions.toArray(),
@@ -912,18 +986,23 @@ export class BackupService {
       this.userDatabase.settings.toArray(),
       this.userDatabase.mockExams.toArray(),
     ]);
+    const learning = Object.fromEntries(await Promise.all(LEARNING_TABLES.map(async (name) => [name, await this.userDatabase.table(name).toArray()])));
+    if (schemaVersion === 3 && Object.values(learning).some((rows) => (rows as unknown[]).length)) {
+      throw new Error('已有新版学习数据，请导出 v4 完整备份，不能静默省略。');
+    }
     const json = JSON.stringify(
       {
-        schemaVersion: 3,
+        schemaVersion,
         exportedAt: new Date().toISOString(),
         appVersion,
-        data: { attempts, sessions, progresses, legacyProgresses, notes, collections, settings, mockExams },
+        data: { attempts, sessions, progresses, legacyProgresses, notes, collections, settings, mockExams, ...(schemaVersion === 4 ? learning : {}) },
       },
       null,
       2,
     );
     parseAnyBackup(json);
     return json;
+    });
   }
 
   preflight(json: string): BackupPreview {
@@ -936,7 +1015,8 @@ export class BackupService {
     }
     const parsed = parseAnyBackup(json);
     const preview = previewAnyBackup(parsed);
-    const backup = parsed.schemaVersion === 3 ? parsed : migrateBackupToV3(parsed);
+    const v3 = parsed.schemaVersion === 4 || parsed.schemaVersion === 3 ? parsed : migrateBackupToV3(parsed);
+    const backup: BackupV4Data = v3.schemaVersion === 4 ? v3 : { ...v3, schemaVersion: 4, data: { ...v3.data, ...emptyLearningUserData() } };
     const tables = [
       this.userDatabase.attempts,
       this.userDatabase.sessions,
@@ -947,6 +1027,7 @@ export class BackupService {
       this.userDatabase.settings,
       this.userDatabase.mockExams,
       this.userDatabase.changeLog,
+      ...LEARNING_TABLES.map((name) => this.userDatabase.table(name)),
     ] as const;
     await this.userDatabase.transaction('rw', tables, async () => {
       if (mode === 'merge') {
@@ -960,8 +1041,11 @@ export class BackupService {
           this.userDatabase.settings.toArray(),
           this.userDatabase.mockExams.toArray(),
         ]);
-        const merged = backupV3Schema.safeParse({
-          schemaVersion: 3,
+        const learning = Object.fromEntries(await Promise.all(LEARNING_TABLES.map(async (name) => [
+          name, [...await this.userDatabase.table(name).toArray(), ...backup.data[name]],
+        ])));
+        const merged = backupV4Schema.safeParse({
+          schemaVersion: 4,
           exportedAt: backup.exportedAt,
           appVersion: backup.appVersion,
           data: {
@@ -973,6 +1057,7 @@ export class BackupService {
             collections: [...collections, ...backup.data.collections],
             settings: [...settings, ...backup.data.settings],
             mockExams: [...mockExams, ...backup.data.mockExams],
+            ...learning,
           },
         });
         if (!merged.success) {
@@ -992,6 +1077,7 @@ export class BackupService {
       await this.userDatabase.collections.bulkPut(backup.data.collections as CollectionEntry[]);
       await this.userDatabase.settings.bulkPut(backup.data.settings as StoredSetting[]);
       await this.userDatabase.mockExams.bulkPut(backup.data.mockExams as MockExam[]);
+      for (const name of LEARNING_TABLES) await this.userDatabase.table(name).bulkPut(backup.data[name]);
     });
     return preview;
   }

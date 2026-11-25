@@ -90,6 +90,11 @@ export const questionSchema = z
     source: sourceRefSchema,
     contentVersion: z.string().min(1),
     reviewStatus: reviewStatusSchema,
+    contentIssues: z.array(z.object({
+      kind: z.enum(['missing-stem', 'missing-options', 'missing-image', 'missing-answer', 'answer-conflict', 'missing-explanation']),
+      detail: z.string().trim().min(1).max(2000),
+      locator: z.string().trim().min(1).max(1000),
+    }).strict()).max(30).optional(),
   })
   .superRefine((question, context) => {
     if (question.kind === 'single-choice') {

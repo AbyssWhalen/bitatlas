@@ -57,7 +57,7 @@ const SHA256_CONSTANTS = new Uint32Array([
 
 const rotateRight = (value: number, shift: number) => (value >>> shift) | (value << (32 - shift));
 
-function sha256(value: string): string {
+export function sha256(value: string): string {
   const bytes = new TextEncoder().encode(value);
   const byteLength = Math.ceil((bytes.length + 9) / 64) * 64;
   const padded = new Uint8Array(byteLength);

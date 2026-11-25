@@ -3,6 +3,7 @@ import {
   createFixedMockExamBlueprint,
   type ContentPackManifest,
   type Question,
+  type MockExam,
   type StudySession,
 } from '@408os/domain';
 import Dexie from 'dexie';
@@ -83,7 +84,7 @@ function question(number: number): Question {
       type: 'comprehensive',
       maxScore: 10,
       rubric: [{ id: `r-${number}`, description: '评分点', points: 10 }],
-      reference: [],
+      reference: [{ type: 'text' as const, text: '参考解答' }],
     },
   };
 }
@@ -106,6 +107,39 @@ afterEach(async () => {
     await contentDatabase.delete();
     await userDatabase.delete();
   }));
+});
+
+it('reads exam and session in one snapshot while another connection writes between both reads', async () => {
+  const { userDatabase, mockRepository } = setup();
+  const initial = await mockRepository.createFixedExam({ examId: 'atomic-exam', sessionId: 'atomic-session', manifest, questions, startedAt });
+  const peer = new UserDatabase(userDatabase.name);
+  const writer = new DexieMockExamRepository(peer);
+  await peer.open();
+  let pendingWrite: ReturnType<typeof writer.saveDraft> | undefined;
+  const onRead = (exam: MockExam) => {
+    // Queue the competing write immediately after the first table was read.
+    // Without the repository's shared readonly transaction it can commit before
+    // the session read and combine two different revisions.
+    if (!pendingWrite) pendingWrite = Dexie.ignoreTransaction(() => writer.saveDraft({
+      examId: exam.id, questionId: questions[0]!.id, response: { type: 'choice', optionId: 'B' },
+      currentIndex: 0, durationMs: 50, expectedUpdatedAt: startedAt, updatedAt: submittedAt,
+    }));
+    return exam;
+  };
+  userDatabase.mockExams.hook('reading', onRead);
+  try {
+    expect(await mockRepository.getExam(initial.exam.id)).toEqual(initial);
+    expect(pendingWrite).toBeDefined();
+    userDatabase.mockExams.hook('reading').unsubscribe(onRead);
+    await pendingWrite;
+    const after = await mockRepository.getExam(initial.exam.id);
+    expect(after?.exam.updatedAt).toBe(submittedAt);
+    expect(after?.session.updatedAt).toBe(submittedAt);
+    expect(after?.session.responses[questions[0]!.id]).toEqual({ type: 'choice', optionId: 'B' });
+  } finally {
+    userDatabase.mockExams.hook('reading').unsubscribe(onRead);
+    peer.close();
+  }
 });
 
 describe('408-user schema v3 mock exam contracts', () => {
@@ -146,7 +180,7 @@ describe('408-user schema v3 mock exam contracts', () => {
       upgraded = new UserDatabase(name);
       await upgraded.open();
 
-      expect(upgraded.verno).toBe(3);
+      expect(upgraded.verno).toBe(4);
       expect(upgraded.tables.map((table) => table.name)).toContain('mockExams');
       expect(await upgraded.sessions.get(session.id)).toEqual(session);
       expect(await upgraded.settings.get('preserved')).toEqual({ key: 'preserved', value: { nested: true } });

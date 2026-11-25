@@ -4,6 +4,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { computeContentPackHash, validateContentPack } from '@408os/content-schema';
+import { learningHints } from './hint-policy.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const sourceDir = path.join(root, 'local-data', 'sources');
@@ -330,11 +331,7 @@ for (let number = 1; number <= 47; number += 1) {
         reference,
       };
   const answer = manualOverride?.answer ?? defaultAnswer;
-  const firstHint = topicText.replace(/^考查/, '先回忆');
-  const hints = manualOverride?.hints ?? [
-    [{ type: 'text', text: firstHint }],
-    [{ type: 'text', text: '标出题干中的关键限制，再逐项核对定义、数据流或计算过程。' }],
-  ];
+  const hints = learningHints(2009, number, manualOverride?.hints ?? []);
   const referencedBlocks = [
     ...stem,
     ...(options?.flatMap((option) => option.content) ?? []),

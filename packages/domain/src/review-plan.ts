@@ -1,8 +1,11 @@
 import type { Attempt, Question } from './types';
+import type { PracticeEvidence } from './learning';
+import { questionAvailability } from './availability';
 
 export interface ReviewScheduleOptions {
   timeZone: string;
   beforeDate: string;
+  evidence?: readonly PracticeEvidence[];
 }
 
 export interface QuestionReviewSchedule {
@@ -20,6 +23,7 @@ export interface DailyReviewPlanOptions {
   today: Date;
   timeZone: string;
   dailyLimit: number;
+  evidence?: readonly PracticeEvidence[];
 }
 
 export type DailyReviewReason = 'overdue' | 'due' | 'unseen';
@@ -89,7 +93,7 @@ function addCalendarDays(date: string, days: number): string {
   return new Date(epoch).toISOString().slice(0, 10);
 }
 
-function attemptQuality(attempt: Attempt, question: Question): number | null {
+export function attemptQuality(attempt: Attempt, question: Question): number | null {
   if (question.kind === 'single-choice') {
     return attempt.correct === null ? null : attempt.correct ? 1 : 0;
   }
@@ -134,21 +138,36 @@ export function replayReviewSchedule(
 ): QuestionReviewSchedule[] {
   const questionsById = questionMap(questions);
   const formatter = dateFormatter(options.timeZone);
+  const evidenceByAttempt = new Map(options.evidence?.flatMap((entry) => entry.attemptId ? [[entry.attemptId, entry] as const] : []) ?? []);
+  const seenIds = new Set<string>();
   const datedAttempts = attempts.flatMap((attempt) => {
+    if (seenIds.has(attempt.id)) return [];
+    seenIds.add(attempt.id);
     const question = questionsById.get(attempt.questionId);
     if (!question || question.contentVersion !== attempt.questionContentVersion) return [];
     const timestamp = new Date(attempt.submittedAt);
     const reviewedOn = localDateKey(timestamp, formatter);
     if (!reviewedOn || reviewedOn >= options.beforeDate) return [];
-    const quality = attemptQuality(attempt, question);
+    const rawQuality = attemptQuality(attempt, question);
+    const evidence = evidenceByAttempt.get(attempt.id);
+    const quality = rawQuality !== null && evidence && (evidence.hintsUsed > 0 || (question.kind === 'single-choice' && evidence.answerRevealedAt))
+      ? Math.min(rawQuality, 0.5) : rawQuality;
     return quality === null ? [] : [{ attempt, timestamp: timestamp.getTime(), reviewedOn, quality }];
   }).sort((left, right) => left.timestamp - right.timestamp || left.attempt.id.localeCompare(right.attempt.id));
 
   const states = new Map<string, ScheduleState>();
+  const days = new Map<string, { questionId: string; reviewedOn: string; quality: number; ids: string[] }>();
   for (const entry of datedAttempts) {
-    const state = nextSchedule(states.get(entry.attempt.questionId), entry.attempt.questionId, entry.reviewedOn, entry.quality);
-    state.evidenceAttemptIds.push(entry.attempt.id);
-    states.set(entry.attempt.questionId, state);
+    const key = JSON.stringify([entry.attempt.questionId, entry.reviewedOn]);
+    const day = days.get(key) ?? { questionId: entry.attempt.questionId, reviewedOn: entry.reviewedOn, quality: 1, ids: [] };
+    day.quality = Math.min(day.quality, entry.quality);
+    day.ids.push(entry.attempt.id);
+    days.set(key, day);
+  }
+  for (const day of days.values()) {
+    const state = nextSchedule(states.get(day.questionId), day.questionId, day.reviewedOn, day.quality);
+    state.evidenceAttemptIds.push(...day.ids);
+    states.set(day.questionId, state);
   }
 
   return [...states.values()].sort((left, right) => left.questionId.localeCompare(right.questionId));
@@ -163,6 +182,7 @@ export function buildDailyReviewPlan(
   questions: readonly Question[],
   options: DailyReviewPlanOptions,
 ): DailyReviewPlan {
+  questions = questions.filter((question) => questionAvailability(question).practice);
   if (!Number.isInteger(options.dailyLimit) || options.dailyLimit < 1) {
     throw new Error('dailyLimit must be a positive integer.');
   }
@@ -171,7 +191,7 @@ export function buildDailyReviewPlan(
   const date = localDateKey(options.today, formatter);
   if (!date) throw new Error('today must be a valid date.');
 
-  const schedules = replayReviewSchedule(attempts, questions, { timeZone: options.timeZone, beforeDate: date });
+  const schedules = replayReviewSchedule(attempts, questions, { timeZone: options.timeZone, beforeDate: date, ...(options.evidence ? { evidence: options.evidence } : {}) });
   const scheduleByQuestion = new Map(schedules.map((schedule) => [schedule.questionId, schedule]));
   const completedToday = new Set<string>();
   for (const attempt of attempts) {

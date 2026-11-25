@@ -10,6 +10,7 @@ import type {
   UserResponse,
 } from './types';
 import { SUBJECTS } from './types';
+import { assertQuestionAvailable } from './availability';
 
 export interface Evaluation {
   correct: boolean | null;
@@ -21,6 +22,7 @@ export interface CurrentQuestionProgress extends QuestionProgress {
 }
 
 export function evaluateResponse(question: Question, response: UserResponse): Evaluation {
+  assertQuestionAvailable(question);
   if (question.kind === 'single-choice' && question.answer.type === 'choice') {
     if (response.type !== 'choice') return { correct: false, score: 0 };
     const correct = response.optionId === question.answer.optionId;

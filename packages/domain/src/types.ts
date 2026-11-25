@@ -110,6 +110,12 @@ export interface Question {
   source: SourceRef;
   contentVersion: string;
   reviewStatus: ReviewStatus;
+  /** Confirmed content defects, bound to this exact question version. Never network errors. */
+  contentIssues?: Array<{
+    kind: 'missing-stem' | 'missing-options' | 'missing-image' | 'missing-answer' | 'answer-conflict' | 'missing-explanation';
+    detail: string;
+    locator: string;
+  }>;
 }
 
 export interface KnowledgePoint {

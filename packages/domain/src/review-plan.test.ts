@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildDailyReviewPlan, replayReviewSchedule } from './review-plan';
 import type { Attempt, Question } from './types';
+import type { PracticeEvidence } from './learning';
 
 const source = {
   publisher: 'source',
@@ -27,7 +28,7 @@ function question(id: string, number: number, kind: Question['kind'] = 'single-c
       })),
       answer: { type: 'choice' as const, optionId: 'A' as const },
     } : {
-      answer: { type: 'comprehensive' as const, maxScore: 10, rubric: [], reference: [] },
+      answer: { type: 'comprehensive' as const, maxScore: 10, rubric: [], reference: [{ type: 'text' as const, text: '参考解答' }] },
     }),
     explanation: [],
     hints: [],
@@ -65,6 +66,39 @@ function attempt(
 }
 
 describe('review plan', () => {
+  it('advances once per Beijing day, takes the lowest quality and is independent of input order', () => {
+    const q = question('q-daily', 1);
+    const options = { timeZone: 'Asia/Shanghai', beforeDate: '2026-11-22' };
+    for (let size = 1; size <= 100; size++) {
+      const previous = attempt('previous', q, '2026-11-19T01:00:00Z', true);
+      const today = Array.from({ length: size }, (_, i) => attempt(`same-day-${i}`, q, '2026-11-20T01:00:00Z', true));
+      const state = replayReviewSchedule([previous, ...today], [q], options)[0]!;
+      expect(state).toMatchObject({ repetitions: 2, intervalDays: 3, dueOn: '2026-11-23' });
+      const history = [previous, ...today, attempt('failure', q, '2026-11-20T02:00:00Z', false)];
+      const schedule = replayReviewSchedule(history, [q], options);
+      expect(replayReviewSchedule([...history].reverse(), [q], options)).toEqual(schedule);
+      expect(replayReviewSchedule([...history, ...history], [q], options)).toEqual(schedule);
+      expect(schedule[0]).toMatchObject({ repetitions: 0, intervalDays: 1, lastQuality: 0, dueOn: '2026-11-21' });
+    }
+  });
+
+  it('keeps hinted success due tomorrow and excludes a previous content version', () => {
+    const q = question('q-assisted', 1);
+    const assisted = attempt('hinted', q, '2026-11-20T01:00:00Z', true);
+    const evidence: PracticeEvidence = {
+      id: 'proof', sessionId: assisted.sessionId, questionId: q.id, questionContentVersion: q.contentVersion,
+      hintsUsed: 1, firstResponse: assisted.response, evidenceFromStart: true, activeDurationMs: 50,
+      attemptId: assisted.id, mistakeNote: '', revision: 1, updatedAt: assisted.submittedAt,
+    };
+    const history = [
+      attempt('earlier', q, '2026-11-19T01:00:00Z', true),
+      attempt('old-wrong', q, '2026-11-20T02:00:00Z', false, '2009.0'),
+      assisted,
+    ];
+    expect(replayReviewSchedule(history, [q], { timeZone: 'Asia/Shanghai', beforeDate: '2026-11-21', evidence: [evidence] })[0])
+      .toMatchObject({ lastQuality: 0.5, intervalDays: 1, dueOn: '2026-11-21', evidenceAttemptIds: ['earlier', 'hinted'] });
+  });
+
   it('replays current-version evidence and resets a failed card to one day', () => {
     const q1 = question('q1', 1);
     const schedules = replayReviewSchedule([

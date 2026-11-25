@@ -17,9 +17,23 @@ import {
   stemReferencesFigure,
   trimExplanationNoise,
   tryParseAnswerTablePage,
+  answerComparisonCoverage,
 } from './build-year.mjs';
 
 describe('build-year pure parsers', () => {
+  it('reports exact answer comparison coverage without counting comprehensive questions or duplicates', () => {
+    const partial = answerComparisonCoverage([
+      ...Array.from({ length: 15 }, (_, index) => ({ number: index + 1, verifiedAgainstRebuild: true })),
+      { number: 1, verifiedAgainstRebuild: true }, { number: 41, verifiedAgainstRebuild: true },
+    ]);
+    assert.equal(partial.comparedCount, 15);
+    assert.equal(partial.fullyCompared, false);
+    assert.deepEqual(partial.unComparedQuestionNumbers, Array.from({ length: 25 }, (_, index) => index + 16));
+    assert.match(partial.answerKeyContract, /15\/40 compared; 25 not compared/);
+    const full = answerComparisonCoverage(Array.from({ length: 40 }, (_, index) => ({ number: index + 1, verifiedAgainstRebuild: true })));
+    assert.equal(full.fullyCompared, true);
+    assert.deepEqual(full.unComparedQuestionNumbers, []);
+  });
   it('splitNumberedBlocks 按期望题号切分并忽略正文数字', () => {
     const pages = [
       '2010 年试卷 第1页，共2页\n1. 第一题\nA. x\n2. 散列函数 H(key)=(key×3) mod 7，因子 0.7\n3. 第三题',

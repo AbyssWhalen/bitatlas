@@ -76,7 +76,7 @@ describe('study domain', () => {
   });
 
   it('rejects non-finite comprehensive self scores', () => {
-    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [] } };
+    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [{ type: 'text' as const, text: '参考解答' }] } };
     expect(() => evaluateResponse(comprehensive, {
       type: 'comprehensive',
       text: 'answer',
@@ -92,7 +92,7 @@ describe('study domain', () => {
   });
 
   it.each([-1, 10.01])('rejects comprehensive self score %s outside the allowed range', (selfScore) => {
-    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [] } };
+    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [{ type: 'text' as const, text: '参考解答' }] } };
     expect(() => evaluateResponse(comprehensive, {
       type: 'comprehensive',
       text: 'answer',
@@ -102,7 +102,7 @@ describe('study domain', () => {
   });
 
   it.each([0, 10])('preserves comprehensive self score boundary %s', (selfScore) => {
-    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [] } };
+    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [{ type: 'text' as const, text: '参考解答' }] } };
     expect(evaluateResponse(comprehensive, {
       type: 'comprehensive',
       text: 'answer',
@@ -138,7 +138,7 @@ describe('study domain', () => {
   });
 
   it('does not count comprehensive attempts as objective statistics', () => {
-    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [] } };
+    const comprehensive: Question = { ...question, kind: 'comprehensive', answer: { type: 'comprehensive', maxScore: 10, rubric: [], reference: [{ type: 'text' as const, text: '参考解答' }] } };
     const malformed = {
       ...attempt(true),
       questionId: comprehensive.id,

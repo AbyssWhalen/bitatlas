@@ -1,0 +1,161 @@
+// Stable curriculum concepts. Question IDs and answer prose are never node names.
+export const curriculum = [
+  ['data-structures', '数据结构', [
+    ['foundations', '算法与线性结构', [
+      ['complexity', '时间与空间复杂度', '时间复杂度|空间复杂度|程序段|程序片段|递归运算'],
+      ['array', '顺序表与数组算法', '顺序表|一维数组|二维数组|中位数|主元素|数组|三元组的距离'],
+      ['list', '链表与指针操作', '链表|头指针|共同后缀'],
+      ['stack', '栈与表达式', '栈|后缀表达式|中缀表达式|括号'],
+      ['queue', '队列与循环队列', '队列|缓冲区'],
+      ['matrix', '特殊矩阵压缩存储', '三元组表|稀疏矩阵|三对角|三角矩阵|压缩存储'],
+      ['string', '字符串与 KMP 匹配', 'KMP|模式匹配|next数组|模式串'],
+    ]],
+    ['trees', '树与查找', [
+      ['tree-shape', '树的结构与计数', '完全二叉树|二叉树.*结点|三叉树|度为.*树|树.*度为|二叉树|叶结点'],
+      ['traversal', '树的遍历与重建', '遍历|中序|前序|先序|后序'],
+      ['forest', '树、森林与二叉树转换', '森林|树转换|对应的二叉树'],
+      ['thread', '线索二叉树', '线索'],
+      ['bst', '二叉搜索树', '二叉排序树|二叉搜索树'],
+      ['avl', '平衡二叉树与旋转', '平衡二叉|AVL'],
+      ['btree', 'B 树与 B+ 树', 'B.?树|B-tree'],
+      ['huffman', '哈夫曼编码与最优合并', '哈夫曼|Huffman|带权.*路径长度|前缀特性'],
+      ['search', '顺序、折半与分块查找', '折半查找|分块查找|二分查找|查找表|顺序查找'],
+      ['hash', '散列冲突与查找长度', '散列|哈希|Hash|装填'],
+    ]],
+    ['graphs', '图与图算法', [
+      ['graph-model', '图的存储、度与连通性', '图|顶点|邻接矩阵|邻接表'],
+      ['graph-traversal', '图的深度与广度优先搜索', '广度优先|深度优先|BFS|DFS'],
+      ['shortest', '最短路径与松弛', '最短路径|Dijkstra|迪杰斯特拉|Floyd'],
+      ['mst', '最小生成树', '最小生成树|Prim|Kruskal|普里姆|克鲁斯卡尔'],
+      ['topological', '拓扑排序与有向无环图', '拓扑|无环图'],
+      ['critical', 'AOE 网与关键路径', 'AOE|关键路径|关键活动|工期|时间余量'],
+    ]],
+    ['sorting', '排序与选择', [
+      ['sort-properties', '内部排序性质与稳定性', '排序|稳定性'],
+      ['heap', '堆的构建与调整', '根堆|最大堆|最小堆|堆排序|最小的.*个数'],
+      ['quick', '快速排序与划分', '快速排序|枢轴'],
+      ['merge', '归并排序与有序合并', '归并|两两合并'],
+      ['external', '外部排序与多路归并', '外排序|外部排序|败者树|置换.?选择|归并段'],
+    ]],
+  ]],
+  ['computer-organization', '计算机组成原理', [
+    ['representation', '数据表示与运算', [
+      ['integer', '整数编码、扩展与溢出', '补码|原码|反码|溢出|无符号|有符号|short|int|移位'],
+      ['float', '浮点表示与运算', '浮点|IEEE|阶码|尾数|float|double'],
+      ['arithmetic', 'ALU 与加减乘除', '加法器|ALU|算术逻辑|乘法|除法|进位|运算器'],
+      ['endian', '字节序与数据对齐', '小端|大端|对齐|字节编址'],
+      ['coding', '校验码与数据编码', '校验码|海明|汉明|编码'],
+    ]],
+    ['memory', '存储系统', [
+      ['ram', '主存芯片与地址译码', '存储器|DRAM|SRAM|RAM|ROM|主存|存储芯片'],
+      ['cache', 'Cache 映射与命中', 'Cache|cache|高速缓冲|相联映射|组相联'],
+      ['virtual', '虚拟地址、页表与 TLB', 'TLB|页表|虚拟地址|虚拟存储|缺页|页面|页框'],
+      ['disk', '磁盘容量与访问时间', '磁盘|磁头|扇区|柱面|SSD'],
+      ['locality', '时间局部性与空间局部性', '局部性'],
+    ]],
+    ['processor', '指令系统与处理器', [
+      ['isa', '指令格式与寻址', '指令|寻址|操作码|机器语言|汇编|立即数'],
+      ['datapath', '数据通路与微操作', '数据通路|微操作|控制信号|PC|MAR|MDR|寄存器'],
+      ['control', '控制器与微程序', '微程序|硬布线|控制存储器|微指令|控制器'],
+      ['pipeline', '流水线与相关冲突', '流水|相关|冒险'],
+      ['performance', 'CPU 性能与加速比', 'CPI|MIPS|主频|时钟|执行时间|性能|加速比|指令条数'],
+      ['risc', 'RISC 与 CISC', 'RISC|CISC'],
+      ['parallel', '并行体系结构', 'SIMD|MIMD|多核|多处理|并行|超标量'],
+      ['architecture', '计算机层次与冯诺依曼结构', '冯.?诺依曼|冯诺|计算机系统|透明|硬件|软件'],
+    ]],
+    ['io', '总线与输入输出', [
+      ['bus', '总线时序与带宽', '总线|总线周期|传输速率|总线带宽'],
+      ['interrupt', '异常、中断与优先级', '中断|异常|陷阱|故障'],
+      ['dma', 'DMA 与设备传送', 'DMA|直接存储器|直接内存'],
+      ['polling', '程序查询与 I/O 接口', 'I/O|IO接口|查询|设备|输入输出'],
+    ]],
+  ]],
+  ['operating-systems', '操作系统', [
+    ['process', '进程与处理机', [
+      ['kernel', '内核、特权级与系统调用', '系统调用|内核|核心态|内核态|用户态|特权|管态|操作系统'],
+      ['state', '进程状态与切换', '进程|阻塞|就绪|PCB'],
+      ['thread', '线程模型与共享资源', '线程'],
+      ['scheduling', '处理机调度与周转时间', '调度|周转时间|时间片|响应比|FCFS|短作业'],
+      ['concurrency', '并发、并行与临界区', '并发|并行|临界区|互斥'],
+      ['semaphore', '信号量与同步', '信号量|semaphore|同步|生产者|消费者|读者|写者|哲学家|P操作|V操作'],
+      ['deadlock', '死锁条件与安全状态', '死锁|安全序列|银行家|不安全|资源分配'],
+      ['ipc', '进程通信与管道', '管道|进程通信'],
+      ['monitor', '管程与条件变量', '管程|条件变量'],
+    ]],
+    ['memory', '内存与虚拟存储', [
+      ['allocation', '连续分配与地址保护', '分区|连续分配|首次适应|最佳适应|最坏适应|边界寄存器|重定位|内存'],
+      ['paging', '分页、分段与地址转换', '分页|分段|段页|页表|页框|页号|地址转换|虚拟地址|虚存|虚拟存储|TLB'],
+      ['replacement', '缺页、页面置换与工作集', '缺页|置换|抖动|颠簸|工作集|LRU|FIFO|Clock'],
+      ['allocation-page', '页面分配与局部性', '局部性|页面分配|驻留集|页面大小'],
+    ]],
+    ['files', '文件系统', [
+      ['file-layout', '文件分配与索引结构', '索引|文件.*物理|连续结构|链接结构|直接地址|间接地址|文件分配|盘块|数据块'],
+      ['directory', '目录、链接与文件控制块', '目录|链接|链接数|FCB|inode|i-node|文件控制块'],
+      ['file-open', '文件打开、读写与权限', '文件|打开|权限|文件描述符'],
+      ['free-space', '空闲空间与位示图', '位示图|空闲块|空闲盘|成组链接'],
+      ['disk', '磁盘调度与访问时间', '磁盘|磁头|柱面|扇区|寻道'],
+    ]],
+    ['io', '设备与系统机制', [
+      ['device', '设备分配与独立性', '设备|驱动|I/O|输入输出|终端'],
+      ['buffer', '缓冲、假脱机与 SPOOLing', '缓冲|SPOOL|假脱机'],
+      ['interrupt', '中断、异常与保护', '中断|异常|指令|特权指令'],
+      ['boot', '系统引导与虚拟机', '引导|启动|虚拟机|BIOS|引导块'],
+    ]],
+  ]],
+  ['computer-networks', '计算机网络', [
+    ['foundations', '体系结构与物理层', [
+      ['layers', '分层体系、服务与协议', 'OSI|体系|网络层次|分层|协议|服务|计算机网络'],
+      ['delay', '时延、吞吐与交换方式', '时延|延迟|传输时间|分组交换|电路交换|报文交换|吞吐|发送时间|传播'],
+      ['channel', '信道容量、编码与调制', '香农|奈奎|奈氏|信噪|波特|码元|信道|编码|调制|带宽'],
+      ['multiplex', '多路复用与码分多址', '复用|CDMA|码分|FDM|TDM'],
+      ['interface', '物理层接口特性', '物理层接口'],
+    ]],
+    ['link', '数据链路层', [
+      ['framing', '成帧、差错检测与 CRC', 'CRC|冗余|生成多项式|比特填充|帧定界|差错检测'],
+      ['arq', '可靠传输与滑动窗口', '后退|GBN|SR|选择重传|停止.?等待|停等|滑动窗口|数据帧|发送窗口|接收窗口'],
+      ['ethernet', '以太网与 CSMA/CD', 'CSMA/CD|以太|冲突|碰撞'],
+      ['switch', '交换机、网桥与 VLAN', '交换机|网桥|VLAN|转发表'],
+      ['wifi', '无线局域网与 CSMA/CA', 'CSMA/CA|802.11|无线|Wi-Fi'],
+      ['ppp', 'PPP 与点到点链路', 'PPP|点到点'],
+    ]],
+    ['network', '网络层', [
+      ['ip', 'IPv4 地址、子网与 CIDR', '子网|掩码|CIDR|IP地址|IP 地址|聚合|路由表|转发|最长前缀'],
+      ['fragment', 'IP 分片与首部', '分片|MTU|首部|IP数据报|IP 数据报|标志字段|总长度字段'],
+      ['routing', '路由算法与路由协议', 'OSPF|RIP|BGP|距离向量|链路状态|路由|自治系统'],
+      ['arp', 'ARP 与地址解析', 'ARP|地址解析'],
+      ['icmp', 'ICMP 与网络诊断', 'ICMP|ping|TTL|生存时间'],
+      ['nat', 'NAT 与私有地址', 'NAT|私有|地址转换'],
+      ['ipv6', 'IPv6 编址', 'IPv6'],
+      ['sdn', 'SDN 控制与数据平面', 'SDN'],
+    ]],
+    ['transport', '传输层', [
+      ['tcp-sequence', 'TCP 序号、确认与重传', 'TCP|序号|确认号|确认序号|重传'],
+      ['tcp-connect', 'TCP 连接建立与释放', '握手|SYN|FIN|建立连接|连接建立|释放|TIME_WAIT'],
+      ['tcp-flow', 'TCP 流量控制与接收窗口', '接收窗口|流量控制|rwnd'],
+      ['congestion', 'TCP 拥塞控制', '拥塞|慢开始|快恢复|慢启动|ssthresh|cwnd'],
+      ['udp', 'UDP 与端口复用', 'UDP|端口'],
+    ]],
+    ['application', '应用层', [
+      ['dns', 'DNS 解析与缓存', 'DNS|域名'],
+      ['http', 'HTTP 与 Web 连接', 'HTTP|Web|网页|浏览器|URL'],
+      ['ftp-mail', 'FTP 与电子邮件', 'FTP|邮件|SMTP|POP3|IMAP'],
+      ['dhcp', 'DHCP 动态地址配置', 'DHCP|动态主机'],
+      ['security', '网络安全与认证', '安全|加密|签名|认证|防火墙|密码'],
+      ['models', '客户服务器与对等应用模型', 'P2P|C/S|应用模型'],
+    ]],
+  ]],
+];
+
+export const prefixes = {
+  'data-structures': 'ds', 'computer-organization': 'co',
+  'operating-systems': 'os', 'computer-networks': 'cn',
+};
+export const concepts = curriculum.flatMap(([subject, name, chapters]) => [
+  { id: `subject-${subject}`, subject, name, level: 'subject' },
+  ...chapters.flatMap(([chapter, chapterName, leaves]) => [
+    { id: `${prefixes[subject]}.${chapter}`, subject, name: chapterName, parentId: `subject-${subject}`, level: 'chapter' },
+    ...leaves.map(([key, conceptName]) => ({
+      id: `${prefixes[subject]}.${chapter}.${key}`, subject, name: conceptName, parentId: `${prefixes[subject]}.${chapter}`, level: 'concept',
+    })),
+  ]),
+]);

@@ -14,10 +14,13 @@ import {
   type QuestionFilter,
   type QuestionProgress,
   type StudySession,
+  type PracticeEvidence,
+  practiceEvidenceId,
 } from '@408os/domain';
 import { parseContentPack, validateContentPack } from '@408os/content-schema';
 import { type ContentDatabase, type UserDatabase } from './databases';
 import { assertWritableStudySession } from './user-schema-v2';
+import { practiceEvidenceSchema } from './learning-schema';
 
 export interface ContentRepository {
   installPack(input: unknown, requireVerified?: boolean): Promise<ContentPackManifest>;
@@ -87,6 +90,7 @@ export interface StudyRepository {
     attempt: Attempt,
     session: StudySession,
     expectedUpdatedAt: string | null,
+    evidence?: PracticeEvidence,
   ): Promise<QuestionProgress>;
   listAttempts(): Promise<Attempt[]>;
   listProgress(): Promise<QuestionProgress[]>;
@@ -95,8 +99,8 @@ export interface StudyRepository {
 
 export interface AnnotationRepository {
   getNote(questionId: string): Promise<Note | undefined>;
-  saveNote(note: Note): Promise<void>;
-  deleteNote(questionId: string): Promise<void>;
+  saveNote(note: Note, expectedUpdatedAt?: string | null): Promise<void>;
+  deleteNote(questionId: string, expectedUpdatedAt?: string | null): Promise<void>;
   listNotes(): Promise<Note[]>;
   isCollected(questionId: string): Promise<boolean>;
   setCollected(questionId: string, collected: boolean, timestamp: string): Promise<void>;
@@ -594,6 +598,7 @@ export class DexieStudyRepository implements StudyRepository {
     attempt: Attempt,
     session: StudySession,
     expectedUpdatedAt: string | null,
+    evidence?: PracticeEvidence,
   ): Promise<QuestionProgress> {
     assertGenericStudySession(session);
     if (attempt.mode === 'mock') {
@@ -607,6 +612,7 @@ export class DexieStudyRepository implements StudyRepository {
       this.database.sessions,
       this.database.versionedProgresses,
       this.database.changeLog,
+      this.database.practiceEvidence,
       async () => {
         const currentSession = await this.database.sessions.get(session.id);
         const existing = await this.database.attempts
@@ -637,6 +643,25 @@ export class DexieStudyRepository implements StudyRepository {
         }
 
         assertStudySessionWrite(currentSession, expectedUpdatedAt, session, attempt.questionId);
+        if (evidence) {
+          const parsed = practiceEvidenceSchema.parse(evidence) as PracticeEvidence;
+          const previousEvidence = await this.database.practiceEvidence.get(parsed.id);
+          if (parsed.id !== practiceEvidenceId(session.id, attempt.questionId)
+            || parsed.questionContentVersion !== attempt.questionContentVersion
+            || parsed.attemptId !== attempt.id || !parsed.firstResponse
+            || (attempt.response.type === 'choice' && !responsesMatch(parsed.firstResponse, attempt.response))
+            || parsed.sessionId !== session.id || parsed.questionId !== attempt.questionId
+            || parsed.revision !== (previousEvidence?.revision ?? 0) + 1
+            || parsed.hintsUsed < (previousEvidence?.hintsUsed ?? 0)
+            || Boolean(parsed.evidenceFromStart) !== Boolean(previousEvidence?.evidenceFromStart)
+            || previousEvidence?.attemptId !== undefined
+            || parsed.activeDurationMs < (previousEvidence?.activeDurationMs ?? 0)
+            || (previousEvidence?.firstResponse && !responsesMatch(parsed.firstResponse, previousEvidence.firstResponse))
+            || (previousEvidence?.answerRevealedAt && parsed.answerRevealedAt !== previousEvidence.answerRevealedAt)) {
+            throw new StudySessionConflictError();
+          }
+          await this.database.practiceEvidence.put(parsed);
+        }
 
         const previous = await this.database.versionedProgresses.get([
           attempt.questionId,
@@ -696,18 +721,29 @@ export class DexieAnnotationRepository implements AnnotationRepository {
     return this.database.notes.where('questionId').equals(questionId).first();
   }
 
-  async saveNote(note: Note): Promise<void> {
+  async saveNote(note: Note, expectedUpdatedAt?: string | null): Promise<void> {
     await this.database.transaction('rw', this.database.notes, this.database.changeLog, async () => {
+      const existing = await this.database.notes.where('questionId').equals(note.questionId).toArray();
+      if (existing.length > 1) throw new Error('此题存在历史重复笔记，请在数据管理中合并；所有原文仍保留。');
+      const current = existing[0];
+      if ((expectedUpdatedAt !== undefined && (current?.updatedAt ?? null) !== expectedUpdatedAt)
+        || (current && current.id !== note.id)) {
+        throw new Error('笔记已在另一页面更新。请先重新读取，再合并你的草稿。');
+      }
       await this.database.notes.put(note);
       await this.database.changeLog.put(change('note', note.id, 'put', note.updatedAt));
     });
   }
 
-  async deleteNote(questionId: string): Promise<void> {
-    const note = await this.getNote(questionId);
-    if (!note) return;
+  async deleteNote(questionId: string, expectedUpdatedAt?: string | null): Promise<void> {
     const timestamp = new Date().toISOString();
     await this.database.transaction('rw', this.database.notes, this.database.changeLog, async () => {
+      const notes = await this.database.notes.where('questionId').equals(questionId).toArray();
+      const note = notes[0];
+      if (notes.length > 1 || (expectedUpdatedAt !== undefined && (note?.updatedAt ?? null) !== expectedUpdatedAt)) {
+        throw new Error('笔记已在另一页面更新。请先重新读取，再合并你的草稿。');
+      }
+      if (!note) return;
       await this.database.notes.delete(note.id);
       await this.database.changeLog.put(change('note', note.id, 'delete', timestamp));
     });

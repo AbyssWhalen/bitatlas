@@ -281,12 +281,14 @@ export class DexieMockExamRepository {
   }
 
   async getExam(examId: string): Promise<MockExamBundle | undefined> {
-    const exam = await this.database.mockExams.get(examId);
-    if (!exam) return undefined;
-    const session = await this.database.sessions.get(exam.sessionId);
-    if (!session) throw new Error(`Mock exam session is missing: ${exam.sessionId}.`);
-    assertMockExamSessionConsistency(exam, session);
-    return { exam: copyExam(exam), session: copySession(session) };
+    return this.database.transaction('r', this.database.mockExams, this.database.sessions, async () => {
+      const exam = await this.database.mockExams.get(examId);
+      if (!exam) return undefined;
+      const session = await this.database.sessions.get(exam.sessionId);
+      if (!session) throw new Error(`Mock exam session is missing: ${exam.sessionId}.`);
+      assertMockExamSessionConsistency(exam, session);
+      return { exam: copyExam(exam), session: copySession(session) };
+    });
   }
 
   async listExams(): Promise<MockExam[]> {

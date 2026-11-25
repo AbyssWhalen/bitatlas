@@ -88,7 +88,7 @@ describe('backup schema v2 compatibility', () => {
       lastAttemptAt: timestamp,
     });
 
-    const exported = JSON.parse(await backupService.exportJson('0.2.0'));
+    const exported = JSON.parse(await backupService.exportJson('0.2.0', 3));
     expect(exported.schemaVersion).toBe(3);
     expect(exported.data.mockExams).toEqual([]);
     expect(exported.data.sessions[0].questionContentVersions).toEqual({ q1: '2009.1' });

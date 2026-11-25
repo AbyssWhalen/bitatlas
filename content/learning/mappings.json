@@ -1,0 +1,2501 @@
+{
+  "cn408-2009-q01": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2009-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2009-q03": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2009-q04": [
+    "ds.trees.avl"
+  ],
+  "cn408-2009-q05": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2009-q06": [
+    "ds.trees.forest"
+  ],
+  "cn408-2009-q07": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2009-q08": [
+    "ds.trees.btree"
+  ],
+  "cn408-2009-q09": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2009-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2009-q11": [
+    "co.processor.architecture"
+  ],
+  "cn408-2009-q12": [
+    "co.representation.integer"
+  ],
+  "cn408-2009-q13": [
+    "co.representation.float"
+  ],
+  "cn408-2009-q14": [
+    "co.memory.cache"
+  ],
+  "cn408-2009-q15": [
+    "co.memory.ram"
+  ],
+  "cn408-2009-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2009-q17": [
+    "co.processor.risc"
+  ],
+  "cn408-2009-q18": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2009-q19": [
+    "co.processor.control"
+  ],
+  "cn408-2009-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2009-q21": [
+    "co.memory.cache"
+  ],
+  "cn408-2009-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2009-q23": [
+    "os.process.concurrency"
+  ],
+  "cn408-2009-q24": [
+    "os.process.scheduling"
+  ],
+  "cn408-2009-q25": [
+    "os.process.deadlock"
+  ],
+  "cn408-2009-q26": [
+    "os.memory.allocation"
+  ],
+  "cn408-2009-q27": [
+    "os.memory.paging"
+  ],
+  "cn408-2009-q28": [
+    "os.files.file-layout"
+  ],
+  "cn408-2009-q29": [
+    "os.files.disk"
+  ],
+  "cn408-2009-q30": [
+    "os.files.directory",
+    "os.files.file-open"
+  ],
+  "cn408-2009-q31": [
+    "os.files.directory"
+  ],
+  "cn408-2009-q32": [
+    "os.io.device",
+    "os.process.kernel"
+  ],
+  "cn408-2009-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2009-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2009-q35": [
+    "cn.link.arq"
+  ],
+  "cn408-2009-q36": [
+    "cn.link.switch"
+  ],
+  "cn408-2009-q37": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2009-q38": [
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2009-q39": [
+    "cn.transport.congestion"
+  ],
+  "cn408-2009-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2009-q41": [
+    "ds.graphs.shortest"
+  ],
+  "cn408-2009-q42": [
+    "ds.foundations.list"
+  ],
+  "cn408-2009-q43": [
+    "co.io.dma"
+  ],
+  "cn408-2009-q44": [
+    "co.processor.datapath",
+    "co.processor.isa"
+  ],
+  "cn408-2009-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2009-q46": [
+    "os.memory.replacement"
+  ],
+  "cn408-2009-q47": [
+    "cn.network.ip",
+    "cn.network.routing"
+  ],
+  "cn408-2010-q01": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2010-q02": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2010-q03": [
+    "ds.trees.thread"
+  ],
+  "cn408-2010-q04": [
+    "ds.trees.avl"
+  ],
+  "cn408-2010-q05": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2010-q06": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2010-q07": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2010-q08": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2010-q09": [
+    "ds.trees.search"
+  ],
+  "cn408-2010-q10": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2010-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2010-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2010-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2010-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2010-q15": [
+    "co.memory.ram"
+  ],
+  "cn408-2010-q16": [
+    "co.memory.ram"
+  ],
+  "cn408-2010-q17": [
+    "co.memory.cache"
+  ],
+  "cn408-2010-q18": [
+    "co.processor.datapath"
+  ],
+  "cn408-2010-q19": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2010-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2010-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2010-q22": [
+    "co.memory.ram"
+  ],
+  "cn408-2010-q23": [
+    "os.process.kernel"
+  ],
+  "cn408-2010-q24": [
+    "os.process.state"
+  ],
+  "cn408-2010-q25": [
+    "os.process.semaphore"
+  ],
+  "cn408-2010-q26": [
+    "os.process.scheduling"
+  ],
+  "cn408-2010-q27": [
+    "os.process.concurrency"
+  ],
+  "cn408-2010-q28": [
+    "os.memory.allocation"
+  ],
+  "cn408-2010-q29": [
+    "os.memory.paging"
+  ],
+  "cn408-2010-q30": [
+    "os.files.file-layout"
+  ],
+  "cn408-2010-q31": [
+    "os.files.directory"
+  ],
+  "cn408-2010-q32": [
+    "os.io.interrupt"
+  ],
+  "cn408-2010-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2010-q34": [
+    "cn.foundations.delay"
+  ],
+  "cn408-2010-q35": [
+    "cn.network.routing"
+  ],
+  "cn408-2010-q36": [
+    "cn.network.icmp"
+  ],
+  "cn408-2010-q37": [
+    "cn.network.ip"
+  ],
+  "cn408-2010-q38": [
+    "cn.link.switch"
+  ],
+  "cn408-2010-q39": [
+    "cn.transport.congestion"
+  ],
+  "cn408-2010-q40": [
+    "cn.application.dns"
+  ],
+  "cn408-2010-q41": [
+    "ds.trees.hash"
+  ],
+  "cn408-2010-q42": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2010-q43": [
+    "co.processor.isa"
+  ],
+  "cn408-2010-q44": [
+    "co.memory.cache"
+  ],
+  "cn408-2010-q45": [
+    "os.files.disk",
+    "os.files.free-space"
+  ],
+  "cn408-2010-q46": [
+    "os.memory.replacement"
+  ],
+  "cn408-2010-q47": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2011-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2011-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2011-q03": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2011-q04": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2011-q05": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2011-q06": [
+    "ds.trees.forest"
+  ],
+  "cn408-2011-q07": [
+    "ds.trees.bst"
+  ],
+  "cn408-2011-q08": [
+    "ds.graphs.graph-model",
+    "ds.graphs.topological"
+  ],
+  "cn408-2011-q09": [
+    "ds.trees.hash"
+  ],
+  "cn408-2011-q10": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2011-q11": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2011-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2011-q13": [
+    "co.representation.float"
+  ],
+  "cn408-2011-q14": [
+    "co.memory.ram"
+  ],
+  "cn408-2011-q15": [
+    "co.memory.ram"
+  ],
+  "cn408-2011-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2011-q17": [
+    "co.processor.isa",
+    "co.representation.arithmetic"
+  ],
+  "cn408-2011-q18": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2011-q19": [
+    "co.io.interrupt",
+    "co.processor.isa"
+  ],
+  "cn408-2011-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2011-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2011-q22": [
+    "co.io.polling",
+    "co.processor.performance"
+  ],
+  "cn408-2011-q23": [
+    "os.process.scheduling"
+  ],
+  "cn408-2011-q24": [
+    "os.process.kernel"
+  ],
+  "cn408-2011-q25": [
+    "os.process.thread"
+  ],
+  "cn408-2011-q26": [
+    "os.io.device"
+  ],
+  "cn408-2011-q27": [
+    "os.process.deadlock"
+  ],
+  "cn408-2011-q28": [
+    "os.memory.replacement"
+  ],
+  "cn408-2011-q29": [
+    "os.memory.replacement"
+  ],
+  "cn408-2011-q30": [
+    "os.memory.paging"
+  ],
+  "cn408-2011-q31": [
+    "os.io.buffer"
+  ],
+  "cn408-2011-q32": [
+    "os.process.concurrency"
+  ],
+  "cn408-2011-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2011-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2011-q35": [
+    "cn.link.arq"
+  ],
+  "cn408-2011-q36": [
+    "cn.link.wifi"
+  ],
+  "cn408-2011-q37": [
+    "cn.network.ip"
+  ],
+  "cn408-2011-q38": [
+    "cn.network.ip"
+  ],
+  "cn408-2011-q39": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2011-q40": [
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2011-q41": [
+    "ds.graphs.critical",
+    "ds.foundations.matrix"
+  ],
+  "cn408-2011-q42": [
+    "ds.foundations.array",
+    "ds.trees.search"
+  ],
+  "cn408-2011-q43": [
+    "co.representation.arithmetic"
+  ],
+  "cn408-2011-q44": [
+    "co.memory.cache",
+    "co.memory.virtual"
+  ],
+  "cn408-2011-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2011-q46": [
+    "os.files.file-layout",
+    "os.files.directory"
+  ],
+  "cn408-2011-q47": [
+    "cn.application.http",
+    "cn.network.nat",
+    "cn.network.arp",
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2012-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2012-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2012-q03": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2012-q04": [
+    "ds.trees.avl"
+  ],
+  "cn408-2012-q05": [
+    "ds.graphs.graph-traversal"
+  ],
+  "cn408-2012-q06": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2012-q07": [
+    "ds.graphs.shortest"
+  ],
+  "cn408-2012-q08": [
+    "ds.graphs.mst"
+  ],
+  "cn408-2012-q09": [
+    "ds.trees.btree"
+  ],
+  "cn408-2012-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2012-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2012-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2012-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2012-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2012-q15": [
+    "co.representation.endian"
+  ],
+  "cn408-2012-q16": [
+    "co.memory.ram"
+  ],
+  "cn408-2012-q17": [
+    "co.memory.cache"
+  ],
+  "cn408-2012-q18": [
+    "co.processor.control"
+  ],
+  "cn408-2012-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2012-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2012-q21": [
+    "co.io.bus",
+    "co.io.polling"
+  ],
+  "cn408-2012-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2012-q23": [
+    "os.process.kernel"
+  ],
+  "cn408-2012-q24": [
+    "os.io.interrupt"
+  ],
+  "cn408-2012-q25": [
+    "os.memory.paging"
+  ],
+  "cn408-2012-q26": [
+    "os.io.device"
+  ],
+  "cn408-2012-q27": [
+    "os.process.deadlock"
+  ],
+  "cn408-2012-q28": [
+    "os.files.file-open",
+    "os.process.kernel"
+  ],
+  "cn408-2012-q29": [
+    "os.process.scheduling"
+  ],
+  "cn408-2012-q30": [
+    "os.process.scheduling"
+  ],
+  "cn408-2012-q31": [
+    "os.process.thread"
+  ],
+  "cn408-2012-q32": [
+    "os.files.disk"
+  ],
+  "cn408-2012-q33": [
+    "cn.network.icmp"
+  ],
+  "cn408-2012-q34": [
+    "cn.foundations.interface"
+  ],
+  "cn408-2012-q35": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2012-q36": [
+    "cn.link.arq"
+  ],
+  "cn408-2012-q37": [
+    "cn.network.routing"
+  ],
+  "cn408-2012-q38": [
+    "cn.network.arp"
+  ],
+  "cn408-2012-q39": [
+    "cn.network.ip"
+  ],
+  "cn408-2012-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2012-q41": [
+    "ds.trees.huffman",
+    "ds.sorting.merge"
+  ],
+  "cn408-2012-q42": [
+    "ds.foundations.list"
+  ],
+  "cn408-2012-q43": [
+    "co.io.bus",
+    "co.memory.cache",
+    "co.processor.performance",
+    "co.io.dma"
+  ],
+  "cn408-2012-q44": [
+    "co.processor.isa",
+    "co.processor.pipeline"
+  ],
+  "cn408-2012-q45": [
+    "os.memory.replacement"
+  ],
+  "cn408-2012-q46": [
+    "os.files.file-layout",
+    "os.files.directory"
+  ],
+  "cn408-2012-q47": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2013-q01": [
+    "ds.foundations.list"
+  ],
+  "cn408-2013-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2013-q03": [
+    "ds.trees.avl"
+  ],
+  "cn408-2013-q04": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2013-q05": [
+    "ds.trees.thread"
+  ],
+  "cn408-2013-q06": [
+    "ds.trees.bst"
+  ],
+  "cn408-2013-q07": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2013-q08": [
+    "ds.graphs.graph-traversal"
+  ],
+  "cn408-2013-q09": [
+    "ds.graphs.critical"
+  ],
+  "cn408-2013-q10": [
+    "ds.trees.btree"
+  ],
+  "cn408-2013-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2013-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2013-q13": [
+    "co.representation.float"
+  ],
+  "cn408-2013-q14": [
+    "co.representation.integer"
+  ],
+  "cn408-2013-q15": [
+    "co.representation.coding"
+  ],
+  "cn408-2013-q16": [
+    "co.memory.virtual"
+  ],
+  "cn408-2013-q17": [
+    "co.processor.isa"
+  ],
+  "cn408-2013-q18": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2013-q19": [
+    "co.io.polling"
+  ],
+  "cn408-2013-q20": [
+    "co.memory.disk"
+  ],
+  "cn408-2013-q21": [
+    "co.memory.disk"
+  ],
+  "cn408-2013-q22": [
+    "co.io.dma"
+  ],
+  "cn408-2013-q23": [
+    "os.files.file-open"
+  ],
+  "cn408-2013-q24": [
+    "os.files.file-layout"
+  ],
+  "cn408-2013-q25": [
+    "os.io.device"
+  ],
+  "cn408-2013-q26": [
+    "os.files.file-layout"
+  ],
+  "cn408-2013-q27": [
+    "os.io.buffer"
+  ],
+  "cn408-2013-q28": [
+    "os.process.kernel"
+  ],
+  "cn408-2013-q29": [
+    "os.io.boot"
+  ],
+  "cn408-2013-q30": [
+    "os.memory.replacement"
+  ],
+  "cn408-2013-q31": [
+    "os.process.scheduling"
+  ],
+  "cn408-2013-q32": [
+    "os.process.deadlock"
+  ],
+  "cn408-2013-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2013-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2013-q35": [
+    "cn.foundations.delay"
+  ],
+  "cn408-2013-q36": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2013-q37": [
+    "cn.link.framing"
+  ],
+  "cn408-2013-q38": [
+    "cn.link.switch"
+  ],
+  "cn408-2013-q39": [
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2013-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2013-q41": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2013-q42": [
+    "ds.trees.search"
+  ],
+  "cn408-2013-q43": [
+    "co.memory.cache"
+  ],
+  "cn408-2013-q44": [
+    "co.processor.isa",
+    "co.representation.arithmetic"
+  ],
+  "cn408-2013-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2013-q46": [
+    "os.memory.paging"
+  ],
+  "cn408-2013-q47": [
+    "cn.network.ip"
+  ],
+  "cn408-2014-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2014-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2014-q03": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2014-q04": [
+    "ds.trees.thread"
+  ],
+  "cn408-2014-q05": [
+    "ds.trees.forest"
+  ],
+  "cn408-2014-q06": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2014-q07": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2014-q08": [
+    "ds.trees.hash"
+  ],
+  "cn408-2014-q09": [
+    "ds.trees.btree"
+  ],
+  "cn408-2014-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2014-q11": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2014-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2014-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2014-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2014-q15": [
+    "co.memory.ram"
+  ],
+  "cn408-2014-q16": [
+    "co.memory.cache"
+  ],
+  "cn408-2014-q17": [
+    "co.processor.isa"
+  ],
+  "cn408-2014-q18": [
+    "co.processor.control"
+  ],
+  "cn408-2014-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2014-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2014-q21": [
+    "co.io.polling"
+  ],
+  "cn408-2014-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2014-q23": [
+    "os.process.scheduling"
+  ],
+  "cn408-2014-q24": [
+    "os.process.deadlock"
+  ],
+  "cn408-2014-q25": [
+    "os.process.kernel"
+  ],
+  "cn408-2014-q26": [
+    "os.process.state"
+  ],
+  "cn408-2014-q27": [
+    "os.files.free-space"
+  ],
+  "cn408-2014-q28": [
+    "os.memory.paging"
+  ],
+  "cn408-2014-q29": [
+    "os.files.file-open"
+  ],
+  "cn408-2014-q30": [
+    "os.memory.replacement"
+  ],
+  "cn408-2014-q31": [
+    "os.process.ipc"
+  ],
+  "cn408-2014-q32": [
+    "os.memory.paging"
+  ],
+  "cn408-2014-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2014-q34": [
+    "cn.link.switch"
+  ],
+  "cn408-2014-q35": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2014-q36": [
+    "cn.link.arq"
+  ],
+  "cn408-2014-q37": [
+    "cn.foundations.multiplex"
+  ],
+  "cn408-2014-q38": [
+    "cn.transport.congestion",
+    "cn.transport.tcp-flow"
+  ],
+  "cn408-2014-q39": [
+    "cn.transport.udp"
+  ],
+  "cn408-2014-q40": [
+    "cn.application.http"
+  ],
+  "cn408-2014-q41": [
+    "ds.trees.traversal",
+    "ds.trees.huffman"
+  ],
+  "cn408-2014-q42": [
+    "cn.network.routing",
+    "cn.network.ip"
+  ],
+  "cn408-2014-q43": [
+    "cn.network.ip",
+    "cn.network.routing"
+  ],
+  "cn408-2014-q44": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2014-q45": [
+    "co.memory.cache",
+    "co.memory.virtual"
+  ],
+  "cn408-2014-q46": [
+    "os.files.file-layout"
+  ],
+  "cn408-2014-q47": [
+    "os.process.semaphore"
+  ],
+  "cn408-2015-q01": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2015-q02": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2015-q03": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2015-q04": [
+    "ds.trees.avl"
+  ],
+  "cn408-2015-q05": [
+    "ds.graphs.graph-traversal"
+  ],
+  "cn408-2015-q06": [
+    "ds.graphs.mst"
+  ],
+  "cn408-2015-q07": [
+    "ds.trees.search"
+  ],
+  "cn408-2015-q08": [
+    "ds.foundations.string"
+  ],
+  "cn408-2015-q09": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2015-q10": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2015-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2015-q12": [
+    "co.processor.isa"
+  ],
+  "cn408-2015-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2015-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2015-q15": [
+    "co.memory.cache"
+  ],
+  "cn408-2015-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2015-q17": [
+    "co.memory.ram"
+  ],
+  "cn408-2015-q18": [
+    "co.memory.ram"
+  ],
+  "cn408-2015-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2015-q20": [
+    "co.memory.disk"
+  ],
+  "cn408-2015-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2015-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2015-q23": [
+    "os.io.interrupt"
+  ],
+  "cn408-2015-q24": [
+    "os.process.kernel"
+  ],
+  "cn408-2015-q25": [
+    "os.process.state"
+  ],
+  "cn408-2015-q26": [
+    "os.process.deadlock"
+  ],
+  "cn408-2015-q27": [
+    "os.memory.replacement"
+  ],
+  "cn408-2015-q28": [
+    "os.io.buffer"
+  ],
+  "cn408-2015-q29": [
+    "os.files.file-layout"
+  ],
+  "cn408-2015-q30": [
+    "os.memory.allocation-page",
+    "os.memory.replacement"
+  ],
+  "cn408-2015-q31": [
+    "os.files.free-space"
+  ],
+  "cn408-2015-q32": [
+    "os.files.disk"
+  ],
+  "cn408-2015-q33": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2015-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2015-q35": [
+    "cn.link.arq"
+  ],
+  "cn408-2015-q36": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2015-q37": [
+    "cn.link.switch"
+  ],
+  "cn408-2015-q38": [
+    "cn.network.ip"
+  ],
+  "cn408-2015-q39": [
+    "cn.transport.congestion"
+  ],
+  "cn408-2015-q40": [
+    "cn.application.http"
+  ],
+  "cn408-2015-q41": [
+    "ds.foundations.list"
+  ],
+  "cn408-2015-q42": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2015-q43": [
+    "co.processor.datapath",
+    "co.processor.isa"
+  ],
+  "cn408-2015-q44": [
+    "co.processor.datapath",
+    "co.processor.isa"
+  ],
+  "cn408-2015-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2015-q46": [
+    "os.memory.paging"
+  ],
+  "cn408-2015-q47": [
+    "cn.application.dhcp",
+    "cn.network.ip",
+    "cn.network.arp"
+  ],
+  "cn408-2016-q01": [
+    "ds.foundations.list"
+  ],
+  "cn408-2016-q02": [
+    "ds.foundations.list"
+  ],
+  "cn408-2016-q03": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2016-q04": [
+    "ds.foundations.matrix"
+  ],
+  "cn408-2016-q05": [
+    "ds.trees.forest"
+  ],
+  "cn408-2016-q06": [
+    "ds.graphs.graph-traversal"
+  ],
+  "cn408-2016-q07": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2016-q08": [
+    "ds.graphs.shortest"
+  ],
+  "cn408-2016-q09": [
+    "ds.trees.search"
+  ],
+  "cn408-2016-q10": [
+    "ds.trees.btree"
+  ],
+  "cn408-2016-q11": [
+    "ds.sorting.external"
+  ],
+  "cn408-2016-q12": [
+    "co.processor.architecture"
+  ],
+  "cn408-2016-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2016-q14": [
+    "co.representation.endian",
+    "co.representation.float"
+  ],
+  "cn408-2016-q15": [
+    "co.memory.cache"
+  ],
+  "cn408-2016-q16": [
+    "co.memory.ram"
+  ],
+  "cn408-2016-q17": [
+    "co.processor.isa"
+  ],
+  "cn408-2016-q18": [
+    "co.processor.isa",
+    "co.processor.datapath"
+  ],
+  "cn408-2016-q19": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2016-q20": [
+    "co.processor.performance"
+  ],
+  "cn408-2016-q21": [
+    "co.io.bus"
+  ],
+  "cn408-2016-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2016-q23": [
+    "os.process.concurrency"
+  ],
+  "cn408-2016-q24": [
+    "os.process.concurrency"
+  ],
+  "cn408-2016-q25": [
+    "os.process.deadlock"
+  ],
+  "cn408-2016-q26": [
+    "os.memory.replacement"
+  ],
+  "cn408-2016-q27": [
+    "os.process.concurrency"
+  ],
+  "cn408-2016-q28": [
+    "os.memory.paging"
+  ],
+  "cn408-2016-q29": [
+    "os.memory.replacement"
+  ],
+  "cn408-2016-q30": [
+    "os.process.thread"
+  ],
+  "cn408-2016-q31": [
+    "os.io.buffer"
+  ],
+  "cn408-2016-q32": [
+    "os.process.monitor"
+  ],
+  "cn408-2016-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2016-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2016-q35": [
+    "cn.link.switch"
+  ],
+  "cn408-2016-q36": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2016-q37": [
+    "cn.network.routing"
+  ],
+  "cn408-2016-q38": [
+    "cn.network.ip"
+  ],
+  "cn408-2016-q39": [
+    "cn.network.ip"
+  ],
+  "cn408-2016-q40": [
+    "cn.application.dns"
+  ],
+  "cn408-2016-q41": [
+    "cn.transport.congestion",
+    "cn.transport.tcp-flow"
+  ],
+  "cn408-2016-q42": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2016-q43": [
+    "ds.sorting.quick",
+    "ds.foundations.array"
+  ],
+  "cn408-2016-q44": [
+    "co.io.interrupt"
+  ],
+  "cn408-2016-q45": [
+    "co.memory.virtual",
+    "co.memory.cache"
+  ],
+  "cn408-2016-q46": [
+    "os.process.scheduling"
+  ],
+  "cn408-2016-q47": [
+    "os.files.file-layout",
+    "os.files.directory"
+  ],
+  "cn408-2017-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2017-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2017-q03": [
+    "ds.foundations.matrix"
+  ],
+  "cn408-2017-q04": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2017-q05": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2017-q06": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2017-q07": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2017-q08": [
+    "ds.trees.search"
+  ],
+  "cn408-2017-q09": [
+    "ds.trees.btree"
+  ],
+  "cn408-2017-q10": [
+    "ds.sorting.merge"
+  ],
+  "cn408-2017-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2017-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2017-q13": [
+    "co.memory.ram",
+    "co.representation.endian"
+  ],
+  "cn408-2017-q14": [
+    "co.memory.locality"
+  ],
+  "cn408-2017-q15": [
+    "co.processor.isa"
+  ],
+  "cn408-2017-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2017-q17": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2017-q18": [
+    "co.processor.control"
+  ],
+  "cn408-2017-q19": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2017-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2017-q21": [
+    "co.io.polling"
+  ],
+  "cn408-2017-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2017-q23": [
+    "os.process.scheduling"
+  ],
+  "cn408-2017-q24": [
+    "os.process.kernel"
+  ],
+  "cn408-2017-q25": [
+    "os.memory.allocation"
+  ],
+  "cn408-2017-q26": [
+    "os.files.file-layout"
+  ],
+  "cn408-2017-q27": [
+    "os.process.scheduling"
+  ],
+  "cn408-2017-q28": [
+    "os.process.concurrency"
+  ],
+  "cn408-2017-q29": [
+    "os.io.boot",
+    "os.files.directory"
+  ],
+  "cn408-2017-q30": [
+    "os.files.file-open"
+  ],
+  "cn408-2017-q31": [
+    "os.files.directory"
+  ],
+  "cn408-2017-q32": [
+    "os.io.device",
+    "os.io.interrupt"
+  ],
+  "cn408-2017-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2017-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2017-q35": [
+    "cn.link.wifi"
+  ],
+  "cn408-2017-q36": [
+    "cn.network.ip"
+  ],
+  "cn408-2017-q37": [
+    "cn.network.routing"
+  ],
+  "cn408-2017-q38": [
+    "cn.network.ip"
+  ],
+  "cn408-2017-q39": [
+    "cn.transport.congestion",
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2017-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2017-q41": [
+    "ds.trees.traversal",
+    "ds.foundations.stack"
+  ],
+  "cn408-2017-q42": [
+    "ds.graphs.mst"
+  ],
+  "cn408-2017-q43": [
+    "co.representation.integer",
+    "co.representation.float"
+  ],
+  "cn408-2017-q44": [
+    "co.processor.isa",
+    "co.processor.pipeline"
+  ],
+  "cn408-2017-q45": [
+    "os.memory.paging"
+  ],
+  "cn408-2017-q46": [
+    "os.process.semaphore"
+  ],
+  "cn408-2017-q47": [
+    "cn.link.arq"
+  ],
+  "cn408-2018-q01": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2018-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2018-q03": [
+    "ds.foundations.matrix"
+  ],
+  "cn408-2018-q04": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2018-q05": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2018-q06": [
+    "ds.trees.bst"
+  ],
+  "cn408-2018-q07": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2018-q08": [
+    "ds.trees.btree"
+  ],
+  "cn408-2018-q09": [
+    "ds.trees.hash"
+  ],
+  "cn408-2018-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2018-q11": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2018-q12": [
+    "co.processor.architecture"
+  ],
+  "cn408-2018-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2018-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2018-q15": [
+    "co.representation.endian"
+  ],
+  "cn408-2018-q16": [
+    "co.representation.integer"
+  ],
+  "cn408-2018-q17": [
+    "co.memory.ram"
+  ],
+  "cn408-2018-q18": [
+    "co.processor.isa"
+  ],
+  "cn408-2018-q19": [
+    "co.representation.arithmetic"
+  ],
+  "cn408-2018-q20": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2018-q21": [
+    "co.io.bus"
+  ],
+  "cn408-2018-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2018-q23": [
+    "os.process.concurrency"
+  ],
+  "cn408-2018-q24": [
+    "os.process.scheduling"
+  ],
+  "cn408-2018-q25": [
+    "os.process.thread"
+  ],
+  "cn408-2018-q26": [
+    "os.process.deadlock"
+  ],
+  "cn408-2018-q27": [
+    "os.process.state"
+  ],
+  "cn408-2018-q28": [
+    "os.process.monitor"
+  ],
+  "cn408-2018-q29": [
+    "os.io.interrupt",
+    "os.process.scheduling"
+  ],
+  "cn408-2018-q30": [
+    "os.files.disk"
+  ],
+  "cn408-2018-q31": [
+    "os.files.file-open",
+    "os.io.buffer"
+  ],
+  "cn408-2018-q32": [
+    "os.process.semaphore"
+  ],
+  "cn408-2018-q33": [
+    "cn.foundations.layers",
+    "cn.transport.udp"
+  ],
+  "cn408-2018-q34": [
+    "cn.foundations.interface"
+  ],
+  "cn408-2018-q35": [
+    "cn.link.wifi"
+  ],
+  "cn408-2018-q36": [
+    "cn.link.arq"
+  ],
+  "cn408-2018-q37": [
+    "cn.link.switch"
+  ],
+  "cn408-2018-q38": [
+    "cn.network.ip"
+  ],
+  "cn408-2018-q39": [
+    "cn.transport.udp"
+  ],
+  "cn408-2018-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2018-q41": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2018-q42": [
+    "ds.graphs.mst"
+  ],
+  "cn408-2018-q43": [
+    "co.io.dma"
+  ],
+  "cn408-2018-q44": [
+    "co.memory.virtual",
+    "co.memory.cache"
+  ],
+  "cn408-2018-q45": [
+    "os.memory.paging",
+    "os.memory.replacement"
+  ],
+  "cn408-2018-q46": [
+    "os.files.file-layout"
+  ],
+  "cn408-2018-q47": [
+    "cn.network.ip",
+    "cn.network.fragment"
+  ],
+  "cn408-2019-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2019-q02": [
+    "ds.trees.forest"
+  ],
+  "cn408-2019-q03": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2019-q04": [
+    "ds.trees.avl"
+  ],
+  "cn408-2019-q05": [
+    "ds.graphs.critical"
+  ],
+  "cn408-2019-q06": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2019-q07": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2019-q08": [
+    "ds.trees.hash"
+  ],
+  "cn408-2019-q09": [
+    "ds.foundations.string"
+  ],
+  "cn408-2019-q10": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2019-q11": [
+    "ds.sorting.external"
+  ],
+  "cn408-2019-q12": [
+    "co.processor.architecture"
+  ],
+  "cn408-2019-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2019-q14": [
+    "co.memory.virtual"
+  ],
+  "cn408-2019-q15": [
+    "co.representation.endian"
+  ],
+  "cn408-2019-q16": [
+    "co.processor.performance"
+  ],
+  "cn408-2019-q17": [
+    "co.processor.datapath"
+  ],
+  "cn408-2019-q18": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2019-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2019-q20": [
+    "co.memory.disk"
+  ],
+  "cn408-2019-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2019-q22": [
+    "co.io.dma"
+  ],
+  "cn408-2019-q23": [
+    "os.process.thread"
+  ],
+  "cn408-2019-q24": [
+    "os.process.state"
+  ],
+  "cn408-2019-q25": [
+    "os.process.kernel"
+  ],
+  "cn408-2019-q26": [
+    "os.files.free-space"
+  ],
+  "cn408-2019-q27": [
+    "os.process.scheduling"
+  ],
+  "cn408-2019-q28": [
+    "os.memory.paging"
+  ],
+  "cn408-2019-q29": [
+    "os.memory.replacement"
+  ],
+  "cn408-2019-q30": [
+    "os.process.deadlock"
+  ],
+  "cn408-2019-q31": [
+    "os.memory.paging"
+  ],
+  "cn408-2019-q32": [
+    "os.memory.allocation"
+  ],
+  "cn408-2019-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2019-q34": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2019-q35": [
+    "cn.link.arq"
+  ],
+  "cn408-2019-q36": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2019-q37": [
+    "cn.network.ip"
+  ],
+  "cn408-2019-q38": [
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2019-q39": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2019-q40": [
+    "cn.application.models"
+  ],
+  "cn408-2019-q41": [
+    "ds.foundations.list"
+  ],
+  "cn408-2019-q42": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2019-q43": [
+    "os.process.semaphore",
+    "os.process.deadlock"
+  ],
+  "cn408-2019-q44": [
+    "os.files.disk",
+    "os.files.file-layout"
+  ],
+  "cn408-2019-q45": [
+    "co.processor.isa",
+    "co.representation.integer"
+  ],
+  "cn408-2019-q46": [
+    "co.memory.cache",
+    "co.memory.virtual"
+  ],
+  "cn408-2019-q47": [
+    "cn.network.ip",
+    "cn.link.switch"
+  ],
+  "cn408-2020-q01": [
+    "ds.foundations.matrix"
+  ],
+  "cn408-2020-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2020-q03": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2020-q04": [
+    "ds.trees.forest"
+  ],
+  "cn408-2020-q05": [
+    "ds.trees.bst"
+  ],
+  "cn408-2020-q06": [
+    "ds.graphs.graph-traversal",
+    "ds.graphs.topological"
+  ],
+  "cn408-2020-q07": [
+    "ds.graphs.mst"
+  ],
+  "cn408-2020-q08": [
+    "ds.graphs.critical"
+  ],
+  "cn408-2020-q09": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2020-q10": [
+    "ds.trees.btree"
+  ],
+  "cn408-2020-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2020-q12": [
+    "co.processor.datapath"
+  ],
+  "cn408-2020-q13": [
+    "co.representation.float"
+  ],
+  "cn408-2020-q14": [
+    "co.representation.endian"
+  ],
+  "cn408-2020-q15": [
+    "co.memory.virtual",
+    "co.memory.cache"
+  ],
+  "cn408-2020-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2020-q17": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2020-q18": [
+    "co.io.interrupt"
+  ],
+  "cn408-2020-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2020-q20": [
+    "co.io.interrupt"
+  ],
+  "cn408-2020-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2020-q22": [
+    "co.io.dma"
+  ],
+  "cn408-2020-q23": [
+    "os.files.file-open"
+  ],
+  "cn408-2020-q24": [
+    "os.files.file-layout"
+  ],
+  "cn408-2020-q25": [
+    "os.io.interrupt"
+  ],
+  "cn408-2020-q26": [
+    "os.process.scheduling"
+  ],
+  "cn408-2020-q27": [
+    "os.process.deadlock"
+  ],
+  "cn408-2020-q28": [
+    "os.memory.replacement"
+  ],
+  "cn408-2020-q29": [
+    "os.process.state"
+  ],
+  "cn408-2020-q30": [
+    "os.io.device"
+  ],
+  "cn408-2020-q31": [
+    "os.files.directory"
+  ],
+  "cn408-2020-q32": [
+    "os.process.concurrency"
+  ],
+  "cn408-2020-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2020-q34": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2020-q35": [
+    "cn.link.switch",
+    "cn.link.ethernet"
+  ],
+  "cn408-2020-q36": [
+    "cn.link.arq"
+  ],
+  "cn408-2020-q37": [
+    "cn.link.wifi"
+  ],
+  "cn408-2020-q38": [
+    "cn.transport.congestion"
+  ],
+  "cn408-2020-q39": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2020-q40": [
+    "cn.application.dns"
+  ],
+  "cn408-2020-q41": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2020-q42": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2020-q43": [
+    "co.representation.arithmetic"
+  ],
+  "cn408-2020-q44": [
+    "co.memory.cache"
+  ],
+  "cn408-2020-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2020-q46": [
+    "os.memory.paging"
+  ],
+  "cn408-2020-q47": [
+    "cn.network.nat",
+    "cn.network.arp",
+    "cn.network.ip",
+    "cn.application.http"
+  ],
+  "cn408-2021-q01": [
+    "ds.foundations.list"
+  ],
+  "cn408-2021-q02": [
+    "ds.foundations.queue"
+  ],
+  "cn408-2021-q03": [
+    "ds.foundations.array"
+  ],
+  "cn408-2021-q04": [
+    "ds.trees.forest"
+  ],
+  "cn408-2021-q05": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2021-q06": [
+    "ds.trees.avl"
+  ],
+  "cn408-2021-q07": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2021-q08": [
+    "ds.graphs.shortest"
+  ],
+  "cn408-2021-q09": [
+    "ds.trees.btree"
+  ],
+  "cn408-2021-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2021-q11": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2021-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2021-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2021-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2021-q15": [
+    "co.memory.ram",
+    "co.io.bus"
+  ],
+  "cn408-2021-q16": [
+    "co.memory.cache"
+  ],
+  "cn408-2021-q17": [
+    "co.processor.datapath"
+  ],
+  "cn408-2021-q18": [
+    "co.processor.datapath"
+  ],
+  "cn408-2021-q19": [
+    "co.io.bus"
+  ],
+  "cn408-2021-q20": [
+    "co.io.polling"
+  ],
+  "cn408-2021-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2021-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2021-q23": [
+    "os.process.kernel"
+  ],
+  "cn408-2021-q24": [
+    "os.process.state"
+  ],
+  "cn408-2021-q25": [
+    "os.process.scheduling"
+  ],
+  "cn408-2021-q26": [
+    "os.files.disk"
+  ],
+  "cn408-2021-q27": [
+    "os.process.scheduling"
+  ],
+  "cn408-2021-q28": [
+    "os.memory.replacement"
+  ],
+  "cn408-2021-q29": [
+    "os.memory.paging"
+  ],
+  "cn408-2021-q30": [
+    "os.files.directory"
+  ],
+  "cn408-2021-q31": [
+    "os.process.deadlock"
+  ],
+  "cn408-2021-q32": [
+    "os.process.kernel"
+  ],
+  "cn408-2021-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2021-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2021-q35": [
+    "cn.network.ip"
+  ],
+  "cn408-2021-q36": [
+    "cn.network.fragment"
+  ],
+  "cn408-2021-q37": [
+    "cn.network.routing"
+  ],
+  "cn408-2021-q38": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2021-q39": [
+    "cn.transport.udp"
+  ],
+  "cn408-2021-q40": [
+    "cn.transport.tcp-flow"
+  ],
+  "cn408-2021-q41": [
+    "ds.graphs.graph-model",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2021-q42": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2021-q43": [
+    "co.processor.isa",
+    "co.processor.datapath"
+  ],
+  "cn408-2021-q44": [
+    "co.memory.virtual"
+  ],
+  "cn408-2021-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2021-q46": [
+    "os.io.boot"
+  ],
+  "cn408-2021-q47": [
+    "cn.application.dns",
+    "cn.network.arp",
+    "cn.link.switch"
+  ],
+  "cn408-2022-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2022-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2022-q03": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2022-q04": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2022-q05": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2022-q06": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2022-q07": [
+    "ds.graphs.critical"
+  ],
+  "cn408-2022-q08": [
+    "ds.trees.btree"
+  ],
+  "cn408-2022-q09": [
+    "ds.trees.hash"
+  ],
+  "cn408-2022-q10": [
+    "ds.sorting.merge"
+  ],
+  "cn408-2022-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2022-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2022-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2022-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2022-q15": [
+    "co.memory.virtual"
+  ],
+  "cn408-2022-q16": [
+    "co.memory.cache"
+  ],
+  "cn408-2022-q17": [
+    "co.memory.ram",
+    "co.io.bus"
+  ],
+  "cn408-2022-q18": [
+    "co.processor.isa"
+  ],
+  "cn408-2022-q19": [
+    "co.processor.isa"
+  ],
+  "cn408-2022-q20": [
+    "co.processor.architecture"
+  ],
+  "cn408-2022-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2022-q22": [
+    "co.processor.parallel"
+  ],
+  "cn408-2022-q23": [
+    "os.process.concurrency"
+  ],
+  "cn408-2022-q24": [
+    "os.io.boot"
+  ],
+  "cn408-2022-q25": [
+    "os.process.scheduling"
+  ],
+  "cn408-2022-q26": [
+    "os.process.deadlock"
+  ],
+  "cn408-2022-q27": [
+    "os.process.kernel"
+  ],
+  "cn408-2022-q28": [
+    "os.process.state"
+  ],
+  "cn408-2022-q29": [
+    "os.memory.replacement"
+  ],
+  "cn408-2022-q30": [
+    "os.memory.replacement"
+  ],
+  "cn408-2022-q31": [
+    "os.process.kernel"
+  ],
+  "cn408-2022-q32": [
+    "os.io.device"
+  ],
+  "cn408-2022-q33": [
+    "cn.foundations.layers"
+  ],
+  "cn408-2022-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2022-q35": [
+    "cn.network.ip"
+  ],
+  "cn408-2022-q36": [
+    "cn.network.ip"
+  ],
+  "cn408-2022-q37": [
+    "cn.network.sdn"
+  ],
+  "cn408-2022-q38": [
+    "cn.transport.congestion"
+  ],
+  "cn408-2022-q39": [
+    "cn.transport.tcp-connect"
+  ],
+  "cn408-2022-q40": [
+    "cn.application.http"
+  ],
+  "cn408-2022-q41": [
+    "ds.trees.bst"
+  ],
+  "cn408-2022-q42": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2022-q43": [
+    "co.processor.datapath",
+    "co.representation.arithmetic"
+  ],
+  "cn408-2022-q44": [
+    "co.memory.disk",
+    "co.io.dma"
+  ],
+  "cn408-2022-q45": [
+    "os.files.file-layout",
+    "os.files.directory"
+  ],
+  "cn408-2022-q46": [
+    "os.process.semaphore"
+  ],
+  "cn408-2022-q47": [
+    "cn.application.dhcp",
+    "cn.link.wifi",
+    "cn.network.ip"
+  ],
+  "cn408-2023-q01": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2023-q02": [
+    "ds.foundations.list"
+  ],
+  "cn408-2023-q03": [
+    "ds.foundations.matrix"
+  ],
+  "cn408-2023-q04": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2023-q05": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2023-q06": [
+    "ds.graphs.shortest"
+  ],
+  "cn408-2023-q07": [
+    "ds.trees.btree"
+  ],
+  "cn408-2023-q08": [
+    "ds.trees.search"
+  ],
+  "cn408-2023-q09": [
+    "ds.trees.hash"
+  ],
+  "cn408-2023-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2023-q11": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2023-q12": [
+    "co.processor.performance"
+  ],
+  "cn408-2023-q13": [
+    "co.representation.integer"
+  ],
+  "cn408-2023-q14": [
+    "co.representation.float"
+  ],
+  "cn408-2023-q15": [
+    "co.memory.ram"
+  ],
+  "cn408-2023-q16": [
+    "co.representation.integer"
+  ],
+  "cn408-2023-q17": [
+    "co.processor.isa"
+  ],
+  "cn408-2023-q18": [
+    "co.processor.datapath"
+  ],
+  "cn408-2023-q19": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2023-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2023-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2023-q22": [
+    "co.io.polling"
+  ],
+  "cn408-2023-q23": [
+    "os.process.kernel"
+  ],
+  "cn408-2023-q24": [
+    "os.io.interrupt"
+  ],
+  "cn408-2023-q25": [
+    "os.memory.paging"
+  ],
+  "cn408-2023-q26": [
+    "os.process.kernel"
+  ],
+  "cn408-2023-q27": [
+    "os.process.thread"
+  ],
+  "cn408-2023-q28": [
+    "os.memory.paging"
+  ],
+  "cn408-2023-q29": [
+    "os.process.scheduling"
+  ],
+  "cn408-2023-q30": [
+    "os.memory.paging"
+  ],
+  "cn408-2023-q31": [
+    "os.files.file-open"
+  ],
+  "cn408-2023-q32": [
+    "os.io.device"
+  ],
+  "cn408-2023-q33": [
+    "cn.foundations.delay"
+  ],
+  "cn408-2023-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2023-q35": [
+    "cn.link.arq"
+  ],
+  "cn408-2023-q36": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2023-q37": [
+    "cn.link.framing"
+  ],
+  "cn408-2023-q38": [
+    "cn.network.nat"
+  ],
+  "cn408-2023-q39": [
+    "cn.network.ip"
+  ],
+  "cn408-2023-q40": [
+    "cn.network.ipv6"
+  ],
+  "cn408-2023-q41": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2023-q42": [
+    "ds.sorting.external"
+  ],
+  "cn408-2023-q43": [
+    "co.memory.cache"
+  ],
+  "cn408-2023-q44": [
+    "co.processor.isa"
+  ],
+  "cn408-2023-q45": [
+    "os.process.concurrency"
+  ],
+  "cn408-2023-q46": [
+    "os.io.device",
+    "os.process.state",
+    "os.process.kernel"
+  ],
+  "cn408-2023-q47": [
+    "cn.transport.tcp-sequence",
+    "cn.transport.congestion",
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2024-q01": [
+    "ds.foundations.list"
+  ],
+  "cn408-2024-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2024-q03": [
+    "ds.trees.traversal"
+  ],
+  "cn408-2024-q04": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2024-q05": [
+    "ds.trees.search"
+  ],
+  "cn408-2024-q06": [
+    "ds.foundations.string"
+  ],
+  "cn408-2024-q07": [
+    "ds.trees.bst"
+  ],
+  "cn408-2024-q08": [
+    "ds.sorting.quick"
+  ],
+  "cn408-2024-q09": [
+    "ds.sorting.heap"
+  ],
+  "cn408-2024-q10": [
+    "ds.sorting.merge"
+  ],
+  "cn408-2024-q11": [
+    "ds.sorting.external"
+  ],
+  "cn408-2024-q12": [
+    "co.representation.integer"
+  ],
+  "cn408-2024-q13": [
+    "co.processor.isa"
+  ],
+  "cn408-2024-q14": [
+    "co.representation.integer",
+    "co.representation.float"
+  ],
+  "cn408-2024-q15": [
+    "co.representation.arithmetic"
+  ],
+  "cn408-2024-q16": [
+    "co.memory.virtual"
+  ],
+  "cn408-2024-q17": [
+    "co.memory.virtual"
+  ],
+  "cn408-2024-q18": [
+    "co.memory.virtual"
+  ],
+  "cn408-2024-q19": [
+    "co.processor.pipeline"
+  ],
+  "cn408-2024-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2024-q21": [
+    "co.io.interrupt"
+  ],
+  "cn408-2024-q22": [
+    "co.io.dma"
+  ],
+  "cn408-2024-q23": [
+    "os.io.interrupt"
+  ],
+  "cn408-2024-q24": [
+    "os.process.state"
+  ],
+  "cn408-2024-q25": [
+    "os.process.state",
+    "os.memory.paging"
+  ],
+  "cn408-2024-q26": [
+    "os.files.free-space"
+  ],
+  "cn408-2024-q27": [
+    "os.memory.allocation"
+  ],
+  "cn408-2024-q28": [
+    "os.process.thread"
+  ],
+  "cn408-2024-q29": [
+    "os.files.file-open"
+  ],
+  "cn408-2024-q30": [
+    "os.process.scheduling"
+  ],
+  "cn408-2024-q31": [
+    "os.io.interrupt"
+  ],
+  "cn408-2024-q32": [
+    "os.files.disk"
+  ],
+  "cn408-2024-q33": [
+    "cn.foundations.delay"
+  ],
+  "cn408-2024-q34": [
+    "cn.foundations.channel"
+  ],
+  "cn408-2024-q35": [
+    "cn.link.switch",
+    "cn.network.arp"
+  ],
+  "cn408-2024-q36": [
+    "cn.link.wifi"
+  ],
+  "cn408-2024-q37": [
+    "cn.link.arq"
+  ],
+  "cn408-2024-q38": [
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2024-q39": [
+    "cn.transport.udp"
+  ],
+  "cn408-2024-q40": [
+    "cn.application.http"
+  ],
+  "cn408-2024-q41": [
+    "ds.graphs.topological"
+  ],
+  "cn408-2024-q42": [
+    "ds.trees.hash"
+  ],
+  "cn408-2024-q43": [
+    "co.processor.isa",
+    "co.processor.datapath"
+  ],
+  "cn408-2024-q44": [
+    "co.processor.pipeline",
+    "co.processor.datapath"
+  ],
+  "cn408-2024-q45": [
+    "os.memory.paging",
+    "os.memory.replacement"
+  ],
+  "cn408-2024-q46": [
+    "os.process.semaphore"
+  ],
+  "cn408-2024-q47": [
+    "cn.network.routing",
+    "cn.network.ip",
+    "cn.network.icmp"
+  ],
+  "cn408-2025-q01": [
+    "ds.foundations.complexity"
+  ],
+  "cn408-2025-q02": [
+    "ds.foundations.stack"
+  ],
+  "cn408-2025-q03": [
+    "ds.trees.tree-shape"
+  ],
+  "cn408-2025-q04": [
+    "ds.trees.forest"
+  ],
+  "cn408-2025-q05": [
+    "ds.trees.huffman"
+  ],
+  "cn408-2025-q06": [
+    "ds.graphs.graph-model"
+  ],
+  "cn408-2025-q07": [
+    "ds.trees.search"
+  ],
+  "cn408-2025-q08": [
+    "ds.trees.btree"
+  ],
+  "cn408-2025-q09": [
+    "ds.trees.hash"
+  ],
+  "cn408-2025-q10": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2025-q11": [
+    "ds.sorting.sort-properties"
+  ],
+  "cn408-2025-q12": [
+    "co.representation.integer"
+  ],
+  "cn408-2025-q13": [
+    "co.representation.float"
+  ],
+  "cn408-2025-q14": [
+    "co.representation.arithmetic"
+  ],
+  "cn408-2025-q15": [
+    "co.representation.endian"
+  ],
+  "cn408-2025-q16": [
+    "co.processor.isa"
+  ],
+  "cn408-2025-q17": [
+    "co.processor.risc"
+  ],
+  "cn408-2025-q18": [
+    "co.processor.performance"
+  ],
+  "cn408-2025-q19": [
+    "co.processor.datapath",
+    "co.processor.control"
+  ],
+  "cn408-2025-q20": [
+    "co.io.bus"
+  ],
+  "cn408-2025-q21": [
+    "co.io.dma"
+  ],
+  "cn408-2025-q22": [
+    "co.io.interrupt"
+  ],
+  "cn408-2025-q23": [
+    "os.process.state",
+    "os.memory.paging"
+  ],
+  "cn408-2025-q24": [
+    "os.io.boot"
+  ],
+  "cn408-2025-q25": [
+    "os.process.scheduling"
+  ],
+  "cn408-2025-q26": [
+    "os.memory.replacement"
+  ],
+  "cn408-2025-q27": [
+    "os.memory.allocation-page"
+  ],
+  "cn408-2025-q28": [
+    "os.files.file-open"
+  ],
+  "cn408-2025-q29": [
+    "os.files.directory"
+  ],
+  "cn408-2025-q30": [
+    "os.memory.paging"
+  ],
+  "cn408-2025-q31": [
+    "os.files.free-space"
+  ],
+  "cn408-2025-q32": [
+    "os.files.file-open"
+  ],
+  "cn408-2025-q33": [
+    "cn.foundations.delay"
+  ],
+  "cn408-2025-q34": [
+    "cn.link.framing"
+  ],
+  "cn408-2025-q35": [
+    "cn.link.ethernet"
+  ],
+  "cn408-2025-q36": [
+    "cn.application.dhcp"
+  ],
+  "cn408-2025-q37": [
+    "cn.network.nat"
+  ],
+  "cn408-2025-q38": [
+    "cn.transport.tcp-flow",
+    "cn.transport.congestion",
+    "cn.transport.tcp-sequence"
+  ],
+  "cn408-2025-q39": [
+    "cn.transport.udp"
+  ],
+  "cn408-2025-q40": [
+    "cn.application.ftp-mail"
+  ],
+  "cn408-2025-q41": [
+    "ds.foundations.array",
+    "ds.foundations.complexity"
+  ],
+  "cn408-2025-q42": [
+    "ds.graphs.critical"
+  ],
+  "cn408-2025-q43": [
+    "co.memory.cache"
+  ],
+  "cn408-2025-q44": [
+    "co.representation.arithmetic",
+    "co.processor.isa",
+    "co.io.interrupt"
+  ],
+  "cn408-2025-q45": [
+    "os.process.semaphore"
+  ],
+  "cn408-2025-q46": [
+    "os.memory.paging"
+  ],
+  "cn408-2025-q47": [
+    "cn.network.ip",
+    "cn.network.nat",
+    "cn.application.security"
+  ]
+}

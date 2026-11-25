@@ -9,10 +9,9 @@
     "@408os/content-schema": "*",
     "@408os/domain": "*",
     "dexie": "^4.2.1",
-    "zod": "^4.2.1"
+    "zod": "4.6.6"
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"
   }
 }
-

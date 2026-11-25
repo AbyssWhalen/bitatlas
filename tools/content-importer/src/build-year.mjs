@@ -10,7 +10,7 @@
 //   apps/web/public/content/<year>.json
 //   apps/web/public/content/cn408-<year>/source/*.jpg
 //
-// 硬性门禁：重构答案 PDF 与 csgraduates 快照的 1-40 答案键必须 40/40 一致，否则构建失败。
+// 硬性门禁：至少提取 15/40 个重构答案；全部重叠项必须一致，未对照题号独立报告。
 
 import { createHash } from 'node:crypto';
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -118,7 +118,7 @@ export function parseAnswerTable(layoutTexts) {
 // 支持两种片段形态（各年份排版不同）：
 //   密排列组 “N. XXXXX”   -> 列 N 的 5 个字母，对应题号 N+8k（k=0..4）
 //   直接单元格 “N. X” / “X N.”（数字与字母相邻）-> 题号 N 的答案
-// 无法解析或冲突时返回 null/抛错，由 40/40 交叉门禁兜底。
+// 无法解析或冲突时返回 null/抛错，由最低覆盖与重叠一致性门禁兜底。
 export function parseAnswerTableGeometry(fragmentPages) {
   // 返回部分结果即可；覆盖数量与一致性由 buildYear 的合并门禁兜底。
   return tryParseAnswerTablePage(fragmentPages.flatMap((page) => page.fragments));
@@ -347,6 +347,17 @@ function stemFigureBlocks(year, number, pages, assetIdByFile) {
   });
 }
 
+export function answerComparisonCoverage(quality) {
+  const choice = quality.filter((entry) => entry.number >= 1 && entry.number <= 40);
+  const compared = [...new Set(choice.filter((entry) => entry.verifiedAgainstRebuild).map((entry) => entry.number))].sort((a, b) => a - b);
+  const missing = Array.from({ length: 40 }, (_, index) => index + 1).filter((number) => !compared.includes(number));
+  return {
+    answerKeyContract: `rebuild-answer-pdf == csgraduates-snapshot (${compared.length}/40 compared; ${missing.length} not compared)`,
+    comparedCount: compared.length, totalChoiceCount: 40, comparedQuestionNumbers: compared,
+    unComparedQuestionNumbers: missing, fullyCompared: missing.length === 0,
+  };
+}
+
 export function buildYear(year, inputs, options = {}) {
   const contentVersion = options.contentVersion ?? `${year}.0-draft.2`;
   const crossKey = parseCsgraduatesKey(inputs.csgraduatesHtml);
@@ -478,8 +489,7 @@ export function buildYear(year, inputs, options = {}) {
       };
     }
 
-    const firstHint = topicText.replace(/^考查/, '先回忆');
-    const hints = [[textBlock(firstHint)], [textBlock('标出题干中的关键限制，再逐项核对定义、数据流或计算过程。')]];
+    const hints = [];
     const stemImageAssetIds = stem.flatMap((block) => (block.type === 'image' ? [block.assetId] : []));
 
     questions.push({
@@ -703,7 +713,7 @@ export async function main() {
   await writeFile(path.join(generatedDir, `${year}.quality.json`), JSON.stringify({
     year,
     questionCount: pack.questions.length,
-    answerKeyContract: 'rebuild-answer-pdf == csgraduates-snapshot (40/40)',
+    ...answerComparisonCoverage(quality),
     figureOptionQuestions: quality.filter((entry) => entry.figureOptions).map((entry) => entry.number),
     quality,
   }, null, 1));

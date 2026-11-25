@@ -6,3 +6,7 @@ export * from './review';
 export * from './review-plan';
 export * from './release';
 export * from './types';
+export * from './learning';
+export * from './availability';
+export * from './sync';
+export * from './cache-policy';
