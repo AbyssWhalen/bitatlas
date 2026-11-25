@@ -1,6 +1,6 @@
 # 人工复核队列（review queue）
 
-更新日期：2026-11-25。基线数据：17 套题包、799 道题（2009–2025），学习包 `2026.11.25.3`（156 张记忆卡、32 篇短讲解、799 条概念映射）。
+更新日期：2026-11-25。基线数据：17 套题包、799 道题（2009–2025），学习包 `2026.11.25.5`（156 张记忆卡、47 篇短讲解、799 条概念映射、40 条补充解析、1 条勘误）。
 
 ## 用途与规则
 
@@ -17,8 +17,8 @@
 | --- | --- | --- | --- | --- | --- |
 | R1-1 | cn408-2009 全部 47 题 | 逐题核对题干、选项、解析与原卷扫描件，正式确认审核状态 | 线上 `/review/2009` 复核工作台；`docs/2009-source-audit-2026-10-04.md` | 正式人工复核 0/47；AI 来源核对已完成（47/47，17 题修正、3 处跨页解析索引），包版本 2009.0-draft.3 | docs/server/content-review.md、README.md |
 | R1-2 | cn408-2022-q17 | DRAM 地址引脚数解析：来源解析把内存条总字节地址位数（512MB=2^29B → 29 位）当成单片 DRAM 地址引脚数，单片 8192×8192×8（行列复用 13+13）应为 13 根；两种口径均不含答案选项 C(26)，需对原答案页人工确认 | docs/content-quality-backlog.md（P2 未解项）；docs/learning/article-drafts-2026-11-25.md | 题包保留原文；第一批讲解草稿已在 doubts 标出来源异常并排除该题，讲解与卡片均不引用 | docs/content-quality-backlog.md、docs/learning/article-drafts-2026-11-25.md |
-| R1-3 | cn408-2023-q40 | 解析称 IPv6 与 IPv4 地址空间"相差 64 位/2^64"是否为原资料错误；正确口径应为 128−32=96 位、2^96 | `cn408-2023/source/answers-11.jpg`（PDF page 11; answer 40）；docs/content-quality-backlog.md（P2）；勘误设计 docs/learning/question-supplements-design-2026-11-25.md | 原页本身即写错（非 OCR）；组内决定暂不改题包；答案键 D 与审核状态不变；卡片 card-cn-31 按正确位数计算 | docs/content-quality-backlog.md、docs/learning/question-supplements-design-2026-11-25.md |
-| R1-4 | 2024/2025 年 80 道选择题（各 40） | 逐题补写解析的方案（80 题现均为占位"本题解析暂缺文字版"） | docs/learning/missing-explanations-2026-11-25.tsv（逐题概念对应）；docs/learning/question-supplements-design-2026-11-25.md（补充方案） | 方案待维护者批准 | docs/content-quality-backlog.md、README.md |
+| R1-3 | cn408-2023-q40 | 解析称 IPv6 与 IPv4 地址空间"相差 64 位/2^64"是否为原资料错误；正确口径应为 128−32=96 位、2^96；核对勘误的地址位数之差、理论地址空间之比、原段引文和答案卷定位 | `cn408-2023/source/answers-11.jpg`（PDF page 11; answer 40）；docs/content-quality-backlog.md（P2）；勘误 `erratum:cn408-2023-q40`（私有输入 `output/supplements-release/input.json`；题版 2023.0-draft.2，段 q40-analysis，答案卷第 11 页） | 已发布勘误，待复核勘误内容；题包原文未改，答案键 D 与审核状态不变 | docs/content-quality-backlog.md、docs/learning/supplements-release-2026-11-25.md、提交 6b497ef |
+| R1-4 | 2024/2025 年 80 道选择题（各 40） | 逐题补写解析；2024 年 40 条补充解析已上线（批次见 R1-15），2025 年 40 条在写 | docs/learning/missing-explanations-2026-11-25.tsv（逐题概念对应）；docs/learning/question-supplements-design-2026-11-25.md（补充方案）；docs/learning/supplements-release-2026-11-25.md | 2024 年 40 条已上线（学习包 2026.11.25.5，待复核）；2025 年 40 条在写 | docs/content-quality-backlog.md、README.md、docs/learning/supplements-release-2026-11-25.md |
 | R1-5 | cn408-2023-q05 | 来源解析文字错误：后序序列 `f, d, b, e, c, a` 中结点 `e` 左子树 2 结点（f, d）、右子树 1 结点（b），解析第 4 句误写"`fdb` 属于左子树，`e` 属于右子树" | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 草稿已规避；供评估记入内容质量清单 | docs/learning/article-drafts-2026-11-25-b.md |
 | R1-6 | cn408-2016-q27 | 来源解析概念错误：TSL 自旋锁退出临界区执行 `lock=FALSE` 时，解析写"会负责唤醒处于就绪状态的进程"；唤醒只针对阻塞态进程，解锁只是普通写内存 | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 同上 | docs/learning/article-drafts-2026-11-25-b.md |
 | R1-7 | cn408-2013-q42 | 题干漏小数点：4 元素折半查找成功 ASL 应为 `2.2`，题包题干误作"平均查找长度为 22" | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 同上 | docs/learning/article-drafts-2026-11-25-b.md |
@@ -29,6 +29,7 @@
 | R1-12 | cn408-2016-q20 | 解析末句"控制信号即指 PC 中的内容"疑为明显笔误 | docs/learning/article-drafts-2026-11-25.md | 草稿已排除该题、不引用该表述；待人工复核 | docs/learning/article-drafts-2026-11-25.md |
 | R1-13 | 2019/2021/2024/2025 年 OCR 恢复解析 | I/O 误作 VO、帧误作顿、页码碎片、全半角标点等 OCR 噪声逐处核对 | docs/content-quality-backlog.md（P3） | 未处理 | docs/content-quality-backlog.md |
 | R1-14 | 全部题干配图 | 配图为整页扫描原图、未裁切定位，是否影响判读 | docs/content-quality-backlog.md（P3） | 未处理 | docs/content-quality-backlog.md |
+| R1-15（批次） | 2024 年 40 条补充解析（Q01–Q40，摩卡编写） | 逐条核对答案、逐题推导、干扰项及页码；Q20 核带宽计算口径，Q36 核来源卷时间单位错印；组长已抽查 Q05、Q12 | 私有输入 `output/supplements-release/input.json` 的 40 条 supplement（各自绑定题页和答案总表第 1 页）；草稿 `content/learning/drafts/supplements-2024-draft-2026-11-25.mjs`；草稿说明 `docs/learning/supplements-2024-draft-2026-11-25.md` | 已上线（学习包 2026.11.25.5），needs-review，待独立 AI 复核 | docs/learning/supplements-release-2026-11-25.md、提交 6b497ef |
 
 ## 二、答案键
 
@@ -49,8 +50,8 @@
 | 编号 | 对象 | 要核什么 | 证据位置 | 当前状态 | 引入来源 |
 | --- | --- | --- | --- | --- | --- |
 | R4-1 | 原 20 篇 | 正文、workedExample、commonMistake 与依据题、题包解析的一致性 | content/learning/articles.mjs | agent 已对照题包逐项核对，人工审核率 0 | docs/server/content-review.md |
-| R4-2 | 第一批 12 篇（已并入，学习包 2026.11.25.3，现共 32 篇） | 逐篇核对正文、示例与依据题；10 条存疑逐项确认；7 个 labPath 因 ARTICLE_LAB_PATHS 白名单未扩展而省略，待补 | docs/learning/article-drafts-2026-11-25.md；发布记录 docs/learning/article-release-2026-11-25.md | 已发布，needs-review | docs/learning/article-release-2026-11-25.md |
-| R4-3 | 第二批 15 篇草稿（未并入学习包） | 同上；10 篇含存疑说明共 12 条 doubts；6 个 labPath 待并入后补登 | docs/learning/article-drafts-2026-11-25-b.md；草稿 content/learning/drafts/articles-draft-2026-11-25-b.mjs | 未并入；待组长补登 | docs/learning/article-drafts-2026-11-25-b.md |
+| R4-2 | 第一批 12 篇（已并入，学习包 2026.11.25.3，共 32 篇） | 逐篇核对正文、示例与依据题；10 条存疑逐项确认；7 个 labPath 已随学习包 2026.11.25.5 恢复实验链接并升版 | docs/learning/article-drafts-2026-11-25.md；发布记录 docs/learning/article-release-2026-11-25.md、docs/learning/supplements-release-2026-11-25.md | 已发布，needs-review | docs/learning/article-release-2026-11-25.md |
+| R4-3 | 第二批 15 篇（已随学习包 2026.11.25.5 上线） | 逐篇核对例题、推导、引用题面和实验链接；逐条处理草稿 doubts（10 篇含存疑说明共 12 条） | docs/learning/article-drafts-2026-11-25-b.md；草稿 content/learning/drafts/articles-draft-2026-11-25-b.mjs；发布记录 docs/learning/supplements-release-2026-11-25.md | 已发布，待复核；组长已验收草稿 | docs/learning/article-drafts-2026-11-25-b.md、docs/learning/supplements-release-2026-11-25.md、提交 6b497ef |
 
 ## 五、概念映射
 
@@ -71,7 +72,7 @@
 | 编号 | 对象 | 要核什么 | 证据位置 | 当前状态 | 引入来源 |
 | --- | --- | --- | --- | --- | --- |
 | R7-1 | 题包与学习包整体状态 | 17 套题包（799 题）整体 reviewStatus；学习包 reviewStatus | docs/server/content-review.md；docs/learning/coverage.json | 均为 needs-review，人工审核率 0 | docs/server/content-review.md、docs/learning/coverage.json |
-| R7-2 | README 口径 | README"内容复核与学习分析"节写"799 道题、156 张记忆卡和 20 篇原创短讲解"，与 article-release-2026-11-25.md/coverage.json 记录的 32 篇不一致 | README.md；docs/learning/article-release-2026-11-25.md；docs/learning/coverage.json | README 数字早于第一批讲解发布，待更新 | 本清单对比 |
+| R7-2 | README 口径 | README"内容复核与学习分析"节写"799 道题、156 张记忆卡和 20 篇原创短讲解"，与 article-release-2026-11-25.md/coverage.json 记录的 32 篇不一致 | README.md；docs/learning/article-release-2026-11-25.md；docs/learning/coverage.json | README 数字早于第一批讲解发布，待更新；拿铁处理中 | 本清单对比 |
 
 ## 如何复核
 
