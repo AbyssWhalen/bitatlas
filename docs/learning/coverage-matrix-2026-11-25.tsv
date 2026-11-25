@@ -1,0 +1,103 @@
+概念ID	名称	科目	所属章节	关联题目数	年份范围	解析缺失题数	记忆卡数	有短讲解	实验链接
+ds.foundations.complexity	时间与空间复杂度	数据结构	算法与线性结构	14	2010-2025	1	1	否	-
+ds.foundations.array	顺序表与数组算法	数据结构	算法与线性结构	9	2010-2025	0	0	否	-
+ds.foundations.list	链表与指针操作	数据结构	算法与线性结构	10	2009-2024	1	1	否	/lab/data-structures?module=linked-list&preset=cn408-2009-q42
+ds.foundations.stack	栈与表达式	数据结构	算法与线性结构	15	2009-2025	2	1	是	/lab/data-structures?module=stack-capacity&preset=cn408-2009-q02,/lab/data-structures?module=stack-capacity
+ds.foundations.queue	队列与循环队列	数据结构	算法与线性结构	7	2009-2021	0	1	否	-
+ds.foundations.matrix	特殊矩阵压缩存储	数据结构	算法与线性结构	6	2011-2023	0	1	否	-
+ds.foundations.string	字符串与 KMP 匹配	数据结构	算法与线性结构	3	2015-2024	1	1	否	-
+ds.trees.tree-shape	树的结构与计数	数据结构	树与查找	8	2009-2025	1	1	否	/lab/data-structures?module=complete-tree&preset=cn408-2009-q05
+ds.trees.traversal	树的遍历与重建	数据结构	树与查找	11	2009-2024	1	1	否	/lab/data-structures?module=tree-traversal&preset=cn408-2009-q03&order=RNL
+ds.trees.forest	树、森林与二叉树转换	数据结构	树与查找	8	2009-2025	1	1	否	/lab/data-structures?module=forest-conversion&preset=cn408-2009-q06&path=LR
+ds.trees.thread	线索二叉树	数据结构	树与查找	3	2010-2014	0	0	否	-
+ds.trees.bst	二叉搜索树	数据结构	树与查找	6	2011-2024	1	0	否	-
+ds.trees.avl	平衡二叉树与旋转	数据结构	树与查找	7	2009-2021	0	1	否	-
+ds.trees.btree	B 树与 B+ 树	数据结构	树与查找	12	2009-2025	1	1	是	-
+ds.trees.huffman	哈夫曼编码与最优合并	数据结构	树与查找	14	2010-2025	1	1	是	-
+ds.trees.search	顺序、折半与分块查找	数据结构	树与查找	9	2010-2025	2	1	否	-
+ds.trees.hash	散列冲突与查找长度	数据结构	树与查找	9	2010-2025	1	1	否	-
+ds.graphs.graph-model	图的存储、度与连通性	数据结构	图与图算法	11	2009-2025	2	0	是	/lab/data-structures?module=shortest-path
+ds.graphs.graph-traversal	图的深度与广度优先搜索	数据结构	图与图算法	5	2012-2020	0	1	否	-
+ds.graphs.shortest	最短路径与松弛	数据结构	图与图算法	5	2009-2023	0	1	否	/lab/data-structures?module=shortest-path&preset=cn408-2009-q41
+ds.graphs.mst	最小生成树	数据结构	图与图算法	5	2012-2020	0	0	否	-
+ds.graphs.topological	拓扑排序与有向无环图	数据结构	图与图算法	10	2010-2024	0	1	否	-
+ds.graphs.critical	AOE 网与关键路径	数据结构	图与图算法	6	2011-2025	0	1	否	-
+ds.sorting.sort-properties	内部排序性质与稳定性	数据结构	排序与选择	18	2009-2025	2	1	是	/lab/data-structures?module=sort-pass&preset=cn408-2009-q10,/lab/data-structures?module=sort-pass
+ds.sorting.heap	堆的构建与调整	数据结构	排序与选择	8	2009-2024	1	1	否	/lab/data-structures?module=min-heap&preset=cn408-2009-q09
+ds.sorting.quick	快速排序与划分	数据结构	排序与选择	7	2010-2024	1	0	否	-
+ds.sorting.merge	归并排序与有序合并	数据结构	排序与选择	4	2012-2024	1	0	否	-
+ds.sorting.external	外部排序与多路归并	数据结构	排序与选择	4	2016-2024	1	0	否	-
+co.representation.integer	整数编码、扩展与溢出	计算机组成原理	数据表示与运算	19	2009-2025	3	2	是	/lab?module=signed
+co.representation.float	浮点表示与运算	计算机组成原理	数据表示与运算	16	2009-2025	2	2	否	/lab?module=float32
+co.representation.arithmetic	ALU 与加减乘除	计算机组成原理	数据表示与运算	9	2011-2025	2	0	否	-
+co.representation.endian	字节序与数据对齐	计算机组成原理	数据表示与运算	7	2012-2025	1	1	否	-
+co.representation.coding	校验码与数据编码	计算机组成原理	数据表示与运算	1	2013	0	0	否	-
+co.memory.ram	主存芯片与地址译码	计算机组成原理	存储系统	16	2009-2023	0	2	否	/lab?module=memory-expansion&preset=cn408-2009-q15
+co.memory.cache	Cache 映射与命中	计算机组成原理	存储系统	21	2009-2025	0	2	是	/lab?module=cache
+co.memory.virtual	虚拟地址、页表与 TLB	计算机组成原理	存储系统	13	2011-2024	3	1	否	-
+co.memory.disk	磁盘容量与访问时间	计算机组成原理	存储系统	5	2013-2022	0	0	否	-
+co.memory.locality	时间局部性与空间局部性	计算机组成原理	存储系统	1	2017	0	1	否	-
+co.processor.isa	指令格式与寻址	计算机组成原理	指令系统与处理器	31	2009-2025	2	2	是	/lab?module=datapath,/lab?module=micro-operations&preset=cn408-2009-q44&schedule=parallel-5,/lab?module=riscv
+co.processor.datapath	数据通路与微操作	计算机组成原理	指令系统与处理器	15	2009-2025	1	0	否	/lab?module=micro-operations&preset=cn408-2009-q44&schedule=parallel-5
+co.processor.control	控制器与微程序	计算机组成原理	指令系统与处理器	5	2009-2025	1	1	否	-
+co.processor.pipeline	流水线与相关冲突	计算机组成原理	指令系统与处理器	16	2009-2024	1	2	否	/lab?module=pipeline&mode=timing&preset=cn408-2009-q18-stage-clock
+co.processor.performance	CPU 性能与加速比	计算机组成原理	指令系统与处理器	14	2010-2025	1	1	否	-
+co.processor.risc	RISC 与 CISC	计算机组成原理	指令系统与处理器	2	2009-2025	1	0	否	/lab?module=riscv
+co.processor.parallel	并行体系结构	计算机组成原理	指令系统与处理器	1	2022	0	0	否	-
+co.processor.architecture	计算机层次与冯诺依曼结构	计算机组成原理	指令系统与处理器	5	2009-2022	0	0	否	/lab?module=datapath
+co.io.bus	总线时序与带宽	计算机组成原理	总线与输入输出	21	2009-2025	2	1	是	/lab?module=bus-bandwidth&preset=cn408-2009-q20,/lab?module=bus-bandwidth
+co.io.interrupt	异常、中断与优先级	计算机组成原理	总线与输入输出	23	2009-2025	2	1	是	/lab?module=io-overhead
+co.io.dma	DMA 与设备传送	计算机组成原理	总线与输入输出	9	2009-2025	2	1	否	/lab?module=io-overhead&preset=cn408-2009-q43
+co.io.polling	程序查询与 I/O 接口	计算机组成原理	总线与输入输出	7	2011-2023	0	0	否	-
+os.process.kernel	内核、特权级与系统调用	操作系统	进程与处理机	17	2009-2023	0	1	否	-
+os.process.state	进程状态与切换	操作系统	进程与处理机	12	2010-2025	3	1	否	-
+os.process.thread	线程模型与共享资源	操作系统	进程与处理机	7	2011-2024	1	1	否	-
+os.process.scheduling	处理机调度与周转时间	操作系统	进程与处理机	20	2009-2025	2	1	是	/lab/os-memory?module=hrrn&preset=cn408-2009-q24,/lab/os-memory?module=hrrn
+os.process.concurrency	并发、并行与临界区	操作系统	进程与处理机	11	2009-2023	0	1	否	-
+os.process.semaphore	信号量与同步	操作系统	进程与处理机	14	2009-2025	0	2	是	/lab/os-memory?module=semaphore&preset=cn408-2009-q45,/lab/os-memory?module=semaphore
+os.process.deadlock	死锁条件与安全状态	操作系统	进程与处理机	13	2009-2022	0	2	否	/lab/os-memory?module=deadlock&preset=cn408-2009-q25
+os.process.ipc	进程通信与管道	操作系统	进程与处理机	1	2014	0	0	否	-
+os.process.monitor	管程与条件变量	操作系统	进程与处理机	2	2016-2018	0	0	否	-
+os.memory.allocation	连续分配与地址保护	操作系统	内存与虚拟存储	5	2009-2024	1	1	否	-
+os.memory.paging	分页、分段与地址转换	操作系统	内存与虚拟存储	23	2009-2025	3	2	是	/lab/os-memory?module=segmentation-address&preset=cn408-2009-q27,/lab/os-memory?module=memory
+os.memory.replacement	缺页、页面置换与工作集	操作系统	内存与虚拟存储	19	2009-2025	1	2	是	/lab/os-memory?module=memory&preset=cn408-2009-q46,/lab/os-memory?module=memory
+os.memory.allocation-page	页面分配与局部性	操作系统	内存与虚拟存储	2	2015-2025	1	0	否	-
+os.files.file-layout	文件分配与索引结构	操作系统	文件系统	14	2009-2022	0	2	是	/lab/os-memory?module=filesystem-links
+os.files.directory	目录、链接与文件控制块	操作系统	文件系统	12	2009-2025	1	1	否	/lab/os-memory?module=filesystem-links&preset=cn408-2009-q31
+os.files.file-open	文件打开、读写与权限	操作系统	文件系统	11	2009-2025	3	1	否	-
+os.files.free-space	空闲空间与位示图	操作系统	文件系统	6	2010-2025	2	0	否	-
+os.files.disk	磁盘调度与访问时间	操作系统	文件系统	8	2009-2024	1	1	否	/lab/os-memory?module=disk&preset=cn408-2009-q29
+os.io.device	设备分配与独立性	操作系统	设备与系统机制	9	2009-2023	0	0	否	-
+os.io.buffer	缓冲、假脱机与 SPOOLing	操作系统	设备与系统机制	5	2011-2018	0	1	否	-
+os.io.interrupt	中断、异常与保护	操作系统	设备与系统机制	9	2010-2024	2	0	否	-
+os.io.boot	系统引导与虚拟机	操作系统	设备与系统机制	5	2013-2025	1	0	否	-
+cn.foundations.layers	分层体系、服务与协议	计算机网络	体系结构与物理层	13	2009-2022	0	1	是	-
+cn.foundations.delay	时延、吞吐与交换方式	计算机网络	体系结构与物理层	5	2010-2025	2	1	否	-
+cn.foundations.channel	信道容量、编码与调制	计算机网络	体系结构与物理层	11	2009-2024	1	1	是	/lab/network?module=qam-nyquist&preset=cn408-2009-q34,/lab/network?module=qam-nyquist
+cn.foundations.multiplex	多路复用与码分多址	计算机网络	体系结构与物理层	1	2014	0	0	否	-
+cn.foundations.interface	物理层接口特性	计算机网络	体系结构与物理层	2	2012-2018	0	0	否	-
+cn.link.framing	成帧、差错检测与 CRC	计算机网络	数据链路层	3	2013-2025	1	1	否	-
+cn.link.arq	可靠传输与滑动窗口	计算机网络	数据链路层	11	2009-2024	1	2	是	/lab/network?module=gbn&preset=cn408-2009-q35,/lab/network?module=gbn
+cn.link.ethernet	以太网与 CSMA/CD	计算机网络	数据链路层	11	2009-2025	1	1	是	/lab/network?module=csma-cd&preset=cn408-2009-q37,/lab/network?module=csma-cd
+cn.link.switch	交换机、网桥与 VLAN	计算机网络	数据链路层	11	2009-2024	1	1	否	/lab/network?module=switch-forwarding&preset=cn408-2009-q36
+cn.link.wifi	无线局域网与 CSMA/CA	计算机网络	数据链路层	6	2011-2024	1	1	否	-
+cn.link.ppp	PPP 与点到点链路	计算机网络	数据链路层	0	-	0	0	否	-
+cn.network.ip	IPv4 地址、子网与 CIDR	计算机网络	网络层	26	2009-2025	0	2	是	/lab/network?module=cidr&preset=cn408-2009-q47,/lab/network?module=cidr
+cn.network.fragment	IP 分片与首部	计算机网络	网络层	2	2018-2021	0	1	否	-
+cn.network.routing	路由算法与路由协议	计算机网络	网络层	9	2009-2024	0	1	否	/lab/network?module=cidr&preset=cn408-2009-q47
+cn.network.arp	ARP 与地址解析	计算机网络	网络层	6	2011-2024	1	1	否	-
+cn.network.icmp	ICMP 与网络诊断	计算机网络	网络层	3	2010-2024	0	0	否	-
+cn.network.nat	NAT 与私有地址	计算机网络	网络层	5	2011-2025	1	0	否	-
+cn.network.ipv6	IPv6 编址	计算机网络	网络层	1	2023	0	0	否	-
+cn.network.sdn	SDN 控制与数据平面	计算机网络	网络层	1	2022	0	0	否	-
+cn.transport.tcp-sequence	TCP 序号、确认与重传	计算机网络	传输层	7	2009-2025	2	1	否	/lab/network?module=tcp-ack&preset=cn408-2009-q38
+cn.transport.tcp-connect	TCP 连接建立与释放	计算机网络	传输层	8	2011-2022	0	1	否	-
+cn.transport.tcp-flow	TCP 流量控制与接收窗口	计算机网络	传输层	4	2014-2025	1	1	否	-
+cn.transport.congestion	TCP 拥塞控制	计算机网络	传输层	10	2009-2025	1	1	否	/lab/network?module=tcp-congestion&preset=cn408-2009-q39
+cn.transport.udp	UDP 与端口复用	计算机网络	传输层	6	2014-2025	2	0	否	-
+cn.application.dns	DNS 解析与缓存	计算机网络	应用层	4	2010-2021	0	1	否	-
+cn.application.http	HTTP 与 Web 连接	计算机网络	应用层	6	2011-2024	1	0	否	-
+cn.application.ftp-mail	FTP 与电子邮件	计算机网络	应用层	8	2009-2025	1	0	否	/lab/network?module=ftp-control&preset=cn408-2009-q40
+cn.application.dhcp	DHCP 动态地址配置	计算机网络	应用层	3	2015-2025	1	1	否	-
+cn.application.security	网络安全与认证	计算机网络	应用层	1	2025	0	0	否	-
+cn.application.models	客户服务器与对等应用模型	计算机网络	应用层	1	2019	0	0	否	-

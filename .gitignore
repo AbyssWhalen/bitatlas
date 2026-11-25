@@ -1,6 +1,8 @@
 node_modules/
 .venv/
+__pycache__/
 dist/
+dist-server/
 coverage/
 .vite/
 .cache/

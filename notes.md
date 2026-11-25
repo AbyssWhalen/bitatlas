@@ -1,5 +1,223 @@
 # Notes
 
+## 2026-11-25 发布执行验证
+
+- `npm run typecheck` 七个 workspace 全部通过。`npm run lint` 检查 404 个文件，零错误、零警告。WSL 首次启动测试的包装命令丢失目录变量，未创建环境；改由仓库内独立脚本在项目虚拟环境运行，`unittest discover` 的 18 项用例通过，包含接收用户、主机、路径、固定主机公钥、缺失批准配置五个拒绝情形。生产备份单元仍使用原安装副本。
+- 新候选 `20261125-53fe2515` 来自独立构建、打包与解包。240 个源输入仅 `docs/server/deployment.md` 改变；395/395 个清单条目核验通过，前端 336 项的路径、字节数与摘要同封板。凭据、主机与身份路径保存在受限本机目录。公网登录后权限和同步待维护者本人确认。
+
+## 2026-11-25 服务器候选、公开审查与 PWA 回退（仅准备）
+
+- `node output/release-candidate-2026-11-25/prepare.mjs` 复用发布白名单，独立构建、打包和逐项解包；`compare.mjs` 按实际发布清单核实旧 387 / 新 395 项。服务器 SQLite v1、内容缓存 v3、账号 v5、匿名 v4、备份 v5/v4 不变，无数据迁移。服务器候选 tar `a6ec39d945283b236ea323f0f4466b9bca19b504b055ac7d8b1ca15d7db72194`。完整依据见[发布计划](docs/server/release-plan-2026-11-25.md)与[机器回执](output/release-candidate-2026-11-25/delivery.json)。
+- `node --import tsx .../pwa-local.mjs transition|slow`：首次测试地址不在应用的 HTTP 回环许可中，两个脚本启动在登录前被拒；更换为原本许可的 `127.0.0.1` 后，4349 验证旧→新→旧及待同步笔记最终一次落库，4351 验证 95 项慢链路冷装 125.793 秒后可离线重开。未放宽产品安全检查。实测源站静态响应 `public, max-age=0`、API `no-store`，无法据此断言 Cloudflare 边缘是否 HIT。
+- `public-audit.mjs` / `review-signals.mjs` 审查所有拟纳入的变动与新文件；真实凭据未检出，备份机、身份路径、隧道、账号和运维标识仍待执行者脱敏。本轮不作脱敏。提交建议 85 / 200 / 13 / 47 个文件；`check-splits.mjs` 在 HEAD 投影上分别检查前两组，7/7、7/7、零类型错误；5 个不纳入文件保留原位。
+- 收口边界：不重跑已通过的封板；不启动 46 题复核。不连接 GCP、不动 DNS、线上数据和凭据，不提交、推送、部署或安装依赖。公开前按实际索引再扫，若打包输入变动必须换新候选；线上 Linux 烟测、边缘摘要与公网成员流程留到执行时。
+
+## 2026-11-25 UI 封板：行为回归与综合验证
+
+- 权威阶段记录在 [UI 封板](docs/ui/opus-handoff.md#final-gate)，证据前缀 `$out = output/playwright/opus-ui-2026-11-22/final-gate/`。先跑 `AccountGate.restore`、`SettingsPage`、`ServerDocumentsPage`，原实现 3 文件 15 项中 5 项红灯；修改 7 个产品文件后，加上原账号、API、备份测试共 7 文件 41/41。新增 10 个用例，原断言未降低。根据本地发布清单和同摘要主 JS 确认指定旧发布也有首访误报；全程未请求线上。
+- 全仓 `npm run lint -- --format json --output-file …` 查 404 文件，`npm run typecheck` 查 7 个 workspace，`npm run test` 限 3 workers 跑全量 130 文件 1407/1407。`npm run content:validate` 校验 17 套 799 题；`npm run learning:check` 校验 799 题、80 卡、20 篇短讲、102 个叶概念。学习包摘要 `f326d8c217dc1a3f14835d69c2251cee7e2e4f7e7a95ad89b2ad030eaa98cdf6`。内容校验通过并不代表已人工审核。
+- 本地用 workspace 的生产构建命令直传 `--outDir` 至 `$out/dist-local-complete`；服务端用 `npm run build:server -- --outDir …` 至 `$out/dist-server`。两目录分别 743、336 个文件，预缓存 100、95 项。第一组 `lint.log`、`build-local.log` 缺结束回执，保留原件，使用新日志名和新的本地构建目录取得完整回执。`build-identity.json` 记录浏览器门禁使用的本地预览入口/主 JS/SW 与磁盘的相同摘要和服务端构建标识。
+- 默认本地 `local.config.ts` 继承仓库两个 `testMatch`、三个 Chrome 项目、并发公式及原断言，独立构建后在 4349 启动 preview。服务器串行使用 4351，各视口全新数据库，避免 1366 与 1440 固定测试成员串数据。一次性完整 spec 副本只换 3 处端口、1 处夹具导入，反向替换与原文件 SHA-256 完全相同（[回执](output/playwright/opus-ui-2026-11-22/final-gate/server-adapter.json)）。PWA 使用仓库原命令和原断言，只把其动态回环监听绑定到已释放的 4349。
+- [本地首轮](output/playwright/opus-ui-2026-11-22/final-gate/local-default/report.json) 33 份、243/243，自动 1 worker，三视口各 81，14.5 分钟。服务器同一份 7 条场景，三视口各 7/7，每批 1 worker，共 21/21；完整批次均无失败、重试、跳过或 flaky。`server-desktop.log` 在 4 项通过后因中断无最终回执，完整结果用新数据库的 `server-desktop-complete/`，其余是 `server-1366/`、`server-mobile/`。默认首轮没有失败，不触发失败项复跑；未跑固定 8 worker 压测。
+- [PWA 2/2](output/playwright/opus-ui-2026-11-22/final-gate/pwa-upgrade/receipt.json)：A 的旧脚本在 B 服务器上 404、原浏览器缓存返回 200；两种宽度下换版前草稿、保存后升级及离线刷新均正常。四组身份/视口行为检查实测同一 `/auth/me` 401 的首访与失效效果、管理员 2 张/成员 0 张管理卡、v5 导出内容与 868 B 的小 PDF。初版补查保留；[最终补查](output/playwright/opus-ui-2026-11-22/final-gate/behavior-browser-ready/receipt.json)先等设置页完成加载，再确认成员入口不存在。原始 10 张最终截图与[机器总回执](output/playwright/opus-ui-2026-11-22/final-gate/delivery.json)可核对。所有指定门禁已跑；未访问生产、未提交或发布。
+
+## 2026-11-25 阶段 5 实验交互态：悬停、焦点与手机流水线
+
+- `$out` 为 `output/playwright/opus-ui-2026-11-22/stage-5-states/` 的绝对路径。工作区基线独立构建到 `dist-before`，最终交付到 `dist-delivery`（`npm run build -w @408os/web -- --outDir …`）。生产文件仅改 `lab.css`、`lab-extended.css`、`lab-exhibits.css`、`lab-exhibit-shell.css`。`survey.mjs` 实际播放 34 个实验、采 374 个状态帧；`map-palette.mjs` 按选择器分支核对 253 个引用。仅改可作用在画布外的 64 个，保留画布内 189 个及全部 333 条定义。
+- `.table` 悬停背景从固定深色改为 `--paper-2`；C 组三页的同色覆盖保留，防止最短路径/虚存 `.current` 行的高优先级背景盖住悬停。分段键、实验导航和实验路由的手机底栏使用内缩的 `currentColor` 焦点线。`interact.mjs` 实际发送 Tab、指针移动和按下；`ring.mjs` 对照同一焦点线显示/隐藏时的截图像素，检查线和两侧相邻表面。修前稳定状态红灯为 204 条交互文字、575 个焦点，修后为 0/0；另有 10,936 条扩展状态文字，修后最低 4.80:1。原生过渡样本与关闭过渡后用于逐项归因的结果分别保留。[原生采样](output/playwright/opus-ui-2026-11-22/stage-5-states/interaction-summary.json) · [稳定状态归因](output/playwright/opus-ui-2026-11-22/stage-5-states/interaction-endpoint-summary.json)。
+- `compare.mjs before after-delivery comparison-verified --fixtures` 对照每边 160 组、240 张图。设置页等待 17 套数据及同一缓存计数，进制页等待题包计数稳定、知识图等待连续绘制一致；初次及全部重采记录保留。最终 50,488,386 对属性、259,838,940 对像素中，22 个属性值、4 处几何、15,032 个像素不同，全部位于 390px 流水线的模式按钮区域；其余静态差异 0。交互差异另有 84 个表格行悬停、3,800 个焦点样本，逐条可查。
+- `playwright test -c e2e.config.ts --workers=1` 指向 `dist-delivery`，三视口各 35/35，共 **105/105**，无重试、跳过或 flaky。`npm run lint`、`npm run typecheck`（7 个 workspace）通过。用 Vite 将当前 `apps/web/src/styles.css` 在内存中重新编译，与交付主 CSS 的 **352,053 字节**及 SHA-256 `75c55911a01bfe07d80f85cf622f472b1f6780457e5653bc11e3a41f27a7b224` 一致。原断言未改，默认全量留给组长。本阶段[逐项报告](docs/ui/opus-handoff.md#stage-5-states)与[交付回执](output/playwright/opus-ui-2026-11-22/stage-5-states/delivery.json)为接续入口。
+
+## 2026-11-25 阶段 5 旧实验样式统一清理
+
+- `$out` 为 `output/playwright/opus-ui-2026-11-22/stage-5-cleanup/` 的绝对路径。先保存九份目标原文和 206 份 Web 源码摘要，从当前工作区 `npm run build -w @408os/web -- --outDir "$out/dist-before"`，再用真实 Chrome 跑 `node "$out/preflight.mjs"`。34/34 个实验确有展厅画布，旧整页、临时岛均 0 匹配。按 `prune.mjs --plan` / `--write` 的 PostCSS 分支账本删除旧样式，保留活跃的结构、动态状态和不确定的级联；`tokens.css` 仅改末尾夜班岛段。
+- 清理后同命令独立构建至 `dist-after`。`vitest run` 对 `LabExhibit.test.tsx`、`CpuLabPage.test.tsx` 为 18/18；两份 TSX `eslint --max-warnings=0` 为 0 错误/警告；`npm run typecheck` 七个 workspace 通过。从 `$out` 运行 `playwright test -c e2e.config.ts --workers=1`，27 份实验及跨页 spec，1440/1366/390 各 35 项，共 105/105，0 重试、失败、跳过、flaky。根 HANDOFF 已补记组长之前的 A+B 全量 243/243；不将它冒充本轮全量。
+- `capture.mjs before-stable 4351` 和 `capture.mjs after-stable 4349` 采同一对冻结构建；`compare.mjs before-stable after-stable comparison` 比较解码 RGBA、所有枚举计算属性（按属性名比较，避免自定义属性枚举顺序影响）、生成伪元素及几何。首轮今日/设置的 `h1` 就绪条件过宽，导航 SVG 也可能在标签切换中取样；原报告保留。最终 160 对、58,338 对可见元素、50,050,078 对属性、240 对截图及 259,480,440 个像素均无差异。手机另有 80 对实际滚动主区的完整拼图。
+- `palette.mjs` 计数 253 次引用，并在浏览器内临时追踪令牌，随后恢复。`hover.mjs` 对两份冻结构建进行独立像素采样：流水线寄存器表和磁盘调度的比较表在 1440 白昼悬停均低至 1.07:1，夜班 11.76:1。两次实测完全一致；保留原行为并交由设计侧另修。未提交、推送、部署或安装依赖。[汇总回执](output/playwright/opus-ui-2026-11-22/stage-5-cleanup/delivery.json)由 `delivery.mjs` 核对源文件与构建摘要、删留数字、真实截图、E2E、定义及悬停样本；[逐项说明](docs/ui/opus-handoff.md#stage-5-cleanup)。
+
+## 2026-11-25 阶段 5 展厅 C 组独立页
+
+- 四份页面的五个实验已完成。最短路径把 SVG 从算法控制中拆出，VM 把访问时间线、访问控制、阶段步进和两张表分开；CIDR 将 32 位标尺按整八位组换行，GBN 把发送槽与接收期望位置对齐，并让手机步进器先于双窗口。React 状态、计算和路由保留。详见 [UI 交接](docs/ui/opus-handoff.md#stage-5-c-pages) 与 [旧 CSS 逐条索引](docs/ui/stage-5-c-legacy-selectors.md)。
+- `$out` 为 `output/playwright/opus-ui-2026-11-22/stage-5-rollout-c-pages/` 的绝对路径。四文件 `vitest run` 最终 **35/35**，`eslint --max-warnings=0` 检查 6 份改动 TS/TSX 为 0 错、0 警告；`npm run typecheck` 7 个 workspace 通过。`npm run build -w @408os/web -- --outDir "$out/dist-2"` 通过；`dist-1` 为修前构建。`node "$out/verify.mjs"` 复核了断言、CSS 令牌、未变的 DS 路由与 100 张 PNG 摘要。
+- 本地 Chrome / Playwright，1440、1366、390 各用 1 worker、0 retries：三个原实验 spec 6+6+9=21/21；Q41 自评和 Q47 题库入口 6/6、Q41 复核视图 3/3。修前加强 Q47 手机断言的定向红灯 **2029px**；最终根滚动 **0**，两张结果表分别局部横滚 272/158px。仅补充原用例内断言，默认发现数无增量。
+- `node audit.mjs visual-delivery dist-2 4349` 得到 **40/40**；`node edges.mjs interaction-verified` 验证八个悬停采样、最大安全整数、独立的 GBN 收发状态、四种 CIDR 前缀以及 VM 访问/阶段双控制。初次悬停测量首行类名匹配过窄，下一次在 StepExplorer 更新回调绘制前采过旧状态；两次尝试保留，最终按实际悬停行和已更新事件取样。外部最低对比 5.00:1、画布 5.89:1、悬停 10.39:1，手机最低 SVG 字号 15.77px。报告和截图可由 [delivery.json](output/playwright/opus-ui-2026-11-22/stage-5-rollout-c-pages/delivery.json) 追溯。
+- 余项仅供设计复看：手机最大 32 序号的 GBN 双行画布较高，已保留全部序号并前置操作。合并后的默认全套与固定并发压力均未在本任务运行。未提交、推送、部署或安装依赖。
+
+## 2026-11-25 阶段 5 展厅 A 组本地交付
+
+- 11 页迁移只涉及页面呈现。公共 `LabExhibit`、各科模块导航、`StepExplorer` 与实验计算沿用原接口。`apps/web/src/styles/lab-exhibit-rollout.css` 使用语义令牌；页面计算、题目及预设的数据边界沿用原状。逐页测试表及新增三个网络 spec 的覆盖在 [UI 交接](docs/ui/opus-handoff.md#stage-5-a)，[旧选择器逐条清单](docs/ui/stage-5-a-legacy-selectors.md) 供后续统一清理。
+- 以下命令的 `$out` 为项目绝对路径下的 `output/playwright/opus-ui-2026-11-22/stage-5-rollout-a`。11 页 Vitest 实际 55/55（`vitest-final.json`），`eslint` 定向检查 16 个改动的 TS/TSX 文件为 0 错误 0 警告（`lint-delivery.json`），`npm run typecheck` 的七个 workspace 通过。`npm run build -w @408os/web -- --outDir "$out/dist-delivery"` 和服务器补验使用的 `--mode server --outDir "$out/server-final"` 均通过。
+- `node node_modules/@playwright/test/cli.js test --config "$out/closeout.config.ts" --workers 1` 三视口合跑 33/33（原有 24、新增 9）。手机排序页目检发现隐藏表头产生重复纵向滚动，新断言在修前读到 372px。修复仅在 `max-width:800px` 为排序表格容器设置 `position:relative`。`sort-scroll-green/` 记录同一 spec 三视口 3/3。默认 `playwright test --list` 在新增用例前后分别为 234 项和 243 项；本轮未跑默认全量或固定 8 worker 压测。
+- `supplement.config.ts` 下本地 `visual` 全部、`study-flow` 知识三项及 `learning-reliability` 全部，每视口 17/17。服务器 `account-flow` 每视口 7/7，1366 使用独立测试库。原有实验、新增实验、知识与账号定向用例合计 105/105，每批 1 worker，0 跳过、0 flaky。临时交换机用例的两次失败分别为误把 P4 命中当作未命中，以及标签同时匹配输入框和结果表。修正样例与定位后，两种转发路径均在正式 spec 中覆盖。
+- 最终 `audit.mjs` 用 Chrome 对 88 组页面采样，画布外 6,099 条、内 2,194 条文字全达阈值，最小触控目标 26px。44 个手机组合均无根文档额外纵向滚动。`proof-1/` 含两路由徽标 16/16 与真实学习操作形成的知识图四态。`node "$out/verify-delivery.mjs"` 重新核对测试分项、断点修复差异、8,293 条压缩的文字记录以及 150 张主 PNG 的摘要与尺寸。回执为 [delivery.json](output/playwright/opus-ui-2026-11-22/stage-5-rollout-a/delivery.json)。
+- 交付时 `http://127.0.0.1:4349/` 为最终本地静态预览，服务器账号测试 fixture 和 4351 临时预览已关闭。此次只做本地实施与验收，生产环境和平台状态沿用先前的发布记录。
+
+## 2026-11-24 阶段 2b、4 与外壳的本地合并复验
+
+- 本轮只验当前阶段的两份独立构建。`docs/ui/stage-4-integrated-verification-2026-11-24.md` 记载实际命令、构建摘要、逐条失败、截图路径，以及初次采集中断后为何只补缺失项；`output/playwright/opus-ui-2026-11-22/stage-4-integrated/delivery.json` 已将 112 张矩阵截图逐一按 SHA256 核对。五张首屏在 `priority-1/`。
+- 全仓 ESLint 396 文件 0 错误/0 警告，typecheck 七 workspace 通过，全量 Vitest 127 文件 1393/1393，独立本地/服务器构建通过。设备分批 E2E 为本地 47+47+47、服务器 7+7，共 155/155；各 1 worker，0 失败、0 跳过、0 flaky。实验专用的 93 个本地检查、固定 8 worker 压测与生产环境未跑。
+- 浏览器 112 组合 18,646 条文字样本、横溢 0、首帧 34+56 项通过，寄存器专项 17/17。实际跨两日 6 次答题和 3 次评卡得到 99/1/1/1，没有注入四态。上线前剩一个已报告问题：白昼复习页错题数 `.sec-tab-badge` 仅 4.10435:1，四个采样格均低于 4.5。由摩卡修后定向复验。未改产品、测试断言或依赖；4349/4351 无监听。
+
+## 2026-11-24 阶段 4 · 旧外壳与只读学习数据
+
+- 本地实施，未动页面/组件 TSX、新样式、schema、题包/卡片正文、依赖；无提交、推送、部署。历史阶段 2 的浏览器数字不计入本次。数据入口与边界集中在 `docs/ui/concept-state-contract.md`。
+- A 全仓核对关联 TSX、测试、验证工具后，保留真实使用的 `.daily-plan-section`、手机 `.app-shell`、品牌与功能共用类；去除旧侧栏、桌面 grid、旧首页任务列表/年份进度及无效光标。7 个旧文件 `base/shell/shell-tablet/shell-narrow/reading/responsive/pages/dashboard.css`，工具 `tools/ui/prune-legacy-shell.mjs` 和 `tools/ui/README.md`。`node tools/ui/prune-legacy-shell.mjs --write` 的 `css-pruned.json` 列 76 个选择器分支与各自所在文件，另有 2 个 grid 定位声明、2 个弃用动画；`node tools/ui/prune-legacy-shell.mjs --check` 变更为 0。
+- B：`app/concept-register`、`app/useConceptRegister`、`app/useSessionSyncStatus` 及各自测试；`app/account.ts` 观察已有生命周期，`packages/storage/src/account-sync.ts` 只读订阅 pending 索引。`packages/domain/src/learning.ts` 提出的首答谓词与统计共用，北京日期格式器复用；`packages/domain/src/review-plan.ts` 导出现有有效质量函数。本轮未新增任何持久写入。`objectiveByConcept` 单列未检测/需复习/阳性首答，不与主观证据混算。稳定为双通道的当前复习状态，不等同掌握。
+- 从当前 17 份已安装题包和 `learning.json` 读取（Node `--import tsx` 调同一 `buildConceptCatalog/selectConceptActivity/selectSubjectConceptCounts`，空事件输入），不是重新生成内容：799 题 / 80 卡 / 102 叶，四科 28/22/22/30，35 叶有 `lab-links` 直达链接、35 叶没有初始可用卡；见 `output/verification/stage-4-data-2026-11-24/actual-catalog.json`。
+
+以下命令从仓库根执行，回执根 `$proofDir = 'output/verification/stage-4-data-2026-11-24'`。
+
+```powershell
+npm run test -- apps/web/src/pages apps/web/src/components --maxWorkers=2 --reporter=json --outputFile=output/verification/stage-4-data-2026-11-24/vitest-ui.json
+npm run test -- apps/web/src/app/concept-register.test.ts apps/web/src/app/useConceptRegister.test.ts apps/web/src/app/useSessionSyncStatus.test.ts apps/web/src/app/account.test.ts packages/domain/src/learning.test.ts packages/domain/src/review-plan.test.ts packages/storage/src/account-sync.test.ts --maxWorkers=2 --reporter=json --outputFile=output/verification/stage-4-data-2026-11-24/vitest-data-1.json
+npx --no-install eslint tools/ui/prune-legacy-shell.mjs apps/web/src/app/concept-register.ts apps/web/src/app/concept-register.test.ts apps/web/src/app/useConceptRegister.ts apps/web/src/app/useConceptRegister.test.ts apps/web/src/app/useSessionSyncStatus.ts apps/web/src/app/useSessionSyncStatus.test.ts apps/web/src/app/account.ts packages/domain/src/learning.ts packages/domain/src/review-plan.ts packages/storage/src/account-sync.ts --max-warnings=0 --format=json --output-file=output/verification/stage-4-data-2026-11-24/eslint-1.json
+npm run typecheck *> output/verification/stage-4-data-2026-11-24/typecheck-1.log
+```
+
+- 实际结果：UI 47 文件 293/293；B 7 文件 54/54，其中新 24、相关既有 30，0 失败/跳过。ESLint 11 文件 0 错误/0 警告（CSS 由 PostCSS 解析；Markdown 不在仓库 ESLint 规则内）。全仓类型首轮 6/7 workspace 通过；唯一失败是并行组长修改 `apps/web/src/components/AppShell.test.tsx:47` 上既有新测试 helper 的 `Document` 类型（TS2345）。已通知所有者，未改其文件。浏览器合并复验由组长另行组织。
+
+## Opus复查与HTML只读评审
+
+- 维护者提供完整提案、七张说明截图和`Downloads/BitAtlas_.html`，本轮范围仅评审。逐项答复写入`docs/server/opus-review-response-2026-11-22.md`，没有恢复产品实施或改动Opus文档。
+- 核验纠正：单卡`activeDurationMs`及失焦暂停已实现；错因已有按题/轮次存储；按日最低评分和最多两次额外重试已保留失败。当前799题均needs-review、80题缺文字解析；既有质量记录594/640已标对照，缺46条标记不等于46个错误答案。0/66/100与任意解锁题数缺少合理依据，不能当必修缺陷。
+- 原HTML真实Chrome桌面1440、手机模拟390、普通窄窗390完成查看。手机因缺viewport以980布局缩到约0.398；格子15×20px，任务票窄窗内部横滚；导航/快捷键未实现、状态是模拟数据、hex只留低48bit。昼夜切换和挖空Enter有效；夜间首张截图在过渡中，另等稳定色后复核，不误报主题缺陷。样张自编Cache题错误标为2014Q21，正式整合不可沿用。
+- 现有学习规则/存储定向测试2文件18/18、1 worker通过；无全量重跑。CLI缺缓存、受限启动EPERM及首轮定位空格错误均非产品失败；后续使用现有Playwright与独立输出成功。官方字体许可证与W3C解释页读取成功，最新依赖公告API403未完成核验。详情、失败边界和截图在评审文档及`output/playwright/opus-prototype-review-2026-11-22/`。
+- 仅新增评审文件/检查产物和本短记录；产品、题包、schema、配置、依赖、提交/推送/发布均未改变。实施继续等待维护者明确决定。
+
+## 2026-11-22 接续核验、暂停与WorkBuddy残留回收
+
+- 读完规范、交接顶部、最近记录和并行分工后，发现`docs/ui/codex-review-2026-11-22.md`；未发现`opus-handoff.md`。确认当时HANDOFF为466,192 bytes、notes为458,912 bytes，品牌仍写local-first，Python缓存未被忽略；这些是待处理事实，没有把复查优先级直接当作已授权实施方案。文档同步参考neat-freak技能，长期记忆未写入。
+- 用户在文档重排/三类只读UI接口方案询问后明确要求先等其与Opus沟通完成，再由其通知继续。后续维护已暂停；没有修改产品、品牌、配置、schema或UI，没有发起公网探测、产品测试、提交、推送或部署，也没有开始文档归档重排。
+- 暂停前建立本地源码检查点：213文件/6,521,631原文bytes，ZIP 1,526,631 bytes，另有6,616,459 bytes的tracked patch；基线`adceb7a42431999d6ba5312eefb171bea5b2abf8`。ZIP全部成员SHA256与原文一致，捕获期间文件/差异未变，补丁通过独立Git index上的基线应用检查；真实index和HEAD不变。路径为`output/review-followup-2026-11-22/source-checkpoint/`。未复制依赖、私有资料、秘密或旧证据；恢复需要保留的Git基线，不将它称为线上精确镜像。既有8份加载/同步源码、测试及浏览器工具摘要均与上轮验收一致。
+- 用户单独授权：如果`.workbuddy/`是以前前端优化记录，可以清理。逐份读取确认4份2026年9月UI日志和1份旧WorkBuddy环境skill，共5文件/19,359 bytes；阶段结论已记入HANDOFF/notes，旧固定并发和沙箱规程不作为当前指令执行。无Git跟踪、reparse链接或可见WorkBuddy进程，5文件独占读取通过。
+- 使用Windows原生SendToRecycleBin仅回收该精确目录；回收元数据原路径匹配、原目录不存在、5文件恢复载荷大小及SHA256全部一致。首条命令在PowerShell解析阶段因括号缺失停止、未触碰文件；修正后一次回收成功。回执`output/review-followup-2026-11-22/workbuddy-recycle.json`记录恢复位置；不永久删除、不清空回收站、不声称释放磁盘空间。`.gitignore`保持原样。
+- 下一步等待维护者明确恢复，再核对Opus最终反馈、文件分工和届时实际差异。只为本轮暂停和回收新增短检查点，不重排原文或重跑旧清理。
+
+## 2026-11-22 新会话交接
+
+- 用户将换新对话，并在后续提供Opus-5.5对既有工作的指正。具体条目尚未收到；接续时逐项核验、复现，修复确认问题并更正受影响结论，保留历史证据。
+- 交接入口已补至HANDOFF顶部；文件分工不变。交接时UI交接文件尚不存在，Git有152项变更/未跟踪条目，不能从HEAD重建后覆盖当前成果。
+- 本次范围为文档交接：入口/分工/既有回执已核对，产品当前状态及新反馈待核验，线上运行态不在本次核验范围，长期记忆只读，工作区未提交成果保留。没有修改产品代码或部署。
+
+## 2026-11-22 加载与同步本地优化
+
+- 用户同意继续，并计划另让Opus优化UI。已写[可直接转交的分工](docs/server/parallel-ui-work-2026-11-22.md)：Opus负责pages/components/styles，Codex负责app数据逻辑及storage/server/验证；共享配置和根交接由Codex维护。没有启动、联系或声称Opus已开工；当前大量未提交成果不能从HEAD worktree重新构造。
+- `api()`补齐30秒请求及响应体截止、取消和HTTP非JSON错误处理；同步绑定登录会话，退出/重新登录取消旧同步和等待锁，迟到401不锁新登录。失败保留原outbox/operationId，避免无响应导致永久busy；没有自动重试写入。
+- 学习包先校验本地包，再比较目录版本/摘要。浏览器两种视口刷新正文请求均0、目录请求各2，今日清单一致。旧会话下载不安装、缓存损坏和HTTP失败不当离线成功；没有合并目录请求或宣称线上提速。
+- 定向42/42、全量Vitest117文件1333/1333（2 workers、70.49秒）、lint、修正后的typecheck和服务器生产构建通过。首轮API红灯、账号同步红灯及测试optional类型阻断均保留。新验收脚本14/14（1 worker、25.277秒）及现有服务器E2E14/14（2 workers、60.435秒、0 skipped/flaky）通过；未重跑旧234本地E2E及固定8workers压力。
+- 真实Chrome覆盖799题/80卡、离线评分保留、丢失服务器确认后的超时/重试、HTML502恢复、双账号和同账号新登录边界。原服务器流程覆盖v5备份、双设备笔记合并、多标签退出、来源图及PDF。超时用虚拟时钟推进30秒，不能把它算作公网30秒计时实测。
+- 浏览器首轮前三组通过后遇到跨年第1题定位歧义，限定2009筛选后完整通过；原失败不覆盖。初次存储盘点3处长路径报错保留，最终扩展路径扫描见交付回执。测试夹具共用一份图片、每轮独立SQLite，控制空间。
+- [阶段报告](docs/server/request-sync-2026-11-22.md)、`output/request-sync-2026-11-22/delivery-receipt.json`为本轮权威结果。22:28终态扩展路径盘点974,108,082 bytes（约0.974GB），36,389文件/16链接跳过/0读取错误；含现用依赖和本轮证据，仍在约1GB目标内。本轮没有改UI、schema、内容正文或凭据，没有重跑清理，没有提交/推送/部署。公网偶发失败根因、内容补全/人工审核和UI整合仍属后续。
+
+## 2026-11-22 正式域名
+
+- 当前结果见 [正式域名验收](docs/server/gcp-domain-2026-11-22.md)与[交付回执](output/gcp-domain-resume-2026-11-22/delivery-receipt.json)。`408.fytjut.com` 已于约 11:56（北京时间）切到专用隧道/GCP；HTTPS、匿名隔离、知识直链、桌面/手机实际学习与 PDF 离线阅读通过。两份真实旧 PWA 原地更新后可离线重开且旧库摘要不变；桌面首轮立即开页未升级，完整关闭再开成功，不清缓存。
+- 恢复轮 GCP 完整浏览器 14/14（2 workers、173.367 秒、0 skipped/flaky）通过；新发布已激活，切换时生产库完整性和四表计数前后一致。执行器 package.json 命名引起配置加载失败、激活脚本预检表名笔误均在启动/切换前被拒，失败日志原样保留。Cloudflare 专用隧道健康，凭据只落盘 GCP root:0600，通过 LoadCredential 注入服务；旧 Pages/上一发布/原 DNS 值均可供回退。
+- 公网脚本注册响应与 APIRequestContext 登录各有一次 30 秒超时；Python 另见 Cloudflare 403，完整根因不夸称已解决。真实浏览器手机七项产品步骤全部通过，收尾精确文本断言失败保留 passed:false，独立浏览器和服务端核对三个测试成员均停用。12:29:56 终态 387 文件/DB integrity ok；1 活跃管理员、3 停用验收成员、18 包、400 对象、17 实体，其中管理员正常登录自动生成 1 条今日计划。服务和隧道均 active/enabled、0 自动重启，4 个连接，临时服务/SSH 转发已退出。
+- 用户说“现在继续吧”解除暂停。知识页直链红灯 4 项（GET/HEAD 的 dotted query 与裸 /api 路径），修复 pathname 判断后新增 5 项全部通过；服务端 23/23、全仓 115 文件/1310 单测（3 workers，62.37 秒）、lint/typecheck 和 server build 通过。新包 `532c8925f7406d9ccfee24bb6a227d44184bcbbe25e13902949f002a998af55f`，4,233,685 bytes、387 文件，仅 app.ts 和 verify-server-release.mjs 相对线上包不同；GCP 独立安装与 HTTP smoke 通过。旧 30 分钟负载不冒充新后端负载结果。证据 `output/gcp-domain-resume-2026-11-22`。
+- 项目继续使用 `408.fytjut.com`。切换前从 Cloudflare DNS 编辑面板核实 `408 CNAME abysswhalen.github.io`，代理开启、TTL 自动、无注释。[回退参数](output/gcp-domain-2026-11-22/dns-rollback.json)
+- 暂停/切换前的旧首页 `index-yi8k89J3.js`、旧 GCP 发布 `20261121-f0e75c06`、未提交隧道表单与远程 12/14 的阶段状态归档于 [过程记录](output/gcp-domain-resume-2026-11-22/notes-domain-phase-history.md)，不能当作当前状态。
+- 本轮不重复历史清理、不改 CI/共享服务、不提交或推送。自动独立备份、本机约 1GB、固定 8 workers 压力、fast-uri high、缺损/人工审核均保留下一阶段；域名上线不代表全部长期计划完成。
+- 交付收尾：机器回执索引 27 份证据并核对发布包摘要；7 份当前规范/交接文档的 72 个本地链接全部有效。本轮文本产物未检出管理员密码，CI 差异与 staged 均为空，`git diff --check` 通过（仅既有换行提示）。不因文档更新重建已验证发布或覆盖历史失败报告。
+
+## 2026-11-21 - GCP 部署、迁出与收尾终态
+
+- 当前结果以 [GCP 验收](docs/server/gcp-deployment-2026-11-21.md) 和 [交付回执](output/gcp-deployment-2026-11-21/delivery-receipt.json) 为准。下方阶段记录保留当时事实；旧部署中途检查点保存于 `output/gcp-deployment-2026-11-21/handoff-gcp-phase-history.md`。
+- 用户已授权连接GCP、专用运行时与服务、资料上传和验证；使用`-F NUL`及已有身份/严格主机校验避开默认SSH配置ACL问题，不改共享配置。Debian12/小型通用机型上安装Node24.14.0/age1.3.2，387文件发布包和95生产依赖通过Linux原生SQLite/HTTP验证。当前release为`20261121-f0e75c06`，正式服务enabled/active、回环4310；原443和其他服务保留。
+- 17年799题、80卡、102叶概念、20讲解和34PDF已鉴权提供；18包回读相同，400图/PDF对象完整HTTP读回138,354,373 bytes、摘要全部一致。重构PDF如实标注，审核状态不变；首个跨境PDF完整下载超时不被“服务器回环读回通过”掩盖。
+- 远程验收发现串行题包下载阻塞首页；修复为先显示本地记录，再3路补内容，并约束账号切换后的写入。6个新反例、全量115文件/1305测试（3workers/47.85s）、lint/typecheck、两种生产构建通过。本地完整234/234（2workers/377.77s）、补强PDF渲染后的服务器本机14/14（2workers/97.44s）通过。
+- GCP原14场景未通过，保留最初阻塞、第二轮测试服务未ready/离线准备时序以及错误登录前等待SW的中断记录。另做1440/390真实GCP定向学习/离线/同步/退出通过；PDF从“canvas可见”补强到渲染结束及非白像素，在线/离线两视口均通过、0错误/横溢，已目检手机离线图。没有放宽原门禁或以定向通过替代完整验收。
+- GCP独立数据库20用户/5路PDF/1803.33秒、35,951请求0失败，API p95 41.76ms、PDF p95 110.58ms、RSS峰158.14MiB。当前后端/领域/锁文件摘要与负载版相同；正式库无测试账号。公网TLS、国内访问速度和并发密码哈希峰值未覆盖。
+- 真实生产快照142,549,672 bytes已SFTP取回并完整隔离恢复；400对象摘要、34PDF Range、管理员登录、epoch轮换、旧会话清除、匿名及损坏拒绝通过。未覆盖生产库或上传解密私钥；两次不完整dd下载被拒绝并保留失败日志。
+- 历史20,585文件/5,622,133,360 bytes去重加密为56块/2,852,454,904 bytes，全部上传`/srv/bitatlas/archives/history-20261121`，远端摘要与权限最终核验。实际取回2块恢复879对象并重建12文件；不是全集恢复。本机历史原文、有效快照和唯一解密身份保留。
+- 2026-11-21 12:31终态核对正式服务active、0重启、387文件和SQLite完整性通过。所有本任务临时测试服务和转发已精确关闭，保留正式服务。13:17完成6项/740文件/232,245,532 bytes回收及载荷/保护/旧回收记录校验，不重跑旧清理，不永久删除/清空回收站，不声明物理释放。
+- 清理后项目9,048,646,764 bytes，output7,491,162,763、local-data1,020,393,436；16链接跳过、0读取失败。随后的小型交付文档不在该扫描时点内。约1GB目标仍未达到，旧归档清单也未覆盖本轮所有新证据。
+- 公网入口需要新的Cloudflare持久接入操作时确认，按用户“受阻先跳过”要求留待其返回；未创建隧道/DNS。独立远端自动备份、完整历史恢复、精确本机副本处置、固定8workers的3超时、1个high依赖节点及内容人工审核仍开放。未新增收费资源，未改CI/其他服务，未暂存/提交/推送，长期记忆只读。
+
+## 2026-11-21 - 邀请制服务器版本地验收
+
+- 最终114文件/1299单测、lint、typecheck通过；原完整E2E234/234（2workers/7.2m），服务器14/14（2workers/1.3m），账号/备份重复12/12（2workers/1.2m）。固定8workers231/234（4.6m），Q5和两个今日入口超时保留；未改超时/重试/断言来取得通过。
+- 本次收尾补修了桌面图标404、退出立即导航恢复旧会话，以及跨设备同题不同ID笔记拉取后导致v5无法导出的缺陷；分别增加实际资源加载、同步退出意图和冲突保真反例。最后两项详细红绿灯与trace见`docs/server/acceptance-2026-11-20.md`，不是将所有失败归结为资源不足。
+- 最终服务器/本地双构建PWA在1440/390均通过；保持未保存输入、关闭旧页后激活新版、离线重开恢复。代表截图目检，桌面破图已修；不宣称全部截图或真实手机已验证。
+- 真实age加密/恢复：21账号、18内容版本、16MiB合成资料，epoch轮换、损坏拒绝、旧Cookie401、邀请撤销、恢复后Range206/32bytes均验证。新增4个恢复数据库反例覆盖对象清单、路径、上传中断元数据和事务回滚。
+- 两轮30分钟20用户/5路PDF均零失败；第二轮35640请求、API p95 65.73ms、PDF p95 83.75ms、RSS峰值208.16MiB。最终源码另补120.28秒/2380请求/0失败，RSS168.50MiB，记录源码摘要；这是本机观测，非GCP容量或收费测量。中途只有夹具没有回执的一轮不计成功。
+- 独立安装初次npm误触发SQLite重编译失败，保留原日志；部署包安装器按锁文件安装、审计生命周期、实际加载原生SQLite与esbuild。最终包从tar.gz全新解压后核对成员/摘要、依赖来源及HTTP隔离通过，运行手册同步。没有改全局工具、真实密钥/.env/CI/DNS、提交、上传或部署。
+- 官方服务器生产依赖audit仍有1个high节点fast-uri3.1.5，5个实际副本/引入路径和输入可达性记入`docs/server/dependency-assessment.md`；开放告警保留，不自动升级或接受风险。旧开发依赖报告保留其时间边界。
+- 精确可再生白名单收尾完成：4目标、738文件、89,694,974 bytes移入回收站；核验记录时间2026-11-21T00:14:13.7837176+08:00，原路径不存在、回收元数据/载荷匹配、保护内容及既有回收记录保持。未永久删除、清空回收站或声称物理空间释放；不重复执行cleanup-current.ps1。
+- 最终部署包为release-2026-11-20T16-06-54.204Z/bitatlas-server.tar.gz，4,234,012 bytes，SHA256 da9d8b63b365dc83c2b622cdd44f22e1032582b43313556412e469932f9ab333；387文件、未压缩9,381,744 bytes。包内无私有内容和依赖，Windows独立安装/运行已通过，Linux仍待目标环境验收。
+- 回收后项目盘点8,322,115,670 bytes，output7,195,839,357 bytes，local-data589,205,780 bytes；16链接跳过、0读取失败。历史证据/来源摘要清单20,585文件、5,622,133,360 bytes，SHA256 2277d5535d04aa14892f4d9360fb02ffb345b077753e4a526d3d64e16e6d878d；没有上传或据此删除本地副本。本机约1GB目标未达成。
+- 收尾统一到docs/server/acceptance-2026-11-20.md和output/server-implementation-2026-11-20/delivery-receipt.json。HANDOFF顶部替换为当前状态，中途检查点原文保存到handoff-server-phase-history.md；本次文档调整不改写清理时的保护摘要。只做文件摘要、链接和Git状态核对，不重跑门禁或重建已回收缓存；长期记忆只读。
+
+## 2026-11-20 - 邀请制服务器版开始实施
+
+- 用户批准完整计划，先更新项目定位、授权迁移范围和实施合同。
+- 保留现有未提交升级代码、题包、历史证据与来源；不创建子代理。
+- 新阶段开始于内容可用性/界面，随后账号资料、同步迁移、恢复与完整验收。验证结果按实际执行滚动追加。
+- 首批定向验证：Vitest 7 files / 173 tests 通过，importer 36/36。确认缺损与网络失效、审核状态分离；旧计划不重排。学习包增加 20 篇讲解，独立版本 .2，原题面和卡片版本保持。人工审核率仍为 0。
+- 初次 173 测试中 8 失败：5 个评分夹具空参考答案、1 个调度夹具空参考答案、2 个展示字符串差异。补足有效题目夹具、保持兼容显示文案后通过；未减少断言。domain 测试使用 Node fs 造成一次 typecheck 失败，已把真实题包集成验证移至具 Node 类型的 content-schema；全仓 typecheck 待重跑。
+- build-year 新输出分别列已对照与未对照题号，不改写历史 quality 报告。原始来源和历史 594/640 证据保留。
+- 本地安装服务端工作区依赖成功（55 packages）；没有安装全局依赖或更改 .env/CI/线上配置。
+- 服务端基础/同步验证 3 files /14 tests 通过；包括邀请码单次消费、撤销、Origin、角色限制、分块损坏、Range、操作幂等、冲突双方全文、同事务作答、跨账号隔离和恢复epoch。此时只核实本地单元/集成，不代表GCP负载或浏览器验收完成。
+
+## 2026-11-20 - 第二份夸克复习资料筛选
+
+- 通过computer-use抽查新分享的目录开头、中段和末尾：课程目录162项，分享页163个文件/30.1G；四科视频、讲义、PPT和两份“25一模/二模解析”可见。未完整枚举全目录，未统计全部PDF/视频数量，也未把文件名年份当作正文确认。
+- 重点候选为1.4M的KMP补充讲义、操作系统强化讲义及答案、计网强化讲义和两份约1MB以内的模考解析。建议先取少量可读样本用于个人学习与内容核对，不整包下载或迁服务器，不改变现有799题数量与审核状态。
+- KMP文件名单击/双击未取得正文；取消全选后仅选择二模解析下载，触发登录框，8秒内未观察到下载。未登录、转存、下载成功或导入；账号限制提示无法归因。web工具打开分享未返回可用正文，结论依据浏览器可见目录。
+- 更新内容清单与HANDOFF；仅做文档检查，不重复产品测试、构建、清理或改代码。正文质量、完整题干、资料来源与发布许可均未核实。
+
+## 2026-11-20 - 题库清单与夸克候选来源
+
+- 回应题量/真实性问题，直接解析17个年份JSON并断言每年题号1–47：799题=680单选+119综合，80卡另计，全部needs-review。缺文字解析采用明确占位文本统计为2024/2025各40题；宽泛关键词初扫95处混入正常解析，已弃用，未当作缺失数量。
+- 读取来源字段、生成器和既有quality记录：2009为学校网站提供材料，2010–2025为重构PDF与第三方答案快照。新发现固定40/40报告文案与实际至少15题重叠比较规则不符；640选择题中594有对照标记，46无标记。只说明证据覆盖，未认定46题错误、未重新核验PDF；已在质量待办纠正旧的全覆盖断言。
+- 使用computer-use查看用户给定夸克分享的可见目录：2009–2021试卷13份+解析13份，页面显示61.8M/29个文件。单份2009下载触发登录框，无下载事件，未转存、导入或取得正文。年份重叠不能证明文件内容相同，真实性仍未知；未保存账号标识/登录二维码/凭据。
+- 保存小型`output/content-inventory-2026-11-20/inventory.json`与`docs/content-inventory-2026-11-20.md`，更新HANDOFF和质量待办；保留全部来源及历史证据。本轮无代码/schema/CI/密钥/线上变更，不重复产品构建或全量门禁。验证仅包括数量断言、统计口径、文档引用和差异空白。
+
+## 2026-11-20 - 本机约 1 GB 与远端归档约束
+
+- 用户明确电脑可承担开发，但其他文件尽量迁服务器，本机约 1 GB 以内；按非开发常驻文件理解，同时尽量让开发目录和应用缓存合计也达标。GCP单机运行应用，北京腾讯云不作为必要组件；电脑不再默认常驻完整服务器备份，独立远端备份位置待选。
+- 使用 storage-analyzer 技能的只读分类方法，按项目范围扫描，未扫描无关目录、浏览器账户或远端。通过Node的lstat/readdir累计逻辑长度，跳过7个workspace链接，无读取失败；没有重跑会覆盖旧storage-final.json的脚本，也没有重建dist。
+- 本次实测总量6,154,650,774 bytes，其中output5,505,693,970 bytes，其余648,956,804 bytes。证据：`output/storage-plan-2026-11-20/project-inventory.json`。浏览器、回收站和全局工具未计，不能据此宣称整机已低于1GB或空间已释放。
+- 源码核对storage.ts、vite.config.ts与document-library.ts：当前已有题包资产预热与单PDF128MiB限制，没有全站250MB总量合同。后续拟加按需下载、缓存统计/淘汰、离线固定内容和未同步记录保护，尚未实现。
+- 方案同步AGENTS、自托管方案、容量报告和HANDOFF：开发约400–650MB、应用缓存约250MB、小型恢复清单与暂存约50MB，测试/OCR峰值另报。历史证据流式或分批私有归档，摘要与恢复验证后另议本地副本处置；不误用可再生垃圾例外，不要求电脑保存整库备份。
+- 尝试查阅Google Cloud快照最佳实践和MDN存储用量估计：web工具未返回可用正文，直接官方请求均fetch failed，不能记作完成在线核验。官方入口在方案中标为待复核，结果保存为`official-source-check.json`；未核查账户快照费用、可用存储、浏览器实际占用或远端备份位置。
+- 生成只读`storage-report.html`，无清理服务；字节合计、948,956,804 bytes预算算术、5个文档链接、1段HTML内联脚本语法与`git diff --check`通过。首次链接校验器误把`:36`行号当文件名，修正校验器后通过，未修改产品。没有浏览器视觉验收；未上传、删除、安装、部署、改schema/密钥/CI、提交或推送，不重复已完成产品门禁。
+
+## 2026-11-20 - 十几人自托管方案澄清
+
+- 用户明确自用为主、最终十几人，重视利用现有服务器；下一阶段建议收敛为GCP单机页面/API/SQLite/资料，浏览器保留离线能力。后续取消北京节点的必要组件定位，并增加本机约1GB、完整备份远端保存的约束，见本页顶部记录。十几人为设计规模，20模拟活跃用户为待执行验收目标，不声称已测容量。
+- 读取README、release说明、现有deploy workflow和CNAME，确认仓库配置的静态托管是GitHub Pages；只读工作流，未改CI。核对DeepSeek v2第1节，对方OpenResty提供前端文件不等于已证明用了第三方静态托管平台；未在线探测对方。
+- 官方核对GitHub Pages文件托管定义、Nginx静态服务/反向代理和SQLite网站/应用服务器适用边界。保存`docs/server-first-plan-2026-11-20.md`，说明账号、资料、同步、备份与验收顺序；同步capacity报告和HANDOFF，项目规范中的原授权边界未改变。
+- 本轮只写方案文档；检查新增文件与本地文档引用、差异空白，不重复产品构建/测试。没有部署、上传私有资料、改数据库/schema/密钥/网络、提交或推送。
+
+## 2026-11-20 - 境外服务器容量与资料扩展咨询
+
+- 通过已登录Komari页面只读核对GCP、日本及两台北京节点。GCP约294–306/970MB内存、25.27GB磁盘余量；历史“一天”实际仅显示约一小时且为平均采样，不声称完成全天负载或新后端压测。没有记录IP、面板URL、节点ID或凭据。
+- PowerShell解析已有production-build-manifest.json并汇总735项bytes：89,542,448 bytes/85.39MiB；清单SHA-256为4ED7732F7A9BA8FE925ACDE0CFEC85856039FBA72777375F65AC358D91D7C6D2。当前public另为390文件/67.69MiB。未重建dist、重跑测试或清理历史证据。
+- 核实Google官方免费层、E2 shared-core、网络价格/地址池、赠金字段及Cloudflare R2价格。Standard的200GiB/月与Premium免费层1GB区分；采用价目表每账号跨区域合计口径，不建议靠多区域叠加。账户实际档位、赠金和IPv4抵扣未核实。
+- 情景核算：10份完整现有构建约0.834GiB；100份50MiB PDF占4.883GiB；10人每月各下20份为9.766GiB。只是显式假设，不是访问实测。资料存储与每月下载量分开预算。
+- 建议经解释收敛为先评估一台GCP集中部署前端文件、轻量API/SQLite和初期资料，备份另存；现有静态托管与后期R2为可选优化。5–10人是下一阶段测试目标，不是已验证上限。已有local-first数据不自动上传，账号同步和授权发布仍需独立实施方案。
+- 用户追问参考网站架构后，只读核对50_reports内v2、第三轮卡片观察及设计参考包。区分对方“实际有后端、浏览器运行轮内逻辑、云端存状态、真题卡正文前端内置”与作者“正文改为服务端管理”的建议；报告有初版勘误，以修正版为准，不照搬过时推断或算法结论。未在线探测对方、未执行报告中的命令、未复制题库/卡片正文。出处及未核实的机器数量/配置/具体数据库已写入容量报告。
+- 保存`docs/server-capacity-2026-11-20.md`并更新HANDOFF。本轮仅文档；验证采用清单字段/字节求和、来源与文档引用核对及差异空白检查，不重复产品门禁。未提交、推送、部署或修改收费/网络配置。
+
+## 2026-11-20 - 大陆服务器与域名咨询
+
+- 只读核验腾讯云/华为云官方备案资料、Verisign RDAP和项目架构，整理到`docs/deployment-options-2026-11-20.md`。注册商为Squarespace，DNS为Cloudflare；当前ICP备案状态沿用用户描述，未伪称已查工信部库。
+- 初始建议保留现域名转入备案；用户补充原域名有多项服务后，调整为暂不动原主域名，若确定大陆公开上线则优先另用独立域名备案。原域名路线仍可选，但需盘点其他服务并核对停站范围。尚未选择或执行路线。
+- 补查免费基础备案与付费增值服务区别、域名转入续费、首次备案闭站、境外转入可能serverHold及各环节时长；建议旧域名路线预留4–6周，明确属于计划估计。未将所有子域名停满全周期、只停408即可或代理免备案写成已证实规则。补充受控私有部署与公网网站的区别，官方来源已收入方案文档。
+- 续费与服务范围补查：Squarespace转出后账单归新注册商；Google Workspace经销关系与Workspace套餐可分离，不凭公开RDAP推断账户续费金额。华为云明确备案后转至未获批注册商属于核查不合格；同主域名的域名级处置存在共享影响，具体自用管理与对外跨境代理业务分开判断。仅保存公开规则和建议，不记录用户特殊地区购买细节、账单或代理服务标识。未执行购买、转移、备案提交或线上变更。
+- 搬站不改变浏览器IndexedDB/Cache Storage为主要学习存储的事实，不自动获得云同步；需独立设计服务端资料管理和同步。用户提供的两台配置不能证明备案资格、磁盘容量或真实吞吐。
+- 本次仅新增咨询文档及滚动检查点，未访问私人云账户、未改代码/配置/线上状态，未重复已完成的构建、测试或回收。下一步待路线与实例规格信息明确后准备可审核的迁移方案。
+
+## 2026-10-11 - 历史测试输出核查与清理（已完成）
+
+- 只读统计：`output/` 为 61643 文件 / 6044244014 bytes（5.63 GiB）。两批 passed 运行中的 24 个 `.playwright-artifacts-*` 是临时录屏帧和 trace 暂存，共 50489 文件 / 2118504030 bytes（1.97 GiB）；两批最终结果保留。
+- 其他约 3.66 GiB 包含 8 workers 压力失败、早期中断运行、发布验收、2009 逐题核对和清理回执，仍按历史证据保留。当前问题是历史产物取舍，不修改应用、测试合同、依赖或发布配置。
+- 沿用用户 2026-10-09 对可再生工作残留移入回收站的授权。D 盘 `NukeOnDelete=0`，回收站容量足够；目标无链接且无相关运行进程。执行脚本仅允许两个固定父目录中的 24 个确切子目录，逐项核对原路径消失和回收站内容。证据目录：`output/history-cleanup-2026-10-11/`。
+- 实际执行：`cleanup.ps1 -Mode Prepare` → `-Mode Recycle` → `-Mode Verify`，全部成功；回执状态 `completed-recycled`。24 个原目录均已不存在，新回收站实体逐项文件数/字节数匹配，2026-10-11 21:27（北京时间）复查仍为 24/24 可恢复，既有 22 个回收站记录保留。
+- 保留输出与 `.workbuddy/` 共 11159 文件 / 3925759343 bytes，清理前后逐文件 SHA-256 汇总均为 `81DB21F48B5CB92CB3B76935EC44933BD7BA17B901F666B639CE0F483BF4FDDC`；其中原有输出剩余 3925739984 bytes（3.66 GiB），其余为 `.workbuddy/`。本轮小型清理记录另存，不计入原有输出剩余量。
+- 本轮只清理上述临时目录并记录结果，没有更改应用或测试代码，未重跑构建/E2E 以免再生成垃圾；文件内容、回收站元数据/实体和回执结构核验通过，清理脚本语法检查与 `git diff --check` 通过，Git 追踪文件差异仅本次 HANDOFF/notes 记录。移入回收站的逻辑文件大小不等于磁盘空闲空间增量；没有永久删除或清空回收站。
+
 ## 2026-10-05/06 - 移除首页核对栏与缓存清理（代码已发布，清理完成）
 
 - 用户修正：首页无需持续展示已完成的 AI 核对进度。移除有题包时的首页状态栏，数据管理继续保留来源核对/人工审核记录，缺包引导与模考门禁保持。
@@ -3012,7 +3230,7 @@
 ## 2026-09-25 推送与线上复核（Console 暗色版）
 
 - 维护者授权后提交：`1b752a6` style(web)（7 文件，+581/-559）、`049e4cb` docs（HANDOFF/notes）、`6213a58` docs（补入 2026-09-16 代码审查报告，此前一直未入库）。
-- 推送遇网络故障：本地代理 127.0.0.1:52541 失效 + github.com:443 直连超时（SNI 阻断特征），baidu 200 且 github SSH 22 可达但 portpeek 键未授权本账号。改经 ~/.ssh/config 既有 `github-myweb` 别名（ssh.github.com:443 + id_ed25519_github）推送成功：`4d71c84..6213a58 main -> main`。origin 仍保持 HTTPS 不动，网络恢复后照常。
+- 历史推送时本机代理失效，GitHub HTTPS 直连超时。使用已获授权的 SSH 别名和既有身份后，`4d71c84..6213a58 main -> main` 推送成功，仓库 origin 保留 HTTPS。
 - Pages 部署 run `36150940035` 约 1 分钟成功；`node output/ui-shot.mjs live https://408.fytjut.com` 16 张线上截图复核：仅既有深链接 404 回退（与 2026-09-05/09-11 相同行为），无资源错误/pageerror，暗色 Console 主题已在线上生效。
 
 ## 2026-09-25 自适应布局修复（年份裁切/侧边栏不可滚动，2026-09-26 封板）
@@ -3023,7 +3241,7 @@
 - 验证（output/adaptive-shot.mjs，自研指标脚本）：1440/1152/960/390 四档 docOverflow=0；1440 年份 17/17 全展（861/859px 无需滚动）；1152/960/390 条内可滑可达；1440×500 矮窗 sidebar scrollable 且滚动后末项（数据）完全可见。截图 `output/playwright/ui-adaptive/`。lint 0 error、typecheck 通过、vitest 370/370。
 - E2E 事故记录：复跑时僵尸 vite dev server（TaskStop 报 killed 实际存活，占 5199，PID 24484）抢资源，4 workers 下 72 例 `Test timeout of 30000ms exceeded`（非断言失败、非 teardown 类别，error-context.md 为证），且进程在收尾阶段被杀（无总结行、无 .last-run.json）。按 PID 精确杀僵尸后干净复跑（results-adaptive4）——该轮结果待明日确认。教训已补进 e2e-acceptance-local：预清 rm 必须独立命令（串联 && 会触发拦截）；跑 E2E 前确认无 dev server/残留 node 进程抢资源。
 - 2026-09-26 E2E 收口：会话内 6 轮复跑全被 WorkBuddy 执行沙箱污染（webServer 编排挂死 40 分钟零输出、截图与 dist 覆盖写 EPERM、esbuild temp Access denied、最终沙箱连 `package.json`/系统 DLL 的 file-read 都拒绝、bash fork Permission denied），跨 90+ 已执行用例**零断言失败**；判定沙箱病态后由维护者在 WorkBuddy 外原生终端执行 `npx playwright test --workers=4`：**201/201（4.0m）一轮全绿**，与 09-25 results-dark2 基线一致，自适应修复无回归。分段定位法与兜底规程已固化进 e2e-acceptance-local"沙箱病态兜底"节。
-- 状态：全量门禁绿；维护者授权后提交 `ac4de3a`（style）+ `8202aa5`（docs），经 github-myweb SSH 别名推送（`2b80867..8202aa5`）；Pages 部署完成，线上 CSS 复核通过（`408.fytjut.com` 资产 `index-B1KZGGhr.css` 已含 `filter-band{display:flex;flex-wrap:wrap}`、`max-height:780px` 矮窗档、`overflow-y:auto` 侧边栏）。HANDOFF.md 已补 2026-09-25 暗色主题（补记）与 2026-09-26 自适应两节封板。
+- 状态：全量门禁绿；维护者授权后提交 `ac4de3a`（style）+ `8202aa5`（docs），经 <operator-ssh-alias> SSH 别名推送（`2b80867..8202aa5`）；Pages 部署完成，线上 CSS 复核通过（`408.fytjut.com` 资产 `index-B1KZGGhr.css` 已含 `filter-band{display:flex;flex-wrap:wrap}`、`max-height:780px` 矮窗档、`overflow-y:auto` 侧边栏）。HANDOFF.md 已补 2026-09-25 暗色主题（补记）与 2026-09-26 自适应两节封板。
 
 ## 2026-09-26 PWA 更新卡死修复：registerType prompt → autoUpdate
 
@@ -3052,3 +3270,135 @@
   - F2 命中防降级时静默跳过（与 2009 路径一致），UI 无提示；如需可见反馈需另议。
   - F4 扩展年份 HTTP 故障诊断经 `contentIssues` 展示，首屏仍可用（不阻塞），符合"显式缺失才降级"合同。
   - 改动未提交，等维护者授权；工作垃圾已清理（见下条）。
+
+## 2026-11-19 全项目审查与存储收尾
+
+- 用户目标：审查408OS/BitAtlas，完成必要测试，清理无用产物并给下一步计划。本轮只做审查、探针、验证、文档和窄范围回收，不实施产品大改。
+- 基线HEAD adceb7a42431999d6ba5312eefb171bea5b2abf8；初始HANDOFF/notes已有修改，.workbuddy未跟踪，均保留。npm ci --no-fund --no-audit 安装576包；lock/manifests未变，Node24.14.0/npm11.9.0。
+- 实测：lint/typecheck通过；npm run test -- --maxWorkers=4 为101 files/1126 tests；release10/10；importer35/35；content17/17；build87 PWA entries/2804.90KiB；完整E2E204/204，2 workers，3视口，367.84秒，零跳过/零flaky。日志在output/review-2026-11-19，未用定向重跑替代全量事实。
+- 四个独立反例：重复同题笔记导致备份导出失败；模考exam/session非事务联合读取；unchanged哈希字段不重算就写缓存；扩展年份首次预热中断后无重试。core-probes/reproduce.mjs使用实际源码+隔离存储，results.json保存原始观察；未修改应用实现。探针复现缺陷不代表修复完成。
+- 内容扫描确认17年799题、80缺文字解析、791通用第二提示、9条明确泄题提示。正式审核状态未提升。静态入口错误反馈/统计跨日问题及未验证候选分开写入报告。
+- 首次npm audit因npmmirror未实现接口失败；临时指定官方registry复查，21受影响节点（7high/12moderate/2low）。使用resolve-dependency-alert技能复核Zod/Vite/KaTeX，官方公告和锁摘要存dependency-triage.md；没有audit fix、升级或攻击负载测试。
+- 使用contextlens对apps/web/src建立本地索引（122文件/343节）辅助定位，存于既有工具项目.local；所有结论回到源码核验。storage-analyzer按用户任务限制为项目专项，不扫描无关项目；可折叠HTML留存已执行结果。
+- 初始output3,925,769,803 bytes，主体为历史证据。79组重复ZIP共1,413,043,030 bytes分别被结果和报告引用；8个中止录制目录703,328,768 bytes无法证明可由最终trace恢复，保留。未重复10/11已完成清理。
+- 本轮4个再生目录dist/.vite/.vite-temp回收：730文件/89,773,745 bytes（85.61MiB）。清理脚本固定允许清单、检查路径/链接/Git/占用/回收容量，逐个核验回收载荷SHA256；cleanup-receipt状态completed-recycled，受保护目录摘要一致，既有回收记录仍在。没有永久删除、清空回收站或报告磁盘空闲增量。
+- 保留恢复的实际node_modules与本轮证据；标准E2E共享screenshots目录刷新为当前截图，日期命名历史证据未更改。目检3张代表截图，未宣称全部截图逐张验收。4198预览已由runner结束。
+- 交付docs/code-review-2026-11-19.md与output/review-2026-11-19/storage-report.html；下一阶段建议先可靠性/提示，再跨年概念与复盘，依赖更新独立进行。固定8workers、SW双构建更新、非Chrome、真实手机/线上部署和全部799题正确性未验证；R1–R7尚未修复。
+# 2026-11-21 GCP 部署实录
+
+- 使用显式SSH参数与已有主机密钥校验连接GCP，保留共享SSH配置及占用443的其他服务。专用Node24.14.0、发布包、95生产依赖安装成功，原生SQLite与实际HTTP隔离验证通过。
+- 独立systemd服务已运行，回环4310、专用用户与目录、384MiB内存上限；观察RSS/cgroup内存不是负载结果。管理员凭据和age解密身份仅存本机受限ACL忽略目录，不输出秘密。
+- 真实内容API发布正在进行，366唯一图片已上传；以最终receipt确认17题包+学习包回读。PDF发布、备份恢复、GCP负载、历史归档均仍待完成。
+- 公网域名未切换；Cloudflare新增持久接入需要操作时确认，用户休息期间跳过。既有旧站/huawei隧道不变；不能称新服务器已公开上线。
+- 400文件对象服务器回环HTTP完整回读、138,354,373 bytes，全部SHA256一致。34PDF本机HEAD/Range/鉴权通过；跨境完整读取首份超时，单样本通道约40KiB/s不泛化为公网速度。
+- 真实生产快照142,549,672 bytes已用SFTP取回并隔离解密恢复；400对象、1账号、18包、0学习记录完全保真，34PDF Range和管理员登录通过，epoch轮换，损坏摘要被拒绝。dd分块下载两次长度不足未被接受，已保留失败；SFTP完整SHA256验证后才恢复。
+- GCP20用户/5PDF独立库30分钟压力进行中；历史证据按内容摘要去重并分块age加密上传，私钥不在服务器，本机原文不删。精确进展在HANDOFF和本阶段journal/receipt。
+
+# 2026-11-20 邀请制服务器平台实施
+
+- 在既有学习闭环基础上实现 Fastify/SQLite、邀请账号、共享文件、按账号隔离离线库和同步、备份v5；原匿名学习库保留，通过预览/下载/明确归属导入。所有远端部署、DNS/CI/密钥、上传和提交仍未执行。
+- 内容保持799题/80卡/102叶概念；新增20篇原创短讲解、真实缺损判断、跨年默认筛选与记忆。学习包2026.11.20.2，摘要f326d8c217dc1a3f14835d69c2251cee7e2e4f7e7a95ad89b2ad030eaa98cdf6；审核状态未提升。
+- 定向修复后服务器浏览器12/12通过（2workers，桌面/手机）；原234首轮228通过，知识页中性覆盖数字恢复后完整复验中。全仓Vitest最新113 files/1288 passed，typecheck/lint通过；release10、importer36、content17和learning确定性通过。原始失败日志全部保留。
+- 第一轮20用户/5路PDF/30分钟负载35680请求无失败，API p95 45.54ms、RSS峰值171.20MiB，只代表本机Windows。真实age本地备份恢复通过，后续新增跨平台恢复路径和中断上传重置，正在复验。
+- 全部本轮证据在output/server-implementation-2026-11-20；实现合同、运行手册在docs/server。精确最新状态以HANDOFF顶部为准；未永久删除、未归档远端，约1GB常驻目标尚未达成。
+
+# 2026-11-20 升级实施记录
+
+- 用户批准完整计划；schema/备份升级已获明确授权。先更新 AGENTS，再实现；无提交、推送或部署授权。
+- 复用现有领域逻辑、题面版本合同和 canonical taxonomy 校验；新增学习内容独立版本化。
+- 使用 property-based-testing 的往返、幂等和状态不变量验收迁移与复习逻辑。
+- 本轮验证待实施后记录；原有记录保持如下。
+
+
+## 2026-11-20 - 升级基础与恢复合同
+
+- 学习领域模型、独立学习包schema、content v2/user v4/backup v4已落地；练习证据使用旁表，旧作答结构保留，缺失证据不推断。
+- 动态只读旧库检查、摘要恢复快照、升级事务内部快照、重复笔记原文归档已实现；开启界面仍需完成真实浏览器验收。
+- 定向基础114/114、迁移仓储86/86通过（output/upgrade-2026-11-20），覆盖v1/v2/v3迁移、注入失败回滚、并发导出、评分幂等、损坏备份拒绝。完整门禁尚未执行。
+
+## 2026-11-20 - 内容与界面实现，进入回归
+
+- 已生成102个叶概念、799题显式映射、80张完整卡片（每科20）；内容与映射全部待审核，覆盖率不等同于人工审核率。旧题号和题面版本保持。
+- 跨年知识、今日任务、卡片与练习复盘、错因、字号和移动导航均已实现。已清除自动生成的泄题提示和通用占位提示；原来源审查摘要失配时不继承旧审核结论。
+- typecheck-ui-2通过；全量Vitest/lint开始验证。尚需完善暂停调度语义、个人卡再次编辑、计时持久化与备份预检，然后完成依赖维护、浏览器流程和全部门禁。
+- 后续补强：个人卡暂停不重置ID/版本；个人副本进入轮次只冻结内容字段；计时每秒、隐藏及切题检查点，已提交时间不回写；笔记编辑记录草稿起点版本，后台更新不掩盖冲突；备份校验确定性评分事件ID和额度设置。
+- 实际首轮全量Vitest1106通过/32失败，多数为合同更新或缺测试替身；第二轮定向166通过/2旧参数断言失败，修复后核心定向128/128。第一轮手机E2E24通过/5失败，记录保留；真实布局问题是自评分被sticky操作栏遮挡，已修复。
+- 依赖指定版本已通过官方npm元数据及GitHub公告核实并逐项安装。Zod144/144相关测试通过。Vite首次build被新备份类型错误阻断，修正后生产构建通过（92 PWA entries）。KaTeX正常公式与trust:false回归已增加；Windows开发工具及离线字体、双构建SW验收待完成。
+- 接续时核对日志：vitest-full-2 为 104 files / 1235 tests 全通过，4 workers / 35.01s；lint-ui-3 零告警，typecheck-ui-4 全通过，build-ui-2 通过（92 entries / 2895.02 KiB）。手机第二轮 e2e-loop-1 为 17/19；URL 尚未跳转就读取路径与未滚入视口的几何断言已修，待复跑。最后首答一致性补丁尚未纳入这些结果。
+- 手机尾项 e2e-tail-2 为2/2通过；新增合约回归 contracts-resume-1 为71通过/1断言正则未跨行，断言已修。真实模考跨连接提交插入两次读取之间，读取仍返回完整旧快照，之后完整新快照，测试通过。
+- pwa-dual-1 两次真实构建在1440/390均通过（见receipt）：waiting、旧懒块缓存保留、未保存输入、最后旧页面退出后激活B、离线重启恢复笔记及0横溢。构建差异只由验收插件注入标记，未改仓库产品源码。
+- 新浏览器可靠性首轮7/10，失败为UTF-8夹具、误选旧根节点、过早统计公式；修正后三项定向2/3，剩余是把“完成2张、0张忘记”误断言为“2张忘记”，已修，准备完整门禁。离线公式实测6个，字体可离线加载，正文对比度采样通过。所有原始失败证据保留。
+- 最新完整Vitest1241/1241（104 files，4 workers，36.42s）、release10/10、importer35/35、content17/17、learning确定性通过；Windows独立开发验收通过，实际编辑器进程未执行。完整E2E首轮225/234（1 worker，842.14s）；9失败为3处旧断言×3视口，修正后定向12/12通过。
+- 补查今日计划版本：当前题面更新后，新版作答曾错误完成旧版任务，已有旧版作答又会被误标不可用。两项红灯稳定复现；改为依计划版本判断完成，卡片完成同样绑定轮次定义版本。新增4项后Dashboard13/13通过。e2e-full-2在36项通过后精确终止本轮runner，保留中断记录；修复后的完整门禁继续进行。
+- 最后产品补丁验证：lint-final-2、typecheck-final、vitest-final-2（104/1245，4workers，34.85s）、build-final均通过；版本变化浏览器3/3（2workers，20.1s）。首次final lint发现pwa-upgrade.mjs的3个浏览器全局标识，改为globalThis后通过，未禁用规则。
+- full-3在66通过/1失败后中断：trace显示card评分click开始128149.4ms，整页goto开始128198.061ms，未等待保存确认；离线重开后只能完成1/2。测试新增保存后完成1/2与重开保持1/2的断言，再进行有限重复及完整复验；不通过增大超时或自动重试掩盖竞态。
+- 保存检查点定向复验9/9（三视口各3次，2 workers，41.7s）。full-4实际结果224通过/1失败/9未执行，1 worker、1639.10s；失败是1366视觉组首项超时，后9项因serial未执行。Windows Kernel-Power42与Power-Troubleshooter1确认09:42:28–09:55:56因Button or Lid睡眠，trace截图调用约807秒与之吻合。原始trace、系统事件与分析保存为e2e-full-4-sleep-diagnosis.json；不修改产品/超时/跳过规则。full-5完整复验已启动，结果待记录。
+- full-5完整复验已通过234/234，3 workers，309.45s，0 skipped/0 flaky；234=原68独立用例保留+10新增，乘3视口。AST按用例名核查原用例全部仍在；19份Markdown中受影响的45个本地链接有效，禁改路径为空、staged为空、HEAD未变。固定8workers压力e2e-stress-1已启动并单独采集内存，每15秒一次；尚未清理。
+- e2e-stress-1固定8workers完整结果231通过/3失败、0跳过/0flaky，247.36s，17次内存采样最低511MiB。3失败分别为code-only全局status定位到两个提示（真实测试歧义，已改为banner范围并受控保留同时加载状态）、提示失败反馈超过5s、旧页关闭后迁移超过5s；最后一项trace在断言截止后出现应用初始化，不能声称永久卡死，也不能仅凭内存相关性宣称产品无问题。定向三流程×三视口9/9、3workers、16.5s通过；未改产品、超时或重试。full-6重新覆盖最终测试，之后有界执行stress-2，全部首轮证据保留。
+- full-6实际233/234、2workers、425.68s；唯一失败是手机双页笔记测试复制旧题库URL。trace在331966.45ms导航题库、332098.78ms点击开始、333092.65ms第二页仍goto /questions；异步会话尚未完成时读取page.url。补充toHaveURL等待后，三视口各重复3次9/9、3workers、19.4s；两份最终E2E文件lint通过，无产品/超时变更。诊断e2e-full-6-route-diagnosis.json；full-7完整复验已启动。
+- 最终full-7已通过234/234、2workers、426.01s，0 skipped/0flaky。stress-2固定8workers完整复验已启动，沿用原超时并保存独立15秒内存采样；等待实际结果后封板，不无界重复压力运行。
+- stress-2固定8workers完整结果232通过/2失败、0 skipped/0flaky、249.72s；18次采样最低可用内存11MiB、最高提交33,325,543,424 bytes、PagesInput/sec最高23903。1440旧草稿/PWA用例在初次本地学习内容加载超过30s总超时；1366提示测试的全表put失败注入同时破坏计时写入，后一个错误覆盖提示错误文案。后一项限定注入到hintsUsed>0写入，补充数据库仍只有hintsUsed=0、提示面板不显示断言；8workers三视口各3次9/9、18.3s，lint通过。未改产品或超时；最终默认full-8覆盖修正，完整8workers不继续盲跑，压力未全通过事实保留。
+- full-8被第二次系统睡眠打断：10:51:20–11:19:23（+08:00），Kernel-Power原因Battery；两个并行用例均停顿约28分钟。最终231通过/2失败/1未执行，2workers、2178.15s。保存e2e-full-8-sleep-diagnosis.json及原trace；11:24系统供电API证实ACLineStatus=1、12%且充电。full-9已在接电后启动，无产品/测试/超时改动，不用环境中断宣称产品回归。
+- 最终full-9通过234/234、2 workers、455.80s、0 skipped/0flaky，覆盖最后故障注入修正；默认验收完成。固定8workers完整结果仍232/234，定向9/9不替代全量。最终文档链接46个有效、68原场景全保留、HEAD未变、staged/禁改路径均为空；runner/preview已退出，准备四目标回收。
+- 本轮精确回收完成：Prepare/Recycle/Verify顺序执行，4目标736文件/89,552,348 bytes（85.40MiB）。2026-11-20 11:40:33+08:00核验4/4回收元数据与载荷、逐文件聚合摘要、原路径不存在；源码/题包/来源/历史证据等保护内容一致、既有回收记录保留。未永久删除或清空回收站，不声明物理空间释放；cleanup-receipt.json/cleanup-verification.json保存实际恢复路径与时点，不重复执行。
+- 项目专项扫描约5.73GiB，output约5.13GiB，node_modules约0.28GiB；7个workspace链接指向当前源码并跳过重复计数，未出现权限读取失败。只读storage-report.html在1440/390真实浏览器核验0横溢/0脚本错误/0删除操作，桌面与手机截图目检。最终交付统一到docs/learning/acceptance-2026-11-20.md及delivery-receipt.json；长期记忆只读，未提交、推送、部署。
+# 2026-11-22 管理员登录名与密码原位更新
+
+- 用户明确授权将现有管理员改为 `<admin-login>`，密码使用其指定值，秘密未落入本文件。使用既有 SSH 身份及严格主机校验。
+- 一次性维护脚本先保存正式库快照，再使用实际 `AuthService.hashPassword` 在事务中更新原账号并撤销旧会话；没有重建账号、修改 schema 或重跑 bootstrap。
+- 脚本语法检查通过。实际应用路由及恢复服务后的回环 HTTP：新登录/管理员权限 200；旧用户名、旧密码及旧会话 401；测试会话已注销。业务表逐表摘要与账号 ID 保持，integrity/外键通过，两服务 active。
+- 本机受限管理员凭据文件已同步；完整无秘密回执位于 `output/gcp-admin-change-2026-11-22/receipt.json`，改前恢复快照位于 GCP `/var/lib/bitatlas-backups/admin-change-20261122/before.sqlite`。仅账号维护，无产品代码变化，不重复历史全量门禁。
+
+# 2026-11-22 腾讯云独立备份与本机盘点
+
+- 用户提供腾讯云 SSH 地址和现有密钥路径后，严格匹配本机 known_hosts 连接 Ubuntu 24.04.4，空闲约53.5GB。仅新建 `/srv/bitatlas-backup` 私有备份目录和受限接收脚本，未创建新SSH凭据、未启用自动任务或更改其他服务。
+- 新 GCP 一致快照142,725,848 bytes/400对象已完成；全量流式解密核验和真实 SQLite 打开/当前管理员密码检查通过。第一次 `sqlite3.deserialize` 打开 WAL 快照失败，保留attempt1回执；实际写入原受限核验目录约4MB数据库后复验通过，未下载常驻完整归档。
+- 加密快照从GCP流式转发到腾讯云，182.98秒；远端SHA256重新计算一致。从腾讯云取回全量密文、解密/逐对象/数据库再核验239.35秒通过。私钥未复制到服务器，记录见 `output/backup-storage-2026-11-22/`。
+- `tools/operations/backup/` 准备每日03:30备份、专用受限SSH与7日/4周保留配置。Linux13/13测试、systemd单元与北京时间日历验证通过；仅准备，待用户明确授权密钥和精确永久清理范围。既有腾讯云tat_agent旧PIDFile提示保留，未改无关服务。
+- storage-analyzer专项盘点9,177,850,546逻辑bytes，16链接跳过、0读取错误。旧归档20,585文件/5,622,133,360 bytes逐一与当前原文SHA256一致；本机约1GB目标仍未达成。已生成只读HTML，没有删除、重传旧历史或重跑旧清理脚本。
+
+# 2026-11-22 自动备份实施与权限修正
+
+- 用户明确同意后建立 GCP 专用SSH身份、腾讯云受限接收账号，私钥留GCP并由systemd LoadCredential注入；age解密身份留本机。两端脚本/单元已安装，定时器仍待真实任务和恢复通过后启用。
+- 实测暴露初始化脚本的umask问题：mkdir(mode=0750)受0077屏蔽变成0700。腾讯云account/.ssh不可遍历导致publickey拒绝，GCP backup目录不可遍历导致Python退出2。只把这3个已核对目录设置0750，身份和文件权限不放宽；一次性脚本加入显式chmod，失败日志保留。
+- 实际SSH查询既有手工备份摘要通过；普通命令、任意文件读取、删除、路径穿越和远程端口转发均拒绝。`output/automatic-backup-2026-11-22/restrictions-receipt.json`保存结果，第二次真实备份运行中。
+- 第二次任务14:29成功，142,725,848 bytes；腾讯云完整取回解密/400对象/SQLite/管理员密码校验通过，267.82秒。新增编排故障测试后Linux17/17通过；首次只上传测试文件未上传被测模块的失败日志保留。两端脚本SHA256一致。
+- 定时器已enabled/active，下一次北京时间2026-11-23 03:30:36及05:30:00。保留维护实际运行0候选/0删除，手工快照保护；只清理已双端摘要核验的本轮GCP暂存。正式应用/隧道active、health200。回执automation-delivery-receipt.json，文档已同步。
+- 历史全量流式恢复与独立密文副本继续执行，不重传GCP旧56块；少量传输失败保留并仅续跑缺块。新增44,716文件清单及去重5677对象/992MB增量归档进行中，本机历史原文尚未处理。
+- 最终旧56块及新增16块全部完整流式解密验证，两台服务器最终重算72块共3,473,808,179 bytes摘要完全一致。历史13,652去重对象、新增5677对象；重叠原路径清单不可相加。原首轮50/56、续传与全部失败收据保留，腾讯云6份不完整pending合计252,688,384 bytes未删。
+- 历史接收因等待EOF/传输中断形成占锁进程；只停止核对后的本轮7个进程，失败文件不删除。新接收按声明长度和摘要结束、15分钟截止、非阻塞锁；后续5/5通过。新增首13块中1次连接错误，受控续跑后通过。GCP最终摘要复查首次120秒连接超时，改用已上传配置文件输入并保存远端结果后完整通过。
+- 恢复工具真实从腾讯云恢复20文件/45,428 bytes，完整核验2块；Windows长路径已支持。最初引用尚未到达的新块、随后路径超长的失败日志都保留；最终恢复在受限verification/evidence-recovery-20261122-final。Windows预检3/3通过，拒绝坏索引、路径穿越和覆盖既有目录。
+- 37,629个拟迁出本机文件逐一复核SHA256通过，8,390,946,988 bytes；盘点时项目9,224,701,252 bytes，理论余833,754,264 bytes。清单读取中文路径的GBK错误已改显式UTF-8并保留失败日志。源码、现用依赖、秘密、关键报告保留；本机原文没有删除，实际物理空间未释放。
+- 已向用户请求按该精确清单永久删除本机副本的确认；等待答复，自动备份授权不重复询问。最终交付delivery-receipt.json及storage-archive-2026-11-22.md，HANDOFF顶部已压缩为当前事实并保留阶段过程原文。无产品代码改动，无提交/推送；仅运维验证，不冒充重跑历史E2E。
+
+# 2026-11-22 已归档本机副本精确处置
+
+- 维护者本次回复“可以，继续吧”批准37,629文件/8,390,946,988 bytes永久删除，精确清单SHA256 `6467e2ebeb62bc4456398ec9ae7090a297ea2db0ce53b7a54b796015fe2800e8`。已先更新AGENTS/HANDOFF并写独立授权回执，旧提案的待确认状态保留为历史。
+- 两台服务器各72块再次完整重算密文摘要，通过且与恢复索引一致；恢复索引和两批目录摘要、实际20文件恢复证据仍有效。没有重传或重新归档。
+- 新执行器默认只预检，`--execute`需匹配脚本的成功预检和单独授权；独占打开后用同一句柄验证/删除，逐文件写意图和完成日志，已有执行日志拒绝重跑。5组安全检查通过，包括8种路径越界形式、篡改清单、摘要变化、文件占用和新建测试文件的句柄删除。
+- 16:54全37,629文件预检通过，大小/SHA256/路径/无reparse/Git未跟踪均匹配，候选硬链接0；当前检查未发现命令行包含项目路径的其他非运维进程，独占打开检查作为实际占用依据。此时尚未删除清单文件；后续结果追加记录。
+- 17:08执行成功：37,629文件/8,390,946,988逻辑bytes全部删除；执行日志逐文件记录意图和完成，0目录删除、0远端删除、未清回收站。删除及终态核验201.106秒。D盘实际空闲114,852,700,160→123,311,374,336 bytes，增加8,458,674,176 bytes；这是整盘同期实测增量，不等同逐文件逻辑大小。
+- 35,225保留文件/842,898,131 bytes及16链接前后聚合完全相同，保护摘要`2440906aac5e3595611f12cfaca068752357462f71558055461dc3d76107a524`。项目即时845,475,021 bytes，已低于1GB；复验与最终文档仍待收尾，不把历史全量E2E冒充本轮结果。
+- 清理后9项验证全通过：`npm run lint`、`npm run typecheck`、`npm run test:release`（10/10）、`npm run test:year -w @408os/content-importer`（36/36）、`npm run content:validate`（17年799题及资产）、`npm run learning:check`（799映射/80卡/20讲解/102概念）、`npm run test -- apps/server/src/app.test.ts --maxWorkers=2`（1文件12/12）、`python -X utf8 -B tools/operations/archive/test_restore.py`（3/3）、服务器生产构建（独立输出到本轮validation/dist-server，201静态项/87预缓存项）。同时最多2个检查任务；没有重跑全量Vitest/E2E或8workers压力，不新增永久测试豁免。
+- GCP应用、隧道和备份timer以及腾讯云保留timer均enabled/active；应用/隧道NRestarts=0。首次健康探测误用`/api/health`返回404，读取app.ts路由后使用`/api/v1/health`返回200，原错误探测回执保留，未修改服务。
+- README、AGENTS、HANDOFF、部署/备份/归档和本地内容文档已同步为实际清理完成。原始提案和旧交付回执的false/待确认保留历史状态，新增本轮最终回执作为当前事实；没有改产品代码、数据库、管理员、凭据或部署，没有提交/推送。
+
+# 2026-11-23 UI 阶段 1：样式拆分与自动对比
+
+- 维护者恢复本地 UI 实施，组长将 CSS 阶段 1 指派给 Codex CLI。实际原文件 2,964 行 / 272,873 bytes，SHA256 `c071357042bd46920cb748875090dc3e847396949ae613c82a27134cc58d86fe`；以当前未提交工作目录为基线，不用 HEAD 重建、不碰 TSX/数据/schema/依赖。
+- 脚本 `tools/ui/migrate-styles.mjs` 按原层叠顺序生成 22 份 CSS（styles.css 仅 21 import）；28 条同条件重复规则合并、10 条覆盖声明移除，572 处正字号提升至 13px。CSS 正字号 <13px 残留 0；4 处原有零字号隐藏保留。所有普通硬编码颜色迁入 tokens.css，精确旧色/alpha 保留，备用新主题表按组长修订。
+- 实际命令：`npm run test -- apps/web/src/pages apps/web/src/components --maxWorkers=2 --reporter=json --outputFile=output/playwright/opus-ui-2026-11-22/stage-1/vitest-ui.json`（44 文件 281/281，0 failed/skipped）；`npm run typecheck` 通过；`npm run build -w @408os/web -- --mode=server --outDir "../../output/playwright/opus-ui-2026-11-22/stage-1/build-after-2"` 通过；4 工具 ESLint 及迁移 `--check` 通过。没有降低或删除测试断言。
+- 浏览器 `tools/verification/ui-style-regression.mjs` 使用隔离账号/SQLite、共享只读资产、1 Chrome worker、固定时间和 1440/390（viewport meta）。有效 before-4→control-3 24/24 零像素/计算样式差；after-2 默认→night 24/24 零像素/样式差；18/24px 48/48 无页面横溢。11,940 条可见 DOM 快照，14 次可见键盘焦点激活，作答/卡片/来源图成功；题库公式无 katex-error。
+- 首轮失败均保留：根 npm 参数透传、错误 lab selector、颜色移入变量后的生产 alpha 舍入、空 canvas 截图、瞬时 hover、首次全页绘制 scroll extent 变化，以及工具浏览器全局 lint。分别修复命令、定位、按声明上下文压缩、画布非空等待、两帧等待、有界连续双截图一致校验和 globalThis；最终未解释差异 0。
+- 正式版本与原版差异仅字号度量/排版；逐路由精确像素数字和逐元素明细见 `docs/ui/stage-1-verification-2026-11-23.md`、`output/playwright/opus-ui-2026-11-22/stage-1/delivery.json`。大 JSON 证据使用可逆 gzip/base64 编码并核验原字节 SHA256，保留原样本和所有历史日志，没有执行清理/删除。
+- 未完成或既有不达标：4 零字号隐藏例外、TSX/canvas 小字、低于 24px 的文字链接等；完整对比度、主动白昼主题和全默认 E2E/全部实验状态未验收。阶段文件锁交还组长，后续迁移脚本不得覆盖阶段 2 手工成果。没有提交、推送、部署或新凭据操作。
+- 证据编码实际 320 个 JSON、803,046,887 → 20,197,442 bytes；每文件解码后的原字节摘要均验证，压缩后完整报告复算通过。本阶段目录共 1,960 文件 / 183,955,578 bytes（约 184MB，包含三份构建与所有失败截图），此为阶段目录逻辑体积，不声称整个项目低于 1GB。
+
+# 2026-11-24 UI 阶段 2：主题验证与维护者暂停
+
+- 以opus-handoff的17语义令牌表实施昼夜、系统回退、首帧容错和实验夜班岛；401引用/164旧令牌映射、545声明变化，消除422 palette引用，408仅留实验原文件（280/44/84）。迁移脚本和映射规格可重放且拒绝覆盖并行修改；source.json不可重捕获，阶段1 writer不得覆盖本阶段。蓝17处归中性/黄37处归warn-text经组长认可。
+- 独立build-3服务器版及build-local-2本地版通过。UI命令 `npm run test -- apps/web/src/pages apps/web/src/components --maxWorkers=2 --reporter=json --outputFile=output/playwright/opus-ui-2026-11-22/stage-2-theme/vitest-ui-2.json`，45文件289/289；`npm run typecheck`、迁移`--check`通过。全仓`npm run lint`失败16条，集中其他成员阅读层TSX，已发owner，未替改/豁免；详细日志及位置保留。
+- `node --import tsx tools/verification/ui-style-regression.mjs themes attempt-5 output/playwright/opus-ui-2026-11-22/stage-2-theme/build-3`，100/100截图、10,758可见文字、0对比度/文档与main-area横溢/运行错误；17启动检查通过。12路由×双视口×昼夜×18/24px及1024首页；对比度采样18px，Canvas/图片内字不覆盖。最小实测昼4.558/夜4.565，实验深底固定成功，具体逐页表见阶段报告。
+- E2E使用独立config、`BITATLAS_UI_E2E_BUILD=build-local-2`，run/project分别3-1440、3-1366、3-390；`npx playwright test --config=tools/verification/ui-theme.playwright.config.ts --project=stage2-3-{width}-chromium-{width}`。7文件各40/40，共120/120，每批实际1worker、0skip/flaky；汇总e2e-3-summary.json。不是全仓默认E2E。
+- 保留所有失败：首轮E2E81通过/6旧导航定位失败/33无结果且进程已消失；组长裁定并修两份followNav为精确link/button，目标页断言未改。后续输出保护worker重载误触发7启动失败/33未执行，修复后新目录跑通。attempt-3对比度21失败已修；attempt-4因固定浏览器日期与跨午夜server日期不同而失败，只给测试server既有now注入口同步固定时间，attempt-5成功。
+- 维护者要求今晚暂停：当时已启动的390批次和attempt-5自然结束后停止，不再开启修复/验证批次；任务保持in_progress。00:28本任务Node/Chrome树全部退出、4349/4351无监听，pause-process-check.json留证。新secondary.css导入在构建后加入，本次通过不覆盖它；明天先等恢复、由owner修16 lint并核对新层，再决定复验。旧侧栏清理和未指派的数据接口不做。报告、opus-handoff和根HANDOFF已同步；未提交/推送/部署/安装依赖或删除证据。

@@ -1,0 +1,2103 @@
+{
+  "version": "2026.11.20.2",
+  "sha256": "f326d8c217dc1a3f14835d69c2251cee7e2e4f7e7a95ad89b2ad030eaa98cdf6",
+  "questionCount": 799,
+  "cardCount": 80,
+  "articleCount": 20,
+  "articleConceptIds": [
+    "cn.foundations.channel",
+    "cn.foundations.layers",
+    "cn.link.arq",
+    "cn.link.ethernet",
+    "cn.network.ip",
+    "co.io.bus",
+    "co.io.interrupt",
+    "co.memory.cache",
+    "co.processor.isa",
+    "co.representation.integer",
+    "ds.foundations.stack",
+    "ds.graphs.graph-model",
+    "ds.sorting.sort-properties",
+    "ds.trees.btree",
+    "ds.trees.huffman",
+    "os.files.file-layout",
+    "os.memory.paging",
+    "os.memory.replacement",
+    "os.process.scheduling",
+    "os.process.semaphore"
+  ],
+  "humanReviewedArticles": 0,
+  "mappedCoverage": 1,
+  "humanReviewedMappings": 0,
+  "humanReviewedCards": 0,
+  "reviewStatus": "needs-review",
+  "concepts": [
+    {
+      "id": "ds.foundations.complexity",
+      "subject": "data-structures",
+      "name": "时间与空间复杂度",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q42",
+        "cn408-2011-q01",
+        "cn408-2012-q01",
+        "cn408-2013-q41",
+        "cn408-2014-q01",
+        "cn408-2017-q01",
+        "cn408-2018-q41",
+        "cn408-2019-q01",
+        "cn408-2020-q41",
+        "cn408-2021-q41",
+        "cn408-2022-q01",
+        "cn408-2023-q01",
+        "cn408-2025-q01",
+        "cn408-2025-q41"
+      ],
+      "cards": [
+        "card-ds-01"
+      ]
+    },
+    {
+      "id": "ds.foundations.array",
+      "subject": "data-structures",
+      "name": "顺序表与数组算法",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q42",
+        "cn408-2011-q42",
+        "cn408-2013-q41",
+        "cn408-2016-q43",
+        "cn408-2018-q41",
+        "cn408-2020-q41",
+        "cn408-2021-q03",
+        "cn408-2023-q01",
+        "cn408-2025-q41"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.foundations.list",
+      "subject": "data-structures",
+      "name": "链表与指针操作",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q42",
+        "cn408-2012-q42",
+        "cn408-2013-q01",
+        "cn408-2015-q41",
+        "cn408-2016-q01",
+        "cn408-2016-q02",
+        "cn408-2019-q41",
+        "cn408-2021-q01",
+        "cn408-2023-q02",
+        "cn408-2024-q01"
+      ],
+      "cards": [
+        "card-ds-02"
+      ]
+    },
+    {
+      "id": "ds.foundations.stack",
+      "subject": "data-structures",
+      "name": "栈与表达式",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q02",
+        "cn408-2010-q01",
+        "cn408-2011-q02",
+        "cn408-2012-q02",
+        "cn408-2013-q02",
+        "cn408-2014-q02",
+        "cn408-2015-q01",
+        "cn408-2017-q02",
+        "cn408-2017-q41",
+        "cn408-2018-q01",
+        "cn408-2018-q02",
+        "cn408-2020-q02",
+        "cn408-2022-q02",
+        "cn408-2024-q02",
+        "cn408-2025-q02"
+      ],
+      "cards": [
+        "card-ds-03"
+      ]
+    },
+    {
+      "id": "ds.foundations.queue",
+      "subject": "data-structures",
+      "name": "队列与循环队列",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q01",
+        "cn408-2010-q02",
+        "cn408-2011-q03",
+        "cn408-2014-q03",
+        "cn408-2016-q03",
+        "cn408-2019-q42",
+        "cn408-2021-q02"
+      ],
+      "cards": [
+        "card-ds-04"
+      ]
+    },
+    {
+      "id": "ds.foundations.matrix",
+      "subject": "data-structures",
+      "name": "特殊矩阵压缩存储",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q41",
+        "cn408-2016-q04",
+        "cn408-2017-q03",
+        "cn408-2018-q03",
+        "cn408-2020-q01",
+        "cn408-2023-q03"
+      ],
+      "cards": [
+        "card-ds-05"
+      ]
+    },
+    {
+      "id": "ds.foundations.string",
+      "subject": "data-structures",
+      "name": "字符串与 KMP 匹配",
+      "parentId": "ds.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2015-q08",
+        "cn408-2019-q09",
+        "cn408-2024-q06"
+      ],
+      "cards": [
+        "card-ds-06"
+      ]
+    },
+    {
+      "id": "ds.trees.tree-shape",
+      "subject": "data-structures",
+      "name": "树的结构与计数",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q05",
+        "cn408-2010-q05",
+        "cn408-2011-q04",
+        "cn408-2016-q42",
+        "cn408-2018-q04",
+        "cn408-2020-q03",
+        "cn408-2022-q04",
+        "cn408-2025-q03"
+      ],
+      "cards": [
+        "card-ds-07"
+      ]
+    },
+    {
+      "id": "ds.trees.traversal",
+      "subject": "data-structures",
+      "name": "树的遍历与重建",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q03",
+        "cn408-2011-q05",
+        "cn408-2012-q03",
+        "cn408-2014-q41",
+        "cn408-2015-q02",
+        "cn408-2017-q04",
+        "cn408-2017-q05",
+        "cn408-2017-q41",
+        "cn408-2022-q03",
+        "cn408-2023-q05",
+        "cn408-2024-q03"
+      ],
+      "cards": [
+        "card-ds-08"
+      ]
+    },
+    {
+      "id": "ds.trees.forest",
+      "subject": "data-structures",
+      "name": "树、森林与二叉树转换",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q06",
+        "cn408-2011-q06",
+        "cn408-2014-q05",
+        "cn408-2016-q05",
+        "cn408-2019-q02",
+        "cn408-2020-q04",
+        "cn408-2021-q04",
+        "cn408-2025-q04"
+      ],
+      "cards": [
+        "card-ds-09"
+      ]
+    },
+    {
+      "id": "ds.trees.thread",
+      "subject": "data-structures",
+      "name": "线索二叉树",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q03",
+        "cn408-2013-q05",
+        "cn408-2014-q04"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.trees.bst",
+      "subject": "data-structures",
+      "name": "二叉搜索树",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q07",
+        "cn408-2013-q06",
+        "cn408-2018-q06",
+        "cn408-2020-q05",
+        "cn408-2022-q41",
+        "cn408-2024-q07"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.trees.avl",
+      "subject": "data-structures",
+      "name": "平衡二叉树与旋转",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q04",
+        "cn408-2010-q04",
+        "cn408-2012-q04",
+        "cn408-2013-q03",
+        "cn408-2015-q04",
+        "cn408-2019-q04",
+        "cn408-2021-q06"
+      ],
+      "cards": [
+        "card-ds-10"
+      ]
+    },
+    {
+      "id": "ds.trees.btree",
+      "subject": "data-structures",
+      "name": "B 树与 B+ 树",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q08",
+        "cn408-2012-q09",
+        "cn408-2013-q10",
+        "cn408-2014-q09",
+        "cn408-2016-q10",
+        "cn408-2017-q09",
+        "cn408-2018-q08",
+        "cn408-2020-q10",
+        "cn408-2021-q09",
+        "cn408-2022-q08",
+        "cn408-2023-q07",
+        "cn408-2025-q08"
+      ],
+      "cards": [
+        "card-ds-11"
+      ]
+    },
+    {
+      "id": "ds.trees.huffman",
+      "subject": "data-structures",
+      "name": "哈夫曼编码与最优合并",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q06",
+        "cn408-2012-q41",
+        "cn408-2013-q04",
+        "cn408-2014-q06",
+        "cn408-2014-q41",
+        "cn408-2015-q03",
+        "cn408-2017-q06",
+        "cn408-2018-q05",
+        "cn408-2019-q03",
+        "cn408-2020-q42",
+        "cn408-2021-q05",
+        "cn408-2022-q05",
+        "cn408-2023-q04",
+        "cn408-2025-q05"
+      ],
+      "cards": [
+        "card-ds-12"
+      ]
+    },
+    {
+      "id": "ds.trees.search",
+      "subject": "data-structures",
+      "name": "顺序、折半与分块查找",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q09",
+        "cn408-2011-q42",
+        "cn408-2013-q42",
+        "cn408-2015-q07",
+        "cn408-2016-q09",
+        "cn408-2017-q08",
+        "cn408-2023-q08",
+        "cn408-2024-q05",
+        "cn408-2025-q07"
+      ],
+      "cards": [
+        "card-ds-14"
+      ]
+    },
+    {
+      "id": "ds.trees.hash",
+      "subject": "data-structures",
+      "name": "散列冲突与查找长度",
+      "parentId": "ds.trees",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q41",
+        "cn408-2011-q09",
+        "cn408-2014-q08",
+        "cn408-2018-q09",
+        "cn408-2019-q08",
+        "cn408-2022-q09",
+        "cn408-2023-q09",
+        "cn408-2024-q42",
+        "cn408-2025-q09"
+      ],
+      "cards": [
+        "card-ds-13"
+      ]
+    },
+    {
+      "id": "ds.graphs.graph-model",
+      "subject": "data-structures",
+      "name": "图的存储、度与连通性",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q07",
+        "cn408-2010-q07",
+        "cn408-2011-q08",
+        "cn408-2013-q07",
+        "cn408-2015-q42",
+        "cn408-2017-q07",
+        "cn408-2021-q41",
+        "cn408-2022-q06",
+        "cn408-2023-q41",
+        "cn408-2024-q04",
+        "cn408-2025-q06"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.graphs.graph-traversal",
+      "subject": "data-structures",
+      "name": "图的深度与广度优先搜索",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2012-q05",
+        "cn408-2013-q08",
+        "cn408-2015-q05",
+        "cn408-2016-q06",
+        "cn408-2020-q06"
+      ],
+      "cards": [
+        "card-ds-15"
+      ]
+    },
+    {
+      "id": "ds.graphs.shortest",
+      "subject": "data-structures",
+      "name": "最短路径与松弛",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q41",
+        "cn408-2012-q07",
+        "cn408-2016-q08",
+        "cn408-2021-q08",
+        "cn408-2023-q06"
+      ],
+      "cards": [
+        "card-ds-16"
+      ]
+    },
+    {
+      "id": "ds.graphs.mst",
+      "subject": "data-structures",
+      "name": "最小生成树",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2012-q08",
+        "cn408-2015-q06",
+        "cn408-2017-q42",
+        "cn408-2018-q42",
+        "cn408-2020-q07"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.graphs.topological",
+      "subject": "data-structures",
+      "name": "拓扑排序与有向无环图",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q08",
+        "cn408-2011-q08",
+        "cn408-2012-q06",
+        "cn408-2014-q07",
+        "cn408-2016-q07",
+        "cn408-2018-q07",
+        "cn408-2019-q06",
+        "cn408-2020-q06",
+        "cn408-2021-q07",
+        "cn408-2024-q41"
+      ],
+      "cards": [
+        "card-ds-17"
+      ]
+    },
+    {
+      "id": "ds.graphs.critical",
+      "subject": "data-structures",
+      "name": "AOE 网与关键路径",
+      "parentId": "ds.graphs",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q41",
+        "cn408-2013-q09",
+        "cn408-2019-q05",
+        "cn408-2020-q08",
+        "cn408-2022-q07",
+        "cn408-2025-q42"
+      ],
+      "cards": [
+        "card-ds-18"
+      ]
+    },
+    {
+      "id": "ds.sorting.sort-properties",
+      "subject": "data-structures",
+      "name": "内部排序性质与稳定性",
+      "parentId": "ds.sorting",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q10",
+        "cn408-2010-q11",
+        "cn408-2012-q10",
+        "cn408-2012-q11",
+        "cn408-2013-q11",
+        "cn408-2014-q10",
+        "cn408-2015-q09",
+        "cn408-2015-q11",
+        "cn408-2017-q11",
+        "cn408-2018-q10",
+        "cn408-2019-q07",
+        "cn408-2020-q11",
+        "cn408-2021-q10",
+        "cn408-2021-q42",
+        "cn408-2022-q11",
+        "cn408-2023-q10",
+        "cn408-2025-q10",
+        "cn408-2025-q11"
+      ],
+      "cards": [
+        "card-ds-20"
+      ]
+    },
+    {
+      "id": "ds.sorting.heap",
+      "subject": "data-structures",
+      "name": "堆的构建与调整",
+      "parentId": "ds.sorting",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q09",
+        "cn408-2011-q11",
+        "cn408-2015-q10",
+        "cn408-2018-q11",
+        "cn408-2020-q09",
+        "cn408-2021-q11",
+        "cn408-2022-q42",
+        "cn408-2024-q09"
+      ],
+      "cards": [
+        "card-ds-19"
+      ]
+    },
+    {
+      "id": "ds.sorting.quick",
+      "subject": "data-structures",
+      "name": "快速排序与划分",
+      "parentId": "ds.sorting",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q10",
+        "cn408-2011-q10",
+        "cn408-2014-q11",
+        "cn408-2016-q43",
+        "cn408-2019-q10",
+        "cn408-2023-q11",
+        "cn408-2024-q08"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.sorting.merge",
+      "subject": "data-structures",
+      "name": "归并排序与有序合并",
+      "parentId": "ds.sorting",
+      "level": "concept",
+      "questions": [
+        "cn408-2012-q41",
+        "cn408-2017-q10",
+        "cn408-2022-q10",
+        "cn408-2024-q10"
+      ],
+      "cards": []
+    },
+    {
+      "id": "ds.sorting.external",
+      "subject": "data-structures",
+      "name": "外部排序与多路归并",
+      "parentId": "ds.sorting",
+      "level": "concept",
+      "questions": [
+        "cn408-2016-q11",
+        "cn408-2019-q11",
+        "cn408-2023-q42",
+        "cn408-2024-q11"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.representation.integer",
+      "subject": "computer-organization",
+      "name": "整数编码、扩展与溢出",
+      "parentId": "co.representation",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q12",
+        "cn408-2010-q13",
+        "cn408-2012-q13",
+        "cn408-2013-q14",
+        "cn408-2014-q13",
+        "cn408-2015-q13",
+        "cn408-2016-q13",
+        "cn408-2017-q43",
+        "cn408-2018-q13",
+        "cn408-2018-q16",
+        "cn408-2019-q13",
+        "cn408-2019-q45",
+        "cn408-2021-q13",
+        "cn408-2022-q13",
+        "cn408-2023-q13",
+        "cn408-2023-q16",
+        "cn408-2024-q12",
+        "cn408-2024-q14",
+        "cn408-2025-q12"
+      ],
+      "cards": [
+        "card-co-01",
+        "card-co-02"
+      ]
+    },
+    {
+      "id": "co.representation.float",
+      "subject": "computer-organization",
+      "name": "浮点表示与运算",
+      "parentId": "co.representation",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q13",
+        "cn408-2010-q14",
+        "cn408-2011-q13",
+        "cn408-2012-q14",
+        "cn408-2013-q13",
+        "cn408-2014-q14",
+        "cn408-2015-q14",
+        "cn408-2016-q14",
+        "cn408-2017-q43",
+        "cn408-2018-q14",
+        "cn408-2020-q13",
+        "cn408-2021-q14",
+        "cn408-2022-q14",
+        "cn408-2023-q14",
+        "cn408-2024-q14",
+        "cn408-2025-q13"
+      ],
+      "cards": [
+        "card-co-03",
+        "card-co-04"
+      ]
+    },
+    {
+      "id": "co.representation.arithmetic",
+      "subject": "computer-organization",
+      "name": "ALU 与加减乘除",
+      "parentId": "co.representation",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q17",
+        "cn408-2011-q43",
+        "cn408-2013-q44",
+        "cn408-2018-q19",
+        "cn408-2020-q43",
+        "cn408-2022-q43",
+        "cn408-2024-q15",
+        "cn408-2025-q14",
+        "cn408-2025-q44"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.representation.endian",
+      "subject": "computer-organization",
+      "name": "字节序与数据对齐",
+      "parentId": "co.representation",
+      "level": "concept",
+      "questions": [
+        "cn408-2012-q15",
+        "cn408-2016-q14",
+        "cn408-2017-q13",
+        "cn408-2018-q15",
+        "cn408-2019-q15",
+        "cn408-2020-q14",
+        "cn408-2025-q15"
+      ],
+      "cards": [
+        "card-co-05"
+      ]
+    },
+    {
+      "id": "co.representation.coding",
+      "subject": "computer-organization",
+      "name": "校验码与数据编码",
+      "parentId": "co.representation",
+      "level": "concept",
+      "questions": [
+        "cn408-2013-q15"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.memory.ram",
+      "subject": "computer-organization",
+      "name": "主存芯片与地址译码",
+      "parentId": "co.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q15",
+        "cn408-2010-q15",
+        "cn408-2010-q16",
+        "cn408-2010-q22",
+        "cn408-2011-q14",
+        "cn408-2011-q15",
+        "cn408-2012-q16",
+        "cn408-2014-q15",
+        "cn408-2015-q17",
+        "cn408-2015-q18",
+        "cn408-2016-q16",
+        "cn408-2017-q13",
+        "cn408-2018-q17",
+        "cn408-2021-q15",
+        "cn408-2022-q17",
+        "cn408-2023-q15"
+      ],
+      "cards": [
+        "card-co-06",
+        "card-co-07"
+      ]
+    },
+    {
+      "id": "co.memory.cache",
+      "subject": "computer-organization",
+      "name": "Cache 映射与命中",
+      "parentId": "co.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q14",
+        "cn408-2009-q21",
+        "cn408-2010-q17",
+        "cn408-2010-q44",
+        "cn408-2011-q44",
+        "cn408-2012-q17",
+        "cn408-2012-q43",
+        "cn408-2013-q43",
+        "cn408-2014-q16",
+        "cn408-2014-q45",
+        "cn408-2015-q15",
+        "cn408-2016-q15",
+        "cn408-2016-q45",
+        "cn408-2018-q44",
+        "cn408-2019-q46",
+        "cn408-2020-q15",
+        "cn408-2020-q44",
+        "cn408-2021-q16",
+        "cn408-2022-q16",
+        "cn408-2023-q43",
+        "cn408-2025-q43"
+      ],
+      "cards": [
+        "card-co-08",
+        "card-co-09"
+      ]
+    },
+    {
+      "id": "co.memory.virtual",
+      "subject": "computer-organization",
+      "name": "虚拟地址、页表与 TLB",
+      "parentId": "co.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q44",
+        "cn408-2013-q16",
+        "cn408-2014-q45",
+        "cn408-2016-q45",
+        "cn408-2018-q44",
+        "cn408-2019-q14",
+        "cn408-2019-q46",
+        "cn408-2020-q15",
+        "cn408-2021-q44",
+        "cn408-2022-q15",
+        "cn408-2024-q16",
+        "cn408-2024-q17",
+        "cn408-2024-q18"
+      ],
+      "cards": [
+        "card-co-11"
+      ]
+    },
+    {
+      "id": "co.memory.disk",
+      "subject": "computer-organization",
+      "name": "磁盘容量与访问时间",
+      "parentId": "co.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2013-q20",
+        "cn408-2013-q21",
+        "cn408-2015-q20",
+        "cn408-2019-q20",
+        "cn408-2022-q44"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.memory.locality",
+      "subject": "computer-organization",
+      "name": "时间局部性与空间局部性",
+      "parentId": "co.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2017-q14"
+      ],
+      "cards": [
+        "card-co-10"
+      ]
+    },
+    {
+      "id": "co.processor.isa",
+      "subject": "computer-organization",
+      "name": "指令格式与寻址",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q16",
+        "cn408-2009-q44",
+        "cn408-2010-q43",
+        "cn408-2011-q16",
+        "cn408-2011-q17",
+        "cn408-2011-q19",
+        "cn408-2012-q44",
+        "cn408-2013-q17",
+        "cn408-2013-q44",
+        "cn408-2014-q17",
+        "cn408-2015-q12",
+        "cn408-2015-q16",
+        "cn408-2015-q43",
+        "cn408-2015-q44",
+        "cn408-2016-q17",
+        "cn408-2016-q18",
+        "cn408-2017-q15",
+        "cn408-2017-q16",
+        "cn408-2017-q44",
+        "cn408-2018-q18",
+        "cn408-2019-q45",
+        "cn408-2020-q16",
+        "cn408-2021-q43",
+        "cn408-2022-q18",
+        "cn408-2022-q19",
+        "cn408-2023-q17",
+        "cn408-2023-q44",
+        "cn408-2024-q13",
+        "cn408-2024-q43",
+        "cn408-2025-q16",
+        "cn408-2025-q44"
+      ],
+      "cards": [
+        "card-co-12",
+        "card-co-13"
+      ]
+    },
+    {
+      "id": "co.processor.datapath",
+      "subject": "computer-organization",
+      "name": "数据通路与微操作",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q44",
+        "cn408-2010-q18",
+        "cn408-2015-q43",
+        "cn408-2015-q44",
+        "cn408-2016-q18",
+        "cn408-2019-q17",
+        "cn408-2020-q12",
+        "cn408-2021-q17",
+        "cn408-2021-q18",
+        "cn408-2021-q43",
+        "cn408-2022-q43",
+        "cn408-2023-q18",
+        "cn408-2024-q43",
+        "cn408-2024-q44",
+        "cn408-2025-q19"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.processor.control",
+      "subject": "computer-organization",
+      "name": "控制器与微程序",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q19",
+        "cn408-2012-q18",
+        "cn408-2014-q18",
+        "cn408-2017-q18",
+        "cn408-2025-q19"
+      ],
+      "cards": [
+        "card-co-17"
+      ]
+    },
+    {
+      "id": "co.processor.pipeline",
+      "subject": "computer-organization",
+      "name": "流水线与相关冲突",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q18",
+        "cn408-2010-q19",
+        "cn408-2011-q18",
+        "cn408-2012-q44",
+        "cn408-2013-q18",
+        "cn408-2014-q44",
+        "cn408-2016-q19",
+        "cn408-2017-q17",
+        "cn408-2017-q19",
+        "cn408-2017-q44",
+        "cn408-2018-q20",
+        "cn408-2019-q18",
+        "cn408-2020-q17",
+        "cn408-2023-q19",
+        "cn408-2024-q19",
+        "cn408-2024-q44"
+      ],
+      "cards": [
+        "card-co-15",
+        "card-co-16"
+      ]
+    },
+    {
+      "id": "co.processor.performance",
+      "subject": "computer-organization",
+      "name": "CPU 性能与加速比",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q12",
+        "cn408-2011-q12",
+        "cn408-2011-q22",
+        "cn408-2012-q12",
+        "cn408-2012-q43",
+        "cn408-2013-q12",
+        "cn408-2014-q12",
+        "cn408-2016-q20",
+        "cn408-2017-q12",
+        "cn408-2019-q16",
+        "cn408-2021-q12",
+        "cn408-2022-q12",
+        "cn408-2023-q12",
+        "cn408-2025-q18"
+      ],
+      "cards": [
+        "card-co-14"
+      ]
+    },
+    {
+      "id": "co.processor.risc",
+      "subject": "computer-organization",
+      "name": "RISC 与 CISC",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q17",
+        "cn408-2025-q17"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.processor.parallel",
+      "subject": "computer-organization",
+      "name": "并行体系结构",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2022-q22"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.processor.architecture",
+      "subject": "computer-organization",
+      "name": "计算机层次与冯诺依曼结构",
+      "parentId": "co.processor",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q11",
+        "cn408-2016-q12",
+        "cn408-2018-q12",
+        "cn408-2019-q12",
+        "cn408-2022-q20"
+      ],
+      "cards": []
+    },
+    {
+      "id": "co.io.bus",
+      "subject": "computer-organization",
+      "name": "总线时序与带宽",
+      "parentId": "co.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q20",
+        "cn408-2010-q20",
+        "cn408-2011-q20",
+        "cn408-2012-q19",
+        "cn408-2012-q20",
+        "cn408-2012-q21",
+        "cn408-2012-q43",
+        "cn408-2014-q19",
+        "cn408-2014-q20",
+        "cn408-2015-q19",
+        "cn408-2016-q21",
+        "cn408-2017-q20",
+        "cn408-2018-q21",
+        "cn408-2019-q19",
+        "cn408-2020-q19",
+        "cn408-2021-q15",
+        "cn408-2021-q19",
+        "cn408-2022-q17",
+        "cn408-2023-q20",
+        "cn408-2024-q20",
+        "cn408-2025-q20"
+      ],
+      "cards": [
+        "card-co-18"
+      ]
+    },
+    {
+      "id": "co.io.interrupt",
+      "subject": "computer-organization",
+      "name": "异常、中断与优先级",
+      "parentId": "co.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q22",
+        "cn408-2010-q21",
+        "cn408-2011-q19",
+        "cn408-2011-q21",
+        "cn408-2012-q22",
+        "cn408-2014-q22",
+        "cn408-2015-q21",
+        "cn408-2015-q22",
+        "cn408-2016-q22",
+        "cn408-2016-q44",
+        "cn408-2017-q22",
+        "cn408-2018-q22",
+        "cn408-2019-q21",
+        "cn408-2020-q18",
+        "cn408-2020-q20",
+        "cn408-2020-q21",
+        "cn408-2021-q21",
+        "cn408-2021-q22",
+        "cn408-2022-q21",
+        "cn408-2023-q21",
+        "cn408-2024-q21",
+        "cn408-2025-q22",
+        "cn408-2025-q44"
+      ],
+      "cards": [
+        "card-co-19"
+      ]
+    },
+    {
+      "id": "co.io.dma",
+      "subject": "computer-organization",
+      "name": "DMA 与设备传送",
+      "parentId": "co.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q43",
+        "cn408-2012-q43",
+        "cn408-2013-q22",
+        "cn408-2018-q43",
+        "cn408-2019-q22",
+        "cn408-2020-q22",
+        "cn408-2022-q44",
+        "cn408-2024-q22",
+        "cn408-2025-q21"
+      ],
+      "cards": [
+        "card-co-20"
+      ]
+    },
+    {
+      "id": "co.io.polling",
+      "subject": "computer-organization",
+      "name": "程序查询与 I/O 接口",
+      "parentId": "co.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q22",
+        "cn408-2012-q21",
+        "cn408-2013-q19",
+        "cn408-2014-q21",
+        "cn408-2017-q21",
+        "cn408-2021-q20",
+        "cn408-2023-q22"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.process.kernel",
+      "subject": "operating-systems",
+      "name": "内核、特权级与系统调用",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q32",
+        "cn408-2010-q23",
+        "cn408-2011-q24",
+        "cn408-2012-q23",
+        "cn408-2012-q28",
+        "cn408-2013-q28",
+        "cn408-2014-q25",
+        "cn408-2015-q24",
+        "cn408-2017-q24",
+        "cn408-2019-q25",
+        "cn408-2021-q23",
+        "cn408-2021-q32",
+        "cn408-2022-q27",
+        "cn408-2022-q31",
+        "cn408-2023-q23",
+        "cn408-2023-q26",
+        "cn408-2023-q46"
+      ],
+      "cards": [
+        "card-os-01"
+      ]
+    },
+    {
+      "id": "os.process.state",
+      "subject": "operating-systems",
+      "name": "进程状态与切换",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q24",
+        "cn408-2014-q26",
+        "cn408-2015-q25",
+        "cn408-2018-q27",
+        "cn408-2019-q24",
+        "cn408-2020-q29",
+        "cn408-2021-q24",
+        "cn408-2022-q28",
+        "cn408-2023-q46",
+        "cn408-2024-q24",
+        "cn408-2024-q25",
+        "cn408-2025-q23"
+      ],
+      "cards": [
+        "card-os-02"
+      ]
+    },
+    {
+      "id": "os.process.thread",
+      "subject": "operating-systems",
+      "name": "线程模型与共享资源",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q25",
+        "cn408-2012-q31",
+        "cn408-2016-q30",
+        "cn408-2018-q25",
+        "cn408-2019-q23",
+        "cn408-2023-q27",
+        "cn408-2024-q28"
+      ],
+      "cards": [
+        "card-os-03"
+      ]
+    },
+    {
+      "id": "os.process.scheduling",
+      "subject": "operating-systems",
+      "name": "处理机调度与周转时间",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q24",
+        "cn408-2010-q26",
+        "cn408-2011-q23",
+        "cn408-2012-q29",
+        "cn408-2012-q30",
+        "cn408-2013-q31",
+        "cn408-2014-q23",
+        "cn408-2016-q46",
+        "cn408-2017-q23",
+        "cn408-2017-q27",
+        "cn408-2018-q24",
+        "cn408-2018-q29",
+        "cn408-2019-q27",
+        "cn408-2020-q26",
+        "cn408-2021-q25",
+        "cn408-2021-q27",
+        "cn408-2022-q25",
+        "cn408-2023-q29",
+        "cn408-2024-q30",
+        "cn408-2025-q25"
+      ],
+      "cards": [
+        "card-os-04"
+      ]
+    },
+    {
+      "id": "os.process.concurrency",
+      "subject": "operating-systems",
+      "name": "并发、并行与临界区",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q23",
+        "cn408-2010-q27",
+        "cn408-2011-q32",
+        "cn408-2016-q23",
+        "cn408-2016-q24",
+        "cn408-2016-q27",
+        "cn408-2017-q28",
+        "cn408-2018-q23",
+        "cn408-2020-q32",
+        "cn408-2022-q23",
+        "cn408-2023-q45"
+      ],
+      "cards": [
+        "card-os-05"
+      ]
+    },
+    {
+      "id": "os.process.semaphore",
+      "subject": "operating-systems",
+      "name": "信号量与同步",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q45",
+        "cn408-2010-q25",
+        "cn408-2011-q45",
+        "cn408-2013-q45",
+        "cn408-2014-q47",
+        "cn408-2015-q45",
+        "cn408-2017-q46",
+        "cn408-2018-q32",
+        "cn408-2019-q43",
+        "cn408-2020-q45",
+        "cn408-2021-q45",
+        "cn408-2022-q46",
+        "cn408-2024-q46",
+        "cn408-2025-q45"
+      ],
+      "cards": [
+        "card-os-06",
+        "card-os-07"
+      ]
+    },
+    {
+      "id": "os.process.deadlock",
+      "subject": "operating-systems",
+      "name": "死锁条件与安全状态",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q25",
+        "cn408-2011-q27",
+        "cn408-2012-q27",
+        "cn408-2013-q32",
+        "cn408-2014-q24",
+        "cn408-2015-q26",
+        "cn408-2016-q25",
+        "cn408-2018-q26",
+        "cn408-2019-q30",
+        "cn408-2019-q43",
+        "cn408-2020-q27",
+        "cn408-2021-q31",
+        "cn408-2022-q26"
+      ],
+      "cards": [
+        "card-os-08",
+        "card-os-09"
+      ]
+    },
+    {
+      "id": "os.process.ipc",
+      "subject": "operating-systems",
+      "name": "进程通信与管道",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2014-q31"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.process.monitor",
+      "subject": "operating-systems",
+      "name": "管程与条件变量",
+      "parentId": "os.process",
+      "level": "concept",
+      "questions": [
+        "cn408-2016-q32",
+        "cn408-2018-q28"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.memory.allocation",
+      "subject": "operating-systems",
+      "name": "连续分配与地址保护",
+      "parentId": "os.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q26",
+        "cn408-2010-q28",
+        "cn408-2017-q25",
+        "cn408-2019-q32",
+        "cn408-2024-q27"
+      ],
+      "cards": [
+        "card-os-10"
+      ]
+    },
+    {
+      "id": "os.memory.paging",
+      "subject": "operating-systems",
+      "name": "分页、分段与地址转换",
+      "parentId": "os.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q27",
+        "cn408-2010-q29",
+        "cn408-2011-q30",
+        "cn408-2012-q25",
+        "cn408-2013-q46",
+        "cn408-2014-q28",
+        "cn408-2014-q32",
+        "cn408-2015-q46",
+        "cn408-2016-q28",
+        "cn408-2017-q45",
+        "cn408-2018-q45",
+        "cn408-2019-q28",
+        "cn408-2019-q31",
+        "cn408-2020-q46",
+        "cn408-2021-q29",
+        "cn408-2023-q25",
+        "cn408-2023-q28",
+        "cn408-2023-q30",
+        "cn408-2024-q25",
+        "cn408-2024-q45",
+        "cn408-2025-q23",
+        "cn408-2025-q30",
+        "cn408-2025-q46"
+      ],
+      "cards": [
+        "card-os-11",
+        "card-os-12"
+      ]
+    },
+    {
+      "id": "os.memory.replacement",
+      "subject": "operating-systems",
+      "name": "缺页、页面置换与工作集",
+      "parentId": "os.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q46",
+        "cn408-2010-q46",
+        "cn408-2011-q28",
+        "cn408-2011-q29",
+        "cn408-2012-q45",
+        "cn408-2013-q30",
+        "cn408-2014-q30",
+        "cn408-2015-q27",
+        "cn408-2015-q30",
+        "cn408-2016-q26",
+        "cn408-2016-q29",
+        "cn408-2018-q45",
+        "cn408-2019-q29",
+        "cn408-2020-q28",
+        "cn408-2021-q28",
+        "cn408-2022-q29",
+        "cn408-2022-q30",
+        "cn408-2024-q45",
+        "cn408-2025-q26"
+      ],
+      "cards": [
+        "card-os-13",
+        "card-os-14"
+      ]
+    },
+    {
+      "id": "os.memory.allocation-page",
+      "subject": "operating-systems",
+      "name": "页面分配与局部性",
+      "parentId": "os.memory",
+      "level": "concept",
+      "questions": [
+        "cn408-2015-q30",
+        "cn408-2025-q27"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.files.file-layout",
+      "subject": "operating-systems",
+      "name": "文件分配与索引结构",
+      "parentId": "os.files",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q28",
+        "cn408-2010-q30",
+        "cn408-2011-q46",
+        "cn408-2012-q46",
+        "cn408-2013-q24",
+        "cn408-2013-q26",
+        "cn408-2014-q46",
+        "cn408-2015-q29",
+        "cn408-2016-q47",
+        "cn408-2017-q26",
+        "cn408-2018-q46",
+        "cn408-2019-q44",
+        "cn408-2020-q24",
+        "cn408-2022-q45"
+      ],
+      "cards": [
+        "card-os-15",
+        "card-os-16"
+      ]
+    },
+    {
+      "id": "os.files.directory",
+      "subject": "operating-systems",
+      "name": "目录、链接与文件控制块",
+      "parentId": "os.files",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q30",
+        "cn408-2009-q31",
+        "cn408-2010-q31",
+        "cn408-2011-q46",
+        "cn408-2012-q46",
+        "cn408-2016-q47",
+        "cn408-2017-q29",
+        "cn408-2017-q31",
+        "cn408-2020-q31",
+        "cn408-2021-q30",
+        "cn408-2022-q45",
+        "cn408-2025-q29"
+      ],
+      "cards": [
+        "card-os-17"
+      ]
+    },
+    {
+      "id": "os.files.file-open",
+      "subject": "operating-systems",
+      "name": "文件打开、读写与权限",
+      "parentId": "os.files",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q30",
+        "cn408-2012-q28",
+        "cn408-2013-q23",
+        "cn408-2014-q29",
+        "cn408-2017-q30",
+        "cn408-2018-q31",
+        "cn408-2020-q23",
+        "cn408-2023-q31",
+        "cn408-2024-q29",
+        "cn408-2025-q28",
+        "cn408-2025-q32"
+      ],
+      "cards": [
+        "card-os-18"
+      ]
+    },
+    {
+      "id": "os.files.free-space",
+      "subject": "operating-systems",
+      "name": "空闲空间与位示图",
+      "parentId": "os.files",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q45",
+        "cn408-2014-q27",
+        "cn408-2015-q31",
+        "cn408-2019-q26",
+        "cn408-2024-q26",
+        "cn408-2025-q31"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.files.disk",
+      "subject": "operating-systems",
+      "name": "磁盘调度与访问时间",
+      "parentId": "os.files",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q29",
+        "cn408-2010-q45",
+        "cn408-2012-q32",
+        "cn408-2015-q32",
+        "cn408-2018-q30",
+        "cn408-2019-q44",
+        "cn408-2021-q26",
+        "cn408-2024-q32"
+      ],
+      "cards": [
+        "card-os-19"
+      ]
+    },
+    {
+      "id": "os.io.device",
+      "subject": "operating-systems",
+      "name": "设备分配与独立性",
+      "parentId": "os.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q32",
+        "cn408-2011-q26",
+        "cn408-2012-q26",
+        "cn408-2013-q25",
+        "cn408-2017-q32",
+        "cn408-2020-q30",
+        "cn408-2022-q32",
+        "cn408-2023-q32",
+        "cn408-2023-q46"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.io.buffer",
+      "subject": "operating-systems",
+      "name": "缓冲、假脱机与 SPOOLing",
+      "parentId": "os.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q31",
+        "cn408-2013-q27",
+        "cn408-2015-q28",
+        "cn408-2016-q31",
+        "cn408-2018-q31"
+      ],
+      "cards": [
+        "card-os-20"
+      ]
+    },
+    {
+      "id": "os.io.interrupt",
+      "subject": "operating-systems",
+      "name": "中断、异常与保护",
+      "parentId": "os.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q32",
+        "cn408-2012-q24",
+        "cn408-2015-q23",
+        "cn408-2017-q32",
+        "cn408-2018-q29",
+        "cn408-2020-q25",
+        "cn408-2023-q24",
+        "cn408-2024-q23",
+        "cn408-2024-q31"
+      ],
+      "cards": []
+    },
+    {
+      "id": "os.io.boot",
+      "subject": "operating-systems",
+      "name": "系统引导与虚拟机",
+      "parentId": "os.io",
+      "level": "concept",
+      "questions": [
+        "cn408-2013-q29",
+        "cn408-2017-q29",
+        "cn408-2021-q46",
+        "cn408-2022-q24",
+        "cn408-2025-q24"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.foundations.layers",
+      "subject": "computer-networks",
+      "name": "分层体系、服务与协议",
+      "parentId": "cn.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q33",
+        "cn408-2010-q33",
+        "cn408-2011-q33",
+        "cn408-2013-q33",
+        "cn408-2014-q33",
+        "cn408-2016-q33",
+        "cn408-2017-q33",
+        "cn408-2018-q33",
+        "cn408-2019-q33",
+        "cn408-2020-q33",
+        "cn408-2020-q34",
+        "cn408-2021-q33",
+        "cn408-2022-q33"
+      ],
+      "cards": [
+        "card-cn-01"
+      ]
+    },
+    {
+      "id": "cn.foundations.delay",
+      "subject": "computer-networks",
+      "name": "时延、吞吐与交换方式",
+      "parentId": "cn.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q34",
+        "cn408-2013-q35",
+        "cn408-2023-q33",
+        "cn408-2024-q33",
+        "cn408-2025-q33"
+      ],
+      "cards": [
+        "card-cn-02"
+      ]
+    },
+    {
+      "id": "cn.foundations.channel",
+      "subject": "computer-networks",
+      "name": "信道容量、编码与调制",
+      "parentId": "cn.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q34",
+        "cn408-2011-q34",
+        "cn408-2013-q34",
+        "cn408-2014-q35",
+        "cn408-2015-q34",
+        "cn408-2016-q34",
+        "cn408-2017-q34",
+        "cn408-2021-q34",
+        "cn408-2022-q34",
+        "cn408-2023-q34",
+        "cn408-2024-q34"
+      ],
+      "cards": [
+        "card-cn-03"
+      ]
+    },
+    {
+      "id": "cn.foundations.multiplex",
+      "subject": "computer-networks",
+      "name": "多路复用与码分多址",
+      "parentId": "cn.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2014-q37"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.foundations.interface",
+      "subject": "computer-networks",
+      "name": "物理层接口特性",
+      "parentId": "cn.foundations",
+      "level": "concept",
+      "questions": [
+        "cn408-2012-q34",
+        "cn408-2018-q34"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.link.framing",
+      "subject": "computer-networks",
+      "name": "成帧、差错检测与 CRC",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [
+        "cn408-2013-q37",
+        "cn408-2023-q37",
+        "cn408-2025-q34"
+      ],
+      "cards": [
+        "card-cn-04"
+      ]
+    },
+    {
+      "id": "cn.link.arq",
+      "subject": "computer-networks",
+      "name": "可靠传输与滑动窗口",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q35",
+        "cn408-2011-q35",
+        "cn408-2012-q36",
+        "cn408-2014-q36",
+        "cn408-2015-q35",
+        "cn408-2017-q47",
+        "cn408-2018-q36",
+        "cn408-2019-q35",
+        "cn408-2020-q36",
+        "cn408-2023-q35",
+        "cn408-2024-q37"
+      ],
+      "cards": [
+        "card-cn-05",
+        "card-cn-06"
+      ]
+    },
+    {
+      "id": "cn.link.ethernet",
+      "subject": "computer-networks",
+      "name": "以太网与 CSMA/CD",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q37",
+        "cn408-2010-q47",
+        "cn408-2012-q35",
+        "cn408-2013-q36",
+        "cn408-2015-q36",
+        "cn408-2016-q36",
+        "cn408-2019-q34",
+        "cn408-2019-q36",
+        "cn408-2020-q35",
+        "cn408-2023-q36",
+        "cn408-2025-q35"
+      ],
+      "cards": [
+        "card-cn-07"
+      ]
+    },
+    {
+      "id": "cn.link.switch",
+      "subject": "computer-networks",
+      "name": "交换机、网桥与 VLAN",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q36",
+        "cn408-2010-q38",
+        "cn408-2013-q38",
+        "cn408-2014-q34",
+        "cn408-2015-q37",
+        "cn408-2016-q35",
+        "cn408-2018-q37",
+        "cn408-2019-q47",
+        "cn408-2020-q35",
+        "cn408-2021-q47",
+        "cn408-2024-q35"
+      ],
+      "cards": [
+        "card-cn-08"
+      ]
+    },
+    {
+      "id": "cn.link.wifi",
+      "subject": "computer-networks",
+      "name": "无线局域网与 CSMA/CA",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q36",
+        "cn408-2017-q35",
+        "cn408-2018-q35",
+        "cn408-2020-q37",
+        "cn408-2022-q47",
+        "cn408-2024-q36"
+      ],
+      "cards": [
+        "card-cn-09"
+      ]
+    },
+    {
+      "id": "cn.link.ppp",
+      "subject": "computer-networks",
+      "name": "PPP 与点到点链路",
+      "parentId": "cn.link",
+      "level": "concept",
+      "questions": [],
+      "cards": []
+    },
+    {
+      "id": "cn.network.ip",
+      "subject": "computer-networks",
+      "name": "IPv4 地址、子网与 CIDR",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q47",
+        "cn408-2010-q37",
+        "cn408-2011-q37",
+        "cn408-2011-q38",
+        "cn408-2012-q39",
+        "cn408-2013-q47",
+        "cn408-2014-q42",
+        "cn408-2014-q43",
+        "cn408-2015-q38",
+        "cn408-2015-q47",
+        "cn408-2016-q38",
+        "cn408-2016-q39",
+        "cn408-2017-q36",
+        "cn408-2017-q38",
+        "cn408-2018-q38",
+        "cn408-2018-q47",
+        "cn408-2019-q37",
+        "cn408-2019-q47",
+        "cn408-2020-q47",
+        "cn408-2021-q35",
+        "cn408-2022-q35",
+        "cn408-2022-q36",
+        "cn408-2022-q47",
+        "cn408-2023-q39",
+        "cn408-2024-q47",
+        "cn408-2025-q47"
+      ],
+      "cards": [
+        "card-cn-10",
+        "card-cn-11"
+      ]
+    },
+    {
+      "id": "cn.network.fragment",
+      "subject": "computer-networks",
+      "name": "IP 分片与首部",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2018-q47",
+        "cn408-2021-q36"
+      ],
+      "cards": [
+        "card-cn-12"
+      ]
+    },
+    {
+      "id": "cn.network.routing",
+      "subject": "computer-networks",
+      "name": "路由算法与路由协议",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q47",
+        "cn408-2010-q35",
+        "cn408-2012-q37",
+        "cn408-2014-q42",
+        "cn408-2014-q43",
+        "cn408-2016-q37",
+        "cn408-2017-q37",
+        "cn408-2021-q37",
+        "cn408-2024-q47"
+      ],
+      "cards": [
+        "card-cn-14"
+      ]
+    },
+    {
+      "id": "cn.network.arp",
+      "subject": "computer-networks",
+      "name": "ARP 与地址解析",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q47",
+        "cn408-2012-q38",
+        "cn408-2015-q47",
+        "cn408-2020-q47",
+        "cn408-2021-q47",
+        "cn408-2024-q35"
+      ],
+      "cards": [
+        "card-cn-13"
+      ]
+    },
+    {
+      "id": "cn.network.icmp",
+      "subject": "computer-networks",
+      "name": "ICMP 与网络诊断",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q36",
+        "cn408-2012-q33",
+        "cn408-2024-q47"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.network.nat",
+      "subject": "computer-networks",
+      "name": "NAT 与私有地址",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q47",
+        "cn408-2020-q47",
+        "cn408-2023-q38",
+        "cn408-2025-q37",
+        "cn408-2025-q47"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.network.ipv6",
+      "subject": "computer-networks",
+      "name": "IPv6 编址",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2023-q40"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.network.sdn",
+      "subject": "computer-networks",
+      "name": "SDN 控制与数据平面",
+      "parentId": "cn.network",
+      "level": "concept",
+      "questions": [
+        "cn408-2022-q37"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.transport.tcp-sequence",
+      "subject": "computer-networks",
+      "name": "TCP 序号、确认与重传",
+      "parentId": "cn.transport",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q38",
+        "cn408-2011-q40",
+        "cn408-2013-q39",
+        "cn408-2019-q38",
+        "cn408-2023-q47",
+        "cn408-2024-q38",
+        "cn408-2025-q38"
+      ],
+      "cards": [
+        "card-cn-15"
+      ]
+    },
+    {
+      "id": "cn.transport.tcp-connect",
+      "subject": "computer-networks",
+      "name": "TCP 连接建立与释放",
+      "parentId": "cn.transport",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q39",
+        "cn408-2011-q47",
+        "cn408-2012-q47",
+        "cn408-2017-q39",
+        "cn408-2019-q39",
+        "cn408-2020-q39",
+        "cn408-2021-q38",
+        "cn408-2022-q39"
+      ],
+      "cards": [
+        "card-cn-16"
+      ]
+    },
+    {
+      "id": "cn.transport.tcp-flow",
+      "subject": "computer-networks",
+      "name": "TCP 流量控制与接收窗口",
+      "parentId": "cn.transport",
+      "level": "concept",
+      "questions": [
+        "cn408-2014-q38",
+        "cn408-2016-q41",
+        "cn408-2021-q40",
+        "cn408-2025-q38"
+      ],
+      "cards": [
+        "card-cn-17"
+      ]
+    },
+    {
+      "id": "cn.transport.congestion",
+      "subject": "computer-networks",
+      "name": "TCP 拥塞控制",
+      "parentId": "cn.transport",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q39",
+        "cn408-2010-q39",
+        "cn408-2014-q38",
+        "cn408-2015-q39",
+        "cn408-2016-q41",
+        "cn408-2017-q39",
+        "cn408-2020-q38",
+        "cn408-2022-q38",
+        "cn408-2023-q47",
+        "cn408-2025-q38"
+      ],
+      "cards": [
+        "card-cn-18"
+      ]
+    },
+    {
+      "id": "cn.transport.udp",
+      "subject": "computer-networks",
+      "name": "UDP 与端口复用",
+      "parentId": "cn.transport",
+      "level": "concept",
+      "questions": [
+        "cn408-2014-q39",
+        "cn408-2018-q33",
+        "cn408-2018-q39",
+        "cn408-2021-q39",
+        "cn408-2024-q39",
+        "cn408-2025-q39"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.application.dns",
+      "subject": "computer-networks",
+      "name": "DNS 解析与缓存",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2010-q40",
+        "cn408-2016-q40",
+        "cn408-2020-q40",
+        "cn408-2021-q47"
+      ],
+      "cards": [
+        "card-cn-19"
+      ]
+    },
+    {
+      "id": "cn.application.http",
+      "subject": "computer-networks",
+      "name": "HTTP 与 Web 连接",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2011-q47",
+        "cn408-2014-q40",
+        "cn408-2015-q40",
+        "cn408-2020-q47",
+        "cn408-2022-q40",
+        "cn408-2024-q40"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.application.ftp-mail",
+      "subject": "computer-networks",
+      "name": "FTP 与电子邮件",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2009-q40",
+        "cn408-2012-q40",
+        "cn408-2013-q40",
+        "cn408-2015-q33",
+        "cn408-2017-q40",
+        "cn408-2018-q40",
+        "cn408-2023-q47",
+        "cn408-2025-q40"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.application.dhcp",
+      "subject": "computer-networks",
+      "name": "DHCP 动态地址配置",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2015-q47",
+        "cn408-2022-q47",
+        "cn408-2025-q36"
+      ],
+      "cards": [
+        "card-cn-20"
+      ]
+    },
+    {
+      "id": "cn.application.security",
+      "subject": "computer-networks",
+      "name": "网络安全与认证",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2025-q47"
+      ],
+      "cards": []
+    },
+    {
+      "id": "cn.application.models",
+      "subject": "computer-networks",
+      "name": "客户服务器与对等应用模型",
+      "parentId": "cn.application",
+      "level": "concept",
+      "questions": [
+        "cn408-2019-q40"
+      ],
+      "cards": []
+    }
+  ]
+}
