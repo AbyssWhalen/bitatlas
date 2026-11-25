@@ -1,5 +1,13 @@
 # Notes
 
+## 2026-11-25 第二次发布完成与门禁纠正
+
+- 隔离 `git worktree add --detach output/release-execution-2026-11-25-b/checkout 491e4d0`；`node output/release-execution-2026-11-25-b/prepare.mjs` 构建服务器候选、打包/解包校验及同提交本地构建。第一次逐字节兼容检查命中 `backup.ts` 的 CRLF→LF，规范化后全文相同；保留失败与复核回执。`compare.mjs` 核对真实旧包 395／新包 399 项、数据合同和 SW 清单。候选 tar SHA-256 为 `aae31894b036728049d49b3ddb2b099752f926636c800598a021a9feee02c4e2`。
+- 原门禁服务器 14/14 使用旧 dist-server，不能证明本次前端。`node node_modules/playwright/cli.js test -c output/release-execution-2026-11-25-b/playwright.config.ts` 指向新解包候选，完整 14/14（2 workers）通过。首次夹具相对 webRoot 导致启动失败，0 条执行，修正为绝对路径后完整跑一次，原日志保留。原 `test:pwa-upgrade` 现场生成 A/B 新本地构建，不受旧 dist 影响。
+- `node --import tsx output/release-execution-2026-11-25-b/pwa-member.mjs`：真实旧→新→旧、合成成员与内存 SQLite；三个阶段离线 SW reload 和同一待同步操作保留，恢复同步后 1 条落库、队列 0。未用生产账号。
+- 命令前缀 `node output/release-execution-2026-11-25-b/`：`run-remote.mjs baseline`、`backup`、`upload`、`install`、`activate`、`confirm` 按序通过；20:43:40 切换 `20261125-aae31894`，20:44:38 回环复核通过。400 对象新快照、399 项 Linux 清单、15 项 smoke、回环 9 项均通过；只重启应用，自动重启 0。
+- `public-browser.mjs old-http old-http`／`http new-http`／`fresh anonymous` 全部通过。公网新版 9 项 HTTP、无查询 SW 双读匹配；Chrome 1440／390 两视口目标 JS、误报 0、横溢 0，截图目检通过。匿名未注册 SW 按既有设计记录，成员生产登录后权限与同步仍待维护者本人确认。未操作账号、学习包、DNS、隧道或备份配置，无回退。实际摘要、时点、门禁边界与回退见 [本轮记录](docs/server/release-2026-11-25-b.md)。
+
 ## 2026-11-25 服务器发布完成与 PWA 验收纠正
 
 - 17:42 切换 `20261125-53fe2515`，17:48 回环复核通过；公网 HTTP 9/9、桌面/手机匿名首访 2/2，无首访账号误报。使用已安装冻结候选，无重传/重装、无生产账号操作。完整摘要、备份、操作时点、有效门禁和回退见 [发布记录](docs/server/release-2026-11-25.md)。两项登录后的正式域名确认保留给维护者。
