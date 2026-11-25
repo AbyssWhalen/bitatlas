@@ -1,8 +1,8 @@
 # BitAtlas
 
-BitAtlas 是面向个人与十几位受邀成员的计算机科学学习与可视化实验平台。覆盖 2009–2025 年 408 四科，以阅读、跨年概念和“练习—复盘—复习—再验证”为中心。799 道题、156 张记忆卡和20篇原创短讲解保持独立审核状态。
+BitAtlas 是面向个人与十几位受邀成员的计算机科学学习与可视化实验平台。覆盖 2009–2025 年 408 四科，以阅读、跨年概念和“练习—复盘—复习—再验证”为中心。799 道题、156 张记忆卡和 47 篇原创短讲解保持独立审核状态。答题后可查看该题已有的补充解析、勘误及来源。
 
-邀请制服务器版已实现 Fastify/SQLite、共享资料、账号私有学习记录、离线同步和备份 v5。2026-11-22 已通过专用 Cloudflare Tunnel 接通 `408.fytjut.com`，GCP 提供应用、799 题、156 卡、20 篇讲解和 34 份 PDF；学习内容需要登录。当前结果见 [正式域名验收](docs/server/gcp-domain-2026-11-22.md)，使用与维护见 [实施合同](docs/server/implementation.md)、[账号迁移](docs/server/migration-v5.md)、[部署与回退](docs/server/deployment.md)。
+邀请制服务器版已实现 Fastify/SQLite、共享资料、账号私有学习记录、离线同步和备份 v5。2026-11-22 已通过专用 Cloudflare Tunnel 接通 `408.fytjut.com`，GCP 提供应用、799 题、156 卡、47 篇讲解和 34 份 PDF；学习内容需要登录。当前结果见 [正式域名验收](docs/server/gcp-domain-2026-11-22.md) 和 [学习包发布记录](docs/learning/supplements-release-2026-11-26.md)，使用与维护见 [实施合同](docs/server/implementation.md)、[账号迁移](docs/server/migration-v5.md)、[部署与回退](docs/server/deployment.md)。
 
 腾讯云独立加密备份每天北京时间 03:30 调度。首轮备份及完整取回核验通过，手工快照受保护，自动快照保留最近 7 个备份日及 4 个备份周。见[独立备份记录](docs/server/independent-backup-2026-11-22.md)。
 
