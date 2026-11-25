@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { expect } from '@playwright/test';
 import { assertBuild, evidence, fresh, json, local, login, openPage, server } from './ui-integrated-browser.mjs';
 
 const [label] = process.argv.slice(2), dir = await fresh(label);
@@ -52,21 +53,25 @@ try {
   await page.getByRole('button', { name: '提交答案', exact: true }).click();
   await page.locator('.answer-panel').waitFor();
   // Read only the outbox index's count; do not export account data or queued payloads.
-  const sample = await page.waitForFunction(async id => {
-    const n = await new Promise((resolve, reject) => {
-      const req = globalThis.indexedDB.open(`408-user:${id}`);
-      req.onerror = () => reject(req.error);
-      req.onsuccess = () => {
-        const db = req.result;
-        const count = db.transaction('outbox').objectStore('outbox').index('state').count('pending');
-        count.onsuccess = () => { db.close(); resolve(count.result); };
-        count.onerror = () => { db.close(); reject(count.error); };
-      };
-    });
-    const text = [...globalThis.document.querySelectorAll('.topbar .status-chip')].find(c => c.textContent === `待同步 ${n} 条`)?.textContent;
-    return n > 0 && text ? { count: n, text } : null;
-  }, account.id, { timeout: 15_000 });
-  report.sync.offline = await sample.jsonValue();
+  let sample = null;
+  await expect.poll(async () => {
+    sample = await page.evaluate(async id => {
+      const n = await new Promise((resolve, reject) => {
+        const req = globalThis.indexedDB.open(`408-user:${id}`);
+        req.onerror = () => reject(req.error);
+        req.onsuccess = () => {
+          const db = req.result;
+          const count = db.transaction('outbox').objectStore('outbox').index('state').count('pending');
+          count.onsuccess = () => { db.close(); resolve(count.result); };
+          count.onerror = () => { db.close(); reject(count.error); };
+        };
+      });
+      const text = [...globalThis.document.querySelectorAll('.topbar .status-chip')].find(c => c.textContent === `待同步 ${n} 条`)?.textContent;
+      return n > 0 && text ? { count: n, text } : null;
+    }, account.id);
+    return sample;
+  }, { timeout: 15_000 }).not.toBeNull();
+  report.sync.offline = sample;
   await page.evaluate(() => globalThis.addEventListener('bitatlas-synced', () => { globalThis.document.documentElement.dataset.auditSync = new Date().toISOString(); }, { once: true }));
   await page.context().setOffline(false);
   await page.waitForFunction(() => Boolean(globalThis.document.documentElement.dataset.auditSync), undefined, { timeout: 35_000 });
