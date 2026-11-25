@@ -1,6 +1,6 @@
 # 人工复核队列（review queue）
 
-更新日期：2026-11-25。基线数据：17 套题包、799 道题（2009–2025），学习包 `2026.11.25.5`（156 张记忆卡、47 篇短讲解、799 条概念映射、40 条补充解析、1 条勘误）。
+更新日期：2026-11-26。基线数据：17 套题包、799 道题（2009–2025），学习包 `2026.11.26.1`（156 张记忆卡、47 篇短讲解、799 条概念映射、80 条补充解析、1 条勘误）。
 
 ## 用途与规则
 
@@ -18,7 +18,7 @@
 | R1-1 | cn408-2009 全部 47 题 | 逐题核对题干、选项、解析与原卷扫描件，正式确认审核状态 | 线上 `/review/2009` 复核工作台；`docs/2009-source-audit-2026-10-04.md` | 正式人工复核 0/47；AI 来源核对已完成（47/47，17 题修正、3 处跨页解析索引），包版本 2009.0-draft.3 | docs/server/content-review.md、README.md |
 | R1-2 | cn408-2022-q17 | DRAM 地址引脚数解析：来源解析把内存条总字节地址位数（512MB=2^29B → 29 位）当成单片 DRAM 地址引脚数，单片 8192×8192×8（行列复用 13+13）应为 13 根；两种口径均不含答案选项 C(26)，需对原答案页人工确认 | docs/content-quality-backlog.md（P2 未解项）；docs/learning/article-drafts-2026-11-25.md | 题包保留原文；第一批讲解草稿已在 doubts 标出来源异常并排除该题，讲解与卡片均不引用 | docs/content-quality-backlog.md、docs/learning/article-drafts-2026-11-25.md |
 | R1-3 | cn408-2023-q40 | 解析称 IPv6 与 IPv4 地址空间"相差 64 位/2^64"是否为原资料错误；正确口径应为 128−32=96 位、2^96；核对勘误的地址位数之差、理论地址空间之比、原段引文和答案卷定位 | `cn408-2023/source/answers-11.jpg`（PDF page 11; answer 40）；docs/content-quality-backlog.md（P2）；勘误 `erratum:cn408-2023-q40`（私有输入 `output/supplements-release/input.json`；题版 2023.0-draft.2，段 q40-analysis，答案卷第 11 页） | 已发布勘误，待复核勘误内容；题包原文未改，答案键 D 与审核状态不变 | docs/content-quality-backlog.md、docs/learning/supplements-release-2026-11-25.md、提交 6b497ef |
-| R1-4 | 2024/2025 年 80 道选择题（各 40） | 逐题补写解析；2024 年 40 条补充解析已上线（批次见 R1-15），2025 年 40 条在写 | docs/learning/missing-explanations-2026-11-25.tsv（逐题概念对应）；docs/learning/question-supplements-design-2026-11-25.md（补充方案）；docs/learning/supplements-release-2026-11-25.md | 2024 年 40 条已上线（学习包 2026.11.25.5，待复核）；2025 年 40 条在写 | docs/content-quality-backlog.md、README.md、docs/learning/supplements-release-2026-11-25.md |
+| R1-4 | 2024/2025 年 80 道选择题（各 40） | 逐题补写解析；2024、2025 年各 40 条补充解析已上线（批次见 R1-15、R1-16） | docs/learning/missing-explanations-2026-11-25.tsv（逐题概念对应）；docs/learning/question-supplements-design-2026-11-25.md（补充方案）；docs/learning/supplements-release-2026-11-25.md | 80 条均已上线（学习包 2026.11.26.1），needs-review，待复核 | docs/content-quality-backlog.md、README.md、docs/learning/supplements-release-2026-11-25.md |
 | R1-5 | cn408-2023-q05 | 来源解析文字错误：后序序列 `f, d, b, e, c, a` 中结点 `e` 左子树 2 结点（f, d）、右子树 1 结点（b），解析第 4 句误写"`fdb` 属于左子树，`e` 属于右子树" | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 草稿已规避；供评估记入内容质量清单 | docs/learning/article-drafts-2026-11-25-b.md |
 | R1-6 | cn408-2016-q27 | 来源解析概念错误：TSL 自旋锁退出临界区执行 `lock=FALSE` 时，解析写"会负责唤醒处于就绪状态的进程"；唤醒只针对阻塞态进程，解锁只是普通写内存 | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 同上 | docs/learning/article-drafts-2026-11-25-b.md |
 | R1-7 | cn408-2013-q42 | 题干漏小数点：4 元素折半查找成功 ASL 应为 `2.2`，题包题干误作"平均查找长度为 22" | docs/learning/article-drafts-2026-11-25-b.md"本轮新发现的题包题干与解析错误汇总" | 同上 | docs/learning/article-drafts-2026-11-25-b.md |
@@ -30,6 +30,7 @@
 | R1-13 | 2019/2021/2024/2025 年 OCR 恢复解析 | I/O 误作 VO、帧误作顿、页码碎片、全半角标点等 OCR 噪声逐处核对 | docs/content-quality-backlog.md（P3） | 未处理 | docs/content-quality-backlog.md |
 | R1-14 | 全部题干配图 | 配图为整页扫描原图、未裁切定位，是否影响判读 | docs/content-quality-backlog.md（P3） | 未处理 | docs/content-quality-backlog.md |
 | R1-15（批次） | 2024 年 40 条补充解析（Q01–Q40，摩卡编写） | 逐条核对答案、逐题推导、干扰项及页码；Q20 核带宽计算口径，Q36 核来源卷时间单位错印；组长已抽查 Q05、Q12 | 私有输入 `output/supplements-release/input.json` 的 40 条 supplement（各自绑定题页和答案总表第 1 页）；草稿 `content/learning/drafts/supplements-2024-draft-2026-11-25.mjs`；草稿说明 `docs/learning/supplements-2024-draft-2026-11-25.md` | 已上线（学习包 2026.11.25.5），needs-review，待独立 AI 复核 | docs/learning/supplements-release-2026-11-25.md、提交 6b497ef |
+| R1-16（批次） | 2025 年 40 条补充解析（Q01–Q40，拿铁编写） | 逐条核对答案、推导和干扰项辨析；6 条 doubts 重点核：Q12、Q13、Q33 的上标在题包被展平，Q20 的 MT/s 口径，Q36 的 DHCPREQUEST yiaddr，Q37 的端口转换与 UDP 校验惯例；组长已抽查 Q07、Q23、Q38 | 草稿 `content/learning/drafts/supplements-2025-draft-2026-11-26.mjs`（与上线内容相同，每条带 sources 与 doubts）；草稿说明 `docs/learning/supplements-2025-draft-2026-11-26.md`；答案总表 `apps/web/public/content/cn408-2025/source/answers-1.jpg` | 已上线（学习包 2026.11.26.1），needs-review，待独立 AI 复核 | docs/learning/supplements-release-2026-11-26.md、提交 ebd3357 |
 
 ## 二、答案键
 
