@@ -48,10 +48,10 @@ describe('independent cross-year learning content', () => {
       expect(card?.sources.map((source) => source.questionId)).toEqual(sources.split(','));
     }
   });
-  it('contains five complete articles per subject with exact source and card links', () => {
-    expect(pack.articles).toHaveLength(20);
-    for (const subject of new Set(pack.concepts.map((concept) => concept.subject))) {
-      expect(pack.articles!.filter((article) => article.subject === subject)).toHaveLength(5);
+  it('contains the released articles per subject with exact source and card links', () => {
+    expect(pack.articles).toHaveLength(32);
+    for (const [subject, count] of Object.entries({ 'data-structures': 6, 'computer-organization': 11, 'operating-systems': 9, 'computer-networks': 6 })) {
+      expect(pack.articles!.filter((article) => article.subject === subject)).toHaveLength(count);
     }
     for (const article of pack.articles!) {
       for (const blocks of [article.explanation, article.workedExample, article.commonMistake]) {

@@ -60,24 +60,34 @@ const selectedConceptIds = Object.keys(prefixes).flatMap((subject) => concepts.f
     const related = mappings.filter((mapping) => mapping.primaryConceptId === concept.id);
     return { id: concept.id, years: new Set(related.map((mapping) => mapping.questionId.slice(6, 10))).size, count: related.length };
   }).sort((a, b) => b.years - a.years || b.count - a.count || a.id.localeCompare(b.id)).slice(0, 5).map((entry) => entry.id));
-if (articleDrafts.length !== 20 || new Set(articleDrafts.map((draft) => draft.conceptId)).size !== 20
+if (articleDrafts.length !== 32 || new Set(articleDrafts.map((draft) => draft.conceptId)).size !== 32
   || selectedConceptIds.some((id) => !articleDrafts.some((draft) => draft.conceptId === id))) throw new Error('Articles must cover the top five cross-year concepts of each subject');
 const articles = [...articleDrafts].sort((a, b) => a.conceptId.localeCompare(b.conceptId)).map((draft) => {
   const concept = concepts.find((entry) => entry.id === draft.conceptId);
   const related = mappings.filter((mapping) => mapping.conceptIds.includes(draft.conceptId));
+  if (!selectedConceptIds.includes(draft.conceptId) && (!draft.version || !draft.sourceQuestionIds?.length)) {
+    throw new Error(`New article needs explicit version and sources: ${draft.conceptId}`);
+  }
+  const sourceIds = draft.sourceQuestionIds;
+  if (sourceIds && new Set(sourceIds).size !== sourceIds.length) throw new Error(`Duplicate article source: ${draft.conceptId}`);
+  const references = sourceIds ? sourceIds.map((questionId) => {
+    const mapping = related.find((entry) => entry.questionId === questionId);
+    if (!mapping) throw new Error(`Article source does not map to its concept: ${draft.conceptId} / ${questionId}`);
+    return mapping;
+  }) : related;
   return {
     id: `article:${draft.conceptId}`, version: draft.version ?? '2026.11.20.1', conceptId: draft.conceptId, subject: concept.subject,
     explanation: [{ type: 'text', text: draft.explanation }],
     workedExample: [{ type: 'text', text: draft.workedExample }],
     commonMistake: [{ type: 'text', text: draft.commonMistake }],
-    questionIds: related.map((entry) => entry.questionId),
+    questionIds: references.map((entry) => entry.questionId),
     cardIds: cards.filter((card) => card.conceptIds.includes(draft.conceptId)).map((card) => card.id),
     ...(draft.labPath ? { labPath: draft.labPath } : {}),
-    sources: related.map((entry) => entry.source), authorship: 'ai-assisted', reviewStatus: 'needs-review',
+    sources: references.map((entry) => entry.source), authorship: 'ai-assisted', reviewStatus: 'needs-review',
   };
 });
 const pack = {
-  id: 'bitatlas-learning', schemaVersion: 1, version: '2026.11.25.1',
+  id: 'bitatlas-learning', schemaVersion: 1, version: '2026.11.25.3',
   createdAt: '2026-11-25T00:00:00.000Z', sha256: '0'.repeat(64), concepts, mappings, cards, articles,
 };
 pack.sha256 = computeLearningPackHash(pack);

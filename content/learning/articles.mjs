@@ -1,3 +1,5 @@
+import { articleDrafts as novemberArticles } from './drafts/articles-draft-2026-11-25.mjs';
+
 // 原创短讲解；关联原卷只提供知识点定位，不表示原卷包含以下自编例题。
 // 全部保持待审核，不能用此文件替代人工来源核对。
 export const articleDrafts = [
@@ -138,4 +140,8 @@ export const articleDrafts = [
     commonMistake: '公式用往返时延，漏乘 2 会把最小帧长减半。信号传播速度和链路比特率含义不同，增加比特率并不会自动让信号传播更快。最小帧的统计口径、前导码是否计入以及中继器延迟，应以题设为准。',
     labPath: '/lab/network?module=csma-cd',
   },
+  // 草稿所列的实验预设尚未进入生产 v1 的讲解路径白名单。
+  ...novemberArticles.map(({ conceptId, explanation, workedExample, commonMistake, sourceQuestionIds }) => ({
+    conceptId, version: '2026.11.25.3', explanation, workedExample, commonMistake, sourceQuestionIds,
+  })),
 ];

@@ -9,6 +9,11 @@ import { createApp } from './app';
 
 it('publishes added cards without changing saved plans or scores, and retains withdrawn card evidence after rollback', async () => {
   const candidate = parseLearningPack(JSON.parse(readFileSync('apps/web/public/content/learning.json', 'utf8')));
+  // Reconstruct the exact historical 156-card release exercised by this upgrade/rollback test.
+  candidate.articles = candidate.articles!.filter((article) => ['2026.11.20.1', '2026.11.25.1'].includes(article.version));
+  candidate.version = '2026.11.25.1';
+  candidate.sha256 = computeLearningPackHash(candidate);
+  expect(candidate.sha256).toBe('b66bab4555401943df6e595a39ba3bdf0999e3806f7c12143aaae4d76eb1075f');
   const baseline: LearningPack = structuredClone(candidate);
   baseline.version = '2026.11.20.2';
   baseline.createdAt = '2026-11-20T00:00:00.000Z';
