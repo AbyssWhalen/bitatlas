@@ -24,6 +24,7 @@ import { MockExamConflictError, type MockExamBundle } from '@408os/storage';
 import { createSerialWriteQueue } from '../app/serial-write-queue';
 import { useStudy } from '../app/StudyContext';
 import { LazyContentRenderer } from '../components/LazyContentRenderer';
+import { QuestionSupplement } from '../components/QuestionSupplement';
 import { ReadingImageLightbox, type LightboxImage } from '../components/ReadingImageLightbox';
 import {
   extractLightboxImageFromElement,
@@ -696,6 +697,7 @@ export function MockExamSessionPage() {
             </div>
           )}
 
+          {(bundle.exam.status === 'submitted' || bundle.exam.status === 'completed') && <QuestionSupplement question={currentQuestion} includeOriginal />}
           <nav className="question-navigation rl-nav-footer" aria-label="模考试题导航">
             <button type="button" className="secondary-command rl-secondary-btn" disabled={currentIndex === 0 || interactionBlocked} onClick={() => void goTo(currentIndex - 1)}><ChevronLeft size={16} aria-hidden="true" />上一题</button>
             <span className="rl-nav-count">第 {currentQuestion.number} 题</span>

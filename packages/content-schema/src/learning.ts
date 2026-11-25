@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { LearningPack } from '@408os/domain';
+import { questionAvailability, questionLabPaths, type LearningPack, type Question } from '@408os/domain';
 import { canonicalSerialize, sha256 } from './hash';
 import { contentBlockSchema } from './schema';
 import { validateCanonicalTaxonomyMappings } from './taxonomy';
@@ -22,7 +22,7 @@ export const flashcardDefinitionSchema = z.object({
   front: meaningfulBlocks, back: meaningfulBlocks,
   sources: z.array(learningSourceSchema).max(100), reviewStatus: z.literal('needs-review'),
 }).strict();
-export const ARTICLE_LAB_PATHS = [
+const legacyLabPaths: readonly string[] = [
   '/lab/data-structures?module=sort-pass', '/lab/data-structures?module=stack-capacity',
   '/lab/data-structures?module=shortest-path', '/lab?module=riscv', '/lab?module=io-overhead',
   '/lab?module=bus-bandwidth', '/lab?module=signed', '/lab?module=cache',
@@ -30,6 +30,7 @@ export const ARTICLE_LAB_PATHS = [
   '/lab/os-memory?module=filesystem-links', '/lab/network?module=cidr',
   '/lab/network?module=qam-nyquist', '/lab/network?module=gbn', '/lab/network?module=csma-cd',
 ] as const;
+export const ARTICLE_LAB_PATHS = [...new Set([...legacyLabPaths, ...questionLabPaths])];
 const articleSchema = z.object({
   id, version: id, conceptId: id, subject: learningSubjectSchema,
   explanation: meaningfulBlocks, workedExample: meaningfulBlocks, commonMistake: meaningfulBlocks,
@@ -38,7 +39,17 @@ const articleSchema = z.object({
   sources: z.array(learningSourceSchema).min(1),
   authorship: z.literal('ai-assisted'), reviewStatus: z.literal('needs-review'),
 }).strict();
-export const learningPackSchema = z.object({
+const supplement = z.object({
+  id, version: z.string().regex(/^\d+(?:\.\d+)*$/), questionId: id, questionContentVersion: id,
+  body: meaningfulBlocks.refine((blocks) => blocks.every((block) => block.type !== 'image'), '补充正文不可依赖题图'),
+  sources: z.array(learningSourceSchema.extend({ role: z.enum(['question', 'answer']) })).min(1).max(2),
+  authorship: z.literal('ai-assisted'), reviewStatus: z.literal('needs-review'),
+}).strict();
+const questionSupplementSchema = z.discriminatedUnion('kind', [
+  supplement.extend({ kind: z.literal('supplement') }),
+  supplement.extend({ kind: z.literal('erratum'), sectionId: id, originalExcerpt: z.string().trim().min(1).max(500) }),
+]);
+const baseSchema = z.object({
   id: z.literal('bitatlas-learning'), schemaVersion: z.literal(1), version: z.string().regex(/^\d+(?:\.\d+)*$/), sha256: z.string().regex(/^[a-f0-9]{64}$/), createdAt: z.iso.datetime(),
   concepts: z.array(z.object({
     id, subject: learningSubjectSchema, name: z.string().min(1).max(200), parentId: id.optional(),
@@ -52,6 +63,49 @@ export const learningPackSchema = z.object({
   cards: z.array(flashcardDefinitionSchema).max(2000),
   articles: z.array(articleSchema).max(2000).optional(),
 }).strict();
+export const learningPackSchema = z.discriminatedUnion('schemaVersion', [
+  baseSchema, baseSchema.extend({ schemaVersion: z.literal(2), questionSupplements: z.array(questionSupplementSchema).max(10000) }),
+]);
+
+export function legacyLearningPack(pack: LearningPack): LearningPack {
+  if (pack.schemaVersion === 1 && !pack.articles?.some((a) => a.labPath && !legacyLabPaths.includes(a.labPath))) return pack;
+  const base = { ...pack, schemaVersion: 1 as const };
+  if ('questionSupplements' in base) Reflect.deleteProperty(base, 'questionSupplements');
+  if (pack.articles) base.articles = pack.articles.map((article) => {
+    if (!article.labPath || legacyLabPaths.includes(article.labPath)) return article;
+    const rest = { ...article };
+    delete rest.labPath;
+    return rest;
+  });
+  return { ...base, sha256: computeLearningPackHash(base) };
+}
+
+export function supplementBlockers(pack: LearningPack, questions: Map<string, Question>, prior?: LearningPack): string[] {
+  if (pack.schemaVersion === 1) return [];
+  const blockers: string[] = [];
+  const previous = new Map(prior?.schemaVersion === 2 ? prior.questionSupplements.map((s) => [s.id, s]) : []);
+  for (const s of pack.questionSupplements) {
+    const q = questions.get(s.questionId);
+    if (!q || q.contentVersion !== s.questionContentVersion) {
+      blockers.push(`${s.id} 题目不存在或版本不符`);
+      continue;
+    }
+    for (const source of s.sources) {
+      const doc = q.source[source.role];
+      if (source.documentSha256 !== doc.sha256 || source.locator !== doc.locator || canonicalSerialize(source.pages) !== canonicalSerialize(doc.pages)) {
+        blockers.push(`${s.id} ${source.role} 来源不符`);
+      }
+    }
+    if (s.kind === 'supplement' && !questionAvailability(q).explanationMissing) blockers.push(`${s.id} 原解析未缺失`);
+    if (s.kind === 'erratum' && !q.explanation.find((section) => section.id === s.sectionId)?.content
+      .some((block) => block.type === 'text' && block.text.includes(s.originalExcerpt))) blockers.push(`${s.id} 原段或引文不符`);
+    const old = previous.get(s.id);
+    if (old && canonicalSerialize(old) !== canonicalSerialize(s) && s.version.localeCompare(old.version, 'en', { numeric: true }) <= 0) {
+      blockers.push(`${s.id} 修改须提升条目版本`);
+    }
+  }
+  return blockers;
+}
 
 export function computeLearningPackHash(pack: LearningPack): string {
   const { sha256: _digest, ...body } = pack;
@@ -67,6 +121,21 @@ export function parseLearningPack(input: unknown): LearningPack {
   if (!validation.success) throw new Error(validation.issues.map((issue) => issue.message).join('\n'));
   const concepts = new Map(pack.concepts.map((concept) => [concept.id, concept]));
   const mappings = new Map(pack.mappings.map((mapping) => [mapping.questionId, mapping]));
+  if (pack.schemaVersion === 2) {
+    const ids = new Set<string>();
+    const bound = new Set<string>();
+    for (const s of pack.questionSupplements) {
+      if (ids.has(s.id) || bound.has(s.questionId)) throw new Error('补充条目或题目绑定重复');
+      ids.add(s.id);
+      bound.add(s.questionId);
+      if (mappings.get(s.questionId)?.questionContentVersion !== s.questionContentVersion) throw new Error('补充条目的映射版本不符');
+      const roles = new Set(s.sources.map((source) => source.role));
+      if (roles.size !== s.sources.length || !roles.has('answer') || (s.kind === 'supplement' && !roles.has('question'))
+        || s.sources.some((source) => source.questionId !== s.questionId || source.questionContentVersion !== s.questionContentVersion)) {
+        throw new Error('补充条目来源不完整或绑定不符');
+      }
+    }
+  }
   const aliases = new Map<string, string>();
   for (const concept of pack.concepts) {
     if (concept.level === 'concept' && (/^(?:topic-\d{4}-q|cn408-)/.test(concept.id) || /^第\s*\d+\s*题/.test(concept.name))) throw new Error('题号不能作为概念');

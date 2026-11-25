@@ -41,9 +41,16 @@ export interface ChangeLogEntry {
   changedAt: string;
 }
 
+export interface LearningExtension {
+  id: string;
+  version: string;
+  baseDigest: string;
+  pack: LearningPack;
+}
+
 export class ContentDatabase extends Dexie {
   cacheEntries!: EntityTable<{ key: string; bytes: number; accessedAt: number; pinned: boolean; unique: boolean }, 'key'>;
-  learningPacks!: EntityTable<LearningPack, 'id'>;
+  learningPacks!: Table<LearningPack | LearningExtension, string>;
   questions!: EntityTable<Question, 'id'>;
   knowledgePoints!: EntityTable<KnowledgePoint, 'id'>;
   assets!: EntityTable<AssetRef, 'id'>;

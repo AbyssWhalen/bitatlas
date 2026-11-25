@@ -16,7 +16,7 @@ beforeEach(() => {
   vi.resetAllMocks();
   fixture.account.value = { account: { id: 'learning-account' } };
   fixture.get.mockResolvedValue(undefined);
-  fixture.api.mockImplementation(async (route: string) => route === '/content' ? catalog : pack);
+  fixture.api.mockImplementation(async (route: string) => route === '/content?learningFormat=2' ? catalog : pack);
   fixture.cache.mockImplementation((_id: string, _bytes: number, install: () => unknown) => install());
   fixture.install.mockResolvedValue(pack);
 });
@@ -25,19 +25,19 @@ describe('server learning pack startup', () => {
   it('reuses an integrity-checked unchanged pack without downloading or installing its body', async () => {
     fixture.get.mockResolvedValue(pack);
     await expect(loadServerLearningContent()).resolves.toEqual(pack);
-    expect(fixture.api).toHaveBeenCalledExactlyOnceWith('/content', undefined, 'GET', 'learning-account');
+    expect(fixture.api).toHaveBeenCalledExactlyOnceWith('/content?learningFormat=2', undefined, 'GET', 'learning-account');
     expect(fixture.install).not.toHaveBeenCalled();
     expect(fixture.cache).not.toHaveBeenCalled();
   });
 
   it('installs a new pack with the initiating account and catalog digest', async () => {
     await expect(loadServerLearningContent()).resolves.toEqual(pack);
-    expect(fixture.api).toHaveBeenLastCalledWith(`/content/${pack.id}`, undefined, 'GET', 'learning-account');
+    expect(fixture.api).toHaveBeenLastCalledWith(`/content/${pack.id}?learningFormat=2`, undefined, 'GET', 'learning-account');
     expect(fixture.install).toHaveBeenCalledExactlyOnceWith(pack);
   });
 
   it('refuses a changed catalog rather than silently using the wrong content version', async () => {
-    fixture.api.mockImplementation(async (route: string) => route === '/content' ? [{ ...catalog[0], digest: 'a'.repeat(64) }] : pack);
+    fixture.api.mockImplementation(async (route: string) => route === '/content?learningFormat=2' ? [{ ...catalog[0], digest: 'a'.repeat(64) }] : pack);
     await expect(loadServerLearningContent()).rejects.toThrow(/目录/);
     expect(fixture.install).not.toHaveBeenCalled();
   });
@@ -61,7 +61,7 @@ describe('server learning pack startup', () => {
 
   it('does not install a late response after logout or a new login to the same account', async () => {
     let complete!: (value: unknown) => void;
-    fixture.api.mockImplementation((route: string) => route === '/content' ? Promise.resolve(catalog)
+    fixture.api.mockImplementation((route: string) => route === '/content?learningFormat=2' ? Promise.resolve(catalog)
       : new Promise((resolve) => { complete = resolve; }));
     const installing = loadServerLearningContent();
     await vi.waitFor(() => expect(complete).toBeTypeOf('function'));

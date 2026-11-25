@@ -7,6 +7,7 @@ export * from './review-plan';
 export * from './release';
 export * from './types';
 export * from './learning';
+export * from './lab-links';
 export * from './availability';
 export * from './sync';
 export * from './cache-policy';

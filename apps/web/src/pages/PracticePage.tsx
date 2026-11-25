@@ -44,6 +44,7 @@ import { SourcePageImage } from '../components/SourcePageImage';
 import { SubjectShape } from '../components/SubjectShape';
 import { storage } from '../app/storage';
 import { useLearning } from '../app/LearningContext';
+import { QuestionSupplement } from '../components/QuestionSupplement';
 import { usePracticeTime } from '../app/usePracticeTime';
 
 const masteryOptions: Array<{ value: Mastery; label: string }> = [
@@ -1218,6 +1219,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
                 </div>
               )}
 
+              <QuestionSupplement question={question} />
               <PracticeConceptBridge
                 question={question}
                 onOpenLab={(destination) => {

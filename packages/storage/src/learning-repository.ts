@@ -5,7 +5,7 @@ import {
   type LearningPack, type PersonalCard, type PracticeContext, type PracticeEvidence,
   type Question, type ReviewLimits, type ReviewSession,
 } from '@408os/domain';
-import { canonicalSerialize, parseLearningPack } from '@408os/content-schema';
+import { canonicalSerialize, legacyLearningPack, parseLearningPack } from '@408os/content-schema';
 import { liveQuery } from 'dexie';
 import type { ContentDatabase, UserDatabase } from './databases';
 import {
@@ -19,16 +19,27 @@ export class DexieLearningContentRepository {
   constructor(private readonly database: ContentDatabase) {}
   async install(input: unknown): Promise<LearningPack> {
     const pack = parseLearningPack(input);
+    const base = legacyLearningPack(pack);
     await this.database.transaction('rw', this.database.learningPacks, async () => {
-      const previous = await this.database.learningPacks.get(pack.id);
+      const previous = await this.get();
       if (previous && pack.version.localeCompare(previous.version, 'en', { numeric: true }) < 0) throw new Error('不能回退学习包版本');
-      if (previous?.version === pack.version && previous.sha256 !== pack.sha256) throw new Error('同版本学习包内容发生变化');
-      if (previous?.sha256 !== pack.sha256) await this.database.learningPacks.put(pack);
+      if (previous?.version === pack.version && previous.sha256 !== pack.sha256 && previous.sha256 !== base.sha256) throw new Error('同版本学习包内容发生变化');
+      if (previous?.sha256 === pack.sha256) return;
+      await this.database.learningPacks.put(base);
+      const extensionId = pack.id + ':full';
+      if (base.sha256 === pack.sha256) await this.database.learningPacks.delete(extensionId);
+      else await this.database.learningPacks.put({ id: extensionId, version: pack.version, baseDigest: base.sha256, pack });
     });
     return pack;
   }
   async get(): Promise<LearningPack | undefined> {
-    return this.database.learningPacks.get('bitatlas-learning');
+    const [base, extension] = await this.database.learningPacks.bulkGet(['bitatlas-learning', 'bitatlas-learning:full']);
+    if (!base) return undefined;
+    if (!('schemaVersion' in base)) throw new Error('学习包基础缓存损坏');
+    if (!extension || extension.version !== base.version) return base;
+    if (!('pack' in extension) || extension.baseDigest !== base.sha256 || extension.pack.version !== base.version) throw new Error('学习包缓存不一致');
+    parseLearningPack(base);
+    return parseLearningPack(extension.pack);
   }
 }
 

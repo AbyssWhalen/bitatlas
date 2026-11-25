@@ -56,9 +56,19 @@ export interface ConceptArticle {
   authorship: 'ai-assisted';
   reviewStatus: 'needs-review';
 }
-export interface LearningPack {
+export type QuestionSupplement = {
   id: string;
-  schemaVersion: 1;
+  version: string;
+  questionId: string;
+  questionContentVersion: string;
+  body: ContentBlock[];
+  sources: Array<LearningSource & { role: 'question' | 'answer' }>;
+  authorship: 'ai-assisted';
+  reviewStatus: 'needs-review';
+} & ({ kind: 'supplement' } | { kind: 'erratum'; sectionId: string; originalExcerpt: string });
+
+interface LearningPackBase {
+  id: string;
   version: string;
   sha256: string;
   createdAt: string;
@@ -67,6 +77,9 @@ export interface LearningPack {
   cards: FlashcardDefinition[];
   articles?: ConceptArticle[];
 }
+export type LearningPack = LearningPackBase & (
+  { schemaVersion: 1 } | { schemaVersion: 2; questionSupplements: QuestionSupplement[] }
+);
 export interface PersonalCard extends FlashcardDefinition {
   baseCardId?: string;
   suspended: boolean;

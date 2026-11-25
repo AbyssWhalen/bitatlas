@@ -41,7 +41,7 @@ export function AccountTools() {
   const [members, setMembers] = useState<Array<{ id: string; username: string; role: string; active: number }>>([]);
   const [legacy, setLegacy] = useState<Awaited<ReturnType<AccountBackupService['previewLegacy']>>>(null);
   const [legacySaved, setLegacySaved] = useState(false);
-  const [candidate, setCandidate] = useState<{ kind: 'questions' | 'learning'; content: unknown; digest: string; summary: unknown; blockers: string[] } | null>(null);
+  const [candidate, setCandidate] = useState<{ kind: 'questions' | 'learning'; content: unknown; digest: string; currentDigest?: string | null; summary: unknown; blockers: string[] } | null>(null);
   return <section className="study-panel sec-account-panel">
     <div className="sec-account-head">
       <h2>账号与同步</h2>
@@ -86,14 +86,14 @@ export function AccountTools() {
           void action.run(async () => {
             const content = JSON.parse(await file.text()) as { id?: string };
             const kind = content.id === 'bitatlas-learning' ? 'learning' : 'questions';
-            const result = await api<{ digest: string; summary: unknown; blockers: string[] }>('/admin/content/preview', { kind, content });
+            const result = await api<{ digest: string; currentDigest?: string | null; summary: unknown; blockers: string[] }>('/admin/content/preview', { kind, content });
             setCandidate({ kind, content, ...result });
           });
         }} />
       </div>
       {candidate && <div className="sec-account-subbox"><pre>{JSON.stringify(candidate.summary, null, 2)}</pre><p>{candidate.blockers.join('；') || '预检通过，可以发布。'}</p>
         <button type="button" className="primary-command" disabled={Boolean(candidate.blockers.length) || action.busy} onClick={() => void action.run(async () => {
-          await api('/admin/content/publish', { kind: candidate.kind, content: candidate.content, expectedDigest: candidate.digest });
+          await api('/admin/content/publish', { kind: candidate.kind, content: candidate.content, expectedDigest: candidate.digest, expectedCurrentDigest: candidate.currentDigest });
           setCandidate(null); setStatus('内容已发布。重新打开页面可安装新版本。');
         })}>发布已预检内容</button></div>}
     </details>}

@@ -3,11 +3,35 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { ContentPack, LearningPack } from '@408os/domain';
 import { canonicalSerialize, sha256 } from './hash';
-import { computeLearningPackHash, parseLearningPack } from './learning';
+import { computeLearningPackHash, legacyLearningPack, parseLearningPack, supplementBlockers } from './learning';
 
 const pack = JSON.parse(readFileSync(path.resolve('apps/web/public/content/learning.json'), 'utf8')) as LearningPack;
 const questions = Array.from({ length: 17 }, (_, i) => JSON.parse(readFileSync(path.resolve(`apps/web/public/content/${i + 2009}.json`), 'utf8')) as ContentPack).flatMap((entry) => entry.questions);
 describe('independent cross-year learning content', () => {
+  it('checks the erratum against the original answer page, excerpt, and prior revision', () => {
+    const question = questions[0]!;
+    const section = question.explanation[0]!;
+    const binding = { questionId: question.id, questionContentVersion: question.contentVersion };
+    const next: LearningPack = { ...pack, schemaVersion: 2, questionSupplements: [{
+      ...binding, id: 'fixture', version: '1', kind: 'erratum', authorship: 'ai-assisted', reviewStatus: 'needs-review',
+      sectionId: section.id, originalExcerpt: section.content.find((block) => block.type === 'text')!.text.slice(0, 6),
+      body: [{ type: 'text', text: '合成勘误' }], sources: [{ ...binding, role: 'answer', documentSha256: question.source.answer.sha256,
+        pages: question.source.answer.pages, locator: question.source.answer.locator }],
+    }] };
+    next.sha256 = computeLearningPackHash(next);
+    const lookup = new Map([[question.id, question]]);
+    expect(supplementBlockers(parseLearningPack(next), lookup)).toEqual([]);
+    expect(legacyLearningPack(next)).toEqual(pack);
+    const prior = structuredClone(next);
+    const entry = next.questionSupplements[0]!;
+    if (entry.kind !== 'erratum') throw new Error('fixture');
+    entry.originalExcerpt = '不存在的合成引文';
+    entry.sources[0]!.documentSha256 = question.source.question.sha256;
+    expect(supplementBlockers(next, lookup, prior)).toHaveLength(3);
+    next.questionSupplements.push(entry);
+    next.sha256 = computeLearningPackHash(next);
+    expect(() => parseLearningPack(next)).toThrow(/重复/);
+  });
   it('maps all 799 exact question versions and original sources to leaf concepts', () => {
     expect(parseLearningPack(pack)).toEqual(pack);
     expect(pack.mappings).toHaveLength(799);

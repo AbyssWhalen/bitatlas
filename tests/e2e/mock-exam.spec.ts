@@ -1,5 +1,7 @@
 import path from 'node:path';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
+import { computeLearningPackHash } from '@408os/content-schema';
+import type { ContentPack, LearningPack, QuestionSupplement } from '@408os/domain';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
 const screenshotRoot = path.resolve('output', 'playwright', 'screenshots');
@@ -139,6 +141,47 @@ test('keeps the official paper closed until human review and persists a verified
   await expect(page.getByRole('heading', { name: '第 42 题自评' })).toBeVisible();
   await capture(page, testInfo, 'mock-session-submitted');
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+});
+
+test('reveals the bound supplement in practice and the erratum after exam submission', async ({ page }, info) => {
+  const load = async (name: string) => JSON.parse(await readFile(`apps/web/public/content/${name}.json`, 'utf8'));
+  const pack: LearningPack = { ...await load('learning'), schemaVersion: 2, version: '2099.1', questionSupplements: [] };
+  const entries: QuestionSupplement[] = [];
+  for (const year of [2009, 2024]) {
+    const question = ((await load(String(year))) as ContentPack).questions[0]!;
+    const binding = { questionId: question.id, questionContentVersion: question.contentVersion };
+    const section = question.explanation[0]!;
+    const text = section.content.find((block) => block.type === 'text');
+    const roles = ['answer', 'question'] as const;
+    entries.push({ id: 'fixture-' + year, version: '1', ...binding, authorship: 'ai-assisted', reviewStatus: 'needs-review',
+      body: [{ type: 'text', text: '用于验收的解析正文' }], sources: roles.map((role) => ({
+        ...binding, role, documentSha256: question.source[role].sha256, pages: question.source[role].pages, locator: question.source[role].locator,
+      })), ...(year === 2009 ? { kind: 'erratum', sectionId: section.id, originalExcerpt: text!.text.slice(0, 6) } : { kind: 'supplement' }) });
+  }
+  Object.assign(pack, { questionSupplements: entries });
+  pack.sha256 = computeLearningPackHash(pack);
+  await page.route('**/content/learning.json*', (route) => route.fulfill({ json: pack }));
+  await page.goto('/questions?question=cn408-2024-q01');
+  await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
+  const supplement = page.getByRole('region', { name: 'AI 辅助补充' });
+  await expect(supplement).toHaveCount(0);
+  await page.locator('.option-list button').first().click();
+  await page.getByRole('button', { name: /提交答案/ }).click();
+  await expect(supplement).toContainText('用于验收的解析正文');
+  await expect(page.getByText(/本题文字解析缺失/)).toBeVisible();
+  await supplement.getByText('查看依据').click();
+  await expect(supplement).toContainText('page 1 assumed');
+  await supplement.screenshot({ path: info.outputPath('supplement.png') });
+
+  const examId = 'supplement-exam-' + info.project.name;
+  await seedInProgressExam(page, examId);
+  await page.goto('/mock/' + examId);
+  const erratum = page.getByRole('region', { name: '勘误' });
+  await expect(page.getByRole('button', { name: '提交整卷' })).toBeEnabled();
+  await expect(erratum).toHaveCount(0);
+  await page.getByRole('button', { name: '提交整卷' }).click();
+  await expect(erratum).toContainText('用于验收的解析正文');
+  await erratum.screenshot({ path: info.outputPath('erratum.png') });
 });
 
 test('syncs a clean tab and protects an unsaved tab from cross-tab overwrite', async ({ page }, testInfo) => {
