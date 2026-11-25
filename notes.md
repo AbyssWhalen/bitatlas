@@ -1,6 +1,19 @@
 # Notes
 
+## 2026-11-25 服务器发布完成与 PWA 验收纠正
+
+- 17:42 切换 `20261125-53fe2515`，17:48 回环复核通过；公网 HTTP 9/9、桌面/手机匿名首访 2/2，无首访账号误报。使用已安装冻结候选，无重传/重装、无生产账号操作。完整摘要、备份、操作时点、有效门禁和回退见 [发布记录](docs/server/release-2026-11-25.md)。两项登录后的正式域名确认保留给维护者。
+- 命令前缀 `node output/release-execution-2026-11-25/`：`run-resume.mjs resume-check` 核新旧 395/387 项及独立备份，`backup backup-resume` 在新目录做在线快照，`activate` 原子切换，`confirm confirm-after-diagnosis` 复核；`resume-browser.mjs old-http resume-old-http` / `http resume-http` 分别核旧新公网。快照 400 对象、142,725,848 B、SQLite 正常、外键错误 0。所有原现场文件保留。
+- `resume-browser.mjs fresh resume-fresh` 原失败保留；诊断发现匿名未注册 SW，而 `waitForFunction(async …)` 把 Promise 当真值。`offline-diagnose.mjs` 证实无缓存/controller、同步激活等待超时；`public-anonymous-verified.mjs fresh resume-anonymous-verified` 正确记录两视口及 `net::ERR_INTERNET_DISCONNECTED`。组长依据成员离线合同裁定匿名行为按设计保留。14:23 和恢复轮旧匿名 ready 记录无效，不能据此宣称已安装 PWA；恢复轮等待注册的进程已终止。
+- `node --import tsx …/pwa-member-diagnose.mjs`：首轮在读取旧归档中已归档的重复静态文件时 ENOENT，尚未启动服务；随后按保留旧 dist 对原 manifest 逐项核验，独立目录 `pwa-member-comparison-1795600068127` 完成旧新匿名对比及成员旧→新→旧。正确 waiting/提示、87/95 项预缓存、三次离线 SW reload、同 operationId 以及最终服务端 1 条/队列 0 均通过。没有生产回退。
+- 工具扩查：封板 `test:pwa-upgrade` 2/2、`server-pwa.ts`、`request-sync-browser.mjs` 没有错误谓词。准备轮 `pwa-local.mjs` 的 waiting 证明由本次对比取代；慢网 125.793 秒路径为正确同步激活等待。历史 `verify-live-wave12` 两处仍待复核，按最新范围未改、未跑旧公网验收。`ui-integrated-shell.mjs` 的 outbox/UI 非空采样改用真正 `expect.poll`；历史 shell-1 的 4 条样本存在，不能据原工具证明等待可靠。
+- `node …/verify-browser-polling.mjs`：真实 Chrome 重现 async false 17ms 提前完成；修后空队列超时拒绝、450ms 延迟写入在 489ms 才匹配。`node --import tsx …/local-polling-verification.mjs` 使用封板真实候选与隔离成员，原修改后回调匹配队列和顶栏 2 条，旧新离线与最终唯一落库再验通过；回执 `local-polling-verification-1795600339072/receipt.json`。`npx eslint tools/verification/ui-integrated-shell.mjs` 与 `git diff --check` 通过。当前 `tools/verification` AST 扫描无 async waitForFunction，未重跑全仓或固定 8 worker 压测。
+- 提交只逐路径纳入上述工具、发布文档、根交接及已验收的 46 题事实清单；源码工具 fix 与文档分别提交。摩卡未提交 UI 工作保留，未重新构建或发布那些在途修改。索引字节扫描结果与最终推送回执留本轮证据目录。
+
 ## 2026-11-25 发布执行验证
+
+- 14:23 北京时间按组长重启要求停在旧服务。GCP 上新候选已上传、独立安装、核验并冻结。切换前快照包含 400 个对象，SQLite 完整性通过、外键错误数为 0；安装的 Linux 原生模块与 15 项 HTTP smoke 通过。只读复核旧指针、两服务、隧道 ready、重启计数 0 和回环状态；无生产账号操作。专用浏览器当时被脚本误标为旧 worker 已接管（更正见本文件顶部），在等待切换时依指令关闭，故保留未完成的 PWA 回执。各提交、摘要、进程和恢复入口均在 [HANDOFF 顶部](HANDOFF.md)。
+- 四组与两份旧文档的补充提交正常推送；`gh run view 45559383500` 确认两个 Pages 作业均成功。对未清理的本机目录直接构建会额外复制 Git 忽略的 19 张 2009 旧图。从提交树导出的全新检出只生成 724 个文件，逐一匹配本地封板对应文件；额外 19 张不在 Git。最终公开源码树 924 个文件扫描通过。公网旧版 `/sw.js` 双读与旧包匹配，`Cache-Control: public, max-age=14400`，一次 MISS、一次 REVALIDATED，无 `Age`；回环为 `public, max-age=0`。新版公网首访和 SW 仍待切换后验证。
 
 - `npm run typecheck` 七个 workspace 全部通过。`npm run lint` 检查 404 个文件，零错误、零警告。WSL 首次启动测试的包装命令丢失目录变量，未创建环境；改由仓库内独立脚本在项目虚拟环境运行，`unittest discover` 的 18 项用例通过，包含接收用户、主机、路径、固定主机公钥、缺失批准配置五个拒绝情形。生产备份单元仍使用原安装副本。
 - 新候选 `20261125-53fe2515` 来自独立构建、打包与解包。240 个源输入仅 `docs/server/deployment.md` 改变；395/395 个清单条目核验通过，前端 336 项的路径、字节数与摘要同封板。凭据、主机与身份路径保存在受限本机目录。公网登录后权限和同步待维护者本人确认。
