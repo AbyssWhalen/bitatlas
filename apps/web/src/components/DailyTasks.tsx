@@ -2,42 +2,29 @@ import { beijingDate, questionAvailability } from '@408os/domain';
 import { useNavigate } from 'react-router-dom';
 import { useLearning, useLearningCards } from '../app/LearningContext';
 import { useStudy } from '../app/StudyContext';
-import { storage } from '../app/storage';
 import { useAction } from '../app/useAction';
+import { useDailyCardRound } from './useDailyCardRound';
 
 export function DailyTasks() {
-  const { plan, loading, error, contexts, practices, rounds, pack } = useLearning();
+  const { plan, loading, error, contexts, practices, pack } = useLearning();
   const { questions, attempts, createSession, assets } = useStudy();
   const cards = useLearningCards();
+  const { cardById, completedCards, remainingCards, cardItems, startCards } = useDailyCardRound(cards);
   const navigate = useNavigate();
   const action = useAction();
-  const questionById = new Map(questions.map((question) => [question.id, question]));
-  const cardById = new Map(cards.map((card) => [card.id, card]));
+  const questionById = new Map(questions.map((question) => [question.id, question.contentVersion ? question : question]));
   const assignedQuestionVersions = new Map(plan?.items.filter((item) => item.kind === 'question').map((item) => [item.targetId, item.contentVersion]));
-  const assignedCardVersions = new Map(plan?.items.filter((item) => item.kind === 'card').map((item) => [item.targetId, item.contentVersion]));
   const completedQuestions = new Set(attempts.filter((attempt) => beijingDate(attempt.submittedAt) === plan?.date
     && assignedQuestionVersions.get(attempt.questionId) === attempt.questionContentVersion).map((attempt) => attempt.questionId));
-  const completedCards = new Set(rounds.filter((round) => round.dailyPlanId === plan?.id).flatMap((round) =>
-    round.completedCardIds.filter((id) => round.cards.some((card) => card.id === id && card.version === assignedCardVersions.get(id)))));
   const remainingQuestions = plan?.items.filter((item) => item.kind === 'question' && !completedQuestions.has(item.targetId)) ?? [];
-  const remainingCards = plan?.items.filter((item) => item.kind === 'card' && !completedCards.has(item.targetId)) ?? [];
   const questionIds = remainingQuestions.filter((item) => {
     const question = questionById.get(item.targetId);
     return question?.contentVersion === item.contentVersion && questionAvailability(question, assets).practice;
   }).map((item) => item.targetId);
-  const cardItems = remainingCards.flatMap((item) => {
-    const card = cardById.get(item.targetId);
-    return card?.version === item.contentVersion ? [card] : [];
-  }).slice(0, 10);
   const startQuestions = async () => {
     const open = contexts.filter((item) => item.dailyPlanId === plan?.id).map((item) => practices.find((practice) => practice.id === item.sessionId && !practice.completedAt)).find(Boolean);
     const id = open?.id ?? await createSession(questionIds, 'review', false, { dailyPlanId: plan!.id });
     navigate(`/practice/${id}`);
-  };
-  const startCards = async () => {
-    const open = rounds.find((round) => round.dailyPlanId === plan?.id && !round.completedAt);
-    const round = open ?? await storage.reviewRepository.createSession(cardItems, new Date().toISOString(), plan!.id);
-    navigate(`/review/cards/${round.id}`);
   };
   const conceptNames = new Map(pack?.concepts.map((concept) => [concept.id, concept.name]));
   // Cards carry no title; name them by their first known concept instead of exposing the internal id.

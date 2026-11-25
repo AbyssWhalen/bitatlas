@@ -146,6 +146,7 @@
 }
 
 .rl-reading .source-inline-crop {
+  overflow: clip !important;
   border-color: var(--line);
   border-radius: 6px;
   cursor: zoom-in;
@@ -872,10 +873,235 @@
   line-height: 1.4;
 }
 
+.rl-explanation-missing-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 4px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
 .rl-explanation-missing {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+}
+
+.rl-inline-source-btn {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Post-Submit Concept Bridge Card (P1) */
+.rl-concept-bridge {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ink-strong);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.rl-concept-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rl-concept-tab {
+  min-height: 30px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bone);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rl-concept-tab.is-active {
+  border-color: var(--ink-strong);
+  background: var(--ink-strong);
+  color: var(--paper);
+}
+
+.rl-concept-bridge-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.rl-concept-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--ink-strong);
+}
+
+.rl-concept-title-row .subject-shape {
+  flex: 0 0 12px;
+  color: var(--ink-strong);
+  fill: currentColor;
+}
+
+.rl-concept-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.rl-concept-state-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bone);
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rl-concept-bit {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  position: relative;
+  flex: 0 0 12px;
+}
+
+.rl-concept-bit.is-unstarted {
+  background: var(--off);
+  border: 1px solid var(--line);
+}
+
+.rl-concept-bit.is-practicing {
+  background: var(--paper);
+  border: 1.5px solid var(--ink-strong);
+}
+
+.rl-concept-bit.is-practicing::after {
+  content: "";
+  position: absolute;
+  inset: 2.5px;
+  border-radius: 50%;
+  background: var(--ink-strong);
+}
+
+.rl-concept-bit.is-consolidating {
+  background: linear-gradient(to top, var(--lit) 50%, var(--paper) 50%);
+  border: 1px solid var(--ink-strong);
+}
+
+.rl-concept-bit.is-stable {
+  background: var(--lit);
+  border: 1px solid var(--ink-strong);
+}
+
+.rl-concept-metrics {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rl-concept-article {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.rl-concept-article > summary {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--ink-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rl-concept-article-body {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ink-strong);
+  border-radius: 0 6px 6px 0;
+  background: var(--bone);
+  font-size: 15px;
+}
+
+.rl-concept-article-body h4 {
+  margin: 14px 0 6px;
+  color: var(--ink-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rl-concept-audit {
+  margin: 12px 0 0;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.rl-concept-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: 14px;
+}
+
+.answer-panel.rl-answer-panel .rl-bridge-btn {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.answer-panel.rl-answer-panel .rl-bridge-btn:hover {
+  border-color: var(--ink-strong);
+  background: var(--rl-surface-subtle);
+  color: var(--ink-strong);
+}
+
+.answer-panel.rl-answer-panel a.rl-concept-more-link {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 4px;
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* Inline Mistake Reason Panel */
@@ -1882,5 +2108,268 @@
   .option-list.rl-options > button.rl-option {
     transition: none;
     transform: none;
+  }
+}
+
+/* ==========================================================================
+   Next-Phase P2 / P4.2 / P5 Additions (Semantic Tokens Only)
+   ========================================================================== */
+
+/* P5: Header action group & <=760px compact的原卷/笔记 triggers */
+.rl-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.rl-mobile-head-btn {
+  display: none;
+}
+
+/* P5: Full-width primary submit when question has no hints */
+.answer-actions.rl-actions.is-single > .rl-primary-btn {
+  width: 100%;
+  flex: 1 1 100%;
+  justify-content: center;
+}
+
+/* P2: Option image click guard & dedicated top-right zoom button */
+.option-list.rl-options > button.rl-option:not(:disabled) .source-inline-crop,
+.option-list.rl-options > button.rl-option:not(:disabled) .source-inline-image {
+  cursor: pointer;
+}
+
+.option-list.rl-options.has-image-options > button.rl-option.has-option-image {
+  padding-right: 78px;
+}
+
+.rl-option-zoom-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8px 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.rl-option-zoom-slot.is-post-submit {
+  pointer-events: auto;
+  cursor: zoom-in;
+}
+
+.rl-option-zoom-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 30px;
+  min-width: 58px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink-strong);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.2;
+  cursor: zoom-in;
+  box-shadow: none;
+}
+
+.rl-option-zoom-btn:hover {
+  border-color: var(--ink-strong);
+  background: var(--rl-surface-subtle);
+  color: var(--ink-strong);
+}
+
+/* P2: Cropped local diagram lightbox & full-page toggle */
+.rl-lightbox-mode-btn {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.rl-lightbox-crop-frame {
+  position: relative;
+  overflow: hidden;
+  margin: 12px auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  cursor: zoom-in;
+  flex-shrink: 0;
+}
+
+.rl-lightbox-crop-frame.is-zoomed {
+  cursor: zoom-out;
+}
+
+.rl-lightbox-crop-img {
+  display: block;
+  margin: 0;
+  border: 0;
+  pointer-events: none;
+}
+
+/* P2: Unified 1-line mistake note inside PracticeMistakePanel */
+.rl-mistake-note-row {
+  margin-top: 10px;
+}
+
+.rl-mistake-note-input {
+  width: 100%;
+  min-height: 38px;
+  padding: 6px 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bone);
+  color: var(--ink-strong);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.rl-mistake-note-input::placeholder {
+  color: var(--muted);
+}
+
+.rl-mistake-note-input:focus {
+  border-color: var(--ink-strong);
+  background: var(--paper);
+  outline: none;
+}
+
+/* P2 & P4.2: PracticeSummaryPage folding & daily-card continuation */
+.page.summary-page.sec-page.sec-summary .sec-daily-cards-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-all-clear-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bone);
+  color: var(--ok-text);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-card.is-collapsed {
+  padding: 12px 16px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-compact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-compact-main {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  min-width: 0;
+  flex: 1 1 240px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-compact-main h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-strong);
+  white-space: nowrap;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-excerpt {
+  min-width: 0;
+  max-width: 56ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-card-title-wrap {
+  min-width: 0;
+  flex: 1 1 220px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-stem-excerpt {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-compact-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bone);
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.page.summary-page.sec-page.sec-summary .sec-summary-toggle:hover {
+  border-color: var(--ink-strong);
+  background: var(--paper-2);
+}
+
+@media (max-width: 760px) {
+  .rl-question-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .rl-mobile-head-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .option-list.rl-options.has-image-options > button.rl-option.has-option-image {
+    padding-right: 72px;
+  }
+
+  .rl-lightbox-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .rl-lightbox-controls {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .page.summary-page.sec-page.sec-summary .sec-summary-excerpt {
+    white-space: normal;
   }
 }

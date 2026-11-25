@@ -1,12 +1,37 @@
-import { ArrowRight, Check, RotateCcw, X } from 'lucide-react';
+import { ArrowRight, BookOpenCheck, Check, ChevronDown, ChevronUp, RotateCcw, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MISTAKE_LABELS, MISTAKE_REASONS, type MistakeReason, type PracticeEvidence } from '@408os/domain';
+import { MISTAKE_LABELS, MISTAKE_REASONS, type MistakeReason, type PracticeEvidence, type Question } from '@408os/domain';
 import { useLearning } from '../app/LearningContext';
 import { useStudy } from '../app/StudyContext';
 import { useAction } from '../app/useAction';
 import { storage } from '../app/storage';
 import { firstQuestionLabLink } from '../app/lab-links';
+import { useDailyCardRound } from '../components/useDailyCardRound';
+
+function extractStemExcerpt(question: Question | undefined): string {
+  if (!question) return '';
+  for (const block of question.stem) {
+    if (block.type === 'text') {
+      const cleaned = block.text
+        .replace(/\$([^$]+)\$/g, '$1')
+        .replace(/\\(?:mathrm|text|mathbf|mathit)\{([^}]+)\}/g, '$1')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (!cleaned) continue;
+      const firstSentence = cleaned.split(/[。！？!?；;\n]/)[0]?.trim() || cleaned;
+      return firstSentence.length > 44 ? `${firstSentence.slice(0, 44)}…` : firstSentence;
+    }
+    if (block.type === 'code') {
+      const firstLine = block.code.split('\n').map((line) => line.trim()).find(Boolean) ?? '';
+      if (firstLine) return firstLine.length > 44 ? `${firstLine.slice(0, 44)}…` : firstLine;
+    }
+    if (block.type === 'image' && block.alt) {
+      return block.alt;
+    }
+  }
+  return '';
+}
 
 function MistakeForm({ evidence }: { evidence: PracticeEvidence }) {
   const [reason, setReason] = useState<MistakeReason | ''>(evidence.mistakeReason ?? '');
@@ -69,8 +94,10 @@ function MistakeForm({ evidence }: { evidence: PracticeEvidence }) {
 
 export function PracticeSummaryPage() {
   const { sessionId } = useParams();
-  const { practices, evidence, contexts, pack, loading, error } = useLearning();
+  const { practices, evidence, contexts, pack, plan, loading, error } = useLearning();
   const { attempts, questions, createSession } = useStudy();
+  const { cardItems: remainingDailyCards, startCards: startDailyCards } = useDailyCardRound();
+  const [manualExpanded, setManualExpanded] = useState<Record<string, boolean>>({});
   const action = useAction();
   const navigate = useNavigate();
 
@@ -95,7 +122,11 @@ export function PracticeSummaryPage() {
     && mapping.questionContentVersion === byQuestion.get(mapping.questionId)?.contentVersion) ?? [];
   const weakConcepts = [...new Set(weak.flatMap((mapping) => mapping.conceptIds))];
   const lab = firstQuestionLabLink(retryIds);
-  const context = contexts.find((entry) => entry.sessionId === sessionId);
+  const context = (contexts ?? []).find((entry) => entry.sessionId === sessionId);
+
+  const belongsToCurrentDailyPlan = Boolean(context?.dailyPlanId && plan && context.dailyPlanId === plan.id);
+  const hasRemainingDailyCards = belongsToCurrentDailyPlan && remainingDailyCards.length > 0;
+  const hasRetries = retryIds.length > 0;
 
   const retry = async () => {
     const id = await createSession(retryIds, 'review', false, { parentSessionId: sessionId! });
@@ -169,11 +200,60 @@ export function PracticeSummaryPage() {
           <h2>接下来</h2>
         </div>
         <div className="command-row sec-next-actions">
-          <button type="button" className="primary-command" disabled={!retryIds.length || action.busy} onClick={() => void action.run(retry)}>
-            <RotateCcw size={16} aria-hidden="true" />
-            <span>重练本轮错题（{retryIds.length}）</span>
-          </button>
-          <Link className="sec-action-link" to="/review#cards">复习记忆卡<ArrowRight size={15} aria-hidden="true" /></Link>
+          {hasRetries ? (
+            <>
+              <button type="button" className="primary-command" disabled={action.busy} onClick={() => void action.run(retry)}>
+                <RotateCcw size={16} aria-hidden="true" />
+                <span>重练本轮错题（{retryIds.length}）</span>
+              </button>
+              {hasRemainingDailyCards && (
+                <button
+                  type="button"
+                  className="secondary-command sec-daily-cards-btn"
+                  disabled={action.busy}
+                  onClick={() => void action.run(startDailyCards)}
+                >
+                  <BookOpenCheck size={16} aria-hidden="true" />
+                  <span>继续今日剩余 {remainingDailyCards.length} 张记忆卡 →</span>
+                </button>
+              )}
+            </>
+          ) : hasRemainingDailyCards ? (
+            <>
+              <button
+                type="button"
+                className="primary-command sec-daily-cards-btn"
+                disabled={action.busy}
+                onClick={() => void action.run(startDailyCards)}
+              >
+                <BookOpenCheck size={16} aria-hidden="true" />
+                <span>继续今日剩余 {remainingDailyCards.length} 张记忆卡 →</span>
+              </button>
+              <span className="sec-all-clear-note">
+                <Check size={15} aria-hidden="true" />
+                <span>本轮无待重练错题</span>
+              </span>
+              <Link className="sec-action-link" to="/">返回今日任务<ArrowRight size={15} aria-hidden="true" /></Link>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="primary-command"
+                disabled={action.busy}
+                onClick={() => navigate(context?.dailyPlanId ? '/' : '/questions')}
+              >
+                <span>{context?.dailyPlanId ? '返回今日任务 →' : '继续题库练习 →'}</span>
+              </button>
+              <span className="sec-all-clear-note">
+                <Check size={15} aria-hidden="true" />
+                <span>本轮无待重练错题</span>
+              </span>
+            </>
+          )}
+          {!hasRemainingDailyCards && (
+            <Link className="sec-action-link" to="/review#cards">复习记忆卡<ArrowRight size={15} aria-hidden="true" /></Link>
+          )}
           {lab && <Link className="sec-action-link" to={lab.destination}>进入相关实验<ArrowRight size={15} aria-hidden="true" /></Link>}
         </div>
         {action.error && <p className="sec-inline-alert" role="alert">{action.error}</p>}
@@ -206,22 +286,80 @@ export function PracticeSummaryPage() {
           const attempt = items.find((entry) => entry.questionId === id);
           const isCorrect = attempt?.response.type === 'choice' && attempt.correct === true;
           const isWrong = attempt?.response.type === 'choice' && attempt.correct === false;
+          const maxScore = question?.answer.type === 'comprehensive' ? question.answer.maxScore : null;
+          const isFullScoreComprehensive = attempt?.response.type === 'comprehensive'
+            && attempt.score !== null
+            && maxScore !== null
+            && attempt.score >= maxScore;
+          const hasRecordedMistake = Boolean(proof?.mistakeReason || proof?.mistakeNote?.trim());
+          const defaultExpanded = Boolean(
+            hasRecordedMistake
+            || attempt?.correct === false
+            || (attempt?.response.type === 'comprehensive' && !isFullScoreComprehensive),
+          );
+          const isExpanded = manualExpanded[id] ?? defaultExpanded;
           const title = question ? `${question.year} · 第 ${question.number} 题` : `第 ${index + 1} 题`;
+          const excerpt = extractStemExcerpt(question);
+          const outcomeLabel = !attempt
+            ? '未提交'
+            : attempt.response.type === 'choice'
+              ? attempt.correct ? '客观作答正确' : '客观作答错误'
+              : `主观自评：${attempt.score ?? '未评分'}`;
+
+          if (!isExpanded) {
+            return (
+              <article key={id} className="study-panel sec-panel sec-summary-card is-collapsed">
+                <div className="sec-summary-compact-row">
+                  <div className="sec-summary-compact-main">
+                    <h2>{title}</h2>
+                    {excerpt && <span className="sec-summary-excerpt">{excerpt}</span>}
+                  </div>
+                  <div className="sec-summary-compact-actions">
+                    <span className={`sec-outcome-tag ${isCorrect ? 'is-ok' : isWrong ? 'is-wrong' : 'is-neutral'}`}>
+                      {isCorrect && <Check size={14} aria-hidden="true" />}
+                      {isWrong && <X size={14} aria-hidden="true" />}
+                      <span>{outcomeLabel}</span>
+                    </span>
+                    <button
+                      type="button"
+                      className="sec-summary-toggle"
+                      aria-expanded={false}
+                      onClick={() => setManualExpanded((prev) => ({ ...prev, [id]: true }))}
+                    >
+                      <span>展开记录</span>
+                      <ChevronDown size={14} aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          }
+
           return (
             <article key={id} className="study-panel sec-panel sec-summary-card">
               <div className="sec-summary-card-head">
-                <h2>{title}</h2>
-                <span className={`sec-outcome-tag ${isCorrect ? 'is-ok' : isWrong ? 'is-wrong' : 'is-neutral'}`}>
-                  {isCorrect && <Check size={14} aria-hidden="true" />}
-                  {isWrong && <X size={14} aria-hidden="true" />}
-                  <span>
-                    {!attempt
-                      ? '未提交'
-                      : attempt.response.type === 'choice'
-                        ? attempt.correct ? '客观作答正确' : '客观作答错误'
-                        : `主观自评：${attempt.score ?? '未评分'}`}
+                <div className="sec-summary-card-title-wrap">
+                  <h2>{title}</h2>
+                  {excerpt && <p className="sec-summary-stem-excerpt">{excerpt}</p>}
+                </div>
+                <div className="sec-summary-compact-actions">
+                  <span className={`sec-outcome-tag ${isCorrect ? 'is-ok' : isWrong ? 'is-wrong' : 'is-neutral'}`}>
+                    {isCorrect && <Check size={14} aria-hidden="true" />}
+                    {isWrong && <X size={14} aria-hidden="true" />}
+                    <span>{outcomeLabel}</span>
                   </span>
-                </span>
+                  {!defaultExpanded && (
+                    <button
+                      type="button"
+                      className="sec-summary-toggle"
+                      aria-expanded={true}
+                      onClick={() => setManualExpanded((prev) => ({ ...prev, [id]: false }))}
+                    >
+                      <span>收起</span>
+                      <ChevronUp size={14} aria-hidden="true" />
+                    </button>
+                  )}
+                </div>
               </div>
               <p className="sec-summary-proof">
                 提示：{proof?.evidenceFromStart ? proof.hintsUsed : '未知'} · 答案揭示：{proof?.answerRevealedAt ? '已记录' : proof?.evidenceFromStart ? '未提前揭示' : '未知'}

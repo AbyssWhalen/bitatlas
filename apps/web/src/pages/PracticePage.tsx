@@ -13,6 +13,7 @@ import {
   Save,
   TriangleAlert,
   X,
+  ZoomIn,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -30,8 +31,14 @@ import { StudySessionConflictError, studySessionVersionIssue } from '@408os/stor
 import { useStudy } from '../app/StudyContext';
 import { questionLabLink } from '../app/lab-links';
 import { LazyContentRenderer } from '../components/LazyContentRenderer';
+import { PracticeConceptBridge } from '../components/PracticeConceptBridge';
+import { rememberPracticeLabReturn } from '../components/practiceLabReturn';
 import { PracticeMistakePanel } from '../components/PracticeMistakePanel';
 import { ReadingImageLightbox, type LightboxImage } from '../components/ReadingImageLightbox';
+import {
+  extractLightboxImageFromElement,
+  extractLightboxImageFromScope,
+} from '../components/readingImageLightboxUtils';
 import { isInteractiveTarget, shouldIgnoreReadingShortcut } from '../components/readingKeyboard';
 import { SourcePageImage } from '../components/SourcePageImage';
 import { SubjectShape } from '../components/SubjectShape';
@@ -201,9 +208,13 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
   const [mistakeDrafts, setMistakeDrafts] = useState<Record<string, MistakeReason | ''>>({});
+  const [mistakeNoteDrafts, setMistakeNoteDrafts] = useState<Record<string, string>>({});
   const [mistakeSkipped, setMistakeSkipped] = useState<Record<string, boolean>>({});
   const [mistakeJustSaved, setMistakeJustSaved] = useState<Record<string, boolean>>({});
   const [mistakeBusy, setMistakeBusy] = useState(false);
+  const mistakeSavePromise = useRef<Promise<void> | null>(null);
+  const noteTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const optionButtonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const noteVersions = useRef(new Map<string, string | null>());
   const [submitting, setSubmitting] = useState(false);
   const [evidenceBusy, setEvidenceBusy] = useState(false);
@@ -215,6 +226,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   const responseSaveFailure = useRef<Error | null>(null);
   const answerStatusRef = useRef<HTMLDivElement | null>(null);
   const sourceTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const lastSourceTriggerRef = useRef<HTMLButtonElement | null>(null);
   const sourceDialogRef = useRef<HTMLDivElement | null>(null);
   const sourceCloseRef = useRef<HTMLButtonElement | null>(null);
   const lightboxTriggerRef = useRef<HTMLElement | null>(null);
@@ -304,7 +316,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
     if (!sourceOpen) return undefined;
     const dialog = sourceDialogRef.current;
     if (!dialog) return undefined;
-    const trigger = sourceTriggerRef.current;
+    const trigger = lastSourceTriggerRef.current ?? sourceTriggerRef.current;
     const root = dialog.parentElement;
     const background = root
       ? Array.from(root.children).filter((child): child is HTMLElement => child instanceof HTMLElement && child !== dialog)
@@ -366,10 +378,19 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   const handleImageClickDelegation = useCallback((event: MouseEvent<HTMLElement>) => {
     const target = event.target;
     if (!(target instanceof HTMLImageElement)) return;
-    const src = target.currentSrc || target.getAttribute('src');
-    if (!src) return;
+    if (!submitted && !sourceOpen && target.closest('button.rl-option')) return;
+    const nextImage = extractLightboxImageFromElement(target, '图片预览');
+    if (!nextImage) return;
     lightboxTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    setLightboxImage({ src, alt: target.alt || '图片预览' });
+    setLightboxImage(nextImage);
+  }, [sourceOpen, submitted]);
+
+  const openOptionImageLightbox = useCallback((optionId: string, trigger: HTMLElement | null) => {
+    const scope = optionButtonRefs.current[optionId];
+    const nextImage = extractLightboxImageFromScope(scope, `选项 ${optionId} 题图`);
+    if (!nextImage) return;
+    lightboxTriggerRef.current = trigger;
+    setLightboxImage(nextImage);
   }, []);
 
   const getLightboxRestoreTarget = useCallback(
@@ -457,6 +478,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
         return next;
       });
       setMistakeDrafts({});
+      setMistakeNoteDrafts({});
       setMistakeSkipped({});
       setMistakeJustSaved({});
       persistedSession.current = latest;
@@ -559,6 +581,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   };
 
   const goTo = async (index: number, selectedAt: number) => {
+    if (mistakeSavePromise.current) await mistakeSavePromise.current;
     if (writeBlocked || evidenceLock.current) return;
     evidenceLock.current = true;
     setActionError(null);
@@ -581,6 +604,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   };
 
   const finish = async () => {
+    if (mistakeSavePromise.current) await mistakeSavePromise.current;
     if (writeBlocked || evidenceLock.current) return;
     evidenceLock.current = true;
     setActionError(null);
@@ -614,38 +638,81 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
     };
   }
 
-  async function persistEvidence(patch: Partial<PracticeEvidence>) {
-    evidenceRef.current = await activeTime.flush();
+  async function persistEvidence(
+    patch: Partial<PracticeEvidence>,
+    options?: { clearMistakeReason?: boolean; skipActiveTimeFlush?: boolean },
+  ) {
+    if (options?.skipActiveTimeFlush) {
+      evidenceRef.current = (await storage.reviewRepository.getPracticeEvidence(session!.id, question!.id)) ?? evidenceRef.current;
+    } else {
+      evidenceRef.current = await activeTime.flush();
+    }
     const previous = evidenceRef.current;
-    const value = makeEvidence({ activeDurationMs: Math.max(previous?.activeDurationMs ?? 0, activeTime.duration()), ...patch });
-    evidenceRef.current = await storage.reviewRepository.savePracticeEvidence(value, previous?.revision ?? 0);
+    const mergedDuration = options?.skipActiveTimeFlush
+      ? previous?.activeDurationMs ?? 0
+      : Math.max(previous?.activeDurationMs ?? 0, activeTime.duration());
+    const candidate = makeEvidence({ activeDurationMs: mergedDuration, ...patch });
+    if (options?.clearMistakeReason) {
+      delete candidate.mistakeReason;
+    }
+    evidenceRef.current = await storage.reviewRepository.savePracticeEvidence(candidate, previous?.revision ?? 0);
   }
 
   const saveMistakeReason = async (nextReason: MistakeReason | null) => {
     if (writeBlocked || evidenceLock.current) return;
+    const questionId = question.id;
+    const pendingNote = mistakeNoteDrafts[questionId];
     evidenceLock.current = true;
     setMistakeBusy(true);
-    setMistakeJustSaved((prev) => ({ ...prev, [question.id]: false }));
-    await runPageAction('保存错因', async () => {
-      const latest = (await storage.reviewRepository.getPracticeEvidence(session.id, question.id)) ?? evidenceRef.current;
-      const base = latest ?? makeEvidence({});
-      const { mistakeReason: _previousReason, ...rest } = base;
-      void _previousReason;
-      const expectedRevision = latest?.revision ?? 0;
-      const nextEvidence: PracticeEvidence = {
-        ...rest,
-        ...(nextReason ? { mistakeReason: nextReason } : {}),
-        revision: expectedRevision + 1,
-        updatedAt: new Date().toISOString(),
-      };
-      const saved = await storage.reviewRepository.savePracticeEvidence(nextEvidence, expectedRevision);
-      evidenceRef.current = saved;
-      setMistakeDrafts((drafts) => ({ ...drafts, [question.id]: nextReason ?? '' }));
-      setMistakeSkipped((skipped) => ({ ...skipped, [question.id]: false }));
-      setMistakeJustSaved((prev) => ({ ...prev, [question.id]: true }));
+    setMistakeJustSaved((prev) => ({ ...prev, [questionId]: false }));
+    const task = runPageAction('保存错因', async () => {
+      await persistEvidence(
+        {
+          ...(nextReason ? { mistakeReason: nextReason } : {}),
+          ...(pendingNote !== undefined ? { mistakeNote: pendingNote } : {}),
+        },
+        { clearMistakeReason: !nextReason, skipActiveTimeFlush: true },
+      );
+      setMistakeDrafts((drafts) => ({ ...drafts, [questionId]: nextReason ?? '' }));
+      setMistakeSkipped((skipped) => ({ ...skipped, [questionId]: false }));
+      setMistakeJustSaved((prev) => ({ ...prev, [questionId]: true }));
+    }).finally(() => {
+      setMistakeBusy(false);
+      evidenceLock.current = false;
+      mistakeSavePromise.current = null;
     });
-    setMistakeBusy(false);
-    evidenceLock.current = false;
+    mistakeSavePromise.current = task;
+    await task;
+  };
+
+  const saveMistakeNote = async () => {
+    const questionId = question.id;
+    const drafted = mistakeNoteDrafts[questionId];
+    if (drafted === undefined) return;
+    const baseline = savedEvidence?.mistakeNote ?? evidenceRef.current?.mistakeNote ?? '';
+    if (drafted === baseline) {
+      setMistakeNoteDrafts((drafts) => {
+        const next = { ...drafts };
+        delete next[questionId];
+        return next;
+      });
+      return;
+    }
+    if (writeBlocked || evidenceLock.current) return;
+    evidenceLock.current = true;
+    setMistakeBusy(true);
+    setMistakeJustSaved((prev) => ({ ...prev, [questionId]: false }));
+    const task = runPageAction('保存错因笔记', async () => {
+      await persistEvidence({ mistakeNote: drafted }, { skipActiveTimeFlush: true });
+      setMistakeSkipped((skipped) => ({ ...skipped, [questionId]: false }));
+      setMistakeJustSaved((prev) => ({ ...prev, [questionId]: true }));
+    }).finally(() => {
+      setMistakeBusy(false);
+      evidenceLock.current = false;
+      mistakeSavePromise.current = null;
+    });
+    mistakeSavePromise.current = task;
+    await task;
   };
 
   const showHint = async () => {
@@ -721,6 +788,13 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
   const currentMistakeReason: MistakeReason | '' = mistakeDrafts[question.id] !== undefined
     ? mistakeDrafts[question.id]!
     : savedEvidence?.mistakeReason ?? '';
+  const currentMistakeNote = mistakeNoteDrafts[question.id] !== undefined
+    ? mistakeNoteDrafts[question.id]!
+    : savedEvidence?.mistakeNote ?? '';
+  const hasImageOptions = Boolean(
+    question.kind === 'single-choice'
+    && question.options?.some((option) => option.content.some((block) => block.type === 'image')),
+  );
 
   const updateSelfScore = (rawScore: string) => {
     if (question.answer.type !== 'comprehensive') return;
@@ -849,16 +923,46 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
               <span className="rl-subject-badge"><SubjectShape subject={question.subject} /><span>{subjectLabel}</span></span>
               <span>{question.kind === 'single-choice' ? '单项选择' : '综合应用'}</span>
             </div>
-            <button
-              type="button"
-              className={`icon-command rl-icon-btn ${collections.has(question.id) ? 'selected' : ''}`}
-              onClick={() => void runPageAction('更新收藏', () => toggleCollection(question.id))}
-              title={collections.has(question.id) ? '取消收藏' : '收藏'}
-              aria-label={collections.has(question.id) ? '取消收藏' : '收藏'}
-              aria-pressed={collections.has(question.id)}
-            >
-              <Bookmark size={18} fill={collections.has(question.id) ? 'currentColor' : 'none'} aria-hidden="true" />
-            </button>
+            <div className="rl-header-actions">
+              <button
+                type="button"
+                className="secondary-command rl-secondary-btn rl-mobile-head-btn"
+                onClick={(event) => {
+                  lastSourceTriggerRef.current = event.currentTarget;
+                  setSourceOpen(true);
+                }}
+              >
+                <FileScan size={14} aria-hidden="true" />
+                <span>原卷</span>
+              </button>
+              <button
+                type="button"
+                className="secondary-command rl-secondary-btn rl-mobile-head-btn"
+                onClick={() => {
+                  const target = noteTextareaRef.current;
+                  if (!target) return;
+                  try {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  } catch {
+                    target.scrollIntoView();
+                  }
+                  target.focus({ preventScroll: true });
+                }}
+              >
+                <NotebookPen size={14} aria-hidden="true" />
+                <span>笔记</span>
+              </button>
+              <button
+                type="button"
+                className={`icon-command rl-icon-btn ${collections.has(question.id) ? 'selected' : ''}`}
+                onClick={() => void runPageAction('更新收藏', () => toggleCollection(question.id))}
+                title={collections.has(question.id) ? '取消收藏' : '收藏'}
+                aria-label={collections.has(question.id) ? '取消收藏' : '收藏'}
+                aria-pressed={collections.has(question.id)}
+              >
+                <Bookmark size={18} fill={collections.has(question.id) ? 'currentColor' : 'none'} aria-hidden="true" />
+              </button>
+            </div>
           </div>
 
           <section className="question-body rl-stem rl-reading">
@@ -876,21 +980,30 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
 
           {question.kind === 'single-choice' && question.options && (
             <>
-              <section className="option-list rl-options" aria-label="答案选项" aria-busy={pendingResponseWrites > 0}>
-                {question.options.map((option) => {
+              <section
+                className={hasImageOptions ? 'option-list rl-options has-image-options' : 'option-list rl-options'}
+                aria-label="答案选项"
+                aria-busy={pendingResponseWrites > 0}
+              >
+                {question.options.map((option, index) => {
                   const selected = response?.type === 'choice' && response.optionId === option.id;
                   const correct = submitted && question.answer.type === 'choice' && question.answer.optionId === option.id;
                   const wrong = submitted && selected && !correct;
+                  const optionHasImage = option.content.some((block) => block.type === 'image');
                   const optionClasses = [
                     'rl-option',
+                    optionHasImage ? 'has-option-image' : '',
                     selected ? 'selected' : '',
                     correct ? 'correct' : '',
                     wrong ? 'incorrect' : '',
                   ].filter(Boolean).join(' ');
+                  const cellPlacement = hasImageOptions ? { gridRow: index + 1, gridColumn: 1 } : undefined;
                   return (
                     <button
                       key={option.id}
+                      ref={(node) => { optionButtonRefs.current[option.id] = node; }}
                       type="button"
+                      style={cellPlacement}
                       aria-pressed={selected}
                       aria-keyshortcuts={submitted ? undefined : option.id}
                       disabled={submitted || answerBlocked}
@@ -924,6 +1037,32 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
                         </div>
                       )}
                     </button>
+                  );
+                })}
+                {hasImageOptions && question.options.map((option, index) => {
+                  if (!option.content.some((block) => block.type === 'image')) return null;
+                  return (
+                    <div
+                      key={`zoom-${option.id}`}
+                      className={submitted ? 'rl-option-zoom-slot is-post-submit' : 'rl-option-zoom-slot'}
+                      style={{ gridRow: index + 1, gridColumn: 1 }}
+                      onClick={submitted ? (event) => {
+                        if (event.target instanceof HTMLElement && event.target.closest('button')) return;
+                        const zoomBtn = event.currentTarget.querySelector<HTMLElement>('button');
+                        openOptionImageLightbox(option.id, zoomBtn);
+                      } : undefined}
+                    >
+                      <button
+                        type="button"
+                        className="rl-option-zoom-btn"
+                        aria-label={`放大选项 ${option.id} 题图`}
+                        title={`放大选项 ${option.id} 题图`}
+                        onClick={(event) => openOptionImageLightbox(option.id, event.currentTarget)}
+                      >
+                        <ZoomIn size={14} aria-hidden="true" />
+                        <span>放大</span>
+                      </button>
+                    </div>
                   );
                 })}
               </section>
@@ -969,16 +1108,18 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
           )}
 
           {!submitted && availability.practice && (
-            <div className="answer-actions rl-actions">
-              <button
-                type="button"
-                className="hint-command rl-hint-btn"
-                disabled={evidenceBusy || hintCount >= question.hints.length}
-                onClick={() => void showHint()}
-              >
-                <Lightbulb size={16} aria-hidden="true" />
-                {question.hints.length ? `提示 ${hintCount}/${question.hints.length}` : '暂无可用提示'}
-              </button>
+            <div className={question.hints.length > 0 ? 'answer-actions rl-actions' : 'answer-actions rl-actions is-single'}>
+              {question.hints.length > 0 && (
+                <button
+                  type="button"
+                  className="hint-command rl-hint-btn"
+                  disabled={evidenceBusy || hintCount >= question.hints.length}
+                  onClick={() => void showHint()}
+                >
+                  <Lightbulb size={16} aria-hidden="true" />
+                  {`提示 ${hintCount}/${question.hints.length}`}
+                </button>
+              )}
               <button
                 type="button"
                 className="primary-command rl-primary-btn"
@@ -1031,11 +1172,17 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
               {showMistakeEntry && (
                 <PracticeMistakePanel
                   value={currentMistakeReason}
+                  noteValue={currentMistakeNote}
                   busy={mistakeBusy}
                   disabled={writeBlocked}
                   skipped={Boolean(mistakeSkipped[question.id])}
                   justSaved={Boolean(mistakeJustSaved[question.id])}
                   onSelect={(reason) => void saveMistakeReason(reason)}
+                  onNoteChange={(next) => {
+                    setMistakeJustSaved((prev) => ({ ...prev, [question.id]: false }));
+                    setMistakeNoteDrafts((drafts) => ({ ...drafts, [question.id]: next }));
+                  }}
+                  onNoteCommit={() => void saveMistakeNote()}
                   onSkip={() => setMistakeSkipped((prev) => ({ ...prev, [question.id]: true }))}
                   onReopen={() => setMistakeSkipped((prev) => ({ ...prev, [question.id]: false }))}
                 />
@@ -1055,8 +1202,29 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
               ))}
 
               {availability.explanationMissing && (
-                <p className="rl-explanation-missing">本题文字解析缺失，请通过“来源页”查看原始答案资料。</p>
+                <div className="rl-explanation-missing-bar">
+                  <p className="rl-explanation-missing">本题文字解析缺失，请通过“来源页”查看原始答案资料。</p>
+                  <button
+                    type="button"
+                    className="secondary-command rl-secondary-btn rl-inline-source-btn"
+                    onClick={(event) => {
+                      lastSourceTriggerRef.current = event.currentTarget;
+                      setSourceOpen(true);
+                    }}
+                  >
+                    <FileScan size={15} aria-hidden="true" />
+                    <span>查看来源扫描页</span>
+                  </button>
+                </div>
               )}
+
+              <PracticeConceptBridge
+                question={question}
+                onOpenLab={(destination) => {
+                  rememberPracticeLabReturn(session.id);
+                  navigate(destination);
+                }}
+              />
             </section>
           )}
 
@@ -1102,7 +1270,14 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
         {labLink && (
           <section className="rl-tool-section">
             <div className="tool-heading rl-tool-heading"><FlaskConical size={16} aria-hidden="true" /><h2>可视化实验</h2></div>
-            <button type="button" className="source-button rl-tool-btn" onClick={() => navigate(labLink.destination)}>
+            <button
+              type="button"
+              className="source-button rl-tool-btn"
+              onClick={() => {
+                rememberPracticeLabReturn(session.id);
+                navigate(labLink.destination);
+              }}
+            >
               <span>{labLink.label}</span>
               <ArrowRight size={15} aria-hidden="true" />
             </button>
@@ -1114,7 +1289,15 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
             <summary>内容版本与审核信息</summary>
             <p>{question.contentVersion} · {question.reviewStatus}</p>
           </details>
-          <button type="button" ref={sourceTriggerRef} className="source-button rl-tool-btn" onClick={() => setSourceOpen(true)}>
+          <button
+            type="button"
+            ref={sourceTriggerRef}
+            className="source-button rl-tool-btn"
+            onClick={(event) => {
+              lastSourceTriggerRef.current = event.currentTarget;
+              setSourceOpen(true);
+            }}
+          >
             <span>原卷第 {questionPages.join('、')} 页</span>
             <ArrowRight size={15} aria-hidden="true" />
           </button>
@@ -1123,6 +1306,7 @@ function PracticeSession({ sessionId }: { sessionId: string | undefined }) {
         <section className="rl-tool-section">
           <div className="tool-heading rl-tool-heading"><NotebookPen size={16} aria-hidden="true" /><h2>笔记</h2></div>
           <textarea
+            ref={noteTextareaRef}
             value={noteBody}
             placeholder="记录易错点"
             onChange={(event) => {

@@ -27,6 +27,58 @@
    2. Slot 1: Header (quiet Chinese kicker + title + single keycap action)
    ========================================================================== */
 
+.lab-exhibit-return-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 8px 10px;
+  border: 1px solid var(--ink-strong);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.lab-exhibit-return-btn {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid var(--ink-strong);
+  border-radius: 5px;
+  background: var(--ink-strong);
+  color: var(--paper);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.lab-exhibit-return-btn:hover {
+  background: color-mix(in srgb, var(--ink-strong) 88%, var(--paper));
+}
+
+.lab-exhibit-return-dismiss {
+  flex: 0 0 auto;
+  min-width: 30px;
+  min-height: 30px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bone);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.lab-exhibit-return-dismiss:hover {
+  border-color: var(--ink-strong);
+  color: var(--ink-strong);
+}
+
 .lab-exhibit-header {
   display: flex;
   align-items: flex-end;

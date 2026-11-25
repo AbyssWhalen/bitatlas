@@ -1,10 +1,8 @@
 import { RotateCcw, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import type { LightboxCrop, LightboxImage } from './readingImageLightboxUtils';
 
-export interface LightboxImage {
-  src: string;
-  alt: string;
-}
+export type { LightboxCrop, LightboxImage };
 
 interface ReadingImageLightboxProps {
   image: LightboxImage | null;
@@ -15,7 +13,11 @@ interface ReadingImageLightboxProps {
 const ZOOM_STEPS = [1, 1.5, 2] as const;
 
 export function ReadingImageLightbox({ image, onClose, getRestoreFocusTarget }: ReadingImageLightboxProps) {
-  const [zoomState, setZoomState] = useState<{ src: string | null; index: number }>({ src: null, index: 0 });
+  const [zoomState, setZoomState] = useState<{ key: string | null; index: number }>({ key: null, index: 0 });
+  const [modeState, setModeState] = useState<{ key: string | null; showFullPage: boolean }>({
+    key: null,
+    showFullPage: false,
+  });
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const restoreTargetGetterRef = useRef(getRestoreFocusTarget);
@@ -56,22 +58,24 @@ export function ReadingImageLightbox({ image, onClose, getRestoreFocusTarget }: 
       }
     };
 
-    dialog.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', onKeyDown, true);
     return () => {
-      dialog.removeEventListener('keydown', onKeyDown);
-      const preferred = restoreTargetGetterRef.current?.() ?? null;
-      const target = preferred?.isConnected ? preferred : previousActive;
-      if (target?.isConnected) target.focus();
+      window.removeEventListener('keydown', onKeyDown, true);
+      const explicitTarget = restoreTargetGetterRef.current?.();
+      const target = explicitTarget && explicitTarget.isConnected ? explicitTarget : previousActive;
+      if (target && target.isConnected) target.focus();
     };
   }, [image, onClose]);
 
   if (!image) return null;
 
-  const zoomIndex = zoomState.src === image.src ? zoomState.index : 0;
+  const imageKey = `${image.src}|${image.crop?.top ?? ''}|${image.crop?.left ?? ''}|${image.crop?.width ?? ''}`;
+  const zoomIndex = zoomState.key === imageKey ? zoomState.index : 0;
+  const showFullPage = !image.crop || (modeState.key === imageKey && modeState.showFullPage);
   const scale = ZOOM_STEPS[zoomIndex] ?? 1;
   const canZoomOut = zoomIndex > 0;
   const canZoomIn = zoomIndex < ZOOM_STEPS.length - 1;
-  const updateZoom = (nextIndex: number) => setZoomState({ src: image.src, index: nextIndex });
+  const updateZoom = (index: number) => setZoomState({ key: imageKey, index });
 
   return (
     <div
@@ -87,6 +91,18 @@ export function ReadingImageLightbox({ image, onClose, getRestoreFocusTarget }: 
       <div className="rl-lightbox-bar">
         <span className="rl-lightbox-caption">{image.alt || '图片预览'}</span>
         <div className="rl-lightbox-controls">
+          {image.crop && (
+            <button
+              type="button"
+              className="secondary-command rl-secondary-btn rl-lightbox-mode-btn"
+              onClick={() => {
+                setModeState({ key: imageKey, showFullPage: !showFullPage });
+                updateZoom(0);
+              }}
+            >
+              <span>{showFullPage ? '仅看局部题图' : '查看整页原卷'}</span>
+            </button>
+          )}
           <button
             type="button"
             className="rl-icon-btn"
@@ -131,14 +147,44 @@ export function ReadingImageLightbox({ image, onClose, getRestoreFocusTarget }: 
           </button>
         </div>
       </div>
-      <div className="rl-lightbox-stage">
-        <img
-          src={image.src}
-          alt={image.alt}
-          className={zoomIndex > 0 ? 'rl-lightbox-img is-zoomed' : 'rl-lightbox-img'}
-          style={zoomIndex > 0 ? { width: `${Math.round(scale * 100)}%` } : undefined}
-          onClick={() => updateZoom((zoomIndex + 1) % ZOOM_STEPS.length)}
-        />
+      <div
+        className="rl-lightbox-stage"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) onClose();
+        }}
+      >
+        {!showFullPage && image.crop ? (
+          <div
+            className={zoomIndex > 0 ? 'rl-lightbox-crop-frame is-zoomed' : 'rl-lightbox-crop-frame'}
+            style={{
+              aspectRatio: image.crop.aspectRatio,
+              width: `min(92vw, ${Math.round(520 * scale)}px)`,
+            }}
+            onClick={() => updateZoom((zoomIndex + 1) % ZOOM_STEPS.length)}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="rl-lightbox-crop-img"
+              style={{
+                position: 'absolute',
+                top: image.crop.top,
+                left: image.crop.left,
+                width: image.crop.width,
+                maxWidth: 'none',
+                maxHeight: 'none',
+              }}
+            />
+          </div>
+        ) : (
+          <img
+            src={image.src}
+            alt={image.alt}
+            className={zoomIndex > 0 ? 'rl-lightbox-img is-zoomed' : 'rl-lightbox-img'}
+            style={zoomIndex > 0 ? { width: `${Math.round(scale * 100)}%` } : undefined}
+            onClick={() => updateZoom((zoomIndex + 1) % ZOOM_STEPS.length)}
+          />
+        )}
       </div>
     </div>
   );

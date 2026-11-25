@@ -11,26 +11,34 @@ const SHORT_MISTAKE_LABELS: Record<MistakeReason, string> = {
 
 interface PracticeMistakePanelProps {
   value: MistakeReason | '';
+  noteValue?: string;
   busy: boolean;
   disabled: boolean;
   skipped: boolean;
   justSaved: boolean;
   onSelect: (reason: MistakeReason | null) => void;
+  onNoteChange?: (next: string) => void;
+  onNoteCommit?: () => void;
   onSkip: () => void;
   onReopen: () => void;
 }
 
 export function PracticeMistakePanel({
   value,
+  noteValue = '',
   busy,
   disabled,
   skipped,
   justSaved,
   onSelect,
+  onNoteChange,
+  onNoteCommit,
   onSkip,
   onReopen,
 }: PracticeMistakePanelProps) {
-  if (skipped && !value) {
+  const hasNote = Boolean(noteValue.trim());
+
+  if (skipped && !value && !hasNote) {
     return (
       <div className="rl-mistake-skipped">
         <span>已跳过错因记录</span>
@@ -52,7 +60,7 @@ export function PracticeMistakePanel({
         <span className="rl-mistake-title">记录错因（可选）</span>
         <div className="rl-mistake-meta">
           {justSaved && <span className="rl-mistake-saved" aria-live="polite">已保存</span>}
-          {!value && (
+          {!value && !hasNote && (
             <button
               type="button"
               className="rl-link-btn"
@@ -82,6 +90,26 @@ export function PracticeMistakePanel({
           );
         })}
       </div>
+      {onNoteChange && (
+        <div className="rl-mistake-note-row">
+          <input
+            type="text"
+            className="rl-mistake-note-input"
+            aria-label="错因补充笔记"
+            value={noteValue}
+            disabled={disabled || busy}
+            placeholder="补充一句失误点（自动同步到本轮总结）"
+            onChange={(event) => onNoteChange(event.target.value)}
+            onBlur={() => onNoteCommit?.()}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                event.currentTarget.blur();
+              }
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

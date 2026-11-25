@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { PracticeLabReturnBanner } from './PracticeLabReturnBanner';
 
 export type LabExhibitMobileOrder = 'steps-first' | 'canvas-first';
 
@@ -131,6 +132,7 @@ export function LabExhibit({
 
   return (
     <div className={rootClassName}>
+      <PracticeLabReturnBanner />
       <header className="lab-exhibit-header">
         <div className="lab-exhibit-header-main">
           <span className="lab-exhibit-kicker">{subjectLabel}</span>

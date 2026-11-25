@@ -681,3 +681,22 @@ UI 侧的交接文档。根目录 `HANDOFF.md` / `notes.md` 仍由 Codex 维护�
 | [三处行为的浏览器补验](../../output/playwright/opus-ui-2026-11-22/final-gate/behavior-browser-ready/receipt.json) | 1440/390 × 成员/管理员共 **4/4**，单个 Chrome 顺序运行；每组都实测首次 401 无告警、会话失效后 401 有告警。设置页加载完成后成员 0/2、管理员 2/2 张管理卡；真实下载的 v5 含 outbox 和 conflicts，868 字节 PDF 显示 `868 B`。[最终 10 张截图](../../output/playwright/opus-ui-2026-11-22/final-gate/behavior-browser-ready/)。 |
 
 历史尝试保留：初次全仓 lint、本地构建及服务器 1440 批次均因运行中断而没有结束回执；服务器原日志止于 4 项通过，没有记录断言失败。分别使用新日志名、新输出或新数据库完成，不把中断结果计入通过数。补验最初的四组记录也保留在 `behavior-browser/`，最终采用显式等待恢复区可见的 `behavior-browser-ready/`。固定 8 worker 压力检查按要求未跑。本轮没有提交、推送、部署或安装依赖。
+
+<a id="next-phase-batch-1"></a>
+
+#### 下一阶段体验改进第一批：P1、P2、P5 与 P4 第 2 点实现（2026-11-25，摩卡）
+
+基于[《下一阶段学习体验改进方案》](./next-phase-proposal-2026-11-25.md)及组长裁定分工，仅修改呈现与交互层，不动 `apps/web/src/app/`、`packages/`、数据库 schema、首答证据与计时规则，既有单测与 E2E 断言零删改。
+
+| 模块 | 关键实现与设计取舍 |
+|---|---|
+| **P1 判错当下闭环** | 新增 `PracticeConceptBridge.tsx` 挂载于 `PracticePage` 答案面板底部（桌面与手机同一主阅读栏位置）：展示叶概念几何标记与名称、四态徽标（严格零百分比）、`已练 m / n 题 · 记忆卡 k 张`；有短讲解时支持 `<details>` 原地展开并完整保留 `版本 ... · AI 辅助原创讲解 · 待审核`；实验入口按 `questionLabLink(question.id) -> concept.labIds[0] -> article.labPath` 三级回退，并提供关联记忆卡与跨年同概念真题入口；一题关联多概念时渲染顶部概念切换签。缺文字解析题（`availability.explanationMissing`）提示语旁新增“查看来源扫描页”按钮直接唤起原卷弹窗。`LabExhibit.tsx` 顶部向后兼容接入 `PracticeLabReturnBanner.tsx`（纯函数抽至 `practiceLabReturn.ts`）：从练习跳实验时通过 `sessionStorage`（`bitatlas:practice-lab-return`）记录来源会话而保持实验 URL 零附参（兼容全部既有实验深链断言，且实验内改写查询参数不丢失来源），仅在会话存在、非模考且未完成时展示 `← 返回刚才的练习（第 X / N 题）`。 |
+| **P2 图形题防误触、错因笔记合一与总结页折叠** | `PracticePage` 与 `MockExamSessionPage`（仅改此呈现）在提交/交卷前拦截选项按钮内图片的灯箱委托（点击图片只选中该选项），对含图选项（`cn408-2009-q04`）通过同格 Grid 叠层渲染右上角独立 `放大` 按钮（保持 `.option-list > button` 恒为 4 个直接子按钮），提交后点击选项图区亦可放大；`.rl-reading .source-inline-crop` 设 `overflow: clip` 防止聚焦或脚本触发内部整页大图滚动偏移。`ReadingImageLightbox.tsx`（辅助函数抽至 `readingImageLightboxUtils.ts`）对裁剪题图默认展示局部裁剪框并提供 `查看整页原卷` / `仅看局部题图` 切换。`PracticeMistakePanel.tsx` 新增可选单行“错因补充笔记”，经 `PracticePage` 既有 `persistEvidence` 串行锁写入同一条 `PracticeEvidence.mistakeNote`（失焦/回车保存，切题或结束前自动等待在途写入，不动 `firstResponse`、`evidenceFromStart` 与计时检查点），与 `PracticeSummaryPage` 双向互通。`PracticeSummaryPage` 默认仅展开答错、综合题未满分或已记录错因/笔记的题目；客观答对与未提交无记录题目默认折叠为带题干首句摘要的单行卡，支持手动展开/收起。 |
+| **P5 手机单手** | `question.hints` 为空时不渲染提示按钮，主操作“提交答案”占满整行；有提示题目保持原样。保留练习页 390px 静态 `.mobile-nav` 布局契约不变；`<=760px` 在题头收藏按钮旁新增紧凑 `原卷`（打开来源弹窗）与 `笔记`（平滑滚动并聚焦笔记输入框）入口。 |
+| **P4 第 2 点：总结页接今日卡片** | 将 `DailyTasks.tsx` 中剩余卡片过滤与 `startCards` 抽为共享 hook `components/useDailyCardRound.ts`（`DailyTasks` 行为与结构零变化）。当总结页会话上下文绑定当前 `dailyPlanId` 且仍有未完成今日卡片时，“接下来”直接提供 `继续今日剩余 N 张记忆卡 →`；本轮无待重练错题（`retryIds.length === 0`）时，自动将 `继续今日剩余 N 张记忆卡 →` 或 `返回今日任务 →` / `继续题库练习 →` 升为主按钮并展示 `✓ 本轮无待重练错题`，消除唯一主按钮置灰 `重练本轮错题（0）` 的死胡同。 |
+
+**验证结果（全部独立输出至 `output/playwright/opus-ui-2026-11-22/next-phase-impl-1/`）：**
+- **静态与单测门禁**：改动与新增的 17 份 TS/TSX 文件 `eslint --max-warnings=0` **0 错误、0 警告**；新增/改动 CSS 原始色值与 `--palette-*` 扫描 **0 命中**；全仓 `npm run typecheck` **7/7 workspace 通过**；定向 Vitest **7 文件 60/60 通过**（含新增 `PracticeConceptBridge.test.tsx`、`PracticeSummaryPage.test.tsx` 及 `PracticePage`、`MockExamSessionPage`、`LabExhibit`、`SecondaryPages`、`DashboardPage`）。
+- **三视口 E2E（1 worker，端口 4361 独立预览 `dist-local`）**：`study-flow`、`visual`、`learning-loop`、`learning-reliability`、`mock-exam`、`cpu-extended-labs`、`protocol-labs` 共 7 份 spec，1440 / 1366 / 390 各 41/41，合计 **123/123 通过**（6.0 分钟，0 失败、0 跳过、0 flaky，既有测试文件零改动）。
+- **真实 Chrome 多维矩阵（端口 4362）**：覆盖 1440 与 390、白昼与夜班、18px 与 24px 共 **13 组视图**（判错闭环卡、2009 Q4 选图与局部裁剪灯箱、2024 Q12 缺解析内联原卷入口、练习去实验再返回、总结页折叠与接今日卡片、手机题头原卷/笔记入口），`chrome-matrix-audit.json` 实测横溢 **0**、小于 24px 触控目标 **0**、低于 4.5:1 对比度 **0**。
+- **未完成项**：无（归属拿铁的 P3、P4 第 1/3 点、P6、GBN 与知识页手机抽屉按分工未触碰）。

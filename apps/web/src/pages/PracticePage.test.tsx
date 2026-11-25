@@ -40,8 +40,36 @@ vi.mock('../app/StudyContext', () => ({
 }));
 
 vi.mock('../components/LazyContentRenderer', () => ({
-  LazyContentRenderer: ({ blocks }: { blocks: Array<{ type: string; text?: string }> }) => (
-    <>{blocks.map((block, index) => <span key={index}>{block.text ?? block.type}</span>)}</>
+  LazyContentRenderer: ({
+    blocks,
+  }: {
+    blocks: Array<{
+      type: string;
+      text?: string;
+      alt?: string;
+      crop?: { x: number; y: number; width: number; height: number };
+    }>;
+  }) => (
+    <>
+      {blocks.map((block, index) => (
+        block.type === 'image' ? (
+          block.crop ? (
+            <div key={index} className="source-inline-crop" style={{ aspectRatio: '4 / 3' }}>
+              <img
+                className="source-inline-image"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACw="
+                alt={block.alt ?? '选项题图'}
+                style={{ top: '-10%', left: '-20%', width: '300%' }}
+              />
+            </div>
+          ) : (
+            <img key={index} src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt={block.alt ?? '图片'} />
+          )
+        ) : (
+          <span key={index}>{block.text ?? block.type}</span>
+        )
+      ))}
+    </>
   ),
 }));
 
@@ -699,5 +727,110 @@ describe('PracticePage recovery and response persistence', () => {
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog', { name: '放大查看图片' })).not.toBeInTheDocument();
     expect(screen.getByRole('dialog', { name: '来源页' })).toBeVisible();
+  });
+
+  it('opens the source modal directly from the inline missing-explanation button after submit', async () => {
+    const user = userEvent.setup();
+    study.submitResponse.mockImplementationOnce(async (current: StudySession) => ({
+      ...current,
+      submittedQuestionIds: [question.id],
+      updatedAt: '2026-08-07T00:00:02.000Z',
+    }));
+    const { container } = renderPractice();
+    expect(await screen.findByText('测试题干')).toBeVisible();
+
+    await user.click(container.querySelectorAll<HTMLButtonElement>('.option-list > button')[0]!);
+    await waitFor(() => expect(screen.getByRole('button', { name: '提交答案' })).toBeEnabled());
+    await user.click(screen.getByRole('button', { name: '提交答案' }));
+
+    const inlineSourceBtn = await screen.findByRole('button', { name: '查看来源扫描页' });
+    expect(inlineSourceBtn).toBeVisible();
+    await user.click(inlineSourceBtn);
+    expect(screen.getByRole('dialog', { name: '来源页' })).toBeVisible();
+  });
+
+  it('guards option images before submit, opens cropped view via zoom button, and syncs mistakeNote via persistEvidence', async () => {
+    const user = userEvent.setup();
+    const q4ImageOptionQuestion: Question = {
+      ...question,
+      id: 'cn408-2009-q04',
+      number: 4,
+      stem: [{ type: 'text', text: '线索二叉树题干' }],
+      options: ['A', 'B', 'C', 'D'].map((id) => ({
+        id: id as 'A' | 'B' | 'C' | 'D',
+        content: [{
+          type: 'image' as const,
+          assetId: `asset-${id}`,
+          alt: `选项 ${id} 树图`,
+          crop: { x: 0.1, y: 0.2, width: 0.3, height: 0.2 },
+        }],
+      })),
+    };
+    const q4Session: StudySession = {
+      ...session,
+      id: 'session-q04',
+      questionIds: [q4ImageOptionQuestion.id],
+      questionContentVersions: { [q4ImageOptionQuestion.id]: q4ImageOptionQuestion.contentVersion },
+    };
+    question.options = q4ImageOptionQuestion.options!;
+    try {
+      study.getSession.mockResolvedValueOnce({ ...session, id: 'session-q04-run' });
+      study.submitResponse.mockImplementationOnce(async (current: StudySession, _q: Question, _resp: UserResponse, _dur: number, ev: PracticeEvidence) => {
+        proofs.set(ev.id, ev);
+        return {
+          ...current,
+          submittedQuestionIds: [question.id],
+          updatedAt: '2026-08-07T00:00:02.000Z',
+        };
+      });
+
+      const { container } = renderPractice({ initialSessionId: 'session-q04-run' });
+      expect(await screen.findByText('测试题干')).toBeVisible();
+      void q4Session;
+
+      // P5: question.hints is empty so hint button is hidden
+      expect(screen.queryByRole('button', { name: /提示/ })).not.toBeInTheDocument();
+
+      // Direct > button children contract remains exact length 4
+      const optionButtons = container.querySelectorAll<HTMLButtonElement>('.option-list > button');
+      expect(optionButtons).toHaveLength(4);
+
+      // P2: Clicking image inside option A before submit ONLY selects option A, never opens lightbox
+      const optionAImg = screen.getByAltText('选项 A 树图');
+      await user.click(optionAImg);
+      await waitFor(() => expect(optionButtons[0]).toHaveAttribute('aria-pressed', 'true'));
+      expect(screen.queryByRole('dialog', { name: '放大查看图片' })).not.toBeInTheDocument();
+
+      // P2: Clicking dedicated zoom button opens cropped local view with full-page toggle, without changing selection
+      await user.click(screen.getByRole('button', { name: '放大选项 C 题图' }));
+      const lightbox = screen.getByRole('dialog', { name: '放大查看图片' });
+      expect(lightbox).toBeVisible();
+      expect(lightbox.querySelector('.rl-lightbox-crop-frame')).not.toBeNull();
+      await user.click(screen.getByRole('button', { name: '查看整页原卷' }));
+      expect(lightbox.querySelector('.rl-lightbox-crop-frame')).toBeNull();
+      expect(screen.getByRole('button', { name: '仅看局部题图' })).toBeVisible();
+      await user.keyboard('{Escape}');
+      expect(optionButtons[0]).toHaveAttribute('aria-pressed', 'true');
+
+      // Submit wrong answer (A != B) and verify unified mistakeNote writes to same PracticeEvidence
+      await waitFor(() => expect(screen.getByRole('button', { name: '提交答案' })).toBeEnabled());
+      await user.click(screen.getByRole('button', { name: '提交答案' }));
+      expect(await screen.findByText('回答错误')).toBeVisible();
+
+      const noteInput = screen.getByLabelText('错因补充笔记');
+      await user.type(noteInput, '误把后继线索指向双亲');
+      fireEvent.blur(noteInput);
+
+      await waitFor(() => {
+        const stored = proofs.get(JSON.stringify(['session-q04-run', question.id]));
+        expect(stored?.mistakeNote).toBe('误把后继线索指向双亲');
+        expect(stored?.firstResponse).toEqual({ type: 'choice', optionId: 'A' });
+      });
+    } finally {
+      question.options = ['A', 'B', 'C', 'D'].map((id) => ({
+        id: id as 'A' | 'B' | 'C' | 'D',
+        content: [{ type: 'text' as const, text: `${id} 选项` }],
+      }));
+    }
   });
 });

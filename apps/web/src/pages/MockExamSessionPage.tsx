@@ -10,6 +10,7 @@ import {
   Save,
   Timer,
   TriangleAlert,
+  ZoomIn,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,6 +25,10 @@ import { createSerialWriteQueue } from '../app/serial-write-queue';
 import { useStudy } from '../app/StudyContext';
 import { LazyContentRenderer } from '../components/LazyContentRenderer';
 import { ReadingImageLightbox, type LightboxImage } from '../components/ReadingImageLightbox';
+import {
+  extractLightboxImageFromElement,
+  extractLightboxImageFromScope,
+} from '../components/readingImageLightboxUtils';
 import { SubjectShape } from '../components/SubjectShape';
 
 const subjectLabels: Record<Subject, string> = {
@@ -109,6 +114,7 @@ export function MockExamSessionPage() {
   const [syncConflict, setSyncConflict] = useState<ExternalExamUpdate | null>(null);
   const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
   const lightboxTriggerRef = useRef<HTMLElement | null>(null);
+  const optionButtonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const bundleRef = useRef<MockExamBundle | null>(null);
   const currentIndexRef = useRef(0);
   const draftsRef = useRef<Record<string, UserResponse>>({});
@@ -459,10 +465,20 @@ export function MockExamSessionPage() {
   const handleImageClickDelegation = useCallback((event: MouseEvent<HTMLElement>) => {
     const target = event.target;
     if (!(target instanceof HTMLImageElement)) return;
-    const src = target.currentSrc || target.getAttribute('src');
-    if (!src) return;
+    const examStatus = bundleRef.current?.exam.status;
+    if (examStatus === 'in-progress' && target.closest('button.rl-option')) return;
+    const nextImage = extractLightboxImageFromElement(target, '题目图示');
+    if (!nextImage) return;
     lightboxTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    setLightboxImage({ src, alt: target.alt || '题目图示' });
+    setLightboxImage(nextImage);
+  }, []);
+
+  const openOptionImageLightbox = useCallback((optionId: string, trigger: HTMLElement | null) => {
+    const scope = optionButtonRefs.current[optionId];
+    const nextImage = extractLightboxImageFromScope(scope, `选项 ${optionId} 题图`);
+    if (!nextImage) return;
+    lightboxTriggerRef.current = trigger;
+    setLightboxImage(nextImage);
   }, []);
 
   const getLightboxRestoreTarget = useCallback(() => lightboxTriggerRef.current, []);
@@ -490,6 +506,10 @@ export function MockExamSessionPage() {
     ? bundle.session.responses[pendingSelfScoreQuestion.id]
     : undefined;
   const currentSubjectLabel = currentQuestion.subject ? subjectLabels[currentQuestion.subject] : null;
+  const hasImageOptions = Boolean(
+    currentQuestion.kind === 'single-choice'
+    && currentQuestion.options?.some((option) => option.content.some((block) => block.type === 'image')),
+  );
 
   return (
     <div className="practice-shell rl-practice mock-exam-shell">
@@ -582,14 +602,27 @@ export function MockExamSessionPage() {
           </section>
 
           {currentQuestion.kind === 'single-choice' && currentQuestion.options ? (
-            <div className="option-list rl-options mock-option-list" role="group" aria-label="答案选项">
-              {currentQuestion.options.map((option) => {
+            <div
+              className={hasImageOptions ? 'option-list rl-options mock-option-list has-image-options' : 'option-list rl-options mock-option-list'}
+              role="group"
+              aria-label="答案选项"
+            >
+              {currentQuestion.options.map((option, index) => {
                 const selected = currentResponse?.type === 'choice' && currentResponse.optionId === option.id;
+                const optionHasImage = option.content.some((block) => block.type === 'image');
+                const optionClassName = [
+                  'rl-option',
+                  optionHasImage ? 'has-option-image' : '',
+                  selected ? 'selected' : '',
+                ].filter(Boolean).join(' ');
+                const cellPlacement = hasImageOptions ? { gridRow: index + 1, gridColumn: 1 } : undefined;
                 return (
                   <button
                     key={option.id}
+                    ref={(node) => { optionButtonRefs.current[option.id] = node; }}
                     type="button"
-                    className={selected ? 'rl-option selected' : 'rl-option'}
+                    style={cellPlacement}
+                    className={optionClassName}
                     disabled={readOnly || Boolean(busy)}
                     onClick={() => updateDraft(currentQuestion.id, { type: 'choice', optionId: option.id })}
                     aria-label={`选择 ${option.id}`}
@@ -608,6 +641,32 @@ export function MockExamSessionPage() {
                       )}
                     </div>
                   </button>
+                );
+              })}
+              {hasImageOptions && currentQuestion.options.map((option, index) => {
+                if (!option.content.some((block) => block.type === 'image')) return null;
+                return (
+                  <div
+                    key={`zoom-${option.id}`}
+                    className={readOnly ? 'rl-option-zoom-slot is-post-submit' : 'rl-option-zoom-slot'}
+                    style={{ gridRow: index + 1, gridColumn: 1 }}
+                    onClick={readOnly ? (event) => {
+                      if (event.target instanceof HTMLElement && event.target.closest('button')) return;
+                      const zoomBtn = event.currentTarget.querySelector<HTMLElement>('button');
+                      openOptionImageLightbox(option.id, zoomBtn);
+                    } : undefined}
+                  >
+                    <button
+                      type="button"
+                      className="rl-option-zoom-btn"
+                      aria-label={`放大选项 ${option.id} 题图`}
+                      title={`放大选项 ${option.id} 题图`}
+                      onClick={(event) => openOptionImageLightbox(option.id, event.currentTarget)}
+                    >
+                      <ZoomIn size={14} aria-hidden="true" />
+                      <span>放大</span>
+                    </button>
+                  </div>
                 );
               })}
             </div>

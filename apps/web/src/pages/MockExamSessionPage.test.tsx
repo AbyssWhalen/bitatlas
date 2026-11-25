@@ -101,6 +101,36 @@ vi.mock('../app/StudyContext', () => ({
   useStudy: () => study,
 }));
 
+vi.mock('../components/LazyContentRenderer', () => ({
+  LazyContentRenderer: ({
+    blocks,
+  }: {
+    blocks: Array<{
+      type: string;
+      text?: string;
+      alt?: string;
+      crop?: { x: number; y: number; width: number; height: number };
+    }>;
+  }) => (
+    <>
+      {blocks.map((block, index) => (
+        block.type === 'image' && block.crop ? (
+          <div key={index} className="source-inline-crop" style={{ aspectRatio: '4 / 3' }}>
+            <img
+              className="source-inline-image"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACw="
+              alt={block.alt ?? '选项题图'}
+              style={{ top: '-10%', left: '-20%', width: '300%' }}
+            />
+          </div>
+        ) : (
+          <span key={index}>{block.text ?? block.type}</span>
+        )
+      ))}
+    </>
+  ),
+}));
+
 describe('MockExamSessionPage', () => {
   beforeEach(() => {
     observedExam = null;
@@ -217,5 +247,43 @@ describe('MockExamSessionPage', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('题面版本已变化');
     expect(screen.queryByRole('button', { name: '选择 A' })).not.toBeInTheDocument();
     study.questions = initialQuestions;
+  });
+
+  it('selects an image option without opening the lightbox during an in-progress exam while allowing cropped zoom via the corner button', async () => {
+    const initialQuestions = study.questions;
+    const q4WithImages = {
+      ...initialQuestions[3]!,
+      options: ['A', 'B', 'C', 'D'].map((id) => ({
+        id: id as 'A' | 'B' | 'C' | 'D',
+        content: [{
+          type: 'image' as const,
+          assetId: `asset-${id}`,
+          alt: `模考选项 ${id} 树图`,
+          crop: { x: 0.1, y: 0.2, width: 0.3, height: 0.2 },
+        }],
+      })),
+    };
+    study.questions = initialQuestions.map((q, idx) => (idx === 3 ? q4WithImages : q)) as typeof initialQuestions;
+    const examAtQ4 = bundle('in-progress');
+    examAtQ4.session.currentIndex = 3;
+    study.getMockExam.mockResolvedValueOnce(examAtQ4);
+
+    try {
+      render(<MemoryRouter initialEntries={['/mock/exam-1']}><Routes><Route path="/mock/:examId" element={<MockExamSessionPage />} /></Routes></MemoryRouter>);
+      expect(await screen.findByRole('heading', { name: '2009 整卷模考' })).toBeVisible();
+
+      fireEvent.click(screen.getByAltText('模考选项 B 树图'));
+      expect(screen.getByRole('button', { name: '选择 B' })).toHaveAttribute('aria-pressed', 'true');
+      expect(screen.queryByRole('dialog', { name: '放大查看图片' })).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByRole('button', { name: '放大选项 D 题图' }));
+      const lightbox = screen.getByRole('dialog', { name: '放大查看图片' });
+      expect(lightbox).toBeVisible();
+      expect(lightbox.querySelector('.rl-lightbox-crop-frame')).not.toBeNull();
+      expect(screen.getByRole('button', { name: '查看整页原卷' })).toBeVisible();
+      expect(screen.getByRole('button', { name: '选择 B' })).toHaveAttribute('aria-pressed', 'true');
+    } finally {
+      study.questions = initialQuestions;
+    }
   });
 });
