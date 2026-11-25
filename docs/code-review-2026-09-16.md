@@ -16,7 +16,7 @@
 
 ### F1 · P1：题面修订沿用相同版本，旧作答进入新题面的进度统计
 
-- 位置：[build-year.mjs:527](D:/CodexProject/personal-projects/408OS/tools/content-importer/src/build-year.mjs:527)，manifest 同样固定在第 537 行；消费处为 [study.ts:205](D:/CodexProject/personal-projects/408OS/packages/domain/src/study.ts:205)。
+- 位置：[build-year.mjs:527](../tools/content-importer/src/build-year.mjs#L527)，manifest 同样固定在第 537 行；消费处为 [study.ts:205](../packages/domain/src/study.ts#L205)。
 - 原因：2010–2025 导入器始终生成 `${year}.0-draft.2`。统计、复习计划和练习恢复均依赖 `question.contentVersion` 区分题面，没有用整包 hash 替代这一合同。
 - 实际复现：Git 历史 `99c33a5` 中 2012 Q1 是 `fact(n-10)`，当前已修成 `fact(n-1)`，两者仍为 `2012.0-draft.2`。以旧题创建的 Attempt 经当前投影函数处理，`oldAttemptCountedAsCurrent = true`。
 - 影响：题干、选项或答案修订后，旧会话仍可能被允许继续，旧作答继续影响已练、错题和每日复习计划；版本隔离机制失去作用。
@@ -25,7 +25,7 @@
 
 ### F2 · P2：扩展年份启动安装会将 verified 题包降级为草稿
 
-- 位置：[storage.ts:405](D:/CodexProject/personal-projects/408OS/apps/web/src/app/storage.ts:405)。
+- 位置：[storage.ts:405](../apps/web/src/app/storage.ts#L405)。
 - 原因：`installExtraContent()` 检测到 hash 不同后直接调用 `installPack(pack, false)`；仅 2009 的安装路径有 `protectedManifest` 防降级逻辑。设置页的 verified 导入接口允许其他年份，因此两个功能的合同不一致。
 - 复现：在独立的 fake IndexedDB 中安装 2010 verified 测试 fixture，再让启动请求返回仓库现有 2010 草稿。结果 `before: verified`、`after: needs-review`、`issues: []`。
 - 影响：用户导入经过审核的扩展年份题包后，下一次打开应用就可能被网站草稿静默替换，练习内容与题面版本也随之改变。
@@ -34,7 +34,7 @@
 
 ### F3 · P2：手动掌握度与真题列表、总览读取的状态不一致
 
-- 位置：[StudyContext.tsx:225](D:/CodexProject/personal-projects/408OS/apps/web/src/app/StudyContext.tsx:225)、[QuestionsPage.tsx:78](D:/CodexProject/personal-projects/408OS/apps/web/src/pages/QuestionsPage.tsx:78)。
+- 位置：[StudyContext.tsx:225](../apps/web/src/app/StudyContext.tsx#L225)、[QuestionsPage.tsx:78](../apps/web/src/pages/QuestionsPage.tsx#L78)。
 - 原因：手动 `setMastery()` 写入版本化 progress，练习页读该 progress；真题列表、错题页和总览的掌握度却读仅由 Attempt 重放生成的 `currentProgress`，后者没有手动 mastery。
 - 浏览器复现：新建 2009 Q1 练习，未提交答案，点击“已掌握”；按钮具有 `active` 类。返回真题后，同题仍显示“未练习”。隔离探针同样得到 `storedMastery: mastered`、`projectedMastery: unseen`。
 - 影响：用户无法理解手动标记为何只在练习页有效；总览的已掌握数和列表状态与刚保存的选择不一致。
@@ -43,7 +43,7 @@
 
 ### F4 · P2：HTTP 服务故障被当成“没有题包”
 
-- 位置：[storage.ts:211](D:/CodexProject/personal-projects/408OS/apps/web/src/app/storage.ts:211)、[storage.ts:401](D:/CodexProject/personal-projects/408OS/apps/web/src/app/storage.ts:401)。
+- 位置：[storage.ts:211](../apps/web/src/app/storage.ts#L211)、[storage.ts:401](../apps/web/src/app/storage.ts#L401)。
 - 原因：2009 安装路径把任意 `!response.ok` 转为 `LocalContentUnavailableError`；扩展年份路径则直接忽略任意非 2xx 响应，没有区分 404 与 503 等服务器故障。
 - 复现：空内容库收到 HTTP 503 时，`treatedAsMissing: true`；16 个扩展年份全部返回 503 时，结果仍为 `{ issues: [], installedYears: [] }`。
 - 影响：首次访问遇到暂时性服务故障会显示缺题包，扩展年份缺失也没有诊断提示，违背项目“仅显式缺失可降级”的约定。已有内容时可继续使用本地数据，但刷新故障仍应能识别。
@@ -52,7 +52,7 @@
 
 ### F5 · P3：练习页年份写死为 2009
 
-- 位置：[PracticePage.tsx:463](D:/CodexProject/personal-projects/408OS/apps/web/src/pages/PracticePage.tsx:463)。
+- 位置：[PracticePage.tsx:463](../apps/web/src/pages/PracticePage.tsx#L463)。
 - 复现：真题页选择 2025，进入 Q1，实际显示 2025 的程序复杂度题且可正确提交，但顶部仍为“2009 全国统考”；桌面与手机截图均可见。
 - 影响：年份识别错误，跨年份每日复习时尤其容易混淆来源。
 - 建议：按当前 `question.year` 显示年份，并增加一次非 2009 年题目的界面回归。
@@ -92,7 +92,7 @@
 
 构建使用 `npm run build -w @408os/web -- --outDir ../../output/code-review-2026-09-16/dist --emptyOutDir false`，避免清理原有 dist。E2E 用 `output/code-review-2026-09-16/playwright.review.config.ts` 继承仓库的 testMatch、三个 projects 和其他运行选项，只指定独立产物目录、本次 production preview 地址及 4 workers；没有改变断言或超时。
 
-全量唯一失败位于 [mock-exam.spec.ts:155](D:/CodexProject/personal-projects/408OS/tests/e2e/mock-exam.spec.ts:155)：15 秒内没有出现“2009 整卷模考”，失败快照停留在“恢复持久化模考”。定向复跑通过说明该失败本次未稳定复现，**尚不能仅据此确认是机器负载、测试隔离还是应用并发性能问题**。不将它算成“已修复”，也不把定向通过改写为全量 201/201。本次未重跑默认 8-worker 集合。
+全量唯一失败位于 [mock-exam.spec.ts:155](../tests/e2e/mock-exam.spec.ts#L155)：15 秒内没有出现“2009 整卷模考”，失败快照停留在“恢复持久化模考”。定向复跑通过说明该失败本次未稳定复现，**尚不能仅据此确认是机器负载、测试隔离还是应用并发性能问题**。不将它算成“已修复”，也不把定向通过改写为全量 201/201。本次未重跑默认 8-worker 集合。
 
 现有全量测试配置阻止 service worker，因此额外用允许 SW 的独立 Chrome 会话验证了一次真实 PWA 离线恢复。离线时 17 个更新请求报网络错误属模拟断网的预期现象，界面仍从本地记录恢复。
 
@@ -106,9 +106,9 @@
 
 ## 证据与复现
 
-- [隔离复现脚本](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/probes.ts) 与 [探针结果](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/probe-results.json)。在项目根执行 `npx --no-install tsx output/code-review-2026-09-16/probes.ts`；使用 fake IndexedDB，不读取或修改个人浏览器数据。
-- [全量 E2E JSON](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/e2e-results.json)、[HTML 报告](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/e2e-report/index.html)、[定向复跑日志](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/e2e-recheck.log)。
-- [手机截图](D:/CodexProject/personal-projects/408OS/output/playwright/review-2026-09-16-mobile-2025.png)、[桌面截图](D:/CodexProject/personal-projects/408OS/output/playwright/review-2026-09-16-desktop-2025.png)、[真实离线恢复记录](D:/CodexProject/personal-projects/408OS/output/code-review-2026-09-16/ui-offline-mobile.log)。
+- [隔离复现脚本](../output/code-review-2026-09-16/probes.ts) 与 [探针结果](../output/code-review-2026-09-16/probe-results.json)。在项目根执行 `npx --no-install tsx output/code-review-2026-09-16/probes.ts`；使用 fake IndexedDB，不读取或修改个人浏览器数据。
+- [全量 E2E JSON](../output/code-review-2026-09-16/e2e-results.json)、[HTML 报告](../output/code-review-2026-09-16/e2e-report/index.html)、[定向复跑日志](../output/code-review-2026-09-16/e2e-recheck.log)。
+- [手机截图](../output/playwright/review-2026-09-16-mobile-2025.png)、[桌面截图](../output/playwright/review-2026-09-16-desktop-2025.png)、[真实离线恢复记录](../output/code-review-2026-09-16/ui-offline-mobile.log)。
 - `output/code-review-2026-09-16/` 还有 lint/typecheck/unit/content/release/importer/build 的原始日志及 CLI 页面快照；output 为忽略目录，以上本地证据不会自动进入 Git。
 - 使用 Context Lens 压缩构建日志时，工具将 `shield-alert` 资产文件名误归类为 error；已核对原日志和退出码，构建实际成功。
 
