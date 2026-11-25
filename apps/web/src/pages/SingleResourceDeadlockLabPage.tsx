@@ -10,6 +10,7 @@ import { BookOpenCheck, ListOrdered, RotateCcw, ShieldAlert, Users } from 'lucid
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -105,9 +106,9 @@ function computeDeadlock(
 
 function ResourcePool({ state }: { state: SingleResourceDeadlockState }) {
   return (
-    <section className="lab-control-panel deadlock-pool-panel" aria-labelledby="deadlock-pool-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">RESOURCE POOL</span><h2 id="deadlock-pool-heading">资源分配总览</h2></div>
+    <section className="deadlock-pool-panel lab-exhibit-stage" aria-labelledby="deadlock-pool-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="deadlock-pool-heading">资源分配总览</h2></div>
         <strong>{state.availableResources} / {state.availableResources + state.processes.reduce((total, process) => total + process.allocatedResources, 0)} 可用</strong>
       </div>
       <div className="deadlock-resource-track" aria-label="当前资源分配条" role="img">
@@ -128,9 +129,9 @@ function ResourcePool({ state }: { state: SingleResourceDeadlockState }) {
 
 function ProcessStateView({ state }: { state: SingleResourceDeadlockState }) {
   return (
-    <section className="lab-control-panel deadlock-process-panel" aria-labelledby="deadlock-process-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">PROCESS STATE</span><h2 id="deadlock-process-heading">进程资源状态</h2></div>
+    <section className="deadlock-process-panel lab-exhibit-stage" aria-labelledby="deadlock-process-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="deadlock-process-heading">进程资源状态</h2></div>
         <Users size={19} aria-hidden="true" />
       </div>
       <div className="deadlock-process-list">
@@ -162,7 +163,7 @@ function Metrics({ analysis, state }: { analysis: SingleResourceDeadlockAnalysis
           ? `当前 K=${analysis.config.processCount} 已达到最小死锁进程数，可能发生死锁。`
           : `当前 K=${analysis.config.processCount} 低于死锁阈值，可按安全序列完成。`}
       </div>
-      <div className="deadlock-metrics" aria-label="死锁阈值指标">
+      <div className="lab-exhibit-metrics cols-4" aria-label="死锁阈值指标">
       <div aria-label="最小死锁进程数"><small>最小死锁进程数</small><strong>{analysis.minimumProcessCountForDeadlock ?? '不可能'}</strong></div>
       <div aria-label="当前可用资源"><small>当前可用资源</small><strong>{state.availableResources}</strong></div>
       <div><small>当前死锁参与数</small><strong>{analysis.deadlockParticipantCount || '无'}</strong></div>
@@ -235,64 +236,76 @@ export function SingleResourceDeadlockLabPage() {
   };
 
   return (
-    <div className="page deadlock-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / DEADLOCK</span><h1>单类资源死锁实验室</h1><p>逐步观察资源分配、进程完成与“占有并等待”如何跨过死锁阈值。</p></div>
-        <button className="secondary-command" type="button" disabled={!questionId || starting} onClick={() => void practiceQ25()}>
+    <LabExhibit
+      pageClassName="deadlock-lab-page"
+      subjectLabel="操作系统实验 · 死锁"
+      title="单类资源死锁实验室"
+      description="逐步观察资源分配、进程完成与“占有并等待”如何跨过死锁阈值。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!questionId || starting} onClick={() => void practiceQ25()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q25'}
         </button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="deadlock" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band deadlock-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />本地练习预设 · Q25</span>
-        <strong>{SINGLE_RESOURCE_Q25_PRESET.reviewStatus}</strong>
-        <small>参数来自待人工复核题包；此页只演示单类资源的确定性极端分配，不提升审核状态。</small>
-      </div>
-
-      <div className="lab-module-heading"><ShieldAlert size={18} aria-hidden="true" /><span>资源守恒 · 安全序列 · 死锁检测</span><ListOrdered size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid deadlock-lab-grid">
-        <div className="deadlock-workbench">
-          <section className="lab-control-panel deadlock-control-panel" aria-labelledby="deadlock-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONFIG / MODEL</span><h2 id="deadlock-control-heading">资源与进程参数</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q25 预设</button>
-            </div>
-            <div className="deadlock-input-grid">
-              <label className="lab-input-field"><span>资源总数 R</span><input aria-label="资源总数 R" inputMode="numeric" value={resourcesText} onChange={(event) => updateUrl(event.target.value, processesText, maxDemandText)} /></label>
-              <label className="lab-input-field"><span>进程数量 K</span><input aria-label="进程数量 K" inputMode="numeric" value={processesText} onChange={(event) => updateUrl(resourcesText, event.target.value, maxDemandText)} /></label>
-              <label className="lab-input-field"><span>单进程最大需求 M</span><input aria-label="单进程最大需求 M" inputMode="numeric" value={maxDemandText} onChange={(event) => updateUrl(resourcesText, processesText, event.target.value)} /></label>
-            </div>
-            {!computation.ok ? <div className="lab-error" role="alert">{computation.message}</div> : currentState && (
-              <Metrics analysis={computation.analysis} state={currentState} />
-            )}
-          </section>
-
-          {computation.ok && currentState && (
-            <>
-              <div className="deadlock-current-event">
-                <ListOrdered size={18} aria-hidden="true" />
-                <div><span>当前重放事件</span><strong>{activeStep ? `${stepLabels[activeStep.kind]}${activeStep.processId === undefined ? '' : ` · ${activeStep.processId}`}` : '初始资源分配'}</strong></div>
-                <code>{activeStep ? `available=${currentState.availableResources}` : stateSummary(currentState)}</code>
-              </div>
-              <ResourcePool state={currentState} />
-              <ProcessStateView state={currentState} />
-            </>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="deadlock" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q25"
+          badge={SINGLE_RESOURCE_Q25_PRESET.reviewStatus}
+          note="参数来自待人工复核题包；此页只演示单类资源的确定性极端分配，不提升审核状态。"
+        />
+      )}
+      subheading={(
+        <>
+          <ShieldAlert size={18} aria-hidden="true" />
+          <span>资源守恒 · 安全序列 · 死锁检测</span>
+          <ListOrdered size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="deadlock-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="deadlock-control-heading">资源与进程参数</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q25 预设</button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-3">
+            <label className="lab-exhibit-field"><span>资源总数 R</span><input aria-label="资源总数 R" inputMode="numeric" value={resourcesText} onChange={(event) => updateUrl(event.target.value, processesText, maxDemandText)} /></label>
+            <label className="lab-exhibit-field"><span>进程数量 K</span><input aria-label="进程数量 K" inputMode="numeric" value={processesText} onChange={(event) => updateUrl(resourcesText, event.target.value, maxDemandText)} /></label>
+            <label className="lab-exhibit-field"><span>单进程最大需求 M</span><input aria-label="单进程最大需求 M" inputMode="numeric" value={maxDemandText} onChange={(event) => updateUrl(resourcesText, processesText, event.target.value)} /></label>
+          </div>
+          {!computation.ok ? <div className="lab-exhibit-error" role="alert">{computation.message}</div> : currentState && (
+            <Metrics analysis={computation.analysis} state={currentState} />
           )}
+        </section>
+      )}
+      status={computation.ok && currentState && (
+        <div className="deadlock-current-event lab-exhibit-status-card">
+          <ListOrdered size={18} aria-hidden="true" />
+          <div><span>当前重放事件</span><strong>{activeStep ? `${stepLabels[activeStep.kind]}${activeStep.processId === undefined ? '' : ` · ${activeStep.processId}`}` : '初始资源分配'}</strong></div>
+          <code>{activeStep ? `available=${currentState.availableResources}` : stateSummary(currentState)}</code>
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={computationKey}
-            steps={computation.explorerSteps}
-            onActiveIndexChange={setActiveIndex}
-            announceChanges={false}
-            className="deadlock-step-explorer"
-          />
-        )}
-      </div>
-    </div>
+      )}
+      canvas={computation.ok && currentState && (
+        <>
+          <ResourcePool state={currentState} />
+          <ProcessStateView state={currentState} />
+        </>
+      )}
+      steps={computation.ok && (
+        <StepExplorer
+          key={computationKey}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+          announceChanges={false}
+          className="deadlock-step-explorer"
+        />
+      )}
+    />
   );
 }

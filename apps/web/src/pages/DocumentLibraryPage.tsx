@@ -1,6 +1,7 @@
 import { BookOpen, FileText, FileUp, Pencil, Save, Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatFileSize } from '../app/format-file-size';
 import {
   CacheDocumentLibrary,
   DocumentLibraryError,
@@ -8,12 +9,6 @@ import {
 } from '../app/document-library';
 
 const documentLibrary = new CacheDocumentLibrary();
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
 
 function errorMessage(reason: unknown): string {
   if (reason instanceof DocumentLibraryError) return reason.message;
@@ -97,10 +92,21 @@ export function DocumentLibraryPage() {
   };
 
   return (
-    <div className="page document-library-page">
-      <header className="page-header">
-        <div><span className="eyebrow">LOCAL DOCUMENTS</span><h1>本地资料库</h1><p>{documents.length} 份 PDF · 当前浏览器</p></div>
-        <button className="primary-command" disabled={!capability.supported || loading || busy} onClick={() => inputRef.current?.click()}><FileUp size={17} />{busy ? '处理中' : '导入 PDF'}</button>
+    <div className="page document-library-page sec-page sec-documents">
+      <header className="sec-header">
+        <div className="sec-header-main">
+          <h1>本地资料库</h1>
+          <p className="sec-statement">
+            已保存 <b>{documents.length}</b> 份 PDF
+          </p>
+          <p className="sec-subtitle">保存在当前浏览器供离线阅读；不会随学习备份导出。</p>
+        </div>
+        <div className="sec-header-actions">
+          <button type="button" className="primary-command" disabled={!capability.supported || loading || busy} onClick={() => inputRef.current?.click()}>
+            <FileUp size={16} aria-hidden="true" />
+            <span>{busy ? '处理中' : '导入 PDF'}</span>
+          </button>
+        </div>
         <input
           ref={inputRef}
           type="file"
@@ -115,34 +121,58 @@ export function DocumentLibraryPage() {
         />
       </header>
 
-      {!capability.supported && <div className="status-message error" role="alert">当前浏览器不支持离线 PDF 资料库。</div>}
-      {status && <div className="status-message" role="status">{status}</div>}
-      {error && <div className="status-message error" role="alert">{error}</div>}
+      {!capability.supported && <div className="sec-inline-alert" role="alert">当前浏览器不支持离线 PDF 资料库。</div>}
+      {status && <div className="status-message sec-inline-status" role="status">{status}</div>}
+      {error && <div className="sec-inline-alert" role="alert">{error}</div>}
 
-      {loading ? <section className="loading-state"><span className="loader" /><p>载入本地资料</p></section> : documents.length === 0 ? (
-        <section className="document-empty-state"><FileText size={28} /><h2>还没有本地 PDF</h2></section>
+      {loading ? (
+        <section className="loading-state sec-empty-box"><span className="loader" /><p>载入本地资料</p></section>
+      ) : documents.length === 0 ? (
+        <section className="document-empty-state sec-empty-box">
+          <FileText size={28} aria-hidden="true" />
+          <h2>还没有本地 PDF</h2>
+          <p>点击右上角“导入 PDF”即可在浏览器内离线阅读并记住上次页码。</p>
+        </section>
       ) : (
-        <section className="document-list" aria-label="本地 PDF">
+        <section className="document-list sec-doc-list" aria-label="本地 PDF">
           {documents.map((document) => (
             <article className="document-row" key={document.id}>
-              <FileText className="document-file-icon" aria-hidden="true" />
+              <span className="sec-doc-icon" aria-hidden="true"><FileText size={20} className="document-file-icon" /></span>
               <div className="document-info">
                 {editingId === document.id ? (
-                  <label className="document-name-field"><span>文档名称</span><input aria-label="文档名称" value={editingName} onChange={(event) => setEditingName(event.target.value)} /></label>
-                ) : <strong>{document.name}</strong>}
-                <span>{formatBytes(document.byteLength)} · 上次第 {document.lastPage} 页 · {new Date(document.updatedAt).toLocaleDateString('zh-CN')}</span>
+                  <label className="document-name-field">
+                    <span>文档名称</span>
+                    <input aria-label="文档名称" value={editingName} onChange={(event) => setEditingName(event.target.value)} />
+                  </label>
+                ) : (
+                  <strong>{document.name}</strong>
+                )}
+                <span>
+                  <span className="sec-mono-num">{formatFileSize(document.byteLength)}</span> · 上次第 <span className="sec-mono-num">{document.lastPage}</span> 页 · {new Date(document.updatedAt).toLocaleDateString('zh-CN')}
+                </span>
               </div>
               <div className="document-actions">
                 {editingId === document.id ? (
                   <>
-                    <button className="icon-command" aria-label="保存名称" disabled={busy} onClick={() => void saveRename()}><Save size={16} /></button>
-                    <button className="icon-command" aria-label="取消重命名" onClick={() => setEditingId(null)}><X size={16} /></button>
+                    <button type="button" className="icon-command sec-icon-btn" aria-label="保存名称" disabled={busy} onClick={() => void saveRename()}>
+                      <Save size={16} aria-hidden="true" />
+                    </button>
+                    <button type="button" className="icon-command sec-icon-btn" aria-label="取消重命名" onClick={() => setEditingId(null)}>
+                      <X size={16} aria-hidden="true" />
+                    </button>
                   </>
                 ) : (
                   <>
-                    <button className="secondary-command compact-command" aria-label={`阅读 ${document.name}`} onClick={() => navigate(`/documents/${document.id}?page=${document.lastPage}`)}><BookOpen size={16} />阅读</button>
-                    <button className="icon-command" aria-label={`重命名 ${document.name}`} onClick={() => startRename(document)}><Pencil size={16} /></button>
-                    <button className="icon-command danger" aria-label={`移除 ${document.name}`} disabled={busy} onClick={() => void removeDocument(document)}><Trash2 size={16} /></button>
+                    <button type="button" className="secondary-command compact-command" aria-label={`阅读 ${document.name}`} onClick={() => navigate(`/documents/${document.id}?page=${document.lastPage}`)}>
+                      <BookOpen size={15} aria-hidden="true" />
+                      <span>阅读</span>
+                    </button>
+                    <button type="button" className="icon-command sec-icon-btn" aria-label={`重命名 ${document.name}`} onClick={() => startRename(document)}>
+                      <Pencil size={15} aria-hidden="true" />
+                    </button>
+                    <button type="button" className="icon-command danger sec-icon-btn" aria-label={`移除 ${document.name}`} disabled={busy} onClick={() => void removeDocument(document)}>
+                      <Trash2 size={15} aria-hidden="true" />
+                    </button>
                   </>
                 )}
               </div>

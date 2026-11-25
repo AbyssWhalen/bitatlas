@@ -1,0 +1,284 @@
+/* Tree and sorting conclusions follow the page theme while their diagrams stay dark. */
+.lab-exhibit-footer :is(.complete-tree-conclusion, .sort-pass-conclusion) {
+  border-color: var(--line);
+  border-left-color: var(--warn-text);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.lab-exhibit-footer :is(.complete-tree-conclusion, .sort-pass-conclusion)[data-complete="true"] {
+  border-left-color: var(--ok-text);
+  background: var(--paper);
+}
+
+/* Forest paths and traversal orders use the same pressed state as their ARIA value. */
+.rollout-options {
+  gap: 6px;
+}
+
+.rollout-options .lab-exhibit-keycap[aria-pressed="true"],
+.rollout-options .lab-exhibit-keycap[aria-pressed="true"]:hover {
+  border-color: var(--ink-strong);
+  background: var(--ink-strong);
+  color: var(--bone);
+}
+
+.rollout-three-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.lab-exhibit-control-card :is(.forest-binary-path-explanation, .binary-tree-order-meaning, .switch-forwarding-input-hint) code {
+  color: var(--ink-strong);
+}
+
+.lab-exhibit-control-card .binary-tree-order-meaning small {
+  color: var(--bone);
+  background: var(--ink-strong);
+}
+
+.lab-exhibit-control-card .sort-pass-sequence {
+  background: var(--bone);
+}
+
+.lab-exhibit-control-card :is(.deadlock-status, .filesystem-resolution-status) {
+  color: var(--ok-text);
+  border-color: currentColor;
+  background: var(--paper);
+}
+
+.lab-exhibit-control-card :is([data-deadlock="true"], [data-dangling="true"]) {
+  color: var(--signal-text);
+}
+
+.lab-exhibit-canvas :is(.forest-binary-node, .binary-tree-canvas) text {
+  fill: var(--lit-ink);
+}
+
+/* The forest viewBox scales down to half size on phones, including its labels. */
+.lab-exhibit-canvas .forest-binary-node text {
+  font-size: 28px;
+}
+
+.lab-exhibit-canvas .forest-binary-svg line {
+  stroke: var(--muted);
+}
+
+.lab-exhibit-canvas .forest-binary-svg line.decoded {
+  stroke: var(--ok-text);
+}
+
+.lab-exhibit-canvas .forest-binary-svg line.active {
+  stroke: var(--warn-text);
+}
+
+.lab-exhibit-canvas :is(.forest-binary-edge-list > span, .filesystem-entry-list article[data-entry-status="absent"], .deadlock-process-list article[data-process-status="completed"]) {
+  opacity: 1;
+}
+
+.lab-exhibit-canvas :is(.deadlock-process-panel, .filesystem-inode-panel) {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.lab-exhibit-canvas .tcp-ack-segment-bar {
+  opacity: 1;
+  border-style: dashed;
+  background: var(--paper);
+}
+
+.lab-exhibit-canvas .tcp-ack-segment-row.revealed .tcp-ack-segment-bar {
+  border-style: solid;
+  border-color: var(--lit);
+  background: var(--paper-2);
+}
+
+@media (max-width: 800px) {
+  /* The visually hidden header belongs to the table's scroll area. */
+  .lab-exhibit-canvas .sort-pass-table-scroll {
+    position: relative;
+  }
+}
+
+@media (max-width: 760px) {
+  .rollout-three-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rollout-three-metrics > div {
+    border-right: 0;
+  }
+
+  .rollout-three-metrics > div + div {
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* C: the graph keeps its labels legible after the viewBox scales on phones. */
+.shortest-path-lab-page .lab-exhibit-stage {
+  container-type: inline-size;
+}
+
+.lab-exhibit-canvas .ds-graph {
+  width: 100%;
+  max-width: 540px;
+  min-height: 0;
+  height: auto;
+  margin-inline: auto;
+  background: var(--canvas);
+}
+
+.lab-exhibit-canvas .ds-edge line { stroke: var(--muted); }
+.lab-exhibit-canvas .ds-edge.path line { stroke: var(--lit); }
+.lab-exhibit-canvas .ds-edge.active line { stroke: var(--signal-text); }
+
+.lab-exhibit-canvas .ds-edge circle,
+.lab-exhibit-canvas .ds-node circle {
+  fill: var(--paper);
+  stroke: var(--muted);
+}
+
+.lab-exhibit-canvas .ds-edge.active circle { stroke: var(--signal-text); }
+.lab-exhibit-canvas .ds-node.settled circle { stroke: var(--lit); }
+.lab-exhibit-canvas .ds-node.current circle { fill: var(--lit); stroke: var(--ink-strong); }
+
+.lab-exhibit-canvas .ds-edge text,
+.lab-exhibit-canvas .ds-node text {
+  fill: var(--ink-strong);
+  font-family: var(--mono);
+  font-size: 18px;
+}
+
+.lab-exhibit-canvas .ds-edge.active text { fill: var(--signal-text); }
+.lab-exhibit-canvas .ds-node.current text { fill: var(--lit-ink); }
+
+@container (max-width: 410px) {
+  .lab-exhibit-canvas .ds-graph text { font-size: 26px; }
+}
+
+.lab-exhibit-footer :is(.ds-distance-table, .vm-state-table) tr.current {
+  background: color-mix(in srgb, var(--ok-text) 8%, var(--paper));
+  box-shadow: inset 3px 0 var(--ok-text);
+}
+
+:is(.shortest-path-lab-page, .vm-lab-page, .cidr-lab-page) .lab-exhibit-table-card tbody tr:hover {
+  background: var(--paper-2);
+}
+
+.lab-exhibit-footer .ds-result-grid code,
+.lab-exhibit-footer .gbn-result-flow code,
+.lab-exhibit-controls .network-fact-grid code {
+  color: var(--ink-strong);
+}
+
+.lab-exhibit-canvas .linked-list-viewport { background: var(--canvas); }
+.lab-exhibit-canvas .linked-list-node {
+  width: max-content;
+  min-width: 88px;
+  flex: none;
+  border-color: var(--muted);
+  color: var(--ink-strong);
+}
+.lab-exhibit-canvas .linked-list-node.sentinel,
+.lab-exhibit-canvas .linked-list-node.null-node { background: var(--paper-2); }
+.lab-exhibit-canvas .linked-list-node.fast { border-color: var(--signal-text); box-shadow: inset 0 4px var(--signal-text); }
+.lab-exhibit-canvas .linked-list-node.slow { border-color: var(--lit); box-shadow: inset 0 -4px var(--lit); }
+.lab-exhibit-canvas .linked-list-node.fast.slow { border-color: var(--muted); box-shadow: inset 0 4px var(--signal-text), inset 0 -4px var(--lit); }
+.lab-exhibit-canvas .linked-list-node small { color: var(--muted); opacity: 1; }
+.lab-exhibit-canvas .linked-list-arrow { color: var(--muted); }
+.lab-exhibit-canvas .slow-pointer { color: var(--lit-ink); background: var(--lit); }
+.lab-exhibit-canvas .fast-pointer { color: var(--signal-ink); background: var(--signal-text); }
+
+/* Keep the VM visit transport on paper; only the selectable timeline is dark. */
+.vm-lab-page .vm-transfer-summary { background: var(--paper); }
+.vm-lab-page .vm-transfer-summary > svg { color: var(--ok-text); }
+.vm-lab-page .vm-transfer-summary code { color: var(--ink-strong); }
+.vm-lab-page .vm-event-outcome { margin: 12px 0 0; }
+.vm-lab-page .vm-event-outcome span { color: var(--ink); background: var(--bone); }
+.vm-lab-page .vm-event-outcome .success { color: var(--ok-text); }
+.vm-lab-page .vm-event-outcome .warning { color: var(--warn-text); }
+.vm-lab-page .vm-event-outcome .danger { color: var(--signal-text); }
+.vm-lab-page .vm-event-outcome :is(.success, .warning, .danger) { background: var(--paper); border: 1px solid currentColor; }
+
+.lab-exhibit-canvas .vm-access-timeline button {
+  border-color: var(--muted);
+  background: var(--paper);
+  color: var(--ink-strong);
+}
+
+.lab-exhibit-canvas .vm-access-timeline button.active {
+  border-color: var(--lit);
+  box-shadow: inset 3px 0 var(--lit);
+  background: var(--paper-2);
+}
+
+.lab-exhibit-canvas .vm-access-timeline button:hover { border-color: var(--ink-strong); }
+.lab-exhibit-canvas .vm-access-timeline code { color: var(--ink-strong); }
+
+/* An absolute screen-reader caption belongs to its table's local scroll area. */
+:is(.vm-lab-page, .shortest-path-lab-page, .cidr-lab-page) .table-responsive {
+  position: relative;
+  min-width: 0;
+}
+
+.cidr-lab-page .table-responsive .table { white-space: nowrap; }
+.cidr-lab-page .network-lpm-evaluations > article { padding-inline: 8px; }
+.cidr-lab-page .network-lpm-evaluations > article.missed { opacity: 1; }
+.cidr-lab-page .network-lpm-evaluations > article.selected {
+  background: var(--bone);
+  box-shadow: inset 3px 0 var(--ok-text);
+}
+.cidr-lab-page .network-lpm-selected strong { text-align: left; }
+/* Anchor the spoken comparison sign to the bit string inside the scrolling main pane. */
+.cidr-lab-page .network-route-bits { position: relative; color: var(--ink); }
+.cidr-lab-page .network-subnet-gap { border-top-color: var(--muted); }
+.cidr-lab-page .network-aggregate-equation code { color: var(--ink-strong); background: var(--bone); }
+.cidr-lab-page .network-aggregate-equation > div { max-height: 12rem; overflow: auto; }
+
+/* Fixed-size bit labels wrap at octet boundaries, including /0 and /32. */
+.lab-exhibit-canvas .network-prefix-visual { container-type: inline-size; }
+.lab-exhibit-canvas .network-prefix-legend { min-width: 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.lab-exhibit-canvas .network-bit-ruler { min-width: 0; grid-template-columns: repeat(32, minmax(0, 1fr)); row-gap: 4px; }
+.lab-exhibit-canvas .network-bit-ruler > span { width: auto; border-color: var(--line); }
+.lab-exhibit-canvas .network-prefix-visual .prefix { color: var(--ink-strong); background: var(--paper-2); }
+.lab-exhibit-canvas .network-prefix-visual .host { color: var(--lit); background: var(--paper); }
+.lab-exhibit-canvas .network-bit-ruler .octet-start { box-shadow: inset 2px 0 var(--muted); }
+
+@container (max-width: 690px) {
+  .lab-exhibit-canvas .network-bit-ruler { grid-template-columns: repeat(16, minmax(0, 1fr)); }
+}
+
+@container (max-width: 360px) {
+  .lab-exhibit-canvas .network-bit-ruler { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+}
+
+.gbn-lab-page .gbn-script-status {
+  margin-top: 12px;
+  color: var(--ok-text);
+  border-color: currentColor;
+  background: var(--paper);
+}
+.gbn-lab-page .gbn-current-event { border-left: 3px solid var(--signal-text); background: var(--paper); }
+.gbn-lab-page .gbn-ack-panel code { color: var(--ink-strong); }
+.lab-exhibit-canvas .gbn-state-panel h3 { margin: 12px 0 0; color: var(--ink-strong); font-size: 14px; }
+.lab-exhibit-canvas .gbn-state-panel h3 code { margin-inline-start: 6px; color: var(--ok-text); font: 13px var(--mono); }
+.lab-exhibit-canvas .gbn-sequence-space { grid-template-columns: repeat(8, minmax(0, 1fr)); margin-top: 8px; }
+.lab-exhibit-canvas .gbn-sequence-slot { color: var(--ink-strong); border-color: var(--line); background: var(--paper); box-shadow: none; }
+.lab-exhibit-canvas .gbn-sequence-slot.gbn-window-slot { border-color: var(--muted); background: var(--paper-2); }
+.lab-exhibit-canvas .gbn-sequence-slot.gbn-in-flight { box-shadow: inset 0 -3px var(--lit); }
+.lab-exhibit-canvas .gbn-sequence-slot.gbn-base { border-left: 4px solid var(--signal-text); }
+.lab-exhibit-canvas .gbn-sequence-slot.gbn-timer-owner { border-top: 3px solid var(--lit); }
+.lab-exhibit-canvas .gbn-sequence-slot.gbn-next-seq { outline-color: var(--warn-text); }
+.lab-exhibit-canvas .gbn-legend span { color: var(--ink); background: var(--paper); }
+.lab-exhibit-canvas .gbn-legend .gbn-window-slot { border-color: var(--muted); background: var(--paper-2); }
+.lab-exhibit-canvas .gbn-legend .gbn-base { border-color: var(--signal-text); }
+.lab-exhibit-canvas .gbn-legend .gbn-next-seq { border-color: var(--warn-text); border-left-style: dashed; }
+.lab-exhibit-canvas .gbn-legend .gbn-timer-owner { border-color: var(--lit); }
+.lab-exhibit-canvas .gbn-expected-slot { border: 2px solid var(--ok-text); }
+.lab-exhibit-canvas .gbn-expected-slot small { color: var(--ok-text); }
+
+@media (max-width: 760px) {
+  .lab-exhibit-canvas .gbn-sequence-space { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cidr-lab-page .network-aggregate-equation > svg { transform: rotate(90deg); }
+}

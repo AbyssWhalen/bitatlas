@@ -11,6 +11,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 
@@ -83,9 +84,9 @@ function SegmentEvidence({ check }: { check: SortInvariantCheck }) {
 function CandidateMatrix({ trace, step }: { trace: SortPassAnalysisTrace; step: SortPassStep }) {
   const revealed = new Map(step.state.checks.map((check) => [check.candidateId, check]));
   return (
-    <section className="lab-control-panel sort-pass-state-panel" aria-labelledby="sort-pass-state-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">NECESSARY INVARIANTS</span><h2 id="sort-pass-state-heading">候选必要不变量</h2></div>
+    <section className="sort-pass-state-panel lab-exhibit-stage" aria-labelledby="sort-pass-state-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="sort-pass-state-heading">候选必要不变量</h2></div>
         <ScanSearch size={19} aria-hidden="true" />
       </div>
       <div className="sort-pass-table-scroll">
@@ -169,55 +170,73 @@ export function SortPassAnalysisLabPage() {
     : '待判定';
 
   return (
-    <div className="page sort-pass-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / SORT PASS</span><h1>排序趟次不变量判别实验室</h1><p>依据题目给出的第二趟状态，逐项检查四种排序方法的必要不变量。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ10()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q10'}</button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="sort-pass" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <div className="ds-review-band sort-pass-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />本地练习预设 · Q10</span>
-        <strong>{question?.reviewStatus ?? SORT_PASS_Q10_PRESET.reviewStatus}</strong>
-        <small>来源仍待人工复核；本页只做必要条件排除，不恢复未知初始序列，也不重放真实前两趟。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q10')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><ListChecks size={18} aria-hidden="true" /><span>第二趟状态 · 四项必要条件 · 逐项排除</span><ScanSearch size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid sort-pass-lab-grid">
-        <div className="sort-pass-workbench">
-          <section className="lab-control-panel sort-pass-control-panel" aria-labelledby="sort-pass-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">GIVEN STATE / PASS 2</span><h2 id="sort-pass-control-heading">题给中间状态</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q10 预设</button>
-            </div>
-            <label className="lab-input-field"><span>第二趟序列</span><input aria-label="第二趟序列" value={valuesText} onChange={(event) => updateValues(event.target.value)} /></label>
-            {!computation.ok ? <div className="lab-error" role="alert">{computation.message}</div> : (
-              <div className="sort-pass-sequence-scroll">
-                <div className="sort-pass-sequence" aria-label="当前第二趟状态">
-                  {computation.trace.values.map((value, index) => <span key={index}><small>{index}</small><strong>{value}</strong></span>)}
-                </div>
-              </div>
-            )}
-          </section>
-
-          {computation.ok && currentStep && (
-            <>
-              <div className="sort-pass-current-event" aria-live="polite" aria-atomic="true" aria-label="当前判别事件">
-                <ScanSearch size={18} aria-hidden="true" /><div><span>当前判别事件</span><strong>{stepLabel(currentStep)}</strong></div><code>checked={currentStep.state.checkedCandidateIds.length}/4</code>
-              </div>
-              <CandidateMatrix trace={computation.trace} step={currentStep} />
-              <section className="sort-pass-conclusion" aria-label="当前判别结论" data-complete={isComplete ? 'true' : 'false'}>
-                <div><small>当前结论</small><strong>{conclusion}</strong></div>
-                <p>{isComplete ? '结论仅限题列四项的必要条件判别，不是未知前两趟的重放证明。' : '完成四项检查后再汇总，不提前给出来源答案。'}</p>
-              </section>
-            </>
+    <LabExhibit
+      pageClassName="sort-pass-lab-page"
+      subjectLabel="数据结构实验 · 排序"
+      title="排序趟次不变量判别实验室"
+      description="依据题目给出的第二趟状态，逐项检查四种排序方法的必要不变量。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ10()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q10'}</button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <DataStructuresModuleTabs active="sort-pass" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q10"
+          badge={question?.reviewStatus ?? SORT_PASS_Q10_PRESET.reviewStatus}
+          note="来源仍待人工复核；本页只做必要条件排除，不恢复未知初始序列，也不重放真实前两趟。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q10')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
           )}
+        />
+      )}
+      subheading={(
+        <>
+          <ListChecks size={18} aria-hidden="true" />
+          <span>第二趟状态 · 四项必要条件 · 逐项排除</span>
+          <ScanSearch size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="sort-pass-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="sort-pass-control-heading">题给中间状态</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q10 预设</button>
+          </div>
+          <label className="lab-exhibit-field"><span>第二趟序列</span><input aria-label="第二趟序列" value={valuesText} onChange={(event) => updateValues(event.target.value)} /></label>
+          {!computation.ok ? <div className="lab-exhibit-error" role="alert">{computation.message}</div> : (
+            <div className="sort-pass-sequence-scroll">
+              <div className="sort-pass-sequence" aria-label="当前第二趟状态">
+                {computation.trace.values.map((value, index) => <span key={index}><small>{index}</small><strong>{value}</strong></span>)}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+      status={computation.ok && currentStep && (
+        <div className="sort-pass-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前判别事件">
+          <ScanSearch size={18} aria-hidden="true" /><div><span>当前判别事件</span><strong>{stepLabel(currentStep)}</strong></div><code>checked={currentStep.state.checkedCandidateIds.length}/4</code>
         </div>
-        {computation.ok && <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="sort-pass-step-explorer" />}
-      </div>
-    </div>
+      )}
+      canvas={computation.ok && currentStep && (
+        <CandidateMatrix trace={computation.trace} step={currentStep} />
+      )}
+      steps={computation.ok && (
+        <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="sort-pass-step-explorer" />
+      )}
+      footer={computation.ok && currentStep && (
+        <section className="sort-pass-conclusion" aria-label="当前判别结论" data-complete={isComplete ? 'true' : 'false'}>
+          <div><small>当前结论</small><strong>{conclusion}</strong></div>
+          <p>{isComplete ? '结论仅限题列四项的必要条件判别，不是未知前两趟的重放证明。' : '完成四项检查后再汇总，不提前给出来源答案。'}</p>
+        </section>
+      )}
+    />
   );
 }
 

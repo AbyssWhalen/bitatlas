@@ -3,7 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0e0c" />
+    <meta name="theme-color" content="#ECECE7" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const readPreference = () => {
+          try { return localStorage.getItem('bitatlas.ui.theme'); } catch { return null; }
+        };
+        const resolveTheme = () => {
+          const value = readPreference();
+          return value === 'day' || value === 'night' ? value : media.matches ? 'night' : 'day';
+        };
+        const updateMeta = () => {
+          const color = root.dataset.theme === 'night' ? '#161615' : '#ECECE7';
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        };
+        root.dataset.theme = resolveTheme();
+        updateMeta();
+        new MutationObserver(updateMeta).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+        media.addEventListener('change', () => { root.dataset.theme = resolveTheme(); });
+        window.addEventListener('storage', (event) => {
+          if (event.key === 'bitatlas.ui.theme' || event.key === null) root.dataset.theme = resolveTheme();
+        });
+      })();
+    </script>
     <meta name="description" content="BitAtlas - local-first computer science study and visualization workspace" />
     <link rel="icon" href="/favicon.svg" />
     <title>BitAtlas</title>

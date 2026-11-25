@@ -157,6 +157,22 @@ test('calculates the Q47 CIDR plan and applies longest-prefix matching', async (
   await page.getByRole('button', { name: '典型预设复位' }).click();
   await expect(page.getByLabel('父 CIDR')).toHaveValue('202.118.1.0/24');
   await expectNoHorizontalOverflow(page);
+  if (testInfo.project.name === 'chromium-390') {
+    await expect.poll(() => page.evaluate(() => {
+      const root = document.documentElement;
+      return root.scrollHeight - root.clientHeight;
+    })).toBe(0);
+    for (const selector of ['.network-subnet-table', '.network-route-table']) {
+      const scroll = page.locator('.table-responsive').filter({ has: page.locator(selector) });
+      expect(await scroll.evaluate((element) => {
+        const previous = element.scrollLeft;
+        element.scrollLeft = element.scrollWidth;
+        const moved = element.scrollLeft > previous;
+        element.scrollLeft = previous;
+        return moved;
+      })).toBe(true);
+    }
+  }
   await captureLab(page, testInfo, 'network-lab', '.network-subnet-table');
 
   await page.getByRole('button', { name: '练习 2009 第 47 题' }).click();

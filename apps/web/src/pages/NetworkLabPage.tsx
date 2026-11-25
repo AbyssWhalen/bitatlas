@@ -13,6 +13,7 @@ import { ArrowRight, Binary, BookOpenCheck, Combine, GitFork, Network, RotateCcw
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { NetworkModuleTabs } from '../components/NetworkModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -121,17 +122,9 @@ function hostRange(network: Ipv4Network): string {
 
 function PrefixRuler({ network }: { network: Ipv4Network }) {
   const hostLength = 32 - network.prefixLength;
-  const legendColumns = [
-    network.prefixLength > 0 ? `${network.prefixLength}fr` : null,
-    hostLength > 0 ? `${hostLength}fr` : null,
-  ].filter((column): column is string => column !== null).join(' ');
   return (
     <div className="network-prefix-visual">
-      <div
-        className="network-prefix-legend"
-        aria-hidden="true"
-        style={{ gridTemplateColumns: legendColumns }}
-      >
+      <div className="network-prefix-legend" aria-hidden="true">
         {network.prefixLength > 0 && <span className="prefix">网络前缀 {network.prefixLength} bit</span>}
         {hostLength > 0 && <span className="host">主机部分 {hostLength} bit</span>}
       </div>
@@ -322,98 +315,107 @@ export function NetworkLabPage() {
   };
 
   return (
-    <div className="page cpu-lab-page network-lab-page">
-      <header className="page-header">
-        <div>
-          <span className="eyebrow">NETWORK LAB / CIDR</span>
-          <h1>计算机网络实验室</h1>
-          <p>把子网划分、路由聚合与最长前缀匹配放在同一条 32 位地址轴上。</p>
-        </div>
+    <LabExhibit
+      pageClassName="network-lab-page cidr-lab-page"
+      subjectLabel="计算机网络 · 地址与路由"
+      title="计算机网络实验室"
+      description="把子网划分、路由聚合与最长前缀匹配放在同一条 32 位地址轴上。"
+      headerAction={(
         <button
           type="button"
-          className="secondary-command"
+          className="lab-exhibit-keycap"
           disabled={!questionId || starting}
           onClick={() => void practiceQ47()}
         >
           <BookOpenCheck size={17} aria-hidden="true" />
           {starting ? '创建中' : '练习 2009 第 47 题'}
         </button>
-      </header>
+      )}
+      navigation={<><LabSectionNav /><NetworkModuleTabs active="cidr" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={<LabExhibitNotice icon={<Network size={16} aria-hidden="true" />} label="Q47 地址规划预设" badge="待人工审核" note="本页展示的是可复算的本地预设推导，不称为官方答案。" />}
+      subheading={<><Network size={18} aria-hidden="true" /><span>2009 第 47 题 · CIDR 与路由</span><Route size={14} aria-hidden="true" /></>}
+      mobileOrder="canvas-first"
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="network-input-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="network-input-heading">地址规划输入</h2>
+            <button type="button" className="lab-exhibit-keycap compact" onClick={resetPreset}>
+              <RotateCcw size={16} aria-hidden="true" />典型预设复位
+            </button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-3">
+            <label className="lab-exhibit-field" htmlFor="network-base-cidr">
+              <span>父 CIDR</span>
+              <input
+                id="network-base-cidr"
+                value={baseCidr}
+                onChange={(event) => patchDraft({ baseCidr: event.target.value })}
+                placeholder="202.118.1.0/24"
+                spellCheck={false}
+              />
+            </label>
+            <label className="lab-exhibit-field" htmlFor="network-subnet-count">
+              <span>所需子网数</span>
+              <input
+                id="network-subnet-count"
+                type="number"
+                min="1"
+                step="1"
+                inputMode="numeric"
+                value={subnetCountText}
+                onChange={(event) => patchDraft({ subnetCountText: event.target.value })}
+              />
+            </label>
+            <label className="lab-exhibit-field" htmlFor="network-destination">
+              <span>LPM 目的地址</span>
+              <input
+                id="network-destination"
+                value={destination}
+                onChange={(event) => patchDraft({ destination: event.target.value })}
+                placeholder="202.118.3.2"
+                spellCheck={false}
+              />
+            </label>
+          </div>
 
-      <LabSectionNav />
-      <NetworkModuleTabs active="cidr" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <p className="network-review-note">
-        题包当前为待人工审核状态；本页展示的是可复算的本地预设推导，不称为官方答案。
-      </p>
-
-      <div className="lab-module-heading">
-        <Network size={18} aria-hidden="true" />
-        <span>2009 第 47 题 · CIDR 与路由</span>
-        <Route size={14} aria-hidden="true" />
-      </div>
-
-      <div className="lab-panel-grid network-lab-grid">
-        <div className="network-workbench">
-          <section className="lab-control-panel" aria-labelledby="network-input-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">Q47 PRESET</span><h2 id="network-input-heading">地址规划输入</h2></div>
-              <button type="button" className="secondary-command" onClick={resetPreset}>
-                <RotateCcw size={16} aria-hidden="true" />典型预设复位
-              </button>
-            </div>
-            <div className="lab-field-row">
-              <label className="lab-input-field grow" htmlFor="network-base-cidr">
-                <span>父 CIDR</span>
-                <input
-                  id="network-base-cidr"
-                  value={baseCidr}
-                  onChange={(event) => patchDraft({ baseCidr: event.target.value })}
-                  placeholder="202.118.1.0/24"
-                  spellCheck={false}
-                />
-              </label>
-              <label className="lab-input-field" htmlFor="network-subnet-count">
-                <span>所需子网数</span>
-                <input
-                  id="network-subnet-count"
-                  type="number"
-                  min="1"
-                  step="1"
-                  inputMode="numeric"
-                  value={subnetCountText}
-                  onChange={(event) => patchDraft({ subnetCountText: event.target.value })}
-                />
-              </label>
-              <label className="lab-input-field grow" htmlFor="network-destination">
-                <span>LPM 目的地址</span>
-                <input
-                  id="network-destination"
-                  value={destination}
-                  onChange={(event) => patchDraft({ destination: event.target.value })}
-                  placeholder="202.118.3.2"
-                  spellCheck={false}
-                />
-              </label>
-            </div>
-
-            {!parent.ok ? (
-              <div className="lab-error" role="alert">{networkErrorText(parent.error)}</div>
-            ) : (
-              <>
-                <PrefixRuler network={parent.value} />
-                <NetworkFacts network={parent.value} />
-              </>
-            )}
+          {parent.ok ? <NetworkFacts network={parent.value} /> : <div className="lab-exhibit-error lab-error" role="alert">{networkErrorText(parent.error)}</div>}
+        </section>
+      )}
+      status={lpm.ok ? (
+        <div className="network-lpm-selected lab-exhibit-status-card" role="status">
+          <Route size={17} aria-hidden="true" />
+          <div><span>目的地址 {lpm.value.address.text}</span><strong>
+            {lpm.value.selected
+              ? `经 ${routeById.get(lpm.value.selected.route.id)?.label ?? lpm.value.selected.route.id} 路由转发`
+              : '没有匹配路由'}
+          </strong></div>
+        </div>
+      ) : <div className="lab-exhibit-error lab-error" role="alert">{networkErrorText(lpm.error)}</div>}
+      canvas={parent.ok && (
+        <div className="lab-exhibit-control-stack">
+          <section className="lab-exhibit-stage" aria-labelledby="network-parent-ruler">
+            <div className="lab-exhibit-stage-title"><h2 id="network-parent-ruler">父网络位段 · {parent.value.canonicalCidr}</h2></div>
+            <PrefixRuler network={parent.value} />
           </section>
-
-          <section className="lab-control-panel" aria-labelledby="network-split-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">SUBNETTING</span><h2 id="network-split-heading">子网分割结果</h2></div>
+          {aggregate?.ok && (
+            <section className="lab-exhibit-stage" aria-labelledby="network-aggregate-ruler">
+              <div className="lab-exhibit-stage-title"><h2 id="network-aggregate-ruler">聚合后位段 · {aggregate.value.aggregate.canonicalCidr}</h2></div>
+              <PrefixRuler network={aggregate.value.aggregate} />
+            </section>
+          )}
+        </div>
+      )}
+      steps={<StepExplorer key={`${baseCidr}:${subnetCountText}:${destination}`} steps={steps} />}
+      footer={(
+        <div className="lab-exhibit-footer-stack">
+          <section className="lab-exhibit-table-card" aria-labelledby="network-split-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="network-split-heading">子网分割结果</h2>
               <GitFork size={19} aria-hidden="true" />
             </div>
             {!split.ok ? (
-              <div className="lab-error" role="alert">{networkErrorText(split.error)}</div>
+              <div className="lab-exhibit-error lab-error" role="alert">{networkErrorText(split.error)}</div>
             ) : (
               <>
                 <div className="network-split-summary" aria-live="polite">
@@ -451,32 +453,29 @@ export function NetworkLabPage() {
             )}
           </section>
 
-          <section className="lab-control-panel" aria-labelledby="network-aggregate-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">ROUTE AGGREGATION</span><h2 id="network-aggregate-heading">聚合结果</h2></div>
+          <section className="lab-exhibit-table-card" aria-labelledby="network-aggregate-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="network-aggregate-heading">聚合结果</h2>
               <Combine size={19} aria-hidden="true" />
             </div>
             {!split.ok ? (
-              <div className="lab-error" role="status">先完成有效的子网划分。</div>
+              <div className="lab-exhibit-idle-note" role="status">先完成有效的子网划分。</div>
             ) : split.value.subnets.length < 2 ? (
               <p className="text-muted">一个子网无需聚合；把子网数改为 2 或更多即可比较公共前缀。</p>
             ) : aggregate?.ok ? (
-              <div className="network-aggregate-result">
-                <div className="network-aggregate-equation">
-                  <div>{aggregate.value.children.map((child) => <code key={child.canonicalCidr}>{child.canonicalCidr}</code>)}</div>
-                  <ArrowRight size={18} aria-hidden="true" />
-                  <strong>{aggregate.value.aggregate.canonicalCidr}</strong>
-                </div>
-                <PrefixRuler network={aggregate.value.aggregate} />
+              <div className="network-aggregate-equation">
+                <div>{aggregate.value.children.map((child) => <code key={child.canonicalCidr}>{child.canonicalCidr}</code>)}</div>
+                <ArrowRight size={18} aria-hidden="true" />
+                <strong>{aggregate.value.aggregate.canonicalCidr}</strong>
               </div>
             ) : aggregate ? (
-              <div className="lab-error" role="alert">{networkErrorText(aggregate.error)}</div>
+              <div className="lab-exhibit-error lab-error" role="alert">{networkErrorText(aggregate.error)}</div>
             ) : null}
           </section>
 
-          <section className="lab-control-panel" aria-labelledby="network-route-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">R1 / LONGEST PREFIX MATCH</span><h2 id="network-route-heading">Q47 的 R1 路由表</h2></div>
+          <section className="lab-exhibit-table-card" aria-labelledby="network-route-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="network-route-heading">Q47 的 R1 路由表</h2>
               <Binary size={19} aria-hidden="true" />
             </div>
             <div className="table-responsive">
@@ -498,9 +497,7 @@ export function NetworkLabPage() {
               </table>
             </div>
 
-            {!lpm.ok ? (
-              <div className="lab-error" role="alert">{networkErrorText(lpm.error)}</div>
-            ) : (
+            {lpm.ok && (
               <div className="network-lpm-evaluations" aria-live="polite">
                 {lpm.value.evaluations.map((evaluation) => {
                   const route = routeById.get(evaluation.route.id);
@@ -516,25 +513,11 @@ export function NetworkLabPage() {
                     </article>
                   );
                 })}
-                <div className="network-lpm-selected" role="status">
-                  <Route size={17} aria-hidden="true" />
-                  <span>目的地址 <code>{lpm.value.address.text}</code></span>
-                  <strong>
-                    {lpm.value.selected
-                      ? `经 ${routeById.get(lpm.value.selected.route.id)?.label ?? lpm.value.selected.route.id} 路由转发`
-                      : '没有匹配路由'}
-                  </strong>
-                </div>
               </div>
             )}
           </section>
         </div>
-
-        <StepExplorer
-          key={`${baseCidr}:${subnetCountText}:${destination}`}
-          steps={steps}
-        />
-      </div>
-    </div>
+      )}
+    />
   );
 }

@@ -64,6 +64,20 @@ describe('GbnLabPage', () => {
     expect(screen.getByRole('button', { name: '播放步骤' })).toBeEnabled();
   });
 
+  it('advances the receiver on in-order arrival while the sender waits for the ACK', () => {
+    renderPage('/lab/network?module=gbn&sequenceSpace=4&windowSize=2&script=send%0Aframe-arrive%200%0Aack-arrive%200');
+    const next = screen.getByRole('button', { name: '下一步' });
+    fireEvent.click(next);
+    expect(screen.getByRole('img', { name: '接收方期待序号 0' })).toBeVisible();
+    fireEvent.click(next);
+    const receiver = screen.getByRole('img', { name: '接收方期待序号 1' });
+    expect(receiver.querySelector('.gbn-expected-slot strong')).toHaveTextContent(/^1$/u);
+    expect(document.querySelector('[data-gbn-sequence="0"]')).toHaveClass('gbn-base', 'gbn-in-flight');
+    fireEvent.click(next);
+    expect(document.querySelector('[data-gbn-sequence="1"]')).toHaveClass('gbn-base');
+    expect(receiver.querySelector('.gbn-expected-slot strong')).toHaveTextContent(/^1$/u);
+  });
+
   it('accepts a strict custom action script and rejects invalid configuration or syntax without stale output', () => {
     renderPage();
 

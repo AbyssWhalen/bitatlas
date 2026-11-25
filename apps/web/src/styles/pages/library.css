@@ -1,0 +1,58 @@
+/* Shared library and PDF reader chrome. Owner: lead. Semantic tokens only. */
+/* Server document library: reuses the secondary-page layout; only upload-specific pieces live here. */
+.server-upload { margin-bottom: 20px; }
+.server-upload h2 { margin: 0 0 6px; }
+.server-upload p { max-width: 68ch; color: var(--muted); font-size: 14px; }
+.server-upload-pick { position: relative; cursor: pointer; }
+.server-upload-pick:focus-within { outline: 2px solid var(--signal-text); outline-offset: 2px; }
+.server-upload-progress { max-width: 420px; margin-top: 12px; }
+.server-upload-progress p { margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+.server-offline-mark { color: var(--ok-text); font-weight: 650; }
+.server-offline-mark::before { content: "✓ "; }
+
+/* PDF reader. The rendered page is always opaque white (PDF.js default), so the stage uses --bone to give it an edge in both themes. */
+.shell-v2 .pdf-reader-page { min-height: 0; background: var(--bone); }
+.shell-v2 .pdf-reader-header { background: var(--paper); min-height: 70px; padding: 10px 20px; }
+.shell-v2 .pdf-reader-header .secondary-command,
+.shell-v2 .pdf-reader-header .icon-command { border-radius: 6px; }
+.shell-v2 .pdf-reader-header .icon-command { background: var(--bone); color: var(--ink); }
+.shell-v2 .pdf-reader-header .icon-command:hover:not(:disabled) { border-color: var(--ink-strong); background: var(--paper-2); color: var(--ink-strong); }
+.shell-v2 .pdf-reader-header .icon-command:disabled { background: var(--off); color: var(--muted); border-color: var(--line); opacity: 1; cursor: not-allowed; }
+.shell-v2 .pdf-reader-position input { background: var(--bone); color: var(--ink-strong); font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.shell-v2 .pdf-zoom-controls .secondary-command.selected { background: var(--ink-strong); border-color: var(--ink-strong); color: var(--paper); }
+.shell-v2 .pdf-reader-stage { min-height: 0; background: var(--bone); }
+.shell-v2 .pdf-page-canvas canvas { outline: 1px solid var(--line); }
+.pdf-reader-kicker { display: block; margin-bottom: 3px; color: var(--muted); font-size: 13px; font-weight: 600; }
+@media (min-width: 761px) {
+  /* The app top bar is sticky on desktop; park the reader controls directly beneath it instead of under it. */
+  .shell-v2 .pdf-reader-header { top: 57px; }
+  .shell-v2 .pdf-reader-stage { min-height: calc(100vh - 57px - 70px); }
+}
+
+/* Mock exam entry: rule icons are decoration, so they share one quiet colour instead of four hues. */
+.mock-overview-page .mock-rule-grid { border-radius: 8px; }
+.mock-overview-page .mock-rule-grid article svg { color: var(--muted); }
+.mock-overview-page .mock-rule-grid article strong { color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+.mock-overview-page .review-warning {
+  border: 1px solid color-mix(in srgb, var(--warn-text) 45%, var(--line));
+  border-left: 3px solid var(--warn-text);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.mock-overview-page .mock-readiness-warning strong { color: var(--warn-text); font-size: 14px; }
+/* The heading carries the warning colour; the explanation is ordinary reading text. */
+.mock-overview-page .mock-readiness-warning p { color: var(--ink); font-size: 14px; line-height: 1.6; }
+.mock-overview-page .mock-readiness-warning .secondary-command { border-radius: 6px; }
+.mock-overview-page .mock-history-section { border-top: 0; }
+.mock-overview-page .section-heading-row { min-height: 52px; border-bottom: 0; margin-bottom: 10px; }
+.mock-overview-page .section-heading-row h2 { margin: 0; }
+.mock-overview-page .section-heading-row > span { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.mock-overview-page .mock-empty-state { border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.mock-overview-page .mock-history-list { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); }
+.mock-overview-page .mock-history-list article { padding: 14px 16px; }
+.mock-overview-page .mock-history-list .secondary-command { border-radius: 6px; }
+@media (max-width: 760px) {
+  /* The phone rule set width: 100% plus a 29px indent, which pushed the button past the box edge. */
+  .mock-overview-page .mock-readiness-warning .secondary-command { width: calc(100% - 29px); min-height: 44px; }
+}

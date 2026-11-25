@@ -6,9 +6,10 @@ import {
   type MemoryExpansionStep,
   type MemoryRegionExpansion,
 } from '@408os/cpu-core';
-import { ArrowRight, RotateCcw } from 'lucide-react';
+import { ArrowRight, MemoryStick, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 type ConfigKey = keyof MemoryExpansionConfig;
@@ -158,78 +159,85 @@ export function MemoryExpansionLabPanel() {
   };
 
   return (
-    <div className="lab-panel-grid memory-expansion-lab-layout">
-      <section className="lab-control-panel memory-expansion-control-panel" aria-labelledby="memory-expansion-heading">
-        <div className="lab-control-heading">
-          <div>
-            <span className="eyebrow">2009 Q15 / MEMORY EXPANSION</span>
+    <LabExhibitWorkspace
+      mobileOrder="canvas-first"
+      controls={(
+        <section className="lab-exhibit-control-card memory-expansion-control-panel" aria-labelledby="memory-expansion-heading">
+          <div className="lab-exhibit-card-head">
             <h2 id="memory-expansion-heading">存储器芯片扩展</h2>
+            <div className="lab-exhibit-card-actions">
+              <span className="lab-exhibit-badge">{MEMORY_EXPANSION_Q15_PRESET.reviewStatus}</span>
+              <button type="button" className="lab-exhibit-keycap compact" onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q15')}>
+                查看知识节点<ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <button type="button" className="lab-exhibit-keycap compact icon-only" onClick={restorePreset} title="恢复 Q15 预设" aria-label="恢复 Q15 预设">
+                <RotateCcw size={15} aria-hidden="true" />
+              </button>
+            </div>
           </div>
-          <div className="memory-expansion-heading-actions">
-            <span className="review-status-tag">{MEMORY_EXPANSION_Q15_PRESET.reviewStatus}</span>
-            <button type="button" className="secondary-command compact-command" onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q15')}>
-              查看知识节点<ArrowRight size={14} aria-hidden="true" />
-            </button>
-            <button type="button" className="icon-command" onClick={restorePreset} title="恢复 Q15 预设" aria-label="恢复 Q15 预设">
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
+
+          <div className="lab-exhibit-input-grid cols-3">
+            {INPUTS.map((input) => (
+              <label className="lab-exhibit-field" key={input.param}>
+                <span>{input.label}</span>
+                <input
+                  type="number"
+                  aria-label={input.label}
+                  min="1"
+                  step="1"
+                  value={rawValues[input.param]}
+                  onChange={(event) => updateInput(input.param, event.target.value)}
+                />
+              </label>
+            ))}
           </div>
+
+          {errorMessage ? <div className="lab-exhibit-error" role="alert">{errorMessage}</div> : null}
+        </section>
+      )}
+      status={trace ? (
+        <div className="lab-exhibit-status-card compact-status memory-expansion-current-event" aria-live="polite" aria-label="当前推导事件">
+          <strong>{activeStep?.label}</strong>
+          <span>{activeStep?.value}</span>
         </div>
-
-        <div className="memory-expansion-config-grid">
-          {INPUTS.map((input) => (
-            <label className="lab-input-field" key={input.param}>
-              <span>{input.label}</span>
-              <input
-                type="number"
-                aria-label={input.label}
-                min="1"
-                step="1"
-                value={rawValues[input.param]}
-                onChange={(event) => updateInput(input.param, event.target.value)}
-              />
-            </label>
-          ))}
-        </div>
-
-        {errorMessage ? (
-          <div className="lab-error" role="alert">{errorMessage}</div>
-        ) : trace && (
-          <>
-            <div className="memory-capacity-partition" aria-label="容量分区">
-              <div className="memory-capacity-track" aria-hidden="true">
-                <span className="rom" style={{ flexGrow: trace.result.romBytes }} />
-                <span className="ram" style={{ flexGrow: trace.result.ramBytes }} />
-              </div>
-              <dl>
-                <div><dt>主存</dt><dd>{formatCapacity(trace.result.totalMemoryBytes)}</dd></div>
-                <div><dt>ROM</dt><dd>{formatCapacity(trace.result.romBytes)}</dd></div>
-                <div><dt>RAM</dt><dd>{formatCapacity(trace.result.ramBytes)}</dd></div>
-                <div><dt>编址单元</dt><dd>{trace.result.byteWidthBits} bit</dd></div>
-              </dl>
+      ) : null}
+      canvas={trace ? (
+        <section className="lab-exhibit-stage" aria-labelledby="memory-expansion-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="memory-expansion-stage-heading">主存划分与芯片矩阵</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
             </div>
+            <MemoryStick size={18} aria-hidden="true" />
+          </div>
 
-            <div className="memory-expansion-summary">
-              <div><small>ROM 芯片</small><strong>{trace.result.rom.chipCount}</strong><span>片</span></div>
-              <div><small>RAM 芯片</small><strong>{trace.result.ram.chipCount}</strong><span>片</span></div>
-              <div><small>总芯片数</small><strong aria-label="总芯片数">{trace.result.totalChipCount}</strong><span>片</span></div>
-              <div><small>题目答案</small><strong aria-label="题目答案">{usesPreset ? 'D' : '--'}</strong><span>{trace.result.capacityConserved ? '容量守恒' : '容量不守恒'}</span></div>
+          <div className="memory-capacity-partition" aria-label="容量分区">
+            <div className="memory-capacity-track" aria-hidden="true">
+              <span className="rom" style={{ flexGrow: trace.result.romBytes }} />
+              <span className="ram" style={{ flexGrow: trace.result.ramBytes }} />
             </div>
+            <dl>
+              <div><dt>主存</dt><dd>{formatCapacity(trace.result.totalMemoryBytes)}</dd></div>
+              <div><dt>ROM</dt><dd>{formatCapacity(trace.result.romBytes)}</dd></div>
+              <div><dt>RAM</dt><dd>{formatCapacity(trace.result.ramBytes)}</dd></div>
+              <div><dt>编址单元</dt><dd>{trace.result.byteWidthBits} bit</dd></div>
+            </dl>
+          </div>
 
-            <div className="memory-expansion-current-event" aria-live="polite" aria-label="当前推导事件">
-              <strong>{activeStep?.label}</strong>
-              <span>{activeStep?.value}</span>
-            </div>
+          <div className="memory-expansion-summary">
+            <div><small>ROM 芯片</small><strong>{trace.result.rom.chipCount}</strong><span>片</span></div>
+            <div><small>RAM 芯片</small><strong>{trace.result.ram.chipCount}</strong><span>片</span></div>
+            <div><small>总芯片数</small><strong aria-label="总芯片数">{trace.result.totalChipCount}</strong><span>片</span></div>
+            <div><small>题目答案</small><strong aria-label="题目答案">{usesPreset ? 'D' : '--'}</strong><span>{trace.result.capacityConserved ? '容量守恒' : '容量不守恒'}</span></div>
+          </div>
 
-            <div className="memory-chip-regions">
-              <MemoryChipMatrix region={trace.result.rom} />
-              <MemoryChipMatrix region={trace.result.ram} />
-            </div>
-          </>
-        )}
-      </section>
-
-      {trace && (
+          <div className="memory-chip-regions">
+            <MemoryChipMatrix region={trace.result.rom} />
+            <MemoryChipMatrix region={trace.result.ram} />
+          </div>
+        </section>
+      ) : null}
+      steps={trace ? (
         <StepExplorer
           key={INPUTS.map((input) => rawValues[input.param]).join(':')}
           className="memory-expansion-step-explorer"
@@ -237,7 +245,7 @@ export function MemoryExpansionLabPanel() {
           onActiveIndexChange={setActiveStepIndex}
           announceChanges={false}
         />
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

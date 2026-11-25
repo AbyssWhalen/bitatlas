@@ -9,6 +9,7 @@ import { Activity, ArrowRight, BookOpenCheck, Network, RotateCcw } from 'lucide-
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { NetworkModuleTabs } from '../components/NetworkModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -93,7 +94,7 @@ function buildParams(draft: TcpAckDraft): { module: string; firstSequence: strin
 
 function CurrentAckStep({ step }: { step: TcpCumulativeAckStep }) {
   return (
-    <section className="tcp-ack-current-event" aria-live="polite" aria-atomic="true" aria-label="当前 TCP 累计确认步骤">
+    <section className="tcp-ack-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前 TCP 累计确认步骤">
       <Activity size={18} aria-hidden="true" />
       <div><span>当前推导步骤</span><strong>{step.label}</strong><small>{step.result}</small></div>
       <code>{step.operation}</code>
@@ -128,7 +129,7 @@ function SegmentTimeline({ trace, activeStepIndex }: { trace: TcpCumulativeAckTr
 function TcpAckMetrics({ trace }: { trace: TcpCumulativeAckTrace }) {
   const [first, second] = trace.segments;
   return (
-    <dl className="tcp-ack-metrics" aria-label="TCP 累计确认结果">
+    <dl className="lab-exhibit-metrics cols-4" aria-label="TCP 累计确认结果">
       <div><dt>第一个范围</dt><dd>[{formatNumber(first.sequenceStart)}, {formatNumber(first.sequenceEndExclusive)})</dd></div>
       <div><dt>第二个范围</dt><dd>[{formatNumber(second.sequenceStart)}, {formatNumber(second.sequenceEndExclusive)})</dd></div>
       <div><dt>连续 payload</dt><dd>{formatNumber(trace.totalPayloadBytes)} B</dd></div>
@@ -184,64 +185,79 @@ export function TcpCumulativeAckLabPage() {
   };
 
   return (
-    <div className="page tcp-ack-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">NETWORK LAB / TCP ACK</span><h1>TCP 累计确认实验室</h1><p>把两个连续 TCP payload 展开成字节区间，再读出接收方下一个期望的序列号。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ38()}>
+    <LabExhibit
+      pageClassName="tcp-ack-lab-page"
+      subjectLabel="计算机网络实验 · TCP 确认"
+      title="TCP 累计确认实验室"
+      description="把两个连续 TCP payload 展开成字节区间，再读出接收方下一个期望的序列号。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ38()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q38'}
         </button>
-      </header>
-      <LabSectionNav />
-      <NetworkModuleTabs active="tcp-ack" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="tcp-ack-review-band">
-        <span><Network size={16} aria-hidden="true" />本地练习预设 · Q38</span>
-        <strong>{question?.reviewStatus ?? TCP_CUMULATIVE_ACK_Q38_PRESET.reviewStatus}</strong>
-        <small>本页只重放两个按序、连续、无丢失的 TCP 字节段；题包解析中的“选择确认”措辞保留待人工复核，不在此处改写题包。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=computer-networks&node=topic-2009-q38')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><Network size={18} aria-hidden="true" /><span>2009 第 38 题 · 两段 TCP 字节流与累计 ACK</span><Activity size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid tcp-ack-lab-grid">
-        <div className="tcp-ack-workbench">
-          <section className="lab-control-panel tcp-ack-control-panel" aria-labelledby="tcp-ack-input-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">PARAMETERS / BYTE STREAM</span><h2 id="tcp-ack-input-heading">题设参数</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q38 预设</button>
-            </div>
-            <div className="tcp-ack-input-grid">
-              <label className="lab-input-field"><span>首段序列号</span><input aria-label="首段序列号" inputMode="numeric" value={draft.firstSequence} onChange={(event) => patchDraft({ firstSequence: event.target.value })} /></label>
-              <label className="lab-input-field"><span>第一个 payload（字节）</span><input aria-label="第一个 payload" inputMode="numeric" value={draft.firstLength} onChange={(event) => patchDraft({ firstLength: event.target.value })} /></label>
-              <label className="lab-input-field"><span>第二个 payload（字节）</span><input aria-label="第二个 payload" inputMode="numeric" value={draft.secondLength} onChange={(event) => patchDraft({ secondLength: event.target.value })} /></label>
-            </div>
-            {!calculation.ok ? <div className="lab-error" role="alert">{calculation.message}</div> : (
-              <>
-                <div className="tcp-ack-equation" aria-label="TCP 累计确认公式">
-                  <code>ACK = SEQ₁ + payload₁ + payload₂</code><ArrowRight size={18} aria-hidden="true" /><code>{formatNumber(calculation.trace.config.firstSequenceNumber)} + {formatNumber(calculation.trace.config.payloadLengths[0])} + {formatNumber(calculation.trace.config.payloadLengths[1])}</code><ArrowRight size={18} aria-hidden="true" /><strong>ACK {formatNumber(calculation.trace.nextExpectedSequenceNumber)}</strong>
-                </div>
-                <TcpAckMetrics trace={calculation.trace} />
-              </>
-            )}
-          </section>
-
-          {calculation.ok && currentStep && <CurrentAckStep step={currentStep} />}
-
-          {calculation.ok && (
-            <section className="lab-control-panel tcp-ack-result-panel" aria-labelledby="tcp-ack-result-heading">
-              <div className="lab-control-heading"><div><span className="eyebrow">BYTE RANGES / ACK</span><h2 id="tcp-ack-result-heading">接收状态</h2></div><Network size={19} aria-hidden="true" /></div>
-              <SegmentTimeline trace={calculation.trace} activeStepIndex={activeStepIndex} />
-              <div className="tcp-ack-semantics" aria-label="ACK 语义">
-                <div><span>ACK 含义</span><strong>下一个期望字节序号</strong></div>
-                <div><span>SACK 块</span><strong>本实验不建模</strong></div>
-              </div>
-              <p className="tcp-ack-boundary">累计 ACK 只在两个范围连续且按序到达时前进；本实验不模拟丢包、重传、接收窗口、选择确认块或序列号回绕。</p>
-            </section>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <NetworkModuleTabs active="tcp-ack" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<Network size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q38"
+          badge={question?.reviewStatus ?? TCP_CUMULATIVE_ACK_Q38_PRESET.reviewStatus}
+          note="本页只重放两个按序、连续、无丢失的 TCP 字节段；题包解析中的“选择确认”措辞保留待人工复核，不在此处改写题包。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=computer-networks&node=topic-2009-q38')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
           )}
-        </div>
-
-        {calculation.ok ? <StepExplorer key={`${draft.firstSequence}:${draft.firstLength}:${draft.secondLength}`} className="tcp-ack-step-explorer" steps={calculation.explorerSteps} announceChanges={false} onActiveIndexChange={setActiveStepIndex} /> : <section className="step-explorer tcp-ack-step-explorer tcp-ack-empty-trace"><Network size={24} aria-hidden="true" /><strong>等待有效参数</strong></section>}
-      </div>
-    </div>
+        />
+      )}
+      subheading={(
+        <>
+          <Network size={18} aria-hidden="true" />
+          <span>2009 第 38 题 · 两段 TCP 字节流与累计 ACK</span>
+          <Activity size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="tcp-ack-input-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="tcp-ack-input-heading">题设参数</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q38 预设</button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-3">
+            <label className="lab-exhibit-field"><span>首段序列号</span><input aria-label="首段序列号" inputMode="numeric" value={draft.firstSequence} onChange={(event) => patchDraft({ firstSequence: event.target.value })} /></label>
+            <label className="lab-exhibit-field"><span>第一个 payload（字节）</span><input aria-label="第一个 payload" inputMode="numeric" value={draft.firstLength} onChange={(event) => patchDraft({ firstLength: event.target.value })} /></label>
+            <label className="lab-exhibit-field"><span>第二个 payload（字节）</span><input aria-label="第二个 payload" inputMode="numeric" value={draft.secondLength} onChange={(event) => patchDraft({ secondLength: event.target.value })} /></label>
+          </div>
+          {!calculation.ok ? <div className="lab-exhibit-error" role="alert">{calculation.message}</div> : (
+            <>
+              <div className="lab-exhibit-equation" aria-label="TCP 累计确认公式">
+                <code>ACK = SEQ₁ + payload₁ + payload₂</code><ArrowRight size={18} aria-hidden="true" /><code>{formatNumber(calculation.trace.config.firstSequenceNumber)} + {formatNumber(calculation.trace.config.payloadLengths[0])} + {formatNumber(calculation.trace.config.payloadLengths[1])}</code><ArrowRight size={18} aria-hidden="true" /><strong>ACK {formatNumber(calculation.trace.nextExpectedSequenceNumber)}</strong>
+              </div>
+              <TcpAckMetrics trace={calculation.trace} />
+            </>
+          )}
+        </section>
+      )}
+      status={calculation.ok && currentStep && <CurrentAckStep step={currentStep} />}
+      canvas={calculation.ok && (
+        <section className="tcp-ack-result-panel lab-exhibit-stage" aria-labelledby="tcp-ack-result-heading">
+          <div className="lab-exhibit-stage-head"><div className="lab-exhibit-stage-title"><h2 id="tcp-ack-result-heading">接收状态</h2></div><Network size={19} aria-hidden="true" /></div>
+          <SegmentTimeline trace={calculation.trace} activeStepIndex={activeStepIndex} />
+          <div className="tcp-ack-semantics" aria-label="ACK 语义">
+            <div><span>ACK 含义</span><strong>下一个期望字节序号</strong></div>
+            <div><span>SACK 块</span><strong>本实验不建模</strong></div>
+          </div>
+          <p className="tcp-ack-boundary">累计 ACK 只在两个范围连续且按序到达时前进；本实验不模拟丢包、重传、接收窗口、选择确认块或序列号回绕。</p>
+        </section>
+      )}
+      steps={calculation.ok ? (
+        <StepExplorer key={`${draft.firstSequence}:${draft.firstLength}:${draft.secondLength}`} className="tcp-ack-step-explorer" steps={calculation.explorerSteps} announceChanges={false} onActiveIndexChange={setActiveStepIndex} />
+      ) : (
+        <section className="lab-exhibit-steps-empty"><Network size={24} aria-hidden="true" /><strong>等待有效参数</strong></section>
+      )}
+    />
   );
 }

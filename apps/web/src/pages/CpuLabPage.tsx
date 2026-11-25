@@ -25,6 +25,7 @@ import { CacheLabPanel } from '../components/CacheLabPanel';
 import { BusBandwidthLabPanel } from '../components/BusBandwidthLabPanel';
 import { DatapathLabPanel } from '../components/DatapathLabPanel';
 import { IoOverheadLabPanel } from '../components/IoOverheadLabPanel';
+import { LabExhibit, LabExhibitWorkspace } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { MemoryExpansionLabPanel } from '../components/MemoryExpansionLabPanel';
 import { MicroOperationsLabPanel } from '../components/MicroOperationsLabPanel';
@@ -72,7 +73,13 @@ function LabPanel({ tab }: { tab: LabTab }) {
   if (tab === 'float32') return <Float32Panel />;
   if (tab === 'riscv') return <RiscvPanel />;
   if (tab === 'datapath') return <DatapathLabPanel />;
-  if (tab === 'pipeline') return <Suspense fallback={<div className="lab-control-panel pipeline-loading" aria-label="载入流水线实验"><div className="loader" /></div>}><PipelineLabPanel /></Suspense>;
+  if (tab === 'pipeline') {
+    return (
+      <Suspense fallback={<div className="lab-exhibit-control-card pipeline-loading" aria-label="载入流水线实验"><div className="loader" /></div>}>
+        <PipelineLabPanel />
+      </Suspense>
+    );
+  }
   if (tab === 'cache') return <CacheLabPanel />;
   if (tab === 'memory-expansion') return <MemoryExpansionLabPanel />;
   if (tab === 'io-overhead') return <IoOverheadLabPanel />;
@@ -180,8 +187,8 @@ function ExampleSelect({ label, examples, onSelect }: {
   onSelect: (value: string) => void;
 }) {
   return (
-    <label className="select-field lab-example-select">
-      <FlaskConical size={16} />
+    <label className="lab-exhibit-select">
+      <FlaskConical size={15} aria-hidden="true" />
       <select aria-label={label} value="" onChange={(event) => onSelect(event.target.value)}>
         <option value="" disabled>典型例题</option>
         {examples.map((example) => <option key={example.value} value={example.value}>{example.label}</option>)}
@@ -231,25 +238,48 @@ function RadixPanel() {
   }, [outputs, parsed, radix]);
 
   return (
-    <div className="lab-panel-grid">
-      <section className="lab-control-panel">
-        <div className="lab-control-heading"><div><span className="eyebrow">INPUT</span><h2>进制解析</h2></div><ExampleSelect label="选择进制转换例题" examples={[
-          { value: '255', label: '255：边界换算' },
-          { value: '-42', label: '-42：负数换算' },
-          { value: '18446744073709551615', label: '2^64-1：大整数' },
-        ]} onSelect={setInput} /></div>
-        <div className="lab-field-row">
-          <label className="lab-input-field"><span>输入进制</span><select value={radix} onChange={(event) => setRadix(Number(event.target.value) as IntegerRadix)}>{radices.map((item) => <option key={item.value} value={item.value}>{item.label} ({item.value})</option>)}</select></label>
-          <label className="lab-input-field grow"><span>数值</span><input value={input} onChange={(event) => setInput(event.target.value)} spellCheck={false} /></label>
-        </div>
-        {!parsed.ok ? <div className="lab-error" role="alert">{errorText(parsed.error)}</div> : (
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="radix-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="radix-control-heading">进制解析</h2>
+            <ExampleSelect label="选择进制转换例题" examples={[
+              { value: '255', label: '255：边界换算' },
+              { value: '-42', label: '-42：负数换算' },
+              { value: '18446744073709551615', label: '2^64-1：大整数' },
+            ]} onSelect={setInput} />
+          </div>
+          <div className="lab-exhibit-field-row">
+            <label className="lab-exhibit-field">
+              <span>输入进制</span>
+              <select value={radix} onChange={(event) => setRadix(Number(event.target.value) as IntegerRadix)}>
+                {radices.map((item) => <option key={item.value} value={item.value}>{item.label} ({item.value})</option>)}
+              </select>
+            </label>
+            <label className="lab-exhibit-field grow">
+              <span>数值</span>
+              <input value={input} onChange={(event) => setInput(event.target.value)} spellCheck={false} />
+            </label>
+          </div>
+          {!parsed.ok ? <div className="lab-exhibit-error" role="alert">{errorText(parsed.error)}</div> : null}
+        </section>
+      )}
+      canvas={parsed.ok ? (
+        <section className="lab-exhibit-stage" aria-labelledby="radix-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="radix-stage-heading">各进制表示</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Binary size={18} aria-hidden="true" />
+          </div>
           <div className="radix-output-list">
             {outputs.map((item) => <div key={item.value}><span>{item.label}</span><code>{item.text}</code></div>)}
           </div>
-        )}
-      </section>
-      <StepExplorer key={`${radix}:${input}`} steps={steps} />
-    </div>
+        </section>
+      ) : null}
+      steps={steps.length ? <StepExplorer key={`${radix}:${input}`} steps={steps} /> : null}
+    />
   );
 }
 
@@ -290,54 +320,93 @@ function MachinePanel() {
     { id: 'truth', label: '恢复真值', value: decoded.value.negativeZero ? '-0' : decoded.value.value.toString() },
   ] : [], [bits, decoded, representation]);
 
-  return (
-    <div className="lab-panel-grid">
-      <section className="lab-control-panel">
-        <div className="lab-control-heading">
-          <div><span className="eyebrow">SIGNED INTEGER</span><h2>定点机器数</h2></div>
-          <ExampleSelect label="选择机器数例题" examples={mode === 'encode' ? [
-            { value: '-5', label: '-5：三种机器数' },
-            { value: '-128', label: '-128：8 位边界' },
-            { value: '127', label: '127：正数上界' },
-          ] : [
-            { value: '11111011', label: '11111011：补码 -5' },
-            { value: '10000000', label: '10000000：补码 -128' },
-            { value: '11111111', label: '11111111：反码 -0' },
-          ]} onSelect={mode === 'encode' ? setDecimal : setBits} />
-        </div>
-        <div className="lab-segment-row">
-          <div className="segmented-control" aria-label="机器数转换方向"><button aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>真值 → 机器数</button><button aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>机器数 → 真值</button></div>
-          <div className="segmented-control" aria-label="位宽选择">{[8, 16, 32].map((width) => <button key={width} aria-pressed={bitWidth === width} className={bitWidth === width ? 'active' : ''} onClick={() => setBitWidth(width)}>{width} bit</button>)}</div>
-        </div>
+  const activeSteps = mode === 'encode' ? encodeSteps : decodeSteps;
+  const hasCanvas = mode === 'encode' ? parsed.ok : decoded.ok;
 
-        {mode === 'encode' ? (
-          <>
-            <label className="lab-input-field full"><span>十进制真值</span><input value={decimal} onChange={(event) => setDecimal(event.target.value)} inputMode="numeric" /></label>
-            {!parsed.ok ? <div className="lab-error" role="alert">{errorText(parsed.error)}</div> : (
-              <div className="machine-code-list">
-                {encoded.map((entry) => (
-                  <article key={entry.value}>
-                    <div><strong>{entry.label}</strong>{entry.result?.ok && <small>{entry.result.value.range.min.toString()} 至 {entry.result.value.range.max.toString()}</small>}</div>
-                    {entry.result?.ok ? <BitStrip bits={entry.result.value.bits} label={entry.label} /> : entry.result && <span className="machine-unavailable">不可表示</span>}
-                  </article>
-                ))}
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <div className="lab-field-row">
-              <label className="lab-input-field"><span>表示法</span><select value={representation} onChange={(event) => setRepresentation(event.target.value as SignedIntegerRepresentation)}>{representations.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
-              <label className="lab-input-field grow"><span>{bitWidth} 位机器数</span><input value={bits} onChange={(event) => setBits(event.target.value)} maxLength={bitWidth} inputMode="numeric" spellCheck={false} /></label>
+  return (
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="machine-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="machine-control-heading">定点机器数</h2>
+            <ExampleSelect label="选择机器数例题" examples={mode === 'encode' ? [
+              { value: '-5', label: '-5：三种机器数' },
+              { value: '-128', label: '-128：8 位边界' },
+              { value: '127', label: '127：正数上界' },
+            ] : [
+              { value: '11111011', label: '11111011：补码 -5' },
+              { value: '10000000', label: '10000000：补码 -128' },
+              { value: '11111111', label: '11111111：反码 -0' },
+            ]} onSelect={mode === 'encode' ? setDecimal : setBits} />
+          </div>
+          <div className="lab-exhibit-segment-row">
+            <div className="segmented-control" aria-label="机器数转换方向">
+              <button type="button" aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>真值 → 机器数</button>
+              <button type="button" aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>机器数 → 真值</button>
             </div>
-            {!decoded.ok ? <div className="lab-error" role="alert">{errorText(decoded.error)}</div> : (
-              <div className="decoded-result"><BitStrip bits={decoded.value.bits} label="待解码机器数" /><span>十进制真值</span><strong>{decoded.value.negativeZero ? '-0' : decoded.value.value.toString()}</strong></div>
-            )}
-          </>
-        )}
-      </section>
-      <StepExplorer key={`${mode}:${bitWidth}:${decimal}:${bits}:${representation}`} steps={mode === 'encode' ? encodeSteps : decodeSteps} />
-    </div>
+            <div className="segmented-control" aria-label="位宽选择">
+              {[8, 16, 32].map((width) => (
+                <button key={width} type="button" aria-pressed={bitWidth === width} className={bitWidth === width ? 'active' : ''} onClick={() => setBitWidth(width)}>{width} bit</button>
+              ))}
+            </div>
+          </div>
+
+          {mode === 'encode' ? (
+            <>
+              <label className="lab-exhibit-field">
+                <span>十进制真值</span>
+                <input value={decimal} onChange={(event) => setDecimal(event.target.value)} inputMode="numeric" />
+              </label>
+              {!parsed.ok ? <div className="lab-exhibit-error" role="alert">{errorText(parsed.error)}</div> : null}
+            </>
+          ) : (
+            <>
+              <div className="lab-exhibit-field-row">
+                <label className="lab-exhibit-field">
+                  <span>表示法</span>
+                  <select value={representation} onChange={(event) => setRepresentation(event.target.value as SignedIntegerRepresentation)}>
+                    {representations.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+                  </select>
+                </label>
+                <label className="lab-exhibit-field grow">
+                  <span>{bitWidth} 位机器数</span>
+                  <input value={bits} onChange={(event) => setBits(event.target.value)} maxLength={bitWidth} inputMode="numeric" spellCheck={false} />
+                </label>
+              </div>
+              {!decoded.ok ? <div className="lab-exhibit-error" role="alert">{errorText(decoded.error)}</div> : null}
+            </>
+          )}
+        </section>
+      )}
+      canvas={hasCanvas ? (
+        <section className="lab-exhibit-stage" aria-labelledby="machine-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="machine-stage-heading">{mode === 'encode' ? '原码 / 反码 / 补码位串' : '机器数解码结果'}</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Rows3 size={18} aria-hidden="true" />
+          </div>
+          {mode === 'encode' ? (
+            <div className="machine-code-list">
+              {encoded.map((entry) => (
+                <article key={entry.value}>
+                  <div><strong>{entry.label}</strong>{entry.result?.ok && <small>{entry.result.value.range.min.toString()} 至 {entry.result.value.range.max.toString()}</small>}</div>
+                  {entry.result?.ok ? <BitStrip bits={entry.result.value.bits} label={entry.label} /> : entry.result && <span className="machine-unavailable">不可表示</span>}
+                </article>
+              ))}
+            </div>
+          ) : decoded.ok ? (
+            <div className="decoded-result">
+              <BitStrip bits={decoded.value.bits} label="待解码机器数" />
+              <span>十进制真值</span>
+              <strong>{decoded.value.negativeZero ? '-0' : decoded.value.value.toString()}</strong>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+      steps={activeSteps.length ? <StepExplorer key={`${mode}:${bitWidth}:${decimal}:${bits}:${representation}`} steps={activeSteps} /> : null}
+    />
   );
 }
 
@@ -359,44 +428,60 @@ function Float32Panel() {
   ] : [], [info, mode]);
 
   return (
-    <div className="lab-panel-grid">
-      <section className="lab-control-panel">
-        <div className="lab-control-heading">
-          <div><span className="eyebrow">IEEE 754 / BINARY32</span><h2>单精度浮点数</h2></div>
-          <ExampleSelect label="选择 IEEE 754 例题" examples={mode === 'encode' ? [
-            { value: '1.5', label: '1.5：规格化数' },
-            { value: '-0', label: '-0：符号零' },
-            { value: 'Infinity', label: '+Infinity：无穷' },
-            { value: 'NaN', label: 'NaN：非数' },
-          ] : [
-            { value: '00111111110000000000000000000000', label: '0x3FC00000：1.5' },
-            { value: '00000000000000000000000000000001', label: '最小正非规格化数' },
-            { value: '11111111100000000000000000000000', label: '-Infinity' },
-          ]} onSelect={mode === 'encode' ? setDecimal : setBits} />
-        </div>
-        <div className="lab-segment-row">
-          <div className="segmented-control" aria-label="浮点转换方向"><button aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>十进制 → 位串</button><button aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>位串 → 十进制</button></div>
-          <span className="precision-label">binary32 · 1 + 8 + 23 bit</span>
-        </div>
-        <label className="lab-input-field full"><span>{mode === 'encode' ? '十进制数值' : '32 位二进制串'}</span><input value={mode === 'encode' ? decimal : bits} onChange={(event) => mode === 'encode' ? setDecimal(event.target.value) : setBits(event.target.value)} maxLength={mode === 'decode' ? 32 : undefined} spellCheck={false} /></label>
-        {!result.ok ? <div className="lab-error" role="alert">{errorText(result.error)}</div> : info && (
-          <>
-            <div className="ieee-field-strip" role="img" aria-label={`符号位 ${info.signBits}，阶码 ${info.exponentBits}，尾数 ${info.fractionBits}`}>
-              <div className="ieee-sign"><span>符号 S</span><code>{info.signBits}</code></div>
-              <div className="ieee-exponent"><span>阶码 E</span><code>{info.exponentBits}</code></div>
-              <div className="ieee-fraction"><span>尾数 M</span><code>{info.fractionBits}</code></div>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="float32-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="float32-control-heading">单精度浮点数</h2>
+            <ExampleSelect label="选择 IEEE 754 例题" examples={mode === 'encode' ? [
+              { value: '1.5', label: '1.5：规格化数' },
+              { value: '-0', label: '-0：符号零' },
+              { value: 'Infinity', label: '+Infinity：无穷' },
+              { value: 'NaN', label: 'NaN：非数' },
+            ] : [
+              { value: '00111111110000000000000000000000', label: '0x3FC00000：1.5' },
+              { value: '00000000000000000000000000000001', label: '最小正非规格化数' },
+              { value: '11111111100000000000000000000000', label: '-Infinity' },
+            ]} onSelect={mode === 'encode' ? setDecimal : setBits} />
+          </div>
+          <div className="lab-exhibit-segment-row">
+            <div className="segmented-control" aria-label="浮点转换方向">
+              <button type="button" aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>十进制 → 位串</button>
+              <button type="button" aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>位串 → 十进制</button>
             </div>
-            <dl className="ieee-facts">
-              <div><dt>存储值</dt><dd>{formatFloat(info.value)}</dd></div>
-              <div><dt>类别</dt><dd>{floatLabels[info.classification]}</dd></div>
-              <div><dt>阶码真值</dt><dd>{info.unbiasedExponent ?? '--'}</dd></div>
-              <div><dt>十六进制</dt><dd>{info.hex.toUpperCase()}</dd></div>
-            </dl>
-          </>
-        )}
-      </section>
-      <StepExplorer key={`${mode}:${decimal}:${bits}`} steps={steps} />
-    </div>
+            <span className="lab-exhibit-precision">binary32 · 1 + 8 + 23 bit</span>
+          </div>
+          <label className="lab-exhibit-field">
+            <span>{mode === 'encode' ? '十进制数值' : '32 位二进制串'}</span>
+            <input value={mode === 'encode' ? decimal : bits} onChange={(event) => mode === 'encode' ? setDecimal(event.target.value) : setBits(event.target.value)} maxLength={mode === 'decode' ? 32 : undefined} spellCheck={false} />
+          </label>
+          {!result.ok ? <div className="lab-exhibit-error" role="alert">{errorText(result.error)}</div> : null}
+        </section>
+      )}
+      canvas={result.ok && info ? (
+        <section className="lab-exhibit-stage" aria-labelledby="float32-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="float32-stage-heading">IEEE 754 位段分解</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Braces size={18} aria-hidden="true" />
+          </div>
+          <div className="ieee-field-strip" role="img" aria-label={`符号位 ${info.signBits}，阶码 ${info.exponentBits}，尾数 ${info.fractionBits}`}>
+            <div className="ieee-sign"><span>符号 S</span><code>{info.signBits}</code></div>
+            <div className="ieee-exponent"><span>阶码 E</span><code>{info.exponentBits}</code></div>
+            <div className="ieee-fraction"><span>尾数 M</span><code>{info.fractionBits}</code></div>
+          </div>
+          <dl className="ieee-facts">
+            <div><dt>存储值</dt><dd>{formatFloat(info.value)}</dd></div>
+            <div><dt>类别</dt><dd>{floatLabels[info.classification]}</dd></div>
+            <div><dt>阶码真值</dt><dd>{info.unbiasedExponent ?? '--'}</dd></div>
+            <div><dt>十六进制</dt><dd>{info.hex.toUpperCase()}</dd></div>
+          </dl>
+        </section>
+      ) : null}
+      steps={steps.length ? <StepExplorer key={`${mode}:${decimal}:${bits}`} steps={steps} /> : null}
+    />
   );
 }
 
@@ -501,41 +586,51 @@ function RiscvPanel() {
   ];
 
   return (
-    <div className="lab-panel-grid">
-      <section className="lab-control-panel">
-        <div className="lab-control-heading">
-          <div><span className="eyebrow">RV32I / ENCODING</span><h2>RV32I 指令编码</h2></div>
-          <ExampleSelect label="选择 RV32I 例题" examples={examples} onSelect={mode === 'encode' ? setAssembly : setMachineCode} />
-        </div>
-        <div className="lab-segment-row">
-          <div className="segmented-control" aria-label="RV32I 转换方向">
-            <button aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>汇编 → 机器码</button>
-            <button aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>机器码 → 汇编</button>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="riscv-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="riscv-control-heading">RV32I 指令编码</h2>
+            <ExampleSelect label="选择 RV32I 例题" examples={examples} onSelect={mode === 'encode' ? setAssembly : setMachineCode} />
           </div>
-          <span className="precision-label">RV32I · 32 bit · little-endian independent</span>
-        </div>
-        <label className="lab-input-field full">
-          <span>{mode === 'encode' ? '汇编指令' : '32 位机器码'}</span>
-          <input
-            aria-label={mode === 'encode' ? '汇编指令' : '32 位机器码'}
-            value={mode === 'encode' ? assembly : machineCode}
-            onChange={(event) => mode === 'encode' ? setAssembly(event.target.value) : setMachineCode(event.target.value)}
-            spellCheck={false}
-          />
-        </label>
-        {!result.ok ? <div className="lab-error" role="alert">{riscvErrorText(result.error)}</div> : encoded && (
-          <>
-            <div className="riscv-result-code">
-              <span>{encoded.fields.format} 型 · {encoded.instruction.mnemonic.toUpperCase()}</span>
-              <strong>{mode === 'encode' ? encoded.hex : encoded.canonicalAssembly}</strong>
-              <code>{mode === 'encode' ? encoded.canonicalAssembly : encoded.hex}</code>
+          <div className="lab-exhibit-segment-row">
+            <div className="segmented-control" aria-label="RV32I 转换方向">
+              <button type="button" aria-pressed={mode === 'encode'} className={mode === 'encode' ? 'active' : ''} onClick={() => setMode('encode')}>汇编 → 机器码</button>
+              <button type="button" aria-pressed={mode === 'decode'} className={mode === 'decode' ? 'active' : ''} onClick={() => setMode('decode')}>机器码 → 汇编</button>
             </div>
-            <RiscvFieldRuler result={encoded} />
-          </>
-        )}
-      </section>
-      <StepExplorer key={`${mode}:${assembly}:${machineCode}`} steps={steps} />
-    </div>
+            <span className="lab-exhibit-precision">RV32I · 32 bit · little-endian independent</span>
+          </div>
+          <label className="lab-exhibit-field">
+            <span>{mode === 'encode' ? '汇编指令' : '32 位机器码'}</span>
+            <input
+              aria-label={mode === 'encode' ? '汇编指令' : '32 位机器码'}
+              value={mode === 'encode' ? assembly : machineCode}
+              onChange={(event) => mode === 'encode' ? setAssembly(event.target.value) : setMachineCode(event.target.value)}
+              spellCheck={false}
+            />
+          </label>
+          {!result.ok ? <div className="lab-exhibit-error" role="alert">{riscvErrorText(result.error)}</div> : null}
+        </section>
+      )}
+      canvas={result.ok && encoded ? (
+        <section className="lab-exhibit-stage" aria-labelledby="riscv-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="riscv-stage-heading">32 位指令字段标尺</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Code2 size={18} aria-hidden="true" />
+          </div>
+          <div className="riscv-result-code">
+            <span>{encoded.fields.format} 型 · {encoded.instruction.mnemonic.toUpperCase()}</span>
+            <strong>{mode === 'encode' ? encoded.hex : encoded.canonicalAssembly}</strong>
+            <code>{mode === 'encode' ? encoded.canonicalAssembly : encoded.hex}</code>
+          </div>
+          <RiscvFieldRuler result={encoded} />
+        </section>
+      ) : null}
+      steps={steps.length ? <StepExplorer key={`${mode}:${assembly}:${machineCode}`} steps={steps} /> : null}
+    />
   );
 }
 
@@ -598,28 +693,45 @@ export function CpuLabPage() {
   };
 
   return (
-    <div className="page cpu-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">CPU LAB / CORE</span><h1>CPU 可视化实验室</h1><p>从机器表示、RV32I 指令执行、流水线冒险、Cache 访存到微操作与 I/O 开销的逐步推导。</p></div>
-        {relatedQuestionIds.length > 0 && <button className="secondary-command" disabled={starting} onClick={() => void practiceRelated()}><BookOpenCheck size={17} />{starting ? '创建中' : `相关真题 ${relatedQuestionIds.length} 题`}</button>}
-      </header>
-      <LabSectionNav />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <nav className="lab-tabs cpu-lab-tabs" aria-label="实验类型">
-        <button aria-pressed={tab === 'radix'} className={tab === 'radix' ? 'active' : ''} onClick={() => selectTab('radix')}><Binary size={17} /><span>进制转换</span></button>
-        <button aria-pressed={tab === 'signed'} className={tab === 'signed' ? 'active' : ''} onClick={() => selectTab('signed')}><Rows3 size={17} /><span>原码 / 反码 / 补码</span></button>
-        <button aria-pressed={tab === 'float32'} className={tab === 'float32' ? 'active' : ''} onClick={() => selectTab('float32')}><Braces size={17} /><span>IEEE 754</span></button>
-        <button aria-pressed={tab === 'riscv'} className={tab === 'riscv' ? 'active' : ''} onClick={() => selectTab('riscv')}><Code2 size={17} /><span>RV32I 指令</span></button>
-        <button aria-pressed={tab === 'datapath'} className={tab === 'datapath' ? 'active' : ''} onClick={() => selectTab('datapath')}><CircuitBoard size={17} /><span>单周期数据通路</span></button>
-        <button aria-pressed={tab === 'pipeline'} className={tab === 'pipeline' ? 'active' : ''} onClick={() => selectTab('pipeline')}><Workflow size={17} /><span>五级流水线</span></button>
-        <button aria-pressed={tab === 'cache'} className={tab === 'cache' ? 'active' : ''} onClick={() => selectTab('cache')}><HardDrive size={17} /><span>Cache 映射</span></button>
-        <button aria-pressed={tab === 'memory-expansion'} className={tab === 'memory-expansion' ? 'active' : ''} onClick={() => selectTab('memory-expansion')}><MemoryStick size={17} /><span>存储扩展</span></button>
-        <button aria-pressed={tab === 'io-overhead'} className={tab === 'io-overhead' ? 'active' : ''} onClick={() => selectTab('io-overhead')}><Activity size={17} /><span>I/O 开销</span></button>
-        <button aria-pressed={tab === 'micro-operations'} className={tab === 'micro-operations' ? 'active' : ''} onClick={() => selectTab('micro-operations')}><Workflow size={17} /><span>微操作调度</span></button>
-        <button aria-pressed={tab === 'bus-bandwidth'} className={tab === 'bus-bandwidth' ? 'active' : ''} onClick={() => selectTab('bus-bandwidth')}><Gauge size={17} /><span>总线带宽</span></button>
-      </nav>
-      <div className="lab-module-heading"><Cpu size={18} /><span>{moduleLabels[tab]}</span><Play size={14} /></div>
+    <LabExhibit
+      pageClassName="cpu-lab-page"
+      subjectLabel="组成原理实验 · CPU"
+      title="CPU 可视化实验室"
+      description="从机器表示、RV32I 指令执行、流水线冒险、Cache 访存到微操作与 I/O 开销的逐步推导。"
+      headerAction={relatedQuestionIds.length > 0 ? (
+        <button className="lab-exhibit-keycap" type="button" disabled={starting} onClick={() => void practiceRelated()}>
+          <BookOpenCheck size={17} aria-hidden="true" />
+          {starting ? '创建中' : `相关真题 ${relatedQuestionIds.length} 题`}
+        </button>
+      ) : null}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <nav className="lab-tabs cpu-lab-tabs" aria-label="实验类型">
+            <button type="button" aria-pressed={tab === 'radix'} className={tab === 'radix' ? 'active' : ''} onClick={() => selectTab('radix')}><Binary size={17} aria-hidden="true" /><span>进制转换</span></button>
+            <button type="button" aria-pressed={tab === 'signed'} className={tab === 'signed' ? 'active' : ''} onClick={() => selectTab('signed')}><Rows3 size={17} aria-hidden="true" /><span>原码 / 反码 / 补码</span></button>
+            <button type="button" aria-pressed={tab === 'float32'} className={tab === 'float32' ? 'active' : ''} onClick={() => selectTab('float32')}><Braces size={17} aria-hidden="true" /><span>IEEE 754</span></button>
+            <button type="button" aria-pressed={tab === 'riscv'} className={tab === 'riscv' ? 'active' : ''} onClick={() => selectTab('riscv')}><Code2 size={17} aria-hidden="true" /><span>RV32I 指令</span></button>
+            <button type="button" aria-pressed={tab === 'datapath'} className={tab === 'datapath' ? 'active' : ''} onClick={() => selectTab('datapath')}><CircuitBoard size={17} aria-hidden="true" /><span>单周期数据通路</span></button>
+            <button type="button" aria-pressed={tab === 'pipeline'} className={tab === 'pipeline' ? 'active' : ''} onClick={() => selectTab('pipeline')}><Workflow size={17} aria-hidden="true" /><span>五级流水线</span></button>
+            <button type="button" aria-pressed={tab === 'cache'} className={tab === 'cache' ? 'active' : ''} onClick={() => selectTab('cache')}><HardDrive size={17} aria-hidden="true" /><span>Cache 映射</span></button>
+            <button type="button" aria-pressed={tab === 'memory-expansion'} className={tab === 'memory-expansion' ? 'active' : ''} onClick={() => selectTab('memory-expansion')}><MemoryStick size={17} aria-hidden="true" /><span>存储扩展</span></button>
+            <button type="button" aria-pressed={tab === 'io-overhead'} className={tab === 'io-overhead' ? 'active' : ''} onClick={() => selectTab('io-overhead')}><Activity size={17} aria-hidden="true" /><span>I/O 开销</span></button>
+            <button type="button" aria-pressed={tab === 'micro-operations'} className={tab === 'micro-operations' ? 'active' : ''} onClick={() => selectTab('micro-operations')}><Workflow size={17} aria-hidden="true" /><span>微操作调度</span></button>
+            <button type="button" aria-pressed={tab === 'bus-bandwidth'} className={tab === 'bus-bandwidth' ? 'active' : ''} onClick={() => selectTab('bus-bandwidth')}><Gauge size={17} aria-hidden="true" /><span>总线带宽</span></button>
+          </nav>
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      subheading={(
+        <>
+          <Cpu size={18} aria-hidden="true" />
+          <span>{moduleLabels[tab]}</span>
+          <Play size={14} aria-hidden="true" />
+        </>
+      )}
+    >
       <LabPanel tab={tab} />
-    </div>
+    </LabExhibit>
   );
 }

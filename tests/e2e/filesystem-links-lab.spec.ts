@@ -101,7 +101,7 @@ test('replays Q31 hard and symbolic links, URL state, failure recovery, and prac
     expect(eventBox!.y + eventBox!.height).toBeLessThanOrEqual(explorerBox!.y + 1);
     expect(explorerBox!.y + explorerBox!.height).toBeLessThanOrEqual(directoryBox!.y + 1);
     expect(explorerBox!.height).toBeLessThan(420);
-    await expect(page.locator('.filesystem-current-event code')).toHaveCSS('font-size', '10px');
+    await expect(page.locator('.filesystem-current-event code')).toHaveCSS('font-size', '13px');
     await expect(page.locator('.mobile-nav')).toHaveCSS('position', 'static');
   }
   await capture(page, testInfo);

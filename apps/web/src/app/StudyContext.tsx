@@ -5,6 +5,7 @@ import {
   projectCurrentQuestionProgress,
   overlayManualMastery,
   seededShuffle,
+  assertQuestionAvailable,
   type AssetRef,
   summarizeContentReviews,
   type Attempt,
@@ -24,6 +25,8 @@ import {
   type StudySession,
   type StudyStats,
   type UserResponse,
+  type PracticeEvidence,
+  type PracticeContext,
 } from '@408os/domain';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
@@ -32,7 +35,9 @@ import {
   installVerifiedContentPack,
   isLocalContentUnavailableError,
   storage,
+  installServerContent,
 } from './storage';
+import { SERVER_MODE } from './server-mode';
 import type {
   CreateFixedMockExamInput,
   MockExamBundle,
@@ -51,6 +56,7 @@ interface StudyContextValue {
   loading: boolean;
   error: string | null;
   contentIssues: string[];
+  contentReady?: boolean;
   packs: ContentPackManifest[];
   questions: Question[];
   knowledgePoints: KnowledgePoint[];
@@ -65,16 +71,16 @@ interface StudyContextValue {
   reviewSummary: ContentReviewSummary;
   mockExams: MockExam[];
   reload: () => Promise<void>;
-  createSession: (questionIds: string[], mode: StudyMode, shuffle?: boolean) => Promise<string>;
+  createSession: (questionIds: string[], mode: StudyMode, shuffle?: boolean, context?: Omit<PracticeContext, 'sessionId'>) => Promise<string>;
   getSession: (id: string) => Promise<StudySession | undefined>;
   getLatestSession: () => Promise<StudySession | undefined>;
   saveResponse: (session: StudySession, questionId: string, response: UserResponse) => Promise<StudySession>;
-  submitResponse: (session: StudySession, question: Question, response: UserResponse, durationMs: number) => Promise<StudySession>;
+  submitResponse: (session: StudySession, question: Question, response: UserResponse, durationMs: number, evidence?: PracticeEvidence) => Promise<StudySession>;
   moveSession: (session: StudySession, index: number) => Promise<StudySession>;
   finishSession: (session: StudySession) => Promise<StudySession>;
   setMastery: (questionId: string, mastery: Mastery) => Promise<void>;
   toggleCollection: (questionId: string) => Promise<void>;
-  saveNote: (questionId: string, body: string) => Promise<void>;
+  saveNote: (questionId: string, body: string, expectedUpdatedAt?: string | null) => Promise<void>;
   saveContentReviewDraft: (questionId: string, draft: ContentReviewDraft, expectedUpdatedAt: string | null) => Promise<ContentReviewRecord>;
   approveContentReview: (questionId: string, draft: ContentReviewDraft, expectedUpdatedAt: string | null) => Promise<ContentReviewRecord>;
   rejectContentReview: (questionId: string, draft: ContentReviewDraft, expectedUpdatedAt: string | null) => Promise<ContentReviewRecord>;
@@ -127,6 +133,7 @@ export function StudyProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [contentIssues, setContentIssues] = useState<string[]>([]);
+  const [contentReady, setContentReady] = useState(false);
   const [packs, setPacks] = useState<ContentPackManifest[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [knowledgePoints, setKnowledgePoints] = useState<KnowledgePoint[]>([]);
@@ -165,7 +172,7 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     setPacks(nextPacks);
     setQuestions(nextQuestions);
     setKnowledgePoints(nextKnowledgePoints);
-    setAssetEntries(nextAssets);
+    setAssetEntries(SERVER_MODE ? nextAssets.map((asset) => ({ ...asset, path: `/api/v1/assets/${asset.sha256}` })) : nextAssets);
     setAttempts(nextAttempts);
     setProgressEntries(nextProgress);
     setCollectionEntries(nextCollections);
@@ -180,7 +187,12 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     let active = true;
     void (async () => {
       try {
-        await installLocalContent();
+        if (SERVER_MODE) {
+          await reload();
+          if (active) setLoading(false);
+          await installServerContent();
+        }
+        else await installLocalContent();
       } catch (reason) {
         if (active && !isLocalContentUnavailableError(reason)) {
           if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
@@ -200,17 +212,24 @@ export function StudyProvider({ children }: { children: ReactNode }) {
       }
       // 扩展年份不阻塞首屏：2009（或空状态）先可用，后台安装完成后再刷新一次数据。
       try {
-        const { issues, installedYears } = await installExtraContent();
+        const { issues, installedYears } = SERVER_MODE ? { issues: [], installedYears: [] } : await installExtraContent();
         if (!active) return;
         setContentIssues(issues);
         if (installedYears.length > 0) await reload();
       } catch (reason) {
         if (active) setError(reason instanceof Error ? reason.message : '初始化失败');
+      } finally {
+        if (active) setContentReady(true);
       }
     })();
     return () => {
       active = false;
     };
+  }, [reload]);
+  useEffect(() => {
+    const synced = () => { void reload().catch((reason) => setError(String(reason))); };
+    window.addEventListener('bitatlas-synced', synced);
+    return () => window.removeEventListener('bitatlas-synced', synced);
   }, [reload]);
 
   useEffect(() => storage.mockExamRepository.subscribeExams(setMockExams), []);
@@ -251,18 +270,25 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     [attempts, questions],
   );
 
-  const createSession = useCallback(async (questionIds: string[], mode: StudyMode, shuffle = false) => {
+  const createSession = useCallback(async (questionIds: string[], mode: StudyMode, shuffle = false, context?: Omit<PracticeContext, 'sessionId'>) => {
     const timestamp = new Date().toISOString();
     const ids = shuffle ? seededShuffle(questionIds, Date.now()) : questionIds;
     const versionedQuestions = ids.map((questionId) => {
       const question = questions.find((candidate) => candidate.id === questionId);
       if (!question) throw new Error(`未找到题目 ${questionId}，无法创建练习。`);
+      assertQuestionAvailable(question, new Map(assetEntries.map((asset) => [asset.id, asset])));
       return { id: question.id, contentVersion: question.contentVersion };
     });
     const session = createStudySession(crypto.randomUUID(), versionedQuestions, mode, timestamp);
-    await storage.studyRepository.saveSession(session, null);
+    if (storage.reviewRepository) {
+      await storage.write(async () => {
+        await storage.studyRepository.saveSession(session, null);
+        await storage.reviewRepository.initializePracticeEvidence(session.id, timestamp);
+        if (context) await storage.reviewRepository.savePracticeContext({ sessionId: session.id, ...context });
+      });
+    } else await storage.studyRepository.saveSession(session, null);
     return session.id;
-  }, [questions]);
+  }, [questions, assetEntries]);
 
   const getSession = useCallback((id: string) => storage.studyRepository.getSession(id), []);
   const getLatestSession = useCallback(() => storage.studyRepository.getLatestOpenSession(), []);
@@ -283,8 +309,12 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     question: Question,
     response: UserResponse,
     durationMs: number,
+    evidence?: PracticeEvidence,
   ) => {
     if (session.submittedQuestionIds.includes(question.id)) return session;
+    const current = questions.find((entry) => entry.id === question.id);
+    if (!current || current.contentVersion !== question.contentVersion) throw new Error('题目已更新，请重新读取后再作答。');
+    assertQuestionAvailable(current, new Map(assetEntries.map((asset) => [asset.id, asset])));
     if (session.questionContentVersions[question.id] !== question.contentVersion) {
       throw new Error(`题目 ${question.id} 的会话题面版本与当前内容不一致，已阻止提交。`);
     }
@@ -309,10 +339,11 @@ export function StudyProvider({ children }: { children: ReactNode }) {
       submittedQuestionIds: [...session.submittedQuestionIds, question.id],
       updatedAt: timestamp,
     };
-    await storage.studyRepository.submitAttempt(attempt, updated, session.updatedAt);
+    await storage.studyRepository.submitAttempt(attempt, updated, session.updatedAt,
+      evidence ? { ...evidence, attemptId: attempt.id, updatedAt: timestamp } : undefined);
     await reload();
     return updated;
-  }, [reload]);
+  }, [reload, questions, assetEntries]);
 
   const moveSession = useCallback(async (session: StudySession, index: number) => {
     const timestamp = nextStudySessionTimestamp(session.updatedAt);
@@ -344,19 +375,20 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     await reload();
   }, [collections, reload]);
 
-  const saveNote = useCallback(async (questionId: string, body: string) => {
+  const saveNote = useCallback(async (questionId: string, body: string, expectedUpdatedAt?: string | null) => {
     const existing = notes.get(questionId);
+    const expected = expectedUpdatedAt === undefined ? existing?.updatedAt ?? null : expectedUpdatedAt;
     if (!body.trim()) {
-      await storage.annotationRepository.deleteNote(questionId);
+      await storage.annotationRepository.deleteNote(questionId, expected);
     } else {
-      const timestamp = new Date().toISOString();
+      const timestamp = existing ? nextStudySessionTimestamp(existing.updatedAt) : new Date().toISOString();
       await storage.annotationRepository.saveNote({
         id: existing?.id ?? crypto.randomUUID(),
         questionId,
         body: body.trim(),
         createdAt: existing?.createdAt ?? timestamp,
         updatedAt: timestamp,
-      });
+      }, expected);
     }
     await reload();
   }, [notes, reload]);
@@ -510,6 +542,7 @@ export function StudyProvider({ children }: { children: ReactNode }) {
     loading,
     error,
     contentIssues,
+    contentReady,
     packs,
     questions,
     knowledgePoints,

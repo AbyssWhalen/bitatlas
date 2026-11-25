@@ -16,6 +16,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 
@@ -151,10 +152,13 @@ function HeapTree({ step }: { step: MinHeapInsertStep }) {
 
 function HeapState({ step }: { step: MinHeapInsertStep }) {
   return (
-    <section className="lab-control-panel min-heap-state-panel" aria-labelledby="min-heap-state-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">COMPLETE BINARY TREE</span><h2 id="min-heap-state-heading">完全二叉树状态</h2></div>
-        <GitBranch size={19} aria-hidden="true" />
+    <section className="min-heap-state-panel lab-exhibit-stage" aria-labelledby="min-heap-state-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="min-heap-state-heading">完全二叉树状态</h2>
+          <span className="lab-exhibit-stage-tag">实验画布</span>
+        </div>
+        <GitBranch size={18} aria-hidden="true" />
       </div>
       <HeapTree step={step} />
       <div className="min-heap-array" aria-label="当前层序数组">
@@ -234,67 +238,96 @@ export function MinHeapInsertLabPage() {
   };
 
   return (
-    <div className="page min-heap-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / MIN HEAP</span><h1>小根堆插入实验室</h1><p>把新关键字追加到完全二叉树末端，再沿父链逐次比较和上浮。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ9()}>
-          <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q9'}
+    <LabExhibit
+      pageClassName="min-heap-lab-page"
+      subjectLabel="数据结构实验 · 小根堆"
+      title="小根堆插入实验室"
+      description="把新关键字追加到完全二叉树末端，再沿父链逐次比较和上浮。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ9()}>
+          <BookOpenCheck size={17} aria-hidden="true" />
+          {starting ? '创建中' : '练习 2009 · Q9'}
         </button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="min-heap" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="ds-review-band min-heap-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />本地练习预设 · Q9</span>
-        <strong>{question?.reviewStatus ?? MIN_HEAP_INSERT_Q9_PRESET.reviewStatus}</strong>
-        <small>原题序列来自待人工复核题包；此页只重放一次插入与上浮，不扩展为建堆、删除或复杂度结论。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q09')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><GitBranch size={18} aria-hidden="true" /><span>完全二叉树 · 父子比较 · 自底向上调整</span><ListOrdered size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid min-heap-lab-grid">
-        <div className="min-heap-workbench">
-          <section className="lab-control-panel min-heap-control-panel" aria-labelledby="min-heap-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">ARRAY / INSERT KEY</span><h2 id="min-heap-control-heading">堆参数</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q9 预设</button>
-            </div>
-            <div className="min-heap-input-grid">
-              <label className="lab-input-field"><span>初始小根堆</span><input aria-label="初始小根堆" value={heapText} onChange={(event) => updateUrl(event.target.value, valueText)} /></label>
-              <label className="lab-input-field"><span>插入关键字</span><input aria-label="插入关键字" type="number" step="1" value={valueText} onChange={(event) => updateUrl(heapText, event.target.value)} /></label>
-            </div>
-            {!computation.ok ? <div className="lab-error" role="alert">{computation.message}</div> : (
-              <div className="min-heap-metrics" aria-label="小根堆插入指标">
-                <div aria-label="交换次数"><small>交换次数</small><strong>{computation.trace.result.swapCount}</strong></div>
-                <div><small>最终索引</small><strong>{computation.trace.result.finalIndex}</strong></div>
-                <div aria-label="最终层序"><small>最终层序</small><strong>{computation.trace.finalHeap.join(', ')}</strong></div>
-              </div>
-            )}
-          </section>
-
-          {computation.ok && currentStep && (
-            <>
-              <div className="min-heap-current-event" aria-live="polite" aria-atomic="true" aria-label="当前堆事件">
-                <GitBranch size={18} aria-hidden="true" />
-                <div><span>当前重放事件</span><strong>{stepLabel(currentStep, computation.trace.result.insertedValue)}</strong></div>
-                <code>focus={currentStep.focusIndex ?? '--'} · parent={currentStep.parentIndex ?? '--'} · size={currentStep.heap.length}</code>
-              </div>
-              <HeapState step={currentStep} />
-            </>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <DataStructuresModuleTabs active="min-heap" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q9"
+          badge={question?.reviewStatus ?? MIN_HEAP_INSERT_Q9_PRESET.reviewStatus}
+          note="原题序列来自待人工复核题包；此页只重放一次插入与上浮，不扩展为建堆、删除或复杂度结论。"
+          action={(
+            <button
+              className="lab-exhibit-keycap compact"
+              type="button"
+              onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q09')}
+            >
+              查看知识节点
+              <ArrowRight size={14} aria-hidden="true" />
+            </button>
           )}
+        />
+      )}
+      subheading={(
+        <>
+          <GitBranch size={18} aria-hidden="true" />
+          <span>完全二叉树 · 父子比较 · 自底向上调整</span>
+          <ListOrdered size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="min-heap-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="min-heap-control-heading">堆参数</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}>
+              <RotateCcw size={15} aria-hidden="true" />
+              恢复 Q9 预设
+            </button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-wide-narrow">
+            <label className="lab-exhibit-field">
+              <span>初始小根堆</span>
+              <input aria-label="初始小根堆" value={heapText} onChange={(event) => updateUrl(event.target.value, valueText)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>插入关键字</span>
+              <input aria-label="插入关键字" type="number" step="1" value={valueText} onChange={(event) => updateUrl(heapText, event.target.value)} />
+            </label>
+          </div>
+          {!computation.ok ? (
+            <div className="lab-exhibit-error" role="alert">{computation.message}</div>
+          ) : (
+            <div className="lab-exhibit-metrics cols-heap" aria-label="小根堆插入指标">
+              <div aria-label="交换次数"><small>交换次数</small><strong>{computation.trace.result.swapCount}</strong></div>
+              <div><small>最终索引</small><strong>{computation.trace.result.finalIndex}</strong></div>
+              <div aria-label="最终层序"><small>最终层序</small><strong>{computation.trace.finalHeap.join(', ')}</strong></div>
+            </div>
+          )}
+        </section>
+      )}
+      status={computation.ok && currentStep ? (
+        <div className="min-heap-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前堆事件">
+          <GitBranch size={18} aria-hidden="true" />
+          <div><span>当前重放事件</span><strong>{stepLabel(currentStep, computation.trace.result.insertedValue)}</strong></div>
+          <code>focus={currentStep.focusIndex ?? '--'} · parent={currentStep.parentIndex ?? '--'} · size={currentStep.heap.length}</code>
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={computationKey}
-            steps={computation.explorerSteps}
-            onActiveIndexChange={setActiveIndex}
-            announceChanges={false}
-            className="min-heap-step-explorer"
-          />
-        )}
-      </div>
-    </div>
+      ) : null}
+      canvas={computation.ok && currentStep ? <HeapState step={currentStep} /> : null}
+      steps={computation.ok ? (
+        <StepExplorer
+          key={computationKey}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+          announceChanges={false}
+          className="min-heap-step-explorer"
+        />
+      ) : null}
+    />
   );
 }

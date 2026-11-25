@@ -9,6 +9,7 @@ import {
 } from '@408os/cpu-core';
 import { Binary, CircuitBoard, Database, GitBranch, RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 interface DatapathPreset {
@@ -168,120 +169,130 @@ export function DatapathLabPanel() {
   const steps = panelResult.ok ? traceSteps(panelResult.trace) : [];
 
   return (
-    <div className="datapath-lab-panel">
-      <section className="lab-control-panel" aria-labelledby="datapath-heading">
-        <div className="lab-control-heading">
-          <div>
-            <span className="eyebrow">RV32I / SINGLE CYCLE</span>
-            <h2 id="datapath-heading">RV32I 单周期数据通路</h2>
-          </div>
-          <div className="lab-field-row">
-            <label className="select-field">
-              <CircuitBoard size={16} aria-hidden="true" />
-              <select aria-label="选择数据通路例题" value="" onChange={(event) => applyPreset(event.target.value)}>
-                <option value="" disabled>典型指令</option>
-                {DATAPATH_PRESETS.map((preset) => (
-                  <option key={preset.assembly} value={preset.assembly}>{preset.label}</option>
-                ))}
-              </select>
-            </label>
-            <button type="button" className="icon-command" onClick={reset} title="恢复默认数据通路预设" aria-label="恢复默认数据通路预设">
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <label className="lab-input-field full" htmlFor="datapath-assembly">
-          <span>汇编指令</span>
-          <input
-            id="datapath-assembly"
-            value={assembly}
-            onChange={(event) => setAssembly(event.target.value)}
-            spellCheck={false}
-          />
-        </label>
-        <div className="lab-field-row datapath-input-grid">
-          <label className="lab-input-field" htmlFor="datapath-pc">
-            <span>PC</span>
-            <input id="datapath-pc" value={pc} onChange={(event) => setPc(event.target.value)} spellCheck={false} />
-          </label>
-          <label className="lab-input-field" htmlFor="datapath-rs1">
-            <span>{ast?.rs1 === null || ast?.rs1 === undefined ? 'rs1（未使用）' : `rs1 · x${ast.rs1}`}</span>
-            <input id="datapath-rs1" value={rs1Value} onChange={(event) => setRs1Value(event.target.value)} spellCheck={false} />
-          </label>
-          <label className="lab-input-field" htmlFor="datapath-rs2">
-            <span>{ast?.rs2 === null || ast?.rs2 === undefined ? 'rs2（未使用）' : `rs2 · x${ast.rs2}`}</span>
-            <input id="datapath-rs2" value={rs2Value} onChange={(event) => setRs2Value(event.target.value)} spellCheck={false} />
-          </label>
-          <label className="lab-input-field" htmlFor="datapath-memory-read">
-            <span>内存读值</span>
-            <input id="datapath-memory-read" value={memoryReadValue} onChange={(event) => setMemoryReadValue(event.target.value)} spellCheck={false} />
-          </label>
-        </div>
-
-        {!panelResult.ok ? (
-          <div className="lab-error" role="alert">{panelResult.message}</div>
-        ) : (
-          <div className="datapath-instruction-summary">
-            <Binary size={17} aria-hidden="true" />
-            <strong>{panelResult.trace.instruction.canonicalAssembly}</strong>
-            <code>{panelResult.trace.instruction.hex}</code>
-          </div>
-        )}
-      </section>
-
-      {panelResult.ok && (
-        <>
-          <section className="lab-control-panel datapath-control-panel" aria-labelledby="datapath-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONTROL UNIT</span><h3 id="datapath-control-heading">控制信号</h3></div>
-              <GitBranch size={18} aria-hidden="true" />
-            </div>
-            <dl className="network-fact-grid datapath-control-grid">
-              {controlSignals(panelResult.trace.control).map(([name, value]) => (
-                <div key={name}><dt>{name}</dt><dd><code>{value}</code></dd></div>
-              ))}
-            </dl>
-          </section>
-
-          <section className="lab-control-panel" aria-labelledby="datapath-stage-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">IF / ID / EX / MEM / WB</span><h3 id="datapath-stage-heading">本周期数据路径</h3></div>
-              <Database size={18} aria-hidden="true" />
-            </div>
-            <div className="datapath-stage-strip" role="list" aria-label="单周期五阶段信号">
-              {panelResult.trace.stages.map((stage, index) => (
-                <article
-                  key={stage.id}
-                  className={`datapath-stage${index === activeStage ? ' active' : ''}`}
-                  role="listitem"
-                  aria-current={index === activeStage ? 'step' : undefined}
-                >
-                  <div><span>{stage.id}</span><strong>{stage.label}</strong></div>
-                  <dl>
-                    {stage.signals.map((signal) => (
-                      <div key={signal.name}><dt>{signal.name}</dt><dd><code>{signal.value}</code></dd></div>
+    <LabExhibitWorkspace
+      controls={(
+        <div className="datapath-lab-panel">
+          <section className="lab-exhibit-control-card lab-control-panel" aria-labelledby="datapath-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="datapath-heading">RV32I 单周期数据通路</h2>
+              <div className="lab-exhibit-card-actions">
+                <label className="lab-exhibit-select">
+                  <CircuitBoard size={15} aria-hidden="true" />
+                  <select aria-label="选择数据通路例题" value="" onChange={(event) => applyPreset(event.target.value)}>
+                    <option value="" disabled>典型指令</option>
+                    {DATAPATH_PRESETS.map((preset) => (
+                      <option key={preset.assembly} value={preset.assembly}>{preset.label}</option>
                     ))}
-                  </dl>
-                </article>
-              ))}
+                  </select>
+                </label>
+                <button type="button" className="lab-exhibit-keycap compact icon-only" onClick={reset} title="恢复默认数据通路预设" aria-label="恢复默认数据通路预设">
+                  <RotateCcw size={15} aria-hidden="true" />
+                </button>
+              </div>
             </div>
-            <div className="datapath-result-line" aria-live="polite">
-              <strong>{resultDescription(panelResult.trace)}</strong>
-              {panelResult.trace.result.memoryWrite && (
-                <span>地址 {formatHex(panelResult.trace.result.memoryWrite.address)}</span>
-              )}
-              <span>Next PC: {formatHex(panelResult.trace.result.nextPc)}</span>
-            </div>
-          </section>
 
+            <label className="lab-exhibit-field" htmlFor="datapath-assembly">
+              <span>汇编指令</span>
+              <input
+                id="datapath-assembly"
+                value={assembly}
+                onChange={(event) => setAssembly(event.target.value)}
+                spellCheck={false}
+              />
+            </label>
+
+            <div className="lab-exhibit-input-grid cols-4 lab-exhibit-field-spaced">
+              <label className="lab-exhibit-field" htmlFor="datapath-pc">
+                <span>PC</span>
+                <input id="datapath-pc" value={pc} onChange={(event) => setPc(event.target.value)} spellCheck={false} />
+              </label>
+              <label className="lab-exhibit-field" htmlFor="datapath-rs1">
+                <span>{ast?.rs1 === null || ast?.rs1 === undefined ? 'rs1（未使用）' : `rs1 · x${ast.rs1}`}</span>
+                <input id="datapath-rs1" value={rs1Value} onChange={(event) => setRs1Value(event.target.value)} spellCheck={false} />
+              </label>
+              <label className="lab-exhibit-field" htmlFor="datapath-rs2">
+                <span>{ast?.rs2 === null || ast?.rs2 === undefined ? 'rs2（未使用）' : `rs2 · x${ast.rs2}`}</span>
+                <input id="datapath-rs2" value={rs2Value} onChange={(event) => setRs2Value(event.target.value)} spellCheck={false} />
+              </label>
+              <label className="lab-exhibit-field" htmlFor="datapath-memory-read">
+                <span>内存读值</span>
+                <input id="datapath-memory-read" value={memoryReadValue} onChange={(event) => setMemoryReadValue(event.target.value)} spellCheck={false} />
+              </label>
+            </div>
+
+            {!panelResult.ok ? (
+              <div className="lab-exhibit-error" role="alert">{panelResult.message}</div>
+            ) : (
+              <div className="datapath-instruction-summary">
+                <Binary size={17} aria-hidden="true" />
+                <strong>{panelResult.trace.instruction.canonicalAssembly}</strong>
+                <code>{panelResult.trace.instruction.hex}</code>
+              </div>
+            )}
+          </section>
+        </div>
+      )}
+      status={panelResult.ok ? (
+        <div className="lab-exhibit-status-card datapath-result-line" aria-live="polite">
+          <strong>{resultDescription(panelResult.trace)}</strong>
+          <div className="datapath-result-meta">
+            {panelResult.trace.result.memoryWrite ? (
+              <span>地址 {formatHex(panelResult.trace.result.memoryWrite.address)}</span>
+            ) : null}
+            <span>Next PC: {formatHex(panelResult.trace.result.nextPc)}</span>
+          </div>
+        </div>
+      ) : null}
+      canvas={panelResult.ok ? (
+        <section className="lab-exhibit-stage" aria-labelledby="datapath-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h3 id="datapath-stage-heading">本周期数据路径</h3>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Database size={18} aria-hidden="true" />
+          </div>
+          <div className="datapath-stage-strip" role="list" aria-label="单周期五阶段信号">
+            {panelResult.trace.stages.map((stage, index) => (
+              <article
+                key={stage.id}
+                className={`datapath-stage${index === activeStage ? ' active' : ''}`}
+                role="listitem"
+                aria-current={index === activeStage ? 'step' : undefined}
+              >
+                <div><span>{stage.id}</span><strong>{stage.label}</strong></div>
+                <dl>
+                  {stage.signals.map((signal) => (
+                    <div key={signal.name}><dt>{signal.name}</dt><dd><code>{signal.value}</code></dd></div>
+                  ))}
+                </dl>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+      steps={panelResult.ok ? (
+        <div className="datapath-lab-panel">
           <StepExplorer
             key={`${assembly}:${pc}:${rs1Value}:${rs2Value}:${memoryReadValue}`}
             steps={steps}
             onActiveIndexChange={setActiveStage}
           />
-        </>
-      )}
-    </div>
+        </div>
+      ) : null}
+      footer={panelResult.ok ? (
+        <section className="lab-exhibit-table-card datapath-control-panel" aria-labelledby="datapath-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h3 id="datapath-control-heading">控制信号</h3>
+            <GitBranch size={18} aria-hidden="true" />
+          </div>
+          <dl className="datapath-control-grid">
+            {controlSignals(panelResult.trace.control).map(([name, value]) => (
+              <div key={name}><dt>{name}</dt><dd><code>{value}</code></dd></div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
+    />
   );
 }

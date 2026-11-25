@@ -1,0 +1,71 @@
+import { beijingDate, questionAvailability } from '@408os/domain';
+import { useNavigate } from 'react-router-dom';
+import { useLearning, useLearningCards } from '../app/LearningContext';
+import { useStudy } from '../app/StudyContext';
+import { storage } from '../app/storage';
+import { useAction } from '../app/useAction';
+
+export function DailyTasks() {
+  const { plan, loading, error, contexts, practices, rounds, pack } = useLearning();
+  const { questions, attempts, createSession, assets } = useStudy();
+  const cards = useLearningCards();
+  const navigate = useNavigate();
+  const action = useAction();
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  const cardById = new Map(cards.map((card) => [card.id, card]));
+  const assignedQuestionVersions = new Map(plan?.items.filter((item) => item.kind === 'question').map((item) => [item.targetId, item.contentVersion]));
+  const assignedCardVersions = new Map(plan?.items.filter((item) => item.kind === 'card').map((item) => [item.targetId, item.contentVersion]));
+  const completedQuestions = new Set(attempts.filter((attempt) => beijingDate(attempt.submittedAt) === plan?.date
+    && assignedQuestionVersions.get(attempt.questionId) === attempt.questionContentVersion).map((attempt) => attempt.questionId));
+  const completedCards = new Set(rounds.filter((round) => round.dailyPlanId === plan?.id).flatMap((round) =>
+    round.completedCardIds.filter((id) => round.cards.some((card) => card.id === id && card.version === assignedCardVersions.get(id)))));
+  const remainingQuestions = plan?.items.filter((item) => item.kind === 'question' && !completedQuestions.has(item.targetId)) ?? [];
+  const remainingCards = plan?.items.filter((item) => item.kind === 'card' && !completedCards.has(item.targetId)) ?? [];
+  const questionIds = remainingQuestions.filter((item) => {
+    const question = questionById.get(item.targetId);
+    return question?.contentVersion === item.contentVersion && questionAvailability(question, assets).practice;
+  }).map((item) => item.targetId);
+  const cardItems = remainingCards.flatMap((item) => {
+    const card = cardById.get(item.targetId);
+    return card?.version === item.contentVersion ? [card] : [];
+  }).slice(0, 10);
+  const startQuestions = async () => {
+    const open = contexts.filter((item) => item.dailyPlanId === plan?.id).map((item) => practices.find((practice) => practice.id === item.sessionId && !practice.completedAt)).find(Boolean);
+    const id = open?.id ?? await createSession(questionIds, 'review', false, { dailyPlanId: plan!.id });
+    navigate(`/practice/${id}`);
+  };
+  const startCards = async () => {
+    const open = rounds.find((round) => round.dailyPlanId === plan?.id && !round.completedAt);
+    const round = open ?? await storage.reviewRepository.createSession(cardItems, new Date().toISOString(), plan!.id);
+    navigate(`/review/cards/${round.id}`);
+  };
+  const conceptNames = new Map(pack?.concepts.map((concept) => [concept.id, concept.name]));
+  // Cards carry no title; name them by their first known concept instead of exposing the internal id.
+  const cardLabel = (id: string) => {
+    const name = cardById.get(id)?.conceptIds.map((conceptId) => conceptNames.get(conceptId)).find(Boolean);
+    return name ? `记忆卡 · ${name}` : '记忆卡';
+  };
+  const total = plan?.items.length ?? 0;
+  const doneCount = plan ? total - remainingQuestions.length - remainingCards.length : 0;
+  return <section className="study-panel daily-plan-section task-board" aria-labelledby="daily-plan-title">
+    <div className="section-heading"><div><span className="eyebrow">{plan?.date ?? '北京时间'} · DAILY PLAN</span><h2 id="daily-plan-title">今日任务</h2></div><span className="task-count">{doneCount} / {total}</span></div>
+    <div className="task-meter" aria-hidden="true"><span style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} /></div>
+    <p className="task-rule">当天清单已固定。到期内容优先，新卡每天最多 {plan?.limits.newCards ?? 3} 张。完成一轮不代表已经掌握。</p>
+    {loading ? <p role="status">正在准备学习内容…</p> : !plan && <p>学习包或题包不可用，无法生成今日任务。可前往题库与数据管理查看。</p>}
+    {(error || action.error) && <p role="alert">{error || action.error}</p>}
+    <div className="command-row">
+      <button className="primary-command" disabled={action.busy || !questionIds.length} onClick={() => void action.run(startQuestions)}>开始剩余 {questionIds.length} 题</button>
+      <button className="secondary-command" disabled={action.busy || !cardItems.length} onClick={() => void action.run(startCards)}>复习 {cardItems.length} 张卡片</button>
+    </div>
+    <ul className="task-list">{plan?.items.map((item, index) => {
+      const question = item.kind === 'question' ? questionById.get(item.targetId) : undefined;
+      const status = question ? questionAvailability(question, assets) : undefined;
+      const available = item.kind === 'question' ? question?.contentVersion === item.contentVersion && status?.practice : cardById.get(item.targetId)?.version === item.contentVersion;
+      const done = (item.kind === 'question' ? completedQuestions : completedCards).has(item.targetId);
+      const state = done ? 'done' : !available ? 'blocked' : item.reason === 'unseen' ? 'new' : 'due';
+      return <li key={`${item.kind}:${item.targetId}`} className={`task-ticket is-${state}`}><i className="task-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</i>
+        <span className="task-name">{question ? `${question.year} · 第 ${question.number} 题` : item.kind === 'question' ? '题目（内容不可用）' : cardLabel(item.targetId)}</span>
+        <span className="task-state">{done ? '已完成' : !available ? `不可用：${status?.reasons.length ? status.reasons.join('；') : '内容缺失、暂停或版本变化'}` : item.reason === 'unseen' ? '新内容' : '到期复习'}</span></li>;
+    })}</ul>
+  </section>;
+}

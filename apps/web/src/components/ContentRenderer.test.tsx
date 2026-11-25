@@ -21,6 +21,14 @@ const asset: AssetRef = {
 };
 
 describe('ContentRenderer assets', () => {
+  it('renders normal mathematics and refuses trusted links and external resources', () => {
+    const { container } = render(<ContentRenderer blocks={[
+      { type: 'math', expression: '\\frac{1}{2}+\\sqrt{x}', display: true },
+      { type: 'text', text: '$\\href{javascript:alert(1)}{click}$ $\\includegraphics{https://example.invalid/a.png}$' },
+    ]} />);
+    expect(container.querySelector('.katex-mathml math')).not.toBeNull();
+    expect(container.querySelector('a[href], img')).toBeNull();
+  });
   afterEach(cleanup);
 
   beforeEach(() => {

@@ -83,7 +83,7 @@ test('replays the Q25 deadlock threshold, safe boundary, URL state, and practice
     expect(eventBox!.y + eventBox!.height).toBeLessThanOrEqual(explorerBox!.y + 1);
     expect(explorerBox!.y + explorerBox!.height).toBeLessThanOrEqual(poolBox!.y + 1);
     expect(explorerBox!.height).toBeLessThan(430);
-    await expect(page.locator('.deadlock-current-event code')).toHaveCSS('font-size', '10px');
+    await expect(page.locator('.deadlock-current-event code')).toHaveCSS('font-size', '13px');
     await expect(page.locator('.mobile-nav')).toHaveCSS('position', 'static');
   }
   await capture(page, testInfo);

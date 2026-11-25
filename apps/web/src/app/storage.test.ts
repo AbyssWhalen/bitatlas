@@ -103,11 +103,34 @@ function verifiedPack(): ContentPack {
   return result;
 }
 
+function validYearPack(year: number): ContentPack {
+  const result = JSON.parse(JSON.stringify(verifiedPack()).replaceAll('2010', String(year))) as ContentPack;
+  result.manifest.sha256 = computeContentPackHash(result);
+  return result;
+}
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
 
 describe('installed content caching', () => {
+  it('retains verified images after interruption and fetches only the missing remainder on restart', async () => {
+    const entries = new Map<string, Response>();
+    const open = vi.fn(async () => ({
+      match: async (key: string) => entries.get(key)?.clone(),
+      put: async (key: string, value: Response) => { entries.set(key, value.clone()); },
+    }) as unknown as Cache);
+    const interrupted = vi.fn(async (input: RequestInfo | URL) => {
+      if (String(input).includes('page-2')) throw new Error('connection interrupted');
+      return new Response('page-1');
+    });
+    expect(await cacheInstalledPackAssets(pack, false, { open }, interrupted)).toBe(false);
+    expect(entries.size).toBe(1);
+    const resumed = vi.fn(async () => new Response('page-2'));
+    expect(await cacheInstalledPackAssets(pack, false, { open }, resumed)).toBe(true);
+    expect(resumed).toHaveBeenCalledTimes(1);
+    expect(entries.size).toBe(2);
+  });
   it('selects unique asset paths inside the pack namespace', () => {
     expect(listPackAssetPaths(pack)).toEqual([
       '/content/cn408-2010/source/page-1.png',
@@ -186,6 +209,21 @@ describe('installed content caching', () => {
 });
 
 describe('local content installation', () => {
+  it('rejects a changed document carrying the installed hash without replacing trusted cache or warming images', async () => {
+    const good = validYearPack(2009);
+    const corrupt = structuredClone(good);
+    corrupt.questions[0]!.stem = [{ type: 'text', text: 'tampered under the old digest' }];
+    const repository = { listPacks: vi.fn(async () => [good.manifest]), installPack: vi.fn() };
+    const put = vi.fn();
+    const schedule = vi.fn();
+    await installLocalContent({
+      repository, fetcher: vi.fn(async () => new Response(JSON.stringify(corrupt))),
+      cacheStorage: { open: vi.fn(async () => ({ put }) as unknown as Cache) }, schedule,
+    });
+    expect(repository.installPack).not.toHaveBeenCalled();
+    expect(put).not.toHaveBeenCalled();
+    expect(schedule).not.toHaveBeenCalled();
+  });
   it('marks a missing network and cache document as an expected unavailable-content state', async () => {
     const repository = {
       listPacks: vi.fn(async () => []),
@@ -340,17 +378,15 @@ describe('local content installation', () => {
   });
 
   it('skips the rewrite when the fetched 2009 document matches the installed manifest', async () => {
+    const candidate = validYearPack(2009);
     const repository = {
-      listPacks: vi.fn(async () => [installed2009]),
+      listPacks: vi.fn(async () => [candidate.manifest]),
       installPack: vi.fn(),
     };
     const put = vi.fn();
     const open = vi.fn(async () => ({ put }) as unknown as Cache);
     const schedule = vi.fn();
-    const fetcher = vi.fn(async () => new Response(JSON.stringify({
-      manifest: installed2009,
-      assets: [],
-    }), { status: 200 }));
+    const fetcher = vi.fn(async () => new Response(JSON.stringify(candidate), { status: 200 }));
 
     await expect(installLocalContent({ repository, fetcher, cacheStorage: { open }, schedule })).resolves.toBeUndefined();
     expect(repository.installPack).not.toHaveBeenCalled();
@@ -596,42 +632,60 @@ describe('optional extra content installation', () => {
     expect(cached.map((body) => JSON.parse(body))).toEqual([{ manifest, assets: [] }]);
   });
 
-  it('skips reinstall and asset warming when an extra pack is unchanged', async () => {
-    const sha = 'c'.repeat(64);
+  it('validates unchanged extra packs and schedules missing-asset repair without reinstall', async () => {
     const repository = {
-      listPacks: vi.fn(async () => [installed2009, ...EXTRA_PACK_YEARS.map((year) => yearManifest(year, sha))]),
+      listPacks: vi.fn(async () => [installed2009, ...EXTRA_PACK_YEARS.map((year) => validYearPack(year).manifest)]),
       installPack: vi.fn(),
     };
     const put = vi.fn();
     const open = vi.fn(async () => ({ put }) as unknown as Cache);
-    const fetcher = vi.fn(async (input: RequestInfo | URL) => jsonResponse(requestYear(input), sha));
+    const fetcher = vi.fn(async (input: RequestInfo | URL) => new Response(JSON.stringify(validYearPack(requestYear(input)))));
     const schedule = vi.fn();
 
     const result = await installExtraContent({ repository, fetcher, cacheStorage: { open }, schedule });
 
     expect(result).toEqual({ issues: [], installedYears: [] });
     expect(repository.installPack).not.toHaveBeenCalled();
-    expect(schedule).not.toHaveBeenCalled();
+    expect(schedule).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
     expect(fetcher).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
     expect(put).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
   });
 
-  it('installs and schedules asset warming only for the changed year', async () => {
+  it('refuses an extra-year document with a reused manifest hash and changed question bytes', async () => {
+    const good = validYearPack(2010);
+    const corrupt = structuredClone(good);
+    corrupt.questions[0]!.stem = [{ type: 'text', text: 'tampered under the installed digest' }];
+    const repository = { listPacks: vi.fn(async () => [good.manifest]), installPack: vi.fn() };
+    const put = vi.fn();
+    const schedule = vi.fn();
+    const result = await installExtraContent({
+      repository,
+      fetcher: vi.fn(async (input) => requestYear(input) === 2010 ? new Response(JSON.stringify(corrupt)) : new Response('', { status: 404 })),
+      cacheStorage: { open: vi.fn(async () => ({ put }) as unknown as Cache) }, schedule,
+    });
+    expect(result.issues).toHaveLength(1);
+    expect(result.issues[0]).toMatch(/2010:.*hash/is);
+    expect(repository.installPack).not.toHaveBeenCalled();
+    expect(put).not.toHaveBeenCalled();
+    expect(schedule).not.toHaveBeenCalled();
+  });
+
+  it('installs only the changed year and checks assets for unchanged years too', async () => {
     const repository = {
       listPacks: vi.fn(async () => [
         installed2009,
-        ...EXTRA_PACK_YEARS.map((year) => yearManifest(year, 'd'.repeat(64))),
+        ...EXTRA_PACK_YEARS.map((year) => year === 2015 ? yearManifest(year, 'd'.repeat(64)) : validYearPack(year).manifest),
       ]),
       installPack: vi.fn(async (input: unknown) => {
         const manifest = (input as { manifest: { year: number } }).manifest;
-        return yearManifest(manifest.year, 'e'.repeat(64));
+        return validYearPack(manifest.year).manifest;
       }),
     };
     const put = vi.fn();
     const open = vi.fn(async () => ({ put }) as unknown as Cache);
     const fetcher = vi.fn(async (input: RequestInfo | URL) => {
       const year = requestYear(input);
-      return jsonResponse(year, year === 2015 ? 'e'.repeat(64) : 'd'.repeat(64));
+      return new Response(JSON.stringify(validYearPack(year)));
     });
     const schedule = vi.fn();
 
@@ -639,7 +693,7 @@ describe('optional extra content installation', () => {
 
     expect(result).toEqual({ issues: [], installedYears: [2015] });
     expect(repository.installPack).toHaveBeenCalledTimes(1);
-    expect(schedule).toHaveBeenCalledTimes(1);
+    expect(schedule).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
     expect(put).toHaveBeenCalledTimes(EXTRA_PACK_YEARS.length);
   });
 

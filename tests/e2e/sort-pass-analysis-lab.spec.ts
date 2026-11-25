@@ -40,6 +40,12 @@ test('checks Q10 sort-pass invariants, URL recovery, and bidirectional deep link
   await page.goto('/lab/data-structures?module=sort-pass&preset=cn408-2009-q10');
   await expect(page).toHaveURL(/\/lab\/data-structures\?module=sort-pass&preset=cn408-2009-q10$/u);
   await expect(page.getByRole('heading', { name: '排序趟次不变量判别实验室' })).toBeVisible();
+  if (testInfo.project.name === 'chromium-390') {
+    await expect.poll(() => page.evaluate(() => {
+      const root = document.documentElement;
+      return root.scrollHeight - root.clientHeight;
+    })).toBe(0);
+  }
   await expect(page.getByText('needs-review')).toBeVisible();
   await expect(page.getByLabel('第二趟序列')).toHaveValue('11,12,13,7,8,9,23,4,5');
   await expect(page.getByLabel('当前判别结论')).toContainText('待判定');

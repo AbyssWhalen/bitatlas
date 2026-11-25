@@ -5,9 +5,10 @@ import {
   type BusBandwidthError,
   type BusBandwidthStep,
 } from '@408os/cpu-core';
-import { ArrowRight, RotateCcw } from 'lucide-react';
+import { ArrowRight, Gauge, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 type ConfigKey = keyof BusBandwidthConfig;
@@ -122,98 +123,104 @@ export function BusBandwidthLabPanel() {
   };
 
   return (
-    <div className="lab-panel-grid bus-bandwidth-lab-layout">
-      <section className="lab-control-panel bus-bandwidth-control-panel" aria-labelledby="bus-bandwidth-heading">
-        <div className="bus-bandwidth-review-band" aria-label="Q20 来源边界">
-          <strong>来源边界</strong>
-          <span>Q20 公式与参数</span>
-          <small>可编辑的是教学示例，不是总线事务时序重放</small>
-        </div>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card bus-bandwidth-control-panel" aria-labelledby="bus-bandwidth-heading">
+          <div className="lab-exhibit-boundary-bar warn" aria-label="Q20 来源边界">
+            <strong>来源边界</strong>
+            <span>Q20 公式与参数</span>
+            <small>可编辑的是教学示例，不是总线事务时序重放</small>
+          </div>
 
-        <div className="lab-control-heading">
-          <div>
-            <span className="eyebrow">2009 Q20 / BUS BANDWIDTH</span>
+          <div className="lab-exhibit-card-head">
             <h2 id="bus-bandwidth-heading">总线带宽</h2>
-          </div>
-          <div className="bus-bandwidth-heading-actions">
-            <span className="review-status-tag">{BUS_BANDWIDTH_Q20_PRESET.reviewStatus}</span>
-            <button
-              type="button"
-              className="secondary-command compact-command"
-              onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q20')}
-            >
-              查看知识节点<ArrowRight size={14} aria-hidden="true" />
-            </button>
-            <button type="button" className="icon-command" onClick={restorePreset} title="恢复 Q20 预设" aria-label="恢复 Q20 预设">
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <div className="bus-bandwidth-config-grid">
-          {INPUTS.map((input) => (
-            <label className="lab-input-field" key={input.param}>
-              <span>{input.label}</span>
-              <input
-                type="number"
-                aria-label={input.label}
-                min="0"
-                step={input.integer ? '1' : 'any'}
-                value={rawValues[input.param]}
-                onChange={(event) => updateInput(input.param, event.target.value)}
-              />
-            </label>
-          ))}
-        </div>
-
-        <div className="bus-bandwidth-boundary">
-          <strong>单位约定</strong>
-          <span>1 MHz = 1,000,000 Hz · 1 MB = 1,000,000 B</span>
-          <small>不计等待、仲裁、编码和协议开销</small>
-        </div>
-
-        {errorMessage ? (
-          <div className="lab-error" role="alert">{errorMessage}</div>
-        ) : trace && (
-          <>
-            <div className="bus-bandwidth-equation" aria-label="总线带宽公式">
-              <code>{trace.config.bytesPerBusCycle} B ÷ ({trace.config.clockCyclesPerBusCycle} × {duration(trace.result.clockPeriodSeconds)})</code>
-              <span>=</span>
-              <strong>{compactNumber(trace.result.bandwidthMegabytesPerSecond)} MB/s</strong>
+            <div className="lab-exhibit-card-actions">
+              <span className="lab-exhibit-badge">{BUS_BANDWIDTH_Q20_PRESET.reviewStatus}</span>
+              <button
+                type="button"
+                className="lab-exhibit-keycap compact"
+                onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q20')}
+              >
+                查看知识节点<ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <button type="button" className="lab-exhibit-keycap compact icon-only" onClick={restorePreset} title="恢复 Q20 预设" aria-label="恢复 Q20 预设">
+                <RotateCcw size={15} aria-hidden="true" />
+              </button>
             </div>
+          </div>
 
-            <dl className="bus-bandwidth-metrics">
-              <div>
-                <dt>时钟周期</dt>
-                <dd>{duration(trace.result.clockPeriodSeconds)}</dd>
-              </div>
-              <div>
-                <dt>总线周期</dt>
-                <dd>{duration(trace.result.busCycleDurationSeconds)}</dd>
-              </div>
-              <div aria-label="总线带宽 MB/s">
-                <dt>总线带宽</dt>
-                <dd>{compactNumber(trace.result.bandwidthMegabytesPerSecond)} MB/s</dd>
-              </div>
-              <div aria-label="总线带宽 Mbit/s">
-                <dt>换算吞吐</dt>
-                <dd>{compactNumber(trace.result.bandwidthMegabitsPerSecond)} Mbit/s</dd>
-              </div>
-              <div aria-label="题目答案">
-                <dt>题目答案</dt>
-                <dd>{usesPreset ? 'B' : '--'}</dd>
-              </div>
-            </dl>
+          <div className="lab-exhibit-input-grid cols-3">
+            {INPUTS.map((input) => (
+              <label className="lab-exhibit-field" key={input.param}>
+                <span>{input.label}</span>
+                <input
+                  type="number"
+                  aria-label={input.label}
+                  min="0"
+                  step={input.integer ? '1' : 'any'}
+                  value={rawValues[input.param]}
+                  onChange={(event) => updateInput(input.param, event.target.value)}
+                />
+              </label>
+            ))}
+          </div>
 
-            <div className="bus-bandwidth-current-event" aria-live="polite" aria-label="当前推导事件">
-              <strong>{activeStep?.label}</strong>
-              <span>{activeStep?.value}</span>
+          <div className="lab-exhibit-boundary-bar">
+            <strong>单位约定</strong>
+            <span>1 MHz = 1,000,000 Hz · 1 MB = 1,000,000 B</span>
+            <small>不计等待、仲裁、编码和协议开销</small>
+          </div>
+
+          {errorMessage ? <div className="lab-exhibit-error" role="alert">{errorMessage}</div> : null}
+        </section>
+      )}
+      status={trace ? (
+        <div className="lab-exhibit-status-card compact-status bus-bandwidth-current-event" aria-live="polite" aria-label="当前推导事件">
+          <strong>{activeStep?.label}</strong>
+          <span>{activeStep?.value}</span>
+        </div>
+      ) : null}
+      canvas={trace ? (
+        <section className="lab-exhibit-stage" aria-labelledby="bus-bandwidth-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="bus-bandwidth-stage-heading">带宽公式与周期换算</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
             </div>
-          </>
-        )}
-      </section>
+            <Gauge size={18} aria-hidden="true" />
+          </div>
 
-      {trace && (
+          <div className="bus-bandwidth-equation" aria-label="总线带宽公式">
+            <code>{trace.config.bytesPerBusCycle} B ÷ ({trace.config.clockCyclesPerBusCycle} × {duration(trace.result.clockPeriodSeconds)})</code>
+            <span>=</span>
+            <strong>{compactNumber(trace.result.bandwidthMegabytesPerSecond)} MB/s</strong>
+          </div>
+
+          <dl className="bus-bandwidth-metrics">
+            <div>
+              <dt>时钟周期</dt>
+              <dd>{duration(trace.result.clockPeriodSeconds)}</dd>
+            </div>
+            <div>
+              <dt>总线周期</dt>
+              <dd>{duration(trace.result.busCycleDurationSeconds)}</dd>
+            </div>
+            <div aria-label="总线带宽 MB/s">
+              <dt>总线带宽</dt>
+              <dd>{compactNumber(trace.result.bandwidthMegabytesPerSecond)} MB/s</dd>
+            </div>
+            <div aria-label="总线带宽 Mbit/s">
+              <dt>换算吞吐</dt>
+              <dd>{compactNumber(trace.result.bandwidthMegabitsPerSecond)} Mbit/s</dd>
+            </div>
+            <div aria-label="题目答案">
+              <dt>题目答案</dt>
+              <dd>{usesPreset ? 'B' : '--'}</dd>
+            </div>
+          </dl>
+        </section>
+      ) : null}
+      steps={trace ? (
         <StepExplorer
           key={INPUTS.map((input) => rawValues[input.param]).join(':')}
           className="bus-bandwidth-step-explorer"
@@ -221,7 +228,7 @@ export function BusBandwidthLabPanel() {
           onActiveIndexChange={setActiveStepIndex}
           announceChanges={false}
         />
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

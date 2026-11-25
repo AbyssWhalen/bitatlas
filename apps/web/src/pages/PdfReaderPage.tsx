@@ -1,11 +1,12 @@
 import { ChevronLeft, ChevronRight, Maximize2, ZoomIn, ZoomOut } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { CacheDocumentLibrary, DocumentLibraryError, type LibraryDocument } from '../app/document-library';
+import { DocumentLibraryError, type LibraryDocument } from '../app/document-library';
+import { documents as documentLibrary } from '../app/documents';
+import { SERVER_MODE } from '../app/server-mode';
 import { getDocument, type PDFDocumentLoadingTask, type PDFDocumentProxy } from '../app/pdf-runtime';
 import { PdfPageCanvas } from '../components/PdfPageCanvas';
 
-const documentLibrary = new CacheDocumentLibrary();
 const zoomSteps = [60, 80, 100, 125, 150, 175, 200];
 
 function errorMessage(reason: unknown): string {
@@ -51,9 +52,9 @@ export function PdfReaderPage() {
       // makes the title and navigation context available before the canvas is
       // ready, which is especially important for large or offline documents.
       setMetadata(stored);
-      const data = await documentLibrary.getBytes(documentId);
+      const source = await documentLibrary.loadSource(documentId);
       if (cancelled) return;
-      loadingTask = await getDocument({ data });
+      loadingTask = await getDocument(source);
       if (cancelled) {
         await loadingTask.destroy().catch(() => undefined);
         return;
@@ -122,7 +123,7 @@ export function PdfReaderPage() {
     setZoom(next);
   };
 
-  if (loading && !metadata) return <section className="loading-state"><span className="loader" /><p>载入本地 PDF</p></section>;
+  if (loading && !metadata) return <section className="loading-state"><span className="loader" /><p>{SERVER_MODE ? '载入资料' : '载入本地 PDF'}</p></section>;
   if (error || !metadata) {
     return <div className="page pdf-reader-error"><div className="status-message error" role="alert">{error ?? 'PDF 阅读器载入失败'}</div><Link className="secondary-command" to="/documents">返回资料库</Link></div>;
   }
@@ -131,7 +132,7 @@ export function PdfReaderPage() {
     <div className="pdf-reader-page">
       <header className="pdf-reader-header">
         <Link className="secondary-command compact-command" to="/documents" aria-label="返回资料库"><ChevronLeft size={16} />资料库</Link>
-        <div><span className="eyebrow">LOCAL PDF</span><h1>{metadata.name}</h1></div>
+        <div><span className="pdf-reader-kicker">{SERVER_MODE ? '共享资料' : '本地资料'}</span><h1>{metadata.name}</h1></div>
         <div className="pdf-reader-position">
           <button className="icon-command" aria-label="上一页" disabled={!pdf || pageNumber <= 1} onClick={() => goToPage(pageNumber - 1)}><ChevronLeft size={18} /></button>
           <label><span className="sr-only">页码</span><input
@@ -158,11 +159,11 @@ export function PdfReaderPage() {
         </div>
       </header>
       {positionError && <div className="pdf-position-error" role="alert">{positionError}</div>}
-      <main className="pdf-reader-stage">
+      <div className="pdf-reader-stage">
         {pdf ? <PdfPageCanvas document={pdf} pageNumber={pageNumber} fitWidth={fitWidth} zoom={zoom} /> : (
           <section className="loading-state pdf-reader-loading"><span className="loader" /><p>解析 PDF 页面</p></section>
         )}
-      </main>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import {
 import { ArrowRight, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 type WordKey = 'r0' | 'r1' | 'memoryWord';
@@ -170,85 +171,84 @@ export function MicroOperationsLabPanel() {
   };
 
   return (
-    <div className="lab-panel-grid micro-operations-lab-layout">
-      <section className="lab-control-panel micro-operations-control" aria-labelledby="micro-operations-heading">
-        <div className="lab-control-heading">
-          <div>
-            <span className="eyebrow">2009 Q44 / EXECUTION C5+</span>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card micro-operations-control" aria-labelledby="micro-operations-heading">
+          <div className="lab-exhibit-card-head">
             <h2 id="micro-operations-heading">数据通路微操作调度</h2>
-          </div>
-          <div className="micro-operations-heading-actions">
-            <span className="review-status-tag">{MICRO_OPERATIONS_Q44_PRESET.reviewStatus}</span>
-            <button type="button" className="secondary-command compact-command" onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q44')}>
-              查看知识节点<ArrowRight size={14} aria-hidden="true" />
-            </button>
-            <button type="button" className="icon-command" onClick={restorePreset} title="恢复 Q44 预设" aria-label="恢复 Q44 预设">
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <div className="segmented-control micro-operations-schedule" aria-label="来源支持方案">
-          <button type="button" className={schedule === 'parallel-5' ? 'active' : ''} aria-pressed={schedule === 'parallel-5'} onClick={() => setSchedule('parallel-5')}>5 拍并行方案</button>
-          <button type="button" className={schedule === 'split-6' ? 'active' : ''} aria-pressed={schedule === 'split-6'} onClick={() => setSchedule('split-6')}>6 拍分步方案</button>
-        </div>
-
-        <div className="micro-operations-input-grid">
-          {WORD_INPUTS.map((input) => (
-            <label className="lab-input-field" key={input.param}>
-              <span>{input.label}</span>
-              <input
-                type="number"
-                aria-label={input.label}
-                min="0"
-                max="65535"
-                step="1"
-                value={rawValues[input.param]}
-                onChange={(event) => updateInput(input.param, event.target.value)}
-              />
-            </label>
-          ))}
-        </div>
-
-        {errorMessage ? (
-          <div className="lab-error" role="alert">{errorMessage}</div>
-        ) : trace && (
-          <dl className="micro-operations-result" aria-label="架构可见结果">
-            <div><dt>目标地址</dt><dd>{formatWord(trace.result.address)}</dd></div>
-            <div><dt>读入值</dt><dd>{formatWord(trace.result.valueRead)}</dd></div>
-            <div><dt>写回值</dt><dd>{formatWord(trace.result.valueWritten)}</dd></div>
-            <div><dt>方案关系</dt><dd>地址与写回结果一致<small>暂存 A 可能不同</small></dd></div>
-          </dl>
-        )}
-      </section>
-
-      {activeStep && (
-        <>
-          <div className="micro-operations-current-event" aria-live="polite" aria-label="当前微操作">
-            <strong>C{activeStep.cycle}</strong>
-            <div>{activeStep.microOperations.map((operation) => <code key={operation}>{operation}</code>)}</div>
-            <span>{trace?.schedule === 'parallel-5' && activeStep.cycle === 6 ? 'DB 与内总线并行' : '单拍数据传送'}</span>
+            <div className="lab-exhibit-card-actions">
+              <span className="lab-exhibit-badge">{MICRO_OPERATIONS_Q44_PRESET.reviewStatus}</span>
+              <button type="button" className="lab-exhibit-keycap compact" onClick={() => navigate('/knowledge?subject=computer-organization&node=topic-2009-q44')}>
+                查看知识节点<ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <button type="button" className="lab-exhibit-keycap compact icon-only" onClick={restorePreset} title="恢复 Q44 预设" aria-label="恢复 Q44 预设">
+                <RotateCcw size={15} aria-hidden="true" />
+              </button>
+            </div>
           </div>
 
-          <section className="lab-control-panel micro-operations-state-panel" aria-label="微操作状态">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CYCLE STATE</span><h2>寄存器与总线</h2></div>
-              <span className="micro-operations-cycle-badge">C{activeStep.cycle}</span>
-            </div>
-            <RegisterState state={activeStep.after} />
-            <div className="micro-operations-buses">
-              <BusState label="AB" ariaLabel="AB 地址总线" driver={activeStep.buses.address.driver} value={activeStep.buses.address.value} />
-              <BusState label="DB" ariaLabel="DB 数据总线" driver={activeStep.buses.data.driver} value={activeStep.buses.data.value} />
-              <BusState label="INTERNAL" ariaLabel="CPU 内总线" driver={activeStep.buses.internal.driver} value={activeStep.buses.internal.value} />
-            </div>
-            <div className="micro-operations-signals" aria-label="有效控制信号">
-              {activeStep.controlSignals.map((signal) => <code key={signal}>{signal}</code>)}
-            </div>
-          </section>
-        </>
+          <div className="segmented-control micro-operations-schedule" aria-label="来源支持方案">
+            <button type="button" className={schedule === 'parallel-5' ? 'active' : ''} aria-pressed={schedule === 'parallel-5'} onClick={() => setSchedule('parallel-5')}>5 拍并行方案</button>
+            <button type="button" className={schedule === 'split-6' ? 'active' : ''} aria-pressed={schedule === 'split-6'} onClick={() => setSchedule('split-6')}>6 拍分步方案</button>
+          </div>
+
+          <div className="lab-exhibit-input-grid cols-3">
+            {WORD_INPUTS.map((input) => (
+              <label className="lab-exhibit-field" key={input.param}>
+                <span>{input.label}</span>
+                <input
+                  type="number"
+                  aria-label={input.label}
+                  min="0"
+                  max="65535"
+                  step="1"
+                  value={rawValues[input.param]}
+                  onChange={(event) => updateInput(input.param, event.target.value)}
+                />
+              </label>
+            ))}
+          </div>
+
+          {errorMessage ? (
+            <div className="lab-exhibit-error" role="alert">{errorMessage}</div>
+          ) : trace ? (
+            <dl className="lab-exhibit-metrics cols-4 micro-operations-result" aria-label="架构可见结果">
+              <div><dt>目标地址</dt><dd>{formatWord(trace.result.address)}</dd></div>
+              <div><dt>读入值</dt><dd>{formatWord(trace.result.valueRead)}</dd></div>
+              <div><dt>写回值</dt><dd>{formatWord(trace.result.valueWritten)}</dd></div>
+              <div><dt>方案关系</dt><dd>地址与写回结果一致<small>暂存 A 可能不同</small></dd></div>
+            </dl>
+          ) : null}
+        </section>
       )}
-
-      {trace && (
+      status={activeStep ? (
+        <div className="lab-exhibit-status-card micro-operations-current-event" aria-live="polite" aria-label="当前微操作">
+          <strong>C{activeStep.cycle}</strong>
+          <div className="micro-operations-ops">{activeStep.microOperations.map((operation) => <code key={operation}>{operation}</code>)}</div>
+          <span>{trace?.schedule === 'parallel-5' && activeStep.cycle === 6 ? 'DB 与内总线并行' : '单拍数据传送'}</span>
+        </div>
+      ) : null}
+      canvas={activeStep ? (
+        <section className="lab-exhibit-stage micro-operations-state-panel" aria-label="微操作状态">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2>寄存器与总线</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <span className="micro-operations-cycle-badge">C{activeStep.cycle}</span>
+          </div>
+          <RegisterState state={activeStep.after} />
+          <div className="micro-operations-buses">
+            <BusState label="AB" ariaLabel="AB 地址总线" driver={activeStep.buses.address.driver} value={activeStep.buses.address.value} />
+            <BusState label="DB" ariaLabel="DB 数据总线" driver={activeStep.buses.data.driver} value={activeStep.buses.data.value} />
+            <BusState label="INTERNAL" ariaLabel="CPU 内总线" driver={activeStep.buses.internal.driver} value={activeStep.buses.internal.value} />
+          </div>
+          <div className="micro-operations-signals" aria-label="有效控制信号">
+            {activeStep.controlSignals.map((signal) => <code key={signal}>{signal}</code>)}
+          </div>
+        </section>
+      ) : null}
+      steps={trace ? (
         <StepExplorer
           key={`${trace.schedule}:${rawValues.r0}:${rawValues.r1}:${rawValues.memoryWord}`}
           className="micro-operations-step-explorer"
@@ -256,7 +256,7 @@ export function MicroOperationsLabPanel() {
           onActiveIndexChange={setActiveStepIndex}
           announceChanges={false}
         />
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

@@ -6,8 +6,9 @@ import {
   type CacheCoreError,
   type CacheTrace,
 } from '@408os/cpu-core';
-import { Database, RotateCcw } from 'lucide-react';
+import { Database, FlaskConical, RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 interface CachePreset {
@@ -122,81 +123,137 @@ export function CacheLabPanel() {
   };
 
   return (
-    <div className="cache-lab-layout">
-      <section className="lab-control-panel cache-control-panel">
-        <div className="lab-control-heading">
-          <div><span className="eyebrow">CACHE / WRITE-BACK LRU</span><h2>组相联 Cache</h2></div>
-          <label className="lab-input-field lab-example-select">
-            <span>典型例题</span>
-            <select aria-label="选择 Cache 例题" value="" onChange={(event) => {
-              const preset = presets.find((item) => item.id === event.target.value);
-              if (preset) applyPreset(preset);
-            }}>
-              <option value="" disabled>选择预设</option>
-              {presets.map((preset) => <option key={preset.id} value={preset.id}>{preset.label}</option>)}
-            </select>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card cache-control-panel" aria-labelledby="cache-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="cache-control-heading">组相联 Cache</h2>
+            <div className="lab-exhibit-card-actions">
+              <label className="lab-exhibit-select">
+                <FlaskConical size={15} aria-hidden="true" />
+                <select aria-label="选择 Cache 例题" value="" onChange={(changeEvent) => {
+                  const preset = presets.find((item) => item.id === changeEvent.target.value);
+                  if (preset) applyPreset(preset);
+                }}>
+                  <option value="" disabled>选择预设</option>
+                  {presets.map((preset) => <option key={preset.id} value={preset.id}>{preset.label}</option>)}
+                </select>
+              </label>
+              <button
+                type="button"
+                className="lab-exhibit-keycap compact icon-only"
+                onClick={() => applyPreset(Q14_PRESET)}
+                title="恢复 Q14 预设"
+                aria-label="恢复 Cache Q14 预设"
+              >
+                <RotateCcw size={15} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+
+          <div className="lab-exhibit-policy-bar">
+            <span>写回</span>
+            <span>写分配</span>
+            <span>LRU</span>
+          </div>
+
+          <div className="lab-exhibit-input-grid cols-4">
+            <label className="lab-exhibit-field">
+              <span>地址位数</span>
+              <input aria-label="Cache 地址位数" type="number" min="1" max="32" value={config.addressBits} onChange={(changeEvent) => updateConfig('addressBits', changeEvent.target.value)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>块大小 / B</span>
+              <input aria-label="Cache 块大小" type="number" min="1" value={config.lineSizeBytes} onChange={(changeEvent) => updateConfig('lineSizeBytes', changeEvent.target.value)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>组数</span>
+              <input aria-label="Cache 组数" type="number" min="1" value={config.setCount} onChange={(changeEvent) => updateConfig('setCount', changeEvent.target.value)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>每组路数</span>
+              <input aria-label="Cache 路数" type="number" min="1" max="64" value={config.associativity} onChange={(changeEvent) => updateConfig('associativity', changeEvent.target.value)} />
+            </label>
+          </div>
+
+          <label className="lab-exhibit-field lab-exhibit-field-spaced">
+            <span>访存序列（R/W + 十进制、0x 或 H 后缀地址，逗号或换行分隔）</span>
+            <textarea aria-label="Cache 访存序列" rows={3} value={traceText} onChange={(changeEvent) => { setTraceText(changeEvent.target.value); setEventIndex(0); }} spellCheck={false} />
           </label>
+
+          {!parsedTrace.ok ? (
+            <div className="lab-exhibit-error" role="alert">{parsedTrace.message}</div>
+          ) : result && !result.ok ? (
+            <div className="lab-exhibit-error" role="alert">{cacheErrorText(result.error)}</div>
+          ) : null}
+        </section>
+      )}
+      status={trace && event ? (
+        <div className="lab-exhibit-status-card cache-outcome-row" data-event-outcome={event.hit ? 'hit' : 'miss'}>
+          <Database size={18} aria-hidden="true" />
+          <div>
+            <span>{event.operation === 'read' ? '读取' : '写入'}地址</span>
+            <strong>{event.address} · 块 {event.blockNumber}</strong>
+          </div>
+          <span className={event.hit ? 'success' : 'warning'}>{event.hit ? 'HIT' : 'MISS'}</span>
+          <code>组 {event.setIndex} / 路 {event.wayIndex}</code>
         </div>
+      ) : null}
+      canvas={trace && event ? (
+        <section className="lab-exhibit-stage" aria-labelledby="cache-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="cache-stage-heading">地址切分与当前组状态</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Database size={18} aria-hidden="true" />
+          </div>
 
-        <div className="cache-policy-bar">
-          <span>写回</span><span>写分配</span><span>LRU</span>
-          <button className="icon-command" onClick={() => applyPreset(Q14_PRESET)} title="恢复 Q14 预设" aria-label="恢复 Cache Q14 预设"><RotateCcw size={15} /></button>
+          <div className="cache-address-fields" aria-label="Cache 地址字段">
+            <div className="tag">
+              <span>Tag · {trace.config.tagBits} bit</span>
+              <code>{fieldBits(event.tag, trace.config.tagBits)}</code>
+              <strong>{event.tag}</strong>
+            </div>
+            <div className="set">
+              <span>Set · {trace.config.setBits} bit</span>
+              <code>{fieldBits(event.setIndex, trace.config.setBits)}</code>
+              <strong>{event.setIndex}</strong>
+            </div>
+            <div className="offset">
+              <span>Offset · {trace.config.offsetBits} bit</span>
+              <code>{fieldBits(event.blockOffset, trace.config.offsetBits)}</code>
+              <strong>{event.blockOffset}</strong>
+            </div>
+          </div>
+
+          <div className="table-responsive cache-state-table">
+            <table className="table">
+              <thead><tr><th scope="col">路</th><th scope="col">V</th><th scope="col">Tag</th><th scope="col">主存块</th><th scope="col">Dirty</th><th scope="col">LRU tick</th></tr></thead>
+              <tbody>{setLines.map((line) => (
+                <tr key={line.wayIndex} className={line.wayIndex === event.wayIndex ? 'current' : ''}>
+                  <th scope="row">{line.wayIndex}</th><td>{line.valid ? 1 : 0}</td><td>{line.tag ?? '--'}</td><td>{line.blockNumber ?? '--'}</td><td>{line.dirty ? 1 : 0}</td><td>{line.lastUsed || '--'}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
+      steps={(
+        <div className="cache-lab-layout">
+          <StepExplorer key={`${trace?.config.fingerprint ?? 'invalid'}:${safeEventIndex}:${traceText}`} steps={steps} />
         </div>
-
-        <div className="cache-config-grid">
-          <label className="lab-input-field"><span>地址位数</span><input aria-label="Cache 地址位数" type="number" min="1" max="32" value={config.addressBits} onChange={(event) => updateConfig('addressBits', event.target.value)} /></label>
-          <label className="lab-input-field"><span>块大小 / B</span><input aria-label="Cache 块大小" type="number" min="1" value={config.lineSizeBytes} onChange={(event) => updateConfig('lineSizeBytes', event.target.value)} /></label>
-          <label className="lab-input-field"><span>组数</span><input aria-label="Cache 组数" type="number" min="1" value={config.setCount} onChange={(event) => updateConfig('setCount', event.target.value)} /></label>
-          <label className="lab-input-field"><span>每组路数</span><input aria-label="Cache 路数" type="number" min="1" max="64" value={config.associativity} onChange={(event) => updateConfig('associativity', event.target.value)} /></label>
-        </div>
-        <label className="lab-input-field full">
-          <span>访存序列（R/W + 十进制、0x 或 H 后缀地址，逗号或换行分隔）</span>
-          <textarea aria-label="Cache 访存序列" value={traceText} onChange={(event) => { setTraceText(event.target.value); setEventIndex(0); }} spellCheck={false} />
-        </label>
-
-        {!parsedTrace.ok ? <div className="lab-error" role="alert">{parsedTrace.message}</div>
-          : result && !result.ok ? <div className="lab-error" role="alert">{cacheErrorText(result.error)}</div>
-            : trace && event && (
-              <>
-                <div className="cache-address-fields" aria-label="Cache 地址字段">
-                  <div className="tag"><span>Tag · {trace.config.tagBits} bit</span><code>{fieldBits(event.tag, trace.config.tagBits)}</code><strong>{event.tag}</strong></div>
-                  <div className="set"><span>Set · {trace.config.setBits} bit</span><code>{fieldBits(event.setIndex, trace.config.setBits)}</code><strong>{event.setIndex}</strong></div>
-                  <div className="offset"><span>Offset · {trace.config.offsetBits} bit</span><code>{fieldBits(event.blockOffset, trace.config.offsetBits)}</code><strong>{event.blockOffset}</strong></div>
-                </div>
-
-                <div className="cache-outcome-row">
-                  <Database size={18} aria-hidden="true" />
-                  <div><span>{event.operation === 'read' ? '读取' : '写入'}地址</span><strong>{event.address} · 块 {event.blockNumber}</strong></div>
-                  <span className={event.hit ? 'success' : 'warning'}>{event.hit ? 'HIT' : 'MISS'}</span>
-                  <code>组 {event.setIndex} / 路 {event.wayIndex}</code>
-                </div>
-
-                <div className="table-responsive cache-state-table">
-                  <table className="table">
-                    <thead><tr><th>路</th><th>V</th><th>Tag</th><th>主存块</th><th>Dirty</th><th>LRU tick</th></tr></thead>
-                    <tbody>{setLines.map((line) => (
-                      <tr key={line.wayIndex} className={line.wayIndex === event.wayIndex ? 'current' : ''}>
-                        <th>{line.wayIndex}</th><td>{line.valid ? 1 : 0}</td><td>{line.tag ?? '--'}</td><td>{line.blockNumber ?? '--'}</td><td>{line.dirty ? 1 : 0}</td><td>{line.lastUsed || '--'}</td>
-                      </tr>
-                    ))}</tbody>
-                  </table>
-                </div>
-              </>
-            )}
-      </section>
-
-      <StepExplorer key={`${trace?.config.fingerprint ?? 'invalid'}:${safeEventIndex}:${traceText}`} steps={steps} />
-
-      {trace && (
-        <section className="cache-trace-section">
-          <div className="vm-section-heading">
-            <div><span className="eyebrow">ACCESS TRACE</span><h2>访存时间线</h2></div>
-            <strong>{trace.summary.hits} / {trace.summary.accesses} 命中 · {(trace.summary.hitRate * 100).toFixed(1)}%</strong>
+      )}
+      footer={trace ? (
+        <section className="lab-exhibit-table-card cache-trace-section" aria-labelledby="cache-trace-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="cache-trace-heading">访存时间线</h2>
+            <strong className="lab-exhibit-card-meta">{trace.summary.hits} / {trace.summary.accesses} 命中 · {(trace.summary.hitRate * 100).toFixed(1)}%</strong>
           </div>
           <ol className="cache-access-timeline">
             {trace.events.map((item) => (
               <li key={item.index}>
-                <button className={item.index === safeEventIndex ? 'active' : ''} onClick={() => setEventIndex(item.index)}>
+                <button type="button" className={item.index === safeEventIndex ? 'active' : ''} onClick={() => setEventIndex(item.index)}>
                   <span>{String(item.index + 1).padStart(2, '0')}</span>
                   <code>{item.operation === 'read' ? 'R' : 'W'} {item.address}</code>
                   <small className={item.hit ? 'success' : 'warning'}>{item.hit ? 'HIT' : 'MISS'}</small>
@@ -205,14 +262,14 @@ export function CacheLabPanel() {
               </li>
             ))}
           </ol>
-          <dl className="cache-summary-grid">
+          <dl className="lab-exhibit-metrics cols-4 cache-summary-grid">
             <div><dt>命中</dt><dd>{trace.summary.hits}</dd></div>
             <div><dt>未命中</dt><dd>{trace.summary.misses}</dd></div>
             <div><dt>主存读块</dt><dd>{trace.summary.memoryReads}</dd></div>
             <div><dt>脏块写回</dt><dd>{trace.summary.memoryWrites}</dd></div>
           </dl>
         </section>
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

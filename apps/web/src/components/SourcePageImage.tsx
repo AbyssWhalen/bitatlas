@@ -2,6 +2,7 @@ import { sourcePageAssetId, type SourcePageDocument } from '@408os/domain';
 import { ImageOff } from 'lucide-react';
 import { useState, type ImgHTMLAttributes } from 'react';
 import { useStudy } from '../app/StudyContext';
+import { useAssetUrl } from '../app/useAssetUrl';
 
 interface SourcePageImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'alt' | 'src'> {
   packId: string;
@@ -25,19 +26,21 @@ export function SourcePageImage({ packId, document, page, alt, onError, ...image
   const assetId = sourcePageAssetId(packId, document, page);
   const asset = assets.get(assetId);
   const [failedPath, setFailedPath] = useState<string | null>(null);
+  const image = useAssetUrl(asset);
 
   if (!asset) return <SourcePageImageError assetId={assetId} message={`来源图片未登记：${alt}`} detail={assetId} />;
   if (!asset.mimeType.startsWith('image/')) {
     return <SourcePageImageError assetId={assetId} message={`来源资源不是图片：${alt}`} detail={asset.path} />;
   }
-  if (failedPath === asset.path) {
+  if (failedPath === asset.path || image.failed) {
     return <SourcePageImageError assetId={assetId} message={`来源图片加载失败：${alt}`} detail={asset.path} />;
   }
+  if (!image.url) return <p role="status">正在载入来源页…</p>;
 
   return (
     <img
       {...imageProps}
-      src={asset.path}
+      src={image.url}
       alt={alt}
       onError={(event) => {
         setFailedPath(asset.path);

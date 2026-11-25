@@ -3,8 +3,13 @@ import { expect, test, type Page } from '@playwright/test';
 
 test.use({ serviceWorkers: 'allow' });
 
+async function followNav(page: Page, href: string) {
+  if (!await page.locator(`a[href="${href}"]:visible`).count()) await page.getByRole('link', { name: '更多', exact: true }).or(page.getByRole('button', { name: '更多', exact: true })).click();
+  await page.locator(`a[href="${href}"]:visible`).first().click();
+}
+
 async function startQuestion(page: Page, number: number) {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await expect(page.getByRole('heading', { name: '真题浏览' })).toBeVisible();
   await page.getByRole('button', { name: `开始第 ${number} 题`, exact: true }).click();
   await expect(page).toHaveURL(/\/practice\//);
@@ -36,7 +41,7 @@ async function storeCount(page: Page, storeName: string) {
 }
 
 test('loads all 47 questions and filters the local content pack', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
 
   await expect(page.getByRole('heading', { name: '真题浏览' })).toBeVisible();
   await expect(page.locator('.question-row')).toHaveCount(47);
@@ -80,14 +85,14 @@ test('persists a draft across refresh and closes the wrong-question review loop'
   await expect.poll(() => storeCount(page, 'notes')).toBe(1);
   await page.getByRole('button', { name: '熟悉' }).click();
 
-  await page.getByRole('link', { name: '错题' }).click();
+  await followNav(page, '/wrong');
   await expect(page.getByRole('heading', { name: '错题重练' })).toBeVisible();
   await expect(page.locator('.wrong-list .question-row')).toHaveCount(1);
   await page.getByRole('button', { name: '开始重练' }).click();
   await expect(page.getByPlaceholder('记录易错点')).toHaveValue('队列先进先出，打印缓冲区不能使用栈。');
   await expect(page.getByRole('button', { name: '取消收藏' })).toBeVisible();
 
-  await page.getByRole('link', { name: '统计' }).click();
+  await followNav(page, '/stats');
   await expect(page.getByRole('heading', { name: '学习统计' })).toBeVisible();
   await expect(page.locator('.metric-grid article').filter({ hasText: '有效作答' }).locator('strong')).toHaveText('1');
 });
@@ -96,7 +101,7 @@ test('exports, rejects a damaged import, and restores a valid backup', async ({ 
   await startQuestion(page, 1);
   await answerFirstOption(page);
 
-  await page.getByRole('link', { name: '数据' }).click();
+  await followNav(page, '/settings');
   const attemptCount = page.locator('.data-summary article').filter({ hasText: '作答记录' }).locator('strong');
   await expect(attemptCount).toHaveText('1');
   const downloadPromise = page.waitForEvent('download');
@@ -107,20 +112,18 @@ test('exports, rejects a damaged import, and restores a valid backup', async ({ 
 
   await startQuestion(page, 2);
   await answerFirstOption(page);
-  await page.getByRole('link', { name: '数据' }).click();
+  await followNav(page, '/settings');
   await expect(attemptCount).toHaveText('2');
 
   const invalidPath = testInfo.outputPath('invalid-backup.json');
   await writeFile(invalidPath, JSON.stringify({ schemaVersion: 1, data: {} }), 'utf8');
-  const backupInput = page.locator('.backup-band').filter({ hasText: 'BACKUP V3' }).locator('input[type="file"]');
-  const invalidDialogPromise = page.waitForEvent('dialog');
-  const invalidInputPromise = backupInput.setInputFiles(invalidPath);
-  const invalidDialog = await invalidDialogPromise;
-  expect(invalidDialog.type()).toBe('confirm');
-  expect(invalidDialog.message()).toContain('替换当前浏览器');
-  await invalidDialog.accept();
-  await invalidInputPromise;
-  await expect(page.getByRole('status')).toContainText('Backup data is invalid');
+  const backupInput = page.locator('.backup-band').filter({ hasText: 'BACKUP V4' }).locator('input[type="file"]');
+  const dialogs: string[] = [];
+  page.on('dialog', (dialog) => { dialogs.push(dialog.message()); void dialog.dismiss(); });
+  await backupInput.setInputFiles(invalidPath);
+  await expect(page.getByRole('status')).toContainText('预检失败');
+  expect(dialogs).toEqual([]);
+  page.removeAllListeners('dialog');
   await expect(attemptCount).toHaveText('2');
 
   const validDialogPromise = page.waitForEvent('dialog');
@@ -135,7 +138,7 @@ test('exports, rejects a damaged import, and restores a valid backup', async ({ 
 });
 
 test('installs the PWA and reloads the question bank offline', async ({ page, context }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await expect(page.locator('.question-row')).toHaveCount(47);
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;

@@ -20,7 +20,7 @@ async function expectNoPageOverflow(page: Page) {
 }
 
 async function openQuestions(page: Page) {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await expect(page.locator('.question-row')).toHaveCount(47);
   await expectNoPageOverflow(page);
 }
@@ -36,7 +36,7 @@ test.describe('visual acceptance', () => {
 
   test('captures dashboard, question browsing, and statistics without overflow', async ({ page }, testInfo) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '学习总览' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '今日学习' })).toBeVisible();
     await expectNoPageOverflow(page);
     await capture(page, testInfo, 'dashboard');
 
@@ -53,7 +53,7 @@ test.describe('visual acceptance', () => {
   test('renders a nonblank knowledge graph and accessible topic index', async ({ page }, testInfo) => {
     await page.goto('/knowledge');
     await expect(page.getByRole('heading', { name: '知识证据图' })).toBeVisible();
-    await expect(page.locator('.knowledge-topic-list button')).toHaveCount(12);
+    await expect(page.locator('.knowledge-topic-list button')).toHaveCount(28);
     await expect(page.getByRole('button', {
       name: '数据结构科目总览',
       exact: true,
@@ -74,11 +74,11 @@ test.describe('visual acceptance', () => {
     await capture(page, testInfo, 'knowledge', false);
 
     await page.getByRole('region', { name: '科目选择' }).getByRole('button', { name: '操作系统', exact: true }).click();
-    await page.locator('.knowledge-topic-list').getByRole('button', { name: /考查磁盘的调度算法/u }).click();
-    await expect(page.locator('.knowledge-detail-panel').getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+    await page.locator('.knowledge-topic-list').getByRole('button', { name: /磁盘调度与访问时间/u }).click();
+    await expect(page.locator('.knowledge-detail-panel').getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
     await expect(page).toHaveURL((url) => (
       url.pathname === '/knowledge'
-      && url.search === '?subject=operating-systems&node=topic-2009-q29'
+      && url.search === '?subject=operating-systems&node=os.files.disk'
     ));
     const overview = page.getByRole('button', {
       name: '操作系统科目总览',
@@ -168,7 +168,7 @@ test.describe('visual acceptance', () => {
   test('renders the schema v3 backup surface without overflow', async ({ page }, testInfo) => {
     await page.goto('/settings');
     await expect(page.getByRole('heading', { name: '数据管理' })).toBeVisible();
-    const backupBand = page.locator('.backup-band').filter({ hasText: 'BACKUP V3' });
+    const backupBand = page.locator('.backup-band').filter({ hasText: 'BACKUP V4' });
     await expect(backupBand).toBeVisible();
     await expectNoPageOverflow(page);
     await backupBand.scrollIntoViewIfNeeded();

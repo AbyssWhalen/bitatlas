@@ -1,0 +1,49 @@
+{
+  "authority": "docs/ui/opus-handoff.md: 阶段 2/3 并行约定",
+  "themes": {
+    "day": {
+      "bone": "#ECECE7", "paper": "#F7F7F3", "paper-2": "#E4E4DD",
+      "ink": "#222220", "ink-strong": "#141414", "muted": "#55554F", "line": "#CFCFC7",
+      "signal": "#C8381A", "signal-ink": "#FFFFFF", "signal-text": "#B8321A",
+      "ok-text": "#2A6B34", "warn-text": "#8A5A00", "lit": "#C8F03C",
+      "lit-ink": "#141414", "off": "#D6D6CF", "canvas": "#161817", "canvas-ink": "#D6D6D0"
+    },
+    "night": {
+      "bone": "#161615", "paper": "#1E1E1C", "paper-2": "#262624",
+      "ink": "#D6D6D0", "ink-strong": "#ECECE7", "muted": "#A3A39C", "line": "#33332F",
+      "signal": "#FF6A4A", "signal-ink": "#141414", "signal-text": "#FF6A4A",
+      "ok-text": "#68C778", "warn-text": "#E5B04A", "lit": "#9EC22E",
+      "lit-ink": "#141414", "off": "#2C2C2A", "canvas": "#161817", "canvas-ink": "#D6D6D0"
+    }
+  },
+  "aliases": {
+    "surface": "paper", "surface-soft": "bone", "surface-raised": "paper-2",
+    "sidebar": "bone", "sidebar-muted": "muted", "faint": "muted", "line-strong": "line",
+    "red": "signal-text", "red-bright": "signal-text", "red-dark": "signal",
+    "danger": "signal-text", "green": "ok-text", "blue": "ink-strong", "yellow": "warn-text"
+  },
+  "rules": {
+    "text": "Neutral light -> ink/ink-strong, neutral secondary -> muted; red -> signal-text, green -> ok-text, yellow -> warn-text, blue/purple -> ink-strong.",
+    "surface": "Neutral panel -> paper, hover/recess -> paper-2, page -> bone. Translucent status -> color-mix(status <= 13%, transparent); solid primary -> signal + signal-ink, positive fill -> lit + lit-ink.",
+    "border": "Neutral -> line; meaningful state -> semantic state color. All positive border widths -> 1px. Outline stays 2px for keyboard visibility.",
+    "decoration": "Remove gradients, shadows, drop-shadow, backdrop blur, boot flicker and heading cursor; primary-command alone keeps 2px hard shadow.",
+    "lab": "Keep lab*.css unchanged and mixed responsive lab rules. Scope fixed night semantics and legacy aliases to .page[class*=\"-lab-page\"].",
+    "blueDecision": "Information, computer-networks, familiar/mastery and download accents become neutral ink-strong/paper-2. No new blue token.",
+    "yellowDecision": "Reminder, hint, operating-system and learning accents use warn-text. No new yellow token."
+  },
+  "overrides": [
+    { "file": "base.css", "selector": "::selection", "prop": "color", "value": "var(--signal-ink)", "reason": "Selection text must match solid selection fill." },
+    { "file": "base.css", "selector": "::selection", "prop": "background", "value": "var(--signal)", "reason": "Use opaque selection fill with tested foreground." },
+    { "file": "base.css", "selector": ":root", "prop": "color-scheme", "value": "var(--theme-color-scheme)", "reason": "Native form controls follow the selected theme." },
+    { "file": "pages/knowledge.css", "selector": ".knowledge-graph-canvas", "prop": "background", "value": "var(--canvas)", "reason": "Cytoscape owns hardcoded light labels; keep this canvas dark until the graph migration." },
+    { "file": "pages/stats.css", "selector": "[data-level=\"1\"]", "prop": "background", "value": "color-mix(in srgb, var(--lit) 25%, var(--off))", "reason": "Retain four distinct heatmap intensities." },
+    { "file": "pages/stats.css", "selector": "[data-level=\"2\"]", "prop": "background", "value": "color-mix(in srgb, var(--lit) 50%, var(--off))", "reason": "Retain four distinct heatmap intensities." },
+    { "file": "pages/stats.css", "selector": "[data-level=\"3\"]", "prop": "background", "value": "color-mix(in srgb, var(--lit) 75%, var(--off))", "reason": "Retain four distinct heatmap intensities." },
+    { "file": "pages/stats.css", "selector": "[data-level=\"4\"]", "prop": "background", "value": "var(--lit)", "reason": "Retain four distinct heatmap intensities." }
+  ],
+  "islandCorrections": ".page[class*=\"-lab-page\"] .network-bit-ruler small { opacity: 1; }\n.page[class*=\"-lab-page\"] .network-lpm-evaluations > article.missed { opacity: 1; }\n.page[class*=\"-lab-page\"] .ds-edge text, .page[class*=\"-lab-page\"] .ds-node text { fill: var(--lit-ink); }",
+  "appendRules": {
+    "base.css": "input::placeholder, textarea::placeholder { color: var(--muted); opacity: 1; }",
+    "reading.css": ".account-sync-notice button { min-height: 32px; padding: 5px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--ink); background: var(--paper-2); cursor: pointer; }"
+  }
+}

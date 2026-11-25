@@ -3,6 +3,7 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import { Fragment, useState } from 'react';
 import { useStudy } from '../app/StudyContext';
+import { useAssetUrl } from '../app/useAssetUrl';
 
 type ImageBlock = Extract<ContentBlock, { type: 'image' }>;
 
@@ -29,8 +30,10 @@ function InlineText({ text }: { text: string }) {
 
 function ContentImage({ block, asset, compact }: { block: ImageBlock; asset: AssetRef | undefined; compact: boolean }) {
   const [failedPath, setFailedPath] = useState<string | null>(null);
+  const [retry, setRetry] = useState(0);
+  const image = useAssetUrl(asset, retry);
 
-  if (!asset || failedPath === asset.path) {
+  if (!asset || failedPath === asset.path || image.failed) {
     return (
       <p
         className="warning-text"
@@ -38,10 +41,11 @@ function ContentImage({ block, asset, compact }: { block: ImageBlock; asset: Ass
         data-missing-asset-id={asset ? undefined : block.assetId}
         data-failed-asset-id={asset ? block.assetId : undefined}
       >
-        图片资源不可用：{block.alt}
+        图片资源不可用：{block.alt}{asset && <button onClick={() => { setFailedPath(null); setRetry((value) => value + 1); }}>重试图片</button>}
       </p>
     );
   }
+  if (!image.url) return <p role="status">正在载入题图…</p>;
 
   if (!asset.mimeType.startsWith('image/')) {
     return (
@@ -55,7 +59,7 @@ function ContentImage({ block, asset, compact }: { block: ImageBlock; asset: Ass
     return (
       <img
         className="source-inline-image"
-        src={asset.path}
+        src={image.url}
         alt={block.alt}
         loading="lazy"
         onError={() => setFailedPath(asset.path)}
@@ -73,13 +77,15 @@ function ContentImage({ block, asset, compact }: { block: ImageBlock; asset: Ass
         width: compact ? 'min(100%, 240px)' : 'min(100%, 760px)',
         aspectRatio: `${asset.width * width} / ${asset.height * height}`,
         margin: compact ? '8px auto' : '18px auto',
-        border: '1px solid #2e3a33',
+        border: '1px solid var(--line)',
+        borderRadius: '6px',
+        // Scanned exam diagrams require a white paper backdrop in both themes.
         background: '#fff',
       }}
     >
       <img
         className="source-inline-image"
-        src={asset.path}
+        src={image.url}
         alt={block.alt}
         loading="eager"
         onError={() => setFailedPath(asset.path)}

@@ -17,6 +17,7 @@ import {
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { NetworkModuleTabs } from '../components/NetworkModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -230,58 +231,117 @@ export function TcpCongestionLabPage() {
   };
 
   return (
-    <div className="page tcp-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">NETWORK LAB / TCP CONGESTION</span><h1>TCP 拥塞控制实验室</h1><p>逐 RTT 重放慢开始、拥塞避免与丢包反馈，观察 cwnd 和 ssthresh。</p></div>
-        <button className="secondary-command" type="button" disabled={!q39Id || starting} onClick={() => void practiceQ39()}>
+    <LabExhibit
+      pageClassName="tcp-lab-page"
+      subjectLabel="计算机网络实验 · 传输层"
+      title="TCP 拥塞控制实验室"
+      description="逐 RTT 重放慢开始、拥塞避免与丢包反馈，观察 cwnd 和 ssthresh。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!q39Id || starting} onClick={() => void practiceQ39()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q39'}
         </button>
-      </header>
-      <LabSectionNav />
-      <NetworkModuleTabs active="tcp-congestion" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="tcp-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />408 经典超时模型</span>
-        <strong>{q39?.reviewStatus ?? TCP_Q39_PRESET.reviewStatus}</strong>
-        <small>这是考研题常用的离散教学模型，不代表所有现代 TCP 实现的唯一行为。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=computer-networks&node=topic-2009-q39')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><Gauge size={18} aria-hidden="true" /><span>cwnd / ssthresh · integer MSS</span><CircleGauge size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid tcp-lab-grid">
-        <section className="lab-control-panel" aria-labelledby="tcp-control-title">
-          <div className="lab-control-heading tcp-control-heading">
-            <div><span className="eyebrow">MODEL / EVENTS</span><h2 id="tcp-control-title">初始状态与网络事件</h2></div>
-            <label className="lab-input-field lab-example-select"><span>典型预设</span><select aria-label="TCP 典型预设" value={presetId} onChange={(event) => selectPreset(event.target.value)}>{presetId === 'custom' && <option value="custom">自定义输入</option>}{tcpPresets.map((preset) => <option key={preset.id} value={preset.id}>{preset.label}</option>)}</select></label>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <NetworkModuleTabs active="tcp-congestion" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="408 经典超时模型"
+          badge={q39?.reviewStatus ?? TCP_Q39_PRESET.reviewStatus}
+          note="这是考研题常用的离散教学模型，不代表所有现代 TCP 实现的唯一行为。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=computer-networks&node=topic-2009-q39')}>
+              查看知识节点<ArrowRight size={14} aria-hidden="true" />
+            </button>
+          )}
+        />
+      )}
+      subheading={(
+        <>
+          <Gauge size={18} aria-hidden="true" />
+          <span>cwnd / ssthresh · integer MSS</span>
+          <CircleGauge size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="tcp-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="tcp-control-title">初始状态与网络事件</h2>
+            <div className="lab-exhibit-card-actions">
+              <label className="lab-exhibit-inline-select">
+                <span>典型预设</span>
+                <select aria-label="TCP 典型预设" value={presetId} onChange={(event) => selectPreset(event.target.value)}>
+                  {presetId === 'custom' && <option value="custom">自定义输入</option>}
+                  {tcpPresets.map((preset) => <option key={preset.id} value={preset.id}>{preset.label}</option>)}
+                </select>
+              </label>
+              <button className="lab-exhibit-keycap compact" type="button" onClick={() => selectPreset('cn408-2009-q39')}>
+                <RotateCcw size={15} aria-hidden="true" />恢复 Q39 预设
+              </button>
+            </div>
           </div>
-          <div className="tcp-input-grid">
-            <label className="lab-input-field"><span>初始 cwnd（MSS）</span><input aria-label="初始拥塞窗口" inputMode="numeric" value={draft.initialCwndMss} onChange={(event) => patchDraft({ initialCwndMss: event.target.value })} /></label>
-            <label className="lab-input-field"><span>初始 ssthresh（MSS）</span><input aria-label="初始慢开始门限" inputMode="numeric" value={draft.initialSsthreshMss} onChange={(event) => patchDraft({ initialSsthreshMss: event.target.value })} /></label>
-            <label className="lab-input-field"><span>MSS 大小（KB）</span><input aria-label="MSS 大小" inputMode="numeric" value={draft.mssKilobytes} onChange={(event) => patchDraft({ mssKilobytes: event.target.value })} /></label>
+
+          <div className="lab-exhibit-input-grid cols-3">
+            <label className="lab-exhibit-field">
+              <span>初始 cwnd（MSS）</span>
+              <input aria-label="初始拥塞窗口" inputMode="numeric" value={draft.initialCwndMss} onChange={(event) => patchDraft({ initialCwndMss: event.target.value })} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>初始 ssthresh（MSS）</span>
+              <input aria-label="初始慢开始门限" inputMode="numeric" value={draft.initialSsthreshMss} onChange={(event) => patchDraft({ initialSsthreshMss: event.target.value })} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>MSS 大小（KB）</span>
+              <input aria-label="MSS 大小" inputMode="numeric" value={draft.mssKilobytes} onChange={(event) => patchDraft({ mssKilobytes: event.target.value })} />
+            </label>
           </div>
-          <label className="lab-input-field tcp-event-script"><span>事件脚本（rtt / timeout / dup3）</span><textarea aria-label="TCP 事件脚本" rows={5} spellCheck={false} value={draft.eventScript} onChange={(event) => patchDraft({ eventScript: event.target.value })} /></label>
-          <button className="secondary-command compact-command" type="button" onClick={() => selectPreset('cn408-2009-q39')}><RotateCcw size={15} aria-hidden="true" />恢复 Q39 预设</button>
-          {!calculation.ok && <div className="lab-error" role="alert">{calculation.message}</div>}
-          {calculation.ok && <TcpWindowChart simulation={calculation.simulation} activeStepIndex={activeStepIndex} />}
-          {currentState && calculation.ok && <TcpStateSummary state={currentState} mssKilobytes={calculation.mssKilobytes} />}
+
+          <label className="lab-exhibit-field lab-exhibit-field-spaced">
+            <span>事件脚本（rtt / timeout / dup3）</span>
+            <textarea aria-label="TCP 事件脚本" rows={4} spellCheck={false} value={draft.eventScript} onChange={(event) => patchDraft({ eventScript: event.target.value })} />
+          </label>
+
+          {!calculation.ok ? <div className="lab-exhibit-error" role="alert">{calculation.message}</div> : null}
         </section>
-
-        {calculation.ok ? (
-          <StepExplorer key={`${draft.initialCwndMss}:${draft.initialSsthreshMss}:${draft.eventScript}`} steps={tcpExplorerSteps(calculation.simulation, calculation.mssKilobytes)} onActiveIndexChange={setActiveStepIndex} />
-        ) : (
-          <section className="step-explorer tcp-empty-trace"><Gauge size={24} aria-hidden="true" /><strong>等待有效事件</strong></section>
-        )}
-      </div>
-
-      {calculation.ok && (
-        <section className="tcp-model-note" aria-label="模型边界">
+      )}
+      canvas={calculation.ok && currentState ? (
+        <section className="lab-exhibit-stage" aria-labelledby="tcp-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="tcp-stage-heading">拥塞窗口与慢开始门限曲线</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Gauge size={18} aria-hidden="true" />
+          </div>
+          <TcpWindowChart simulation={calculation.simulation} activeStepIndex={activeStepIndex} />
+          <TcpStateSummary state={currentState} mssKilobytes={calculation.mssKilobytes} />
+        </section>
+      ) : null}
+      steps={calculation.ok ? (
+        <StepExplorer
+          key={`${draft.initialCwndMss}:${draft.initialSsthreshMss}:${draft.eventScript}`}
+          steps={tcpExplorerSteps(calculation.simulation, calculation.mssKilobytes)}
+          onActiveIndexChange={setActiveStepIndex}
+        />
+      ) : (
+        <section className="lab-exhibit-steps-empty">
+          <Gauge size={24} aria-hidden="true" />
+          <strong>等待有效事件</strong>
+        </section>
+      )}
+      footer={calculation.ok ? (
+        <section className="lab-exhibit-note-card" aria-label="模型边界">
           <strong>本实验的确定性规则</strong>
           <p>慢开始阶段每个完整确认的 RTT 将 cwnd 翻倍，但不越过 ssthresh；拥塞避免阶段每轮增加 1 MSS。</p>
           <p>超时时令 ssthresh = max(1, floor(cwnd / 2))，cwnd 回到 1 MSS，并重新进入慢开始。</p>
           <p>三次重复 ACK 时令 ssthresh 减半、cwnd 等于新门限并进入拥塞避免；本模型不模拟临时增加 3 MSS。</p>
         </section>
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

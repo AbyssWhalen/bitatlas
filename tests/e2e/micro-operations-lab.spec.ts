@@ -147,19 +147,19 @@ test('replays Q44 micro-operation schedules with URL, practice, and knowledge re
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
     && url.searchParams.get('subject') === 'computer-organization'
-    && url.searchParams.get('node') === 'topic-2009-q44'
+    && url.searchParams.get('node') === 'co.processor.datapath'
   ));
   await expect(page.getByRole('button', { name: '打开对应实验' })).toHaveAttribute('title', '数据通路微操作调度');
   await page.getByRole('button', { name: '打开对应实验' }).click();
   await expect(page).toHaveURL(canonicalUrl);
   await page.goBack();
-  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=topic-2009-q44$/u);
+  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=co\.processor\.datapath$/u);
   await page.goBack();
   await expect(page).toHaveURL(customUrl);
   await expect(page.getByLabel('R0 初值')).toHaveValue('7');
   await expect(page.locator('.micro-operations-step-explorer .step-transport > span')).toHaveText('1 / 5');
   await page.goForward();
-  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=topic-2009-q44$/u);
+  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=co\.processor\.datapath$/u);
   await page.getByRole('button', { name: '打开对应实验' }).click();
 
   await page.getByRole('button', { name: '下一步' }).click();

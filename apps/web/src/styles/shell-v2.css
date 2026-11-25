@@ -1,0 +1,90 @@
+/* Stage 2 shell: top bar, keycap navigation, status chip. Owner: lead. Semantic tokens only. */
+
+.shell-v2 { display: flex; flex-direction: column; }
+.shell-v2 .main-area { background: var(--bone); }
+
+.topbar { z-index: 30; flex: 0 0 auto; display: flex; align-items: center; gap: 20px; min-height: 56px; padding: 0 24px; color: var(--ink); background: var(--paper); border-bottom: 1px solid var(--line); font-size: 14px; }
+
+.topbar .brand-block { flex: 0 0 auto; display: flex; align-items: center; gap: 9px; padding: 0; color: var(--ink-strong); }
+.topbar .brand-block strong { display: block; font-size: 17px; font-weight: 800; letter-spacing: .01em; }
+.topbar .brand-mark { width: 26px; height: 26px; flex: 0 0 26px; display: block; overflow: hidden; border-radius: 6px; box-shadow: none; animation: none; }
+
+.topnav { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 6px; }
+.keycap { position: relative; height: 34px; display: inline-flex; align-items: center; gap: 7px; padding: 0 11px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; color: var(--ink); background: transparent; font: inherit; font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap; cursor: pointer; }
+.keycap:hover { color: var(--ink-strong); background: var(--paper-2); border-color: var(--muted); }
+.keycap:active { transform: translateY(1px); border-bottom-width: 1px; margin-bottom: 1px; }
+.keycap.active { color: var(--bone); background: var(--ink-strong); border-color: var(--ink-strong); }
+.keycap kbd { min-width: 18px; padding: 2px 4px; border-radius: 3px; color: var(--muted); background: var(--paper-2); font-family: var(--mono); font-size: 13px; font-weight: 600; line-height: 1; text-align: center; }
+.keycap.active kbd { color: var(--ink-strong); background: var(--bone); }
+
+.topnav-more { position: relative; }
+.topnav-menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 40; min-width: 176px; display: grid; padding: 6px; border: 1px solid var(--ink-strong); border-radius: 6px; background: var(--paper); }
+.topnav-menu[hidden] { display: none; }
+.topnav-menu a { min-height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-radius: 4px; color: var(--ink); font-weight: 600; }
+.topnav-menu a:hover { color: var(--ink-strong); background: var(--paper-2); }
+.topnav-menu a.active { color: var(--ink-strong); box-shadow: inset 2px 0 0 var(--signal); }
+
+.topbar-tools { flex: 0 0 auto; display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.status-chip { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; white-space: nowrap; }
+.status-chip i { width: 9px; height: 9px; border: 1px solid var(--ink-strong); border-radius: 2px; background: var(--off); }
+.status-chip.tone-ready i { background: var(--lit); }
+.status-chip.tone-fault { color: var(--signal-text); }
+.status-chip.tone-fault i { background: var(--signal); }
+.status-chip.tone-empty { color: var(--warn-text); }
+.status-chip.tone-pending { color: var(--warn-text); font-weight: 650; }
+.status-chip.tone-pending i { background: transparent; border-style: dashed; }
+
+.reading-size { display: inline-flex; align-items: center; gap: 8px; }
+.reading-size label { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 700; }
+.reading-size select { height: 32px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--paper); font-size: 13px; cursor: pointer; }
+.reading-size select:hover { border-color: var(--muted); }
+.reading-size [role="alert"] { color: var(--signal-text); font-size: 13px; }
+
+.topbar-icon { width: 32px; height: 32px; flex: 0 0 32px; display: inline-grid; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: transparent; cursor: pointer; }
+.topbar-icon:hover { color: var(--ink-strong); background: var(--paper-2); border-color: var(--muted); }
+
+/* The primary button's hard edge is a darker shade of itself, so it reads as depth in both themes. */
+.shell-v2 .primary-command:not(:disabled) { box-shadow: 0 2px 0 color-mix(in srgb, var(--signal) 62%, var(--canvas)); }
+.shell-v2 .primary-command:active:not(:disabled) { box-shadow: none; transform: translateY(2px); }
+
+/* Code-only banner: keep >= 4.5:1 contrast for warning heading and ink body on paper surface. */
+.shell-v2 .content-unavailable-banner {
+  border: 1px solid color-mix(in srgb, var(--warn-text) 45%, var(--line));
+  border-left: 3px solid var(--warn-text);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.shell-v2 .content-unavailable-banner strong { color: var(--warn-text); }
+.shell-v2 .content-unavailable-banner span { color: var(--ink); }
+.shell-v2 .content-unavailable-banner .secondary-command { border-radius: 6px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .keycap, .topbar-icon { transition: background-color 60ms linear, color 60ms linear, border-color 60ms linear, transform 60ms linear; }
+}
+
+@media (min-width: 761px) {
+  .shell-v2 { min-height: 100vh; }
+  .shell-v2 .topbar { position: sticky; top: 0; }
+  .shell-v2 .main-area { flex: 1 1 auto; min-height: calc(100vh - 57px); }
+  /* Park sticky practice & mock-exam bars directly under the sticky AppShell topbar on desktop. */
+  .shell-v2 .practice-topbar.rl-topbar { top: 57px; }
+}
+
+@media (max-width: 1180px) {
+  .keycap kbd { display: none; }
+  .topbar { gap: 14px; padding: 0 18px; }
+}
+
+@media (max-width: 940px) {
+  .keycap svg { display: none; }
+  .status-chip.tone-ready, .status-chip.tone-wait { display: none; }
+}
+
+@media (max-width: 760px) {
+  .topbar { min-height: 48px; padding: 0 14px; }
+  .topnav { display: none; }
+  .shell-v2 .mobile-nav { border-top: 1px solid var(--line); background: var(--paper); box-shadow: none; }
+  .shell-v2 .mobile-nav a { color: var(--muted); background: transparent; box-shadow: none; }
+  .shell-v2 .mobile-nav a.active { color: var(--ink-strong); background: transparent; box-shadow: inset 0 2px 0 var(--signal); font-weight: 700; }
+}

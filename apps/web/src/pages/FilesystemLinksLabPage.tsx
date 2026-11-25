@@ -10,6 +10,7 @@ import { BookOpenCheck, File, FileSymlink, FolderTree, Link2, ListOrdered, Rotat
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -80,9 +81,9 @@ function DirectoryPanel({ config, state }: { config: FileLinkConfig; state: File
     { name: config.hardLinkName, kind: '硬链接', icon: Link2 },
   ] as const;
   return (
-    <section className="lab-control-panel filesystem-directory-panel" aria-labelledby="filesystem-directory-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">DIRECTORY ENTRIES</span><h2 id="filesystem-directory-heading">目录项状态</h2></div>
+    <section className="filesystem-directory-panel lab-exhibit-stage" aria-labelledby="filesystem-directory-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="filesystem-directory-heading">目录项状态</h2></div>
         <FolderTree size={19} aria-hidden="true" />
       </div>
       <div className="filesystem-entry-list">
@@ -106,9 +107,9 @@ function DirectoryPanel({ config, state }: { config: FileLinkConfig; state: File
 function InodePanel({ state }: { state: FileLinkState }) {
   const target = state.inodes.find((inode) => inode.inodeId === 'inode-target');
   return (
-    <section className="lab-control-panel filesystem-inode-panel" aria-labelledby="filesystem-inode-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">INODE TABLE</span><h2 id="filesystem-inode-heading">inode 与引用计数</h2></div>
+    <section className="filesystem-inode-panel lab-exhibit-stage" aria-labelledby="filesystem-inode-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="filesystem-inode-heading">inode 与引用计数</h2></div>
         <strong aria-label="目标 inode 引用计数">{target?.linkCount ?? 0}</strong>
       </div>
       <div className="filesystem-inode-list">
@@ -200,66 +201,78 @@ export function FilesystemLinksLabPage() {
   };
 
   return (
-    <div className="page filesystem-links-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / FILE LINKS</span><h1>软硬链接实验室</h1><p>逐步区分目录项、inode 引用计数，以及删除原文件名后的链接解析结果。</p></div>
-        <button className="secondary-command" type="button" disabled={!questionId || starting} onClick={() => void practiceQ31()}>
+    <LabExhibit
+      pageClassName="filesystem-links-lab-page"
+      subjectLabel="操作系统实验 · 文件链接"
+      title="软硬链接实验室"
+      description="逐步区分目录项、inode 引用计数，以及删除原文件名后的链接解析结果。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!questionId || starting} onClick={() => void practiceQ31()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q31'}
         </button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="filesystem-links" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band filesystem-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />本地练习预设 · Q31</span>
-        <strong>{FILE_LINK_Q31_PRESET.reviewStatus}</strong>
-        <small>原题序列来自待人工复核题包；此页区分软链接自身 inode 与目标 inode，不提升审核状态。</small>
-      </div>
-
-      <div className="lab-module-heading"><Link2 size={18} aria-hidden="true" /><span>目录项 · inode · link count · dangling</span><ListOrdered size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid filesystem-links-lab-grid">
-        <div className="filesystem-links-workbench">
-          <section className="lab-control-panel filesystem-links-control" aria-labelledby="filesystem-links-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONFIG / NAMES</span><h2 id="filesystem-links-control-heading">目录项名称</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q31 预设</button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="filesystem-links" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q31"
+          badge={FILE_LINK_Q31_PRESET.reviewStatus}
+          note="原题序列来自待人工复核题包；此页区分软链接自身 inode 与目标 inode，不提升审核状态。"
+        />
+      )}
+      subheading={(
+        <>
+          <Link2 size={18} aria-hidden="true" />
+          <span>目录项 · inode · link count · dangling</span>
+          <ListOrdered size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="filesystem-links-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="filesystem-links-control-heading">目录项名称</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q31 预设</button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-3">
+            <label className="lab-exhibit-field"><span>目标文件名</span><input aria-label="目标文件名" value={targetName} onChange={(event) => updateUrl(event.target.value, symbolicLinkName, hardLinkName)} /></label>
+            <label className="lab-exhibit-field"><span>符号链接名</span><input aria-label="符号链接名" value={symbolicLinkName} onChange={(event) => updateUrl(targetName, event.target.value, hardLinkName)} /></label>
+            <label className="lab-exhibit-field"><span>硬链接名</span><input aria-label="硬链接名" value={hardLinkName} onChange={(event) => updateUrl(targetName, symbolicLinkName, event.target.value)} /></label>
+          </div>
+          {!computation.ok ? <div className="lab-exhibit-error" role="alert">{computation.message}</div> : currentStep && config && (
+            <div className="filesystem-resolution-status" role="status" aria-label="链接解析状态" data-dangling={currentStep.state.resolution.symlink?.dangling ?? false}>
+              {resolutionText(config, currentStep.state)}
             </div>
-            <div className="filesystem-links-input-grid">
-              <label className="lab-input-field"><span>目标文件名</span><input aria-label="目标文件名" value={targetName} onChange={(event) => updateUrl(event.target.value, symbolicLinkName, hardLinkName)} /></label>
-              <label className="lab-input-field"><span>符号链接名</span><input aria-label="符号链接名" value={symbolicLinkName} onChange={(event) => updateUrl(targetName, event.target.value, hardLinkName)} /></label>
-              <label className="lab-input-field"><span>硬链接名</span><input aria-label="硬链接名" value={hardLinkName} onChange={(event) => updateUrl(targetName, symbolicLinkName, event.target.value)} /></label>
-            </div>
-            {!computation.ok ? <div className="lab-error" role="alert">{computation.message}</div> : currentStep && config && (
-              <div className="filesystem-resolution-status" role="status" aria-label="链接解析状态" data-dangling={currentStep.state.resolution.symlink?.dangling ?? false}>
-                {resolutionText(config, currentStep.state)}
-              </div>
-            )}
-          </section>
-
-          {computation.ok && currentStep && config && (
-            <>
-              <div className="filesystem-current-event">
-                <ListOrdered size={18} aria-hidden="true" />
-                <div><span>当前重放事件</span><strong>{stepLabels[currentStep.kind]}</strong></div>
-                <code>{stateSummary(currentStep.state)}</code>
-              </div>
-              <DirectoryPanel config={config} state={currentStep.state} />
-              <InodePanel state={currentStep.state} />
-            </>
           )}
+        </section>
+      )}
+      status={computation.ok && currentStep && config && (
+        <div className="filesystem-current-event lab-exhibit-status-card">
+          <ListOrdered size={18} aria-hidden="true" />
+          <div><span>当前重放事件</span><strong>{stepLabels[currentStep.kind]}</strong></div>
+          <code>{stateSummary(currentStep.state)}</code>
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={computationKey}
-            steps={computation.explorerSteps}
-            onActiveIndexChange={setActiveIndex}
-            announceChanges={false}
-            className="filesystem-links-step-explorer"
-          />
-        )}
-      </div>
-    </div>
+      )}
+      canvas={computation.ok && currentStep && config && (
+        <>
+          <DirectoryPanel config={config} state={currentStep.state} />
+          <InodePanel state={currentStep.state} />
+        </>
+      )}
+      steps={computation.ok && (
+        <StepExplorer
+          key={computationKey}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+          announceChanges={false}
+          className="filesystem-links-step-explorer"
+        />
+      )}
+    />
   );
 }

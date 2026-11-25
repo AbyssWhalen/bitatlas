@@ -102,7 +102,7 @@ test('replays Q45 slots, FIFO blocking, direct handoff, and exact practice round
     expect(eventBox!.y + eventBox!.height).toBeLessThanOrEqual(explorerBox!.y + 1);
     expect(explorerBox!.y + explorerBox!.height).toBeLessThanOrEqual(bufferBox!.y + 1);
     expect(explorerBox!.height).toBeLessThan(420);
-    await expect(page.getByLabel('odd FIFO 阻塞队列').locator('small')).toHaveCSS('font-size', '10px');
+    await expect(page.getByLabel('odd FIFO 阻塞队列').locator('small')).toHaveCSS('font-size', '13px');
     await expect(page.locator('.mobile-nav')).toHaveCSS('position', 'static');
     const [mainBox, navBox] = await Promise.all([
       page.locator('.main-area').boundingBox(),

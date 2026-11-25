@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import type { ContentPack } from '@408os/domain';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SettingsPage } from './SettingsPage';
@@ -12,6 +12,11 @@ const study = vi.hoisted(() => ({
   importBackup: vi.fn(async () => undefined),
   installVerifiedPack: vi.fn(async () => undefined),
   exportBackup: vi.fn(async () => '{}'),
+}));
+const runtime = vi.hoisted(() => ({ server: false, role: 'member' as 'member' | 'admin' }));
+vi.mock('../app/server-mode', () => ({ get SERVER_MODE() { return runtime.server; } }));
+vi.mock('../app/account', () => ({
+  get activeAccount() { return { account: { username: 'reader', role: runtime.role } }; },
 }));
 
 vi.mock('../app/StudyContext', () => ({
@@ -24,13 +29,22 @@ vi.mock('../app/StudyContext', () => ({
     ...study,
   }),
 }));
+vi.mock('../app/storage', () => ({
+  offlineAssetStatus: vi.fn(async () => []),
+  repairOfflineAssets: vi.fn(),
+  storage: { backupService: { preflight: vi.fn((json: string) => ({
+    schemaVersion: JSON.parse(json).schemaVersion, counts: { attempts: 0, notes: 0 },
+  })) } },
+}));
 
 const manifest = (JSON.parse(readFileSync(path.resolve('apps', 'web', 'public', 'content', '2009.json'), 'utf8')) as ContentPack).manifest;
 
 describe('SettingsPage content and backup imports', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    study.packs = [manifest];
+    runtime.server = false;
+    runtime.role = 'member';
+    study.packs = [{ ...manifest, sha256: '372a9f91b59501108d17f15815104854469d31fa3b254cc8e36c3f2b72d78bc3' }];
   });
 
   afterEach(() => {
@@ -44,6 +58,29 @@ describe('SettingsPage content and backup imports', () => {
     expect(screen.getByRole('heading', { name: '2009 来源核对' })).toBeVisible();
     expect(screen.getByText(/AI 已完成 47 \/ 47 题的来源核对与校订/)).toBeVisible();
     expect(screen.getByText('当前已通过 0 / 47，题包状态为 needs-review。')).toBeVisible();
+  });
+
+  it.each([
+    ['local', false, 'member', true],
+    ['server member', true, 'member', false],
+    ['server admin', true, 'admin', true],
+  ] as const)('offers content administration only when permitted: %s', (_name, server, role, allowed) => {
+    runtime.server = server; runtime.role = role;
+    render(<MemoryRouter><SettingsPage /></MemoryRouter>);
+    for (const name of ['2009 人工复核', '激活正式题包']) {
+      expect(Boolean(screen.queryByRole('heading', { name }))).toBe(allowed);
+    }
+    for (const name of ['进入复核', '导入 Verified 题包']) {
+      expect(Boolean(screen.queryByRole('button', { name }))).toBe(allowed);
+    }
+    expect(screen.getByRole('button', { name: '导出备份' })).toBeEnabled();
+  });
+
+  it.each([[false, 4], [true, 5]] as const)('names the current backup in recovery guidance (server=%s)', (server, version) => {
+    runtime.server = server;
+    render(<MemoryRouter><SettingsPage /></MemoryRouter>);
+    const section = screen.getByRole('heading', { name: '升级前恢复副本' }).closest('section')!;
+    expect(within(section).getByText(/备份/)).toHaveTextContent(`v${version}`);
   });
 
   it.each(['sha256', 'contentVersion'] as const)('does not show source checking when the installed %s differs', (field) => {
@@ -60,7 +97,7 @@ describe('SettingsPage content and backup imports', () => {
     const inputs = container.querySelectorAll<HTMLInputElement>('input[type="file"]');
     expect(inputs).toHaveLength(2);
     expect(screen.getByText('needs-review', { selector: '.warning-text' })).toBeVisible();
-    expect(screen.getByText('BACKUP V3')).toBeVisible();
+    expect(screen.getByText('BACKUP V4')).toBeVisible();
 
     const packFile = new File(['{"manifest":{}}'], '2009.pack.json', { type: 'application/json' });
     Object.defineProperty(packFile, 'text', { value: vi.fn(async () => '{"manifest":{}}') });

@@ -91,7 +91,7 @@ test('replays Q2 stack capacity, URL state, failure recovery, and practice round
     expect(eventBox!.y + eventBox!.height).toBeLessThanOrEqual(explorerBox!.y + 1);
     expect(explorerBox!.y + explorerBox!.height).toBeLessThanOrEqual(stateBox!.y + 1);
     expect(explorerBox!.height).toBeLessThan(430);
-    await expect(page.locator('.stack-capacity-current-event code')).toHaveCSS('font-size', '10px');
+    await expect(page.locator('.stack-capacity-current-event code')).toHaveCSS('font-size', '13px');
     await expect(page.locator('.mobile-nav')).toHaveCSS('position', 'static');
   }
   await capture(page, testInfo);

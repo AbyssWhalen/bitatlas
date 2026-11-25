@@ -1,0 +1,4 @@
+/* Stage-1 migration: original cascade segment; see tools/ui/migrate-styles.mjs. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+}

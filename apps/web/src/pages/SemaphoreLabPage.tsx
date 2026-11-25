@@ -14,6 +14,7 @@ import { BookOpenCheck, Boxes, ListOrdered, LockKeyhole, RotateCcw, Users } from
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -111,10 +112,13 @@ function computeSemaphore(capacityText: string, script: string): SemaphoreComput
 
 function BufferView({ state }: { state: Q45State }) {
   return (
-    <section className="lab-control-panel semaphore-buffer-panel" aria-labelledby="semaphore-buffer-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">BOUNDED BUFFER</span><h2 id="semaphore-buffer-heading">容量 N 缓冲区</h2></div>
-        <strong>{state.buffer.filter((value) => value !== null).length} / {state.capacity}</strong>
+    <section className="lab-exhibit-stage-block semaphore-buffer-panel" aria-labelledby="semaphore-buffer-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="semaphore-buffer-heading">容量 N 缓冲区</h2>
+          <span className="lab-exhibit-stage-tag">实验画布</span>
+        </div>
+        <strong className="lab-exhibit-stage-meta">{state.buffer.filter((value) => value !== null).length} / {state.capacity}</strong>
       </div>
       <div className="semaphore-buffer-viewport">
         <div className="semaphore-buffer-slots" data-buffer-capacity={state.capacity}>
@@ -142,10 +146,12 @@ function BufferView({ state }: { state: Q45State }) {
 
 function SemaphoreStateView({ state }: { state: Q45State }) {
   return (
-    <section className="lab-control-panel semaphore-state-panel" aria-labelledby="semaphore-state-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">AVAILABLE PERMITS</span><h2 id="semaphore-state-heading">四个信号量</h2></div>
-        <LockKeyhole size={19} aria-hidden="true" />
+    <section className="lab-exhibit-stage-block semaphore-state-panel" aria-labelledby="semaphore-state-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="semaphore-state-heading">四个信号量</h2>
+        </div>
+        <LockKeyhole size={18} aria-hidden="true" />
       </div>
       <div className="semaphore-value-grid">
         {semaphoreIds.map((id) => {
@@ -170,10 +176,12 @@ function SemaphoreStateView({ state }: { state: Q45State }) {
 
 function ProcessStateView({ state }: { state: Q45State }) {
   return (
-    <section className="lab-control-panel semaphore-process-panel" aria-labelledby="semaphore-process-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">PROCESS STATE</span><h2 id="semaphore-process-heading">进程与许可阶段</h2></div>
-        <Users size={19} aria-hidden="true" />
+    <section className="lab-exhibit-stage-block semaphore-process-panel" aria-labelledby="semaphore-process-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="semaphore-process-heading">进程与许可阶段</h2>
+        </div>
+        <Users size={18} aria-hidden="true" />
       </div>
       <div className="semaphore-process-list">
         {processIds.map((processId) => {
@@ -199,7 +207,7 @@ function ProcessStateView({ state }: { state: Q45State }) {
 
 function CurrentEvent({ step }: { step: Q45TraceStep | undefined }) {
   return (
-    <section className="semaphore-current-event" aria-live="polite" data-event-outcome={step?.event.outcome ?? 'initial'}>
+    <section className="lab-exhibit-status-card semaphore-current-event" aria-live="polite" data-event-outcome={step?.event.outcome ?? 'initial'}>
       <ListOrdered size={18} aria-hidden="true" />
       <div>
         <span>当前原子操作</span>
@@ -272,83 +280,100 @@ export function SemaphoreLabPage() {
   };
 
   return (
-    <div className="page semaphore-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / SEMAPHORE</span><h1>信号量同步实验室</h1><p>重放奇偶生产者-消费者的缓冲区、许可转移与阻塞队列。</p></div>
-        <button className="secondary-command" type="button" disabled={!questionId || starting} onClick={() => void practiceQ45()}>
+    <LabExhibit
+      pageClassName="semaphore-lab-page"
+      subjectLabel="操作系统实验 · 进程同步"
+      title="信号量同步实验室"
+      description="重放奇偶生产者-消费者的缓冲区、许可转移与阻塞队列。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!questionId || starting} onClick={() => void practiceQ45()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q45'}
         </button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="semaphore" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band">
-        <span><Boxes size={16} aria-hidden="true" />本地练习预设 · Q45</span>
-        <strong>{Q45_BUFFER_PRESET.reviewStatus}</strong>
-        <small>参数来自待人工复核题包；FIFO 是本实验的确定性教学调度约定。</small>
-      </div>
-
-      <div className="lab-module-heading"><LockKeyhole size={18} aria-hidden="true" /><span>容量同步 · 类别同步 · 缓冲区互斥</span><ListOrdered size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid semaphore-lab-grid">
-        <div className="semaphore-workbench">
-          <section className="lab-control-panel semaphore-control-panel" aria-labelledby="semaphore-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONFIG / SCRIPT</span><h2 id="semaphore-control-heading">容量与操作序列</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q45 预设</button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="semaphore" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<Boxes size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q45"
+          badge={Q45_BUFFER_PRESET.reviewStatus}
+          note="参数来自待人工复核题包；FIFO 是本实验的确定性教学调度约定。"
+        />
+      )}
+      subheading={(
+        <>
+          <LockKeyhole size={18} aria-hidden="true" />
+          <span>容量同步 · 类别同步 · 缓冲区互斥</span>
+          <ListOrdered size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="semaphore-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="semaphore-control-heading">容量与操作序列</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}>
+              <RotateCcw size={15} aria-hidden="true" />恢复 Q45 预设
+            </button>
+          </div>
+          <label className="lab-exhibit-field semaphore-capacity-field" htmlFor="semaphore-capacity">
+            <span>缓冲区容量 N</span>
+            <input
+              id="semaphore-capacity"
+              aria-label="缓冲区容量 N"
+              inputMode="numeric"
+              value={capacityText}
+              onChange={(event) => {
+                setActiveIndex(0);
+                updateCustomUrl(event.target.value, script);
+              }}
+            />
+          </label>
+          <label className="lab-exhibit-field semaphore-script-field" htmlFor="semaphore-action-script">
+            <span>Q45 操作脚本</span>
+            <textarea
+              id="semaphore-action-script"
+              aria-label="Q45 操作脚本"
+              rows={12}
+              spellCheck={false}
+              value={script}
+              onChange={(event) => {
+                setActiveIndex(0);
+                updateCustomUrl(capacityText, event.target.value);
+              }}
+            />
+          </label>
+          {computation.ok ? (
+            <div className="lab-exhibit-script-status" role="status">
+              <ListOrdered size={16} aria-hidden="true" />
+              {computation.trace.steps.length} 条原子操作 · {computation.snapshots.length} 个可重放状态
             </div>
-            <label className="lab-input-field semaphore-capacity-field" htmlFor="semaphore-capacity">
-              <span>缓冲区容量 N</span>
-              <input
-                id="semaphore-capacity"
-                aria-label="缓冲区容量 N"
-                inputMode="numeric"
-                value={capacityText}
-                onChange={(event) => {
-                  setActiveIndex(0);
-                  updateCustomUrl(event.target.value, script);
-                }}
-              />
-            </label>
-            <label className="lab-input-field full semaphore-script-field" htmlFor="semaphore-action-script">
-              <span>Q45 操作脚本</span>
-              <textarea
-                id="semaphore-action-script"
-                aria-label="Q45 操作脚本"
-                rows={14}
-                spellCheck={false}
-                value={script}
-                onChange={(event) => {
-                  setActiveIndex(0);
-                  updateCustomUrl(capacityText, event.target.value);
-                }}
-              />
-            </label>
-            {computation.ok
-              ? <div className="semaphore-script-status" role="status"><ListOrdered size={16} aria-hidden="true" />{computation.trace.steps.length} 条原子操作 · {computation.snapshots.length} 个可重放状态</div>
-              : <div className="lab-error semaphore-error" role="alert">{computation.message}</div>}
-          </section>
-
-          {computation.ok && currentState && (
-            <>
-              <CurrentEvent step={activeStep} />
-              <BufferView state={currentState} />
-              <SemaphoreStateView state={currentState} />
-              <ProcessStateView state={currentState} />
-            </>
+          ) : (
+            <div className="lab-exhibit-error" role="alert">{computation.message}</div>
           )}
+        </section>
+      )}
+      status={computation.ok && currentState ? <CurrentEvent step={activeStep} /> : null}
+      canvas={computation.ok && currentState ? (
+        <div className="lab-exhibit-canvas-stack">
+          <BufferView state={currentState} />
+          <SemaphoreStateView state={currentState} />
+          <ProcessStateView state={currentState} />
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={computationKey}
-            steps={computation.explorerSteps}
-            onActiveIndexChange={setActiveIndex}
-            announceChanges={false}
-            className="semaphore-step-explorer"
-          />
-        )}
-      </div>
-    </div>
+      ) : null}
+      steps={computation.ok ? (
+        <StepExplorer
+          key={computationKey}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+          announceChanges={false}
+          className="semaphore-step-explorer"
+        />
+      ) : null}
+    />
   );
 }

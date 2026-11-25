@@ -12,6 +12,7 @@ import { ArrowRight, BookOpenCheck, Clock3, ListOrdered, RotateCcw } from 'lucid
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -123,7 +124,7 @@ function CurrentEvent({ step }: { step: HrrnStep }) {
         ? `t=${step.time} · 已完成 ${step.processId ?? '—'}`
         : `t=${step.time}`;
   return (
-    <section className="hrrn-current-event" aria-live="polite" aria-atomic="true" aria-label="当前 HRRN 调度事件">
+    <section className="lab-exhibit-status-card hrrn-current-event" aria-live="polite" aria-atomic="true" aria-label="当前 HRRN 调度事件">
       <Clock3 size={18} aria-hidden="true" />
       <div><span>当前重放事件</span><strong>{stepLabels[step.kind]}</strong><small>{detail}</small></div>
       <code>{candidateSummary(step.candidates)}</code>
@@ -133,9 +134,12 @@ function CurrentEvent({ step }: { step: HrrnStep }) {
 
 function CandidateTable({ candidates }: { candidates: readonly HrrnCandidate[] }) {
   return (
-    <section className="lab-control-panel hrrn-candidate-panel" aria-labelledby="hrrn-candidate-heading">
-      <div className="lab-control-heading"><div><span className="eyebrow">READY QUEUE / RATIO</span><h2 id="hrrn-candidate-heading">当前就绪队列</h2></div><ListOrdered size={19} aria-hidden="true" /></div>
-      {candidates.length === 0 ? <p className="hrrn-empty-note">没有可调度进程；下一步先等待最早到达的进程。</p> : (
+    <section className="lab-exhibit-table-card hrrn-candidate-panel" aria-labelledby="hrrn-candidate-heading">
+      <div className="lab-exhibit-card-head">
+        <h2 id="hrrn-candidate-heading">当前就绪队列</h2>
+        <ListOrdered size={18} aria-hidden="true" />
+      </div>
+      {candidates.length === 0 ? <p className="lab-exhibit-empty-note">没有可调度进程；下一步先等待最早到达的进程。</p> : (
         <div className="table-responsive">
           <table className="table hrrn-candidate-table" aria-label="当前就绪进程响应比">
             <thead><tr><th scope="col">进程</th><th scope="col">等待</th><th scope="col">执行</th><th scope="col">响应比</th></tr></thead>
@@ -153,8 +157,11 @@ function CandidateTable({ candidates }: { candidates: readonly HrrnCandidate[] }
 
 function ScheduleTable({ trace }: { trace: HrrnSchedulingTrace }) {
   return (
-    <section className="lab-control-panel hrrn-schedule-panel" aria-labelledby="hrrn-schedule-heading">
-      <div className="lab-control-heading"><div><span className="eyebrow">NON-PREEMPTIVE TRACE</span><h2 id="hrrn-schedule-heading">HRRN 调度结果</h2></div><Clock3 size={19} aria-hidden="true" /></div>
+    <section className="lab-exhibit-table-card hrrn-schedule-panel" aria-labelledby="hrrn-schedule-heading">
+      <div className="lab-exhibit-card-head">
+        <h2 id="hrrn-schedule-heading">HRRN 调度结果</h2>
+        <Clock3 size={18} aria-hidden="true" />
+      </div>
       <div className="table-responsive">
         <table className="table hrrn-schedule-table" aria-label="HRRN 调度结果">
           <thead><tr><th scope="col">顺序</th><th scope="col">进程</th><th scope="col">到达</th><th scope="col">开始</th><th scope="col">完成</th><th scope="col">等待</th><th scope="col">响应比</th></tr></thead>
@@ -172,28 +179,36 @@ function ScheduleTimeline({ trace, activeStep }: { trace: HrrnSchedulingTrace; a
   if (activeStep.kind === 'dispatch' && activeStep.processId) visibleIds.add(activeStep.processId);
   const scale = Math.max(1, trace.finalTime);
   return (
-    <section className="lab-control-panel hrrn-timeline-panel" aria-labelledby="hrrn-timeline-heading">
-      <div className="lab-control-heading"><div><span className="eyebrow">CPU TIMELINE</span><h2 id="hrrn-timeline-heading">非抢占时间线</h2></div><strong>t=0 → {trace.finalTime}</strong></div>
-      <div className="hrrn-timeline" role="img" aria-label={`HRRN CPU 时间线，完成时刻 ${trace.finalTime}`}>
-        {trace.schedule.map((entry) => (
-          <div
-            className={`hrrn-timeline-segment${visibleIds.has(entry.processId) ? ' visible' : ''}`}
-            key={entry.processId}
-            style={{ left: `${(entry.startTime / scale) * 100}%`, width: `${((entry.endTime - entry.startTime) / scale) * 100}%` }}
-            title={`${entry.processId}: t=${entry.startTime}–${entry.endTime}`}
-          >
-            <strong>{entry.processId}</strong><small>{entry.startTime}–{entry.endTime}</small>
-          </div>
-        ))}
+    <section className="lab-exhibit-stage hrrn-timeline-panel" aria-labelledby="hrrn-timeline-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="hrrn-timeline-heading">非抢占时间线</h2>
+          <span className="lab-exhibit-stage-tag">实验画布</span>
+        </div>
+        <strong className="lab-exhibit-stage-meta">t=0 → {trace.finalTime}</strong>
       </div>
-      <div className="hrrn-timeline-axis"><span>0</span><span>{Math.round(trace.finalTime / 2)}</span><span>{trace.finalTime}</span></div>
+      <div className="lab-exhibit-scroll-x">
+        <div className="hrrn-timeline" role="img" aria-label={`HRRN CPU 时间线，完成时刻 ${trace.finalTime}`}>
+          {trace.schedule.map((entry) => (
+            <div
+              className={`hrrn-timeline-segment${visibleIds.has(entry.processId) ? ' visible' : ''}`}
+              key={entry.processId}
+              style={{ left: `${(entry.startTime / scale) * 100}%`, width: `${((entry.endTime - entry.startTime) / scale) * 100}%` }}
+              title={`${entry.processId}: t=${entry.startTime}–${entry.endTime}`}
+            >
+              <strong>{entry.processId}</strong><small>{entry.startTime}–{entry.endTime}</small>
+            </div>
+          ))}
+        </div>
+        <div className="hrrn-timeline-axis"><span>0</span><span>{Math.round(trace.finalTime / 2)}</span><span>{trace.finalTime}</span></div>
+      </div>
     </section>
   );
 }
 
 function Metrics({ trace }: { trace: HrrnSchedulingTrace }) {
   return (
-    <dl className="hrrn-metrics" aria-label="HRRN 调度指标">
+    <dl className="lab-exhibit-metrics cols-4" aria-label="HRRN 调度指标">
       <div><dt>平均等待时间</dt><dd>{formatNumber(trace.averageWaitingTime)}</dd></div>
       <div><dt>平均周转时间</dt><dd>{formatNumber(trace.averageTurnaroundTime)}</dd></div>
       <div><dt>CPU 空闲</dt><dd>{trace.totalIdleTime}</dd></div>
@@ -246,48 +261,99 @@ export function HrrnSchedulingLabPage() {
   };
 
   return (
-    <div className="page hrrn-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / CPU SCHEDULING</span><h1>高响应比调度实验室</h1><p>让等待时间进入优先级公式，逐步观察非抢占 HRRN 如何避免长进程被无限饿死。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ24()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q24'}</button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="hrrn" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="hrrn-review-band">
-        <span><Clock3 size={16} aria-hidden="true" />本地练习预设 · Q24</span>
-        <strong>{question?.reviewStatus ?? HRRN_Q24_PRESET.reviewStatus}</strong>
-        <small>原题只给出算法概念；下方进程表是通用教学示例，不是 2009 年题干提供的真实调度轨迹。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=operating-systems&node=topic-2009-q24')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><Clock3 size={18} aria-hidden="true" /><span>2009 第 24 题 · 等待时间与执行时间</span></div>
-      <div className="lab-panel-grid hrrn-lab-grid">
-        <div className="hrrn-workbench">
-          <section className="lab-control-panel hrrn-source-panel" aria-labelledby="hrrn-source-heading">
-            <div className="lab-control-heading"><div><span className="eyebrow">SOURCE CONCEPT / Q24</span><h2 id="hrrn-source-heading">题目结论</h2></div><strong aria-label="Q24 来源结论">D</strong></div>
-            <p>高响应比优先调度算法同时考虑进程的等待时间和执行时间，选择响应比最高的就绪进程。</p>
-            <div className="hrrn-formula" aria-label="响应比公式"><code>R = (等待时间 + 执行时间) / 执行时间</code><ArrowRight size={18} aria-hidden="true" /><strong>等待越久，R 越高</strong></div>
+    <LabExhibit
+      pageClassName="hrrn-lab-page"
+      subjectLabel="操作系统实验 · CPU 调度"
+      title="高响应比调度实验室"
+      description="让等待时间进入优先级公式，逐步观察非抢占 HRRN 如何避免长进程被无限饿死。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ24()}>
+          <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q24'}
+        </button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="hrrn" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<Clock3 size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q24"
+          badge={question?.reviewStatus ?? HRRN_Q24_PRESET.reviewStatus}
+          note="原题只给出算法概念；下方进程表是通用教学示例，不是 2009 年题干提供的真实调度轨迹。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=operating-systems&node=topic-2009-q24')}>
+              查看知识节点<ArrowRight size={14} aria-hidden="true" />
+            </button>
+          )}
+        />
+      )}
+      subheading={(
+        <>
+          <Clock3 size={18} aria-hidden="true" />
+          <span>2009 第 24 题 · 等待时间与执行时间</span>
+        </>
+      )}
+      controls={(
+        <div className="lab-exhibit-control-stack">
+          <section className="lab-exhibit-control-card" aria-labelledby="hrrn-source-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="hrrn-source-heading">题目结论</h2>
+              <strong className="lab-exhibit-answer-chip" aria-label="Q24 来源结论">D</strong>
+            </div>
+            <p className="lab-exhibit-lead-copy">高响应比优先调度算法同时考虑进程的等待时间和执行时间，选择响应比最高的就绪进程。</p>
+            <div className="lab-exhibit-equation cols-3" aria-label="响应比公式">
+              <code>R = (等待时间 + 执行时间) / 执行时间</code>
+              <ArrowRight size={18} aria-hidden="true" />
+              <strong>等待越久，R 越高</strong>
+            </div>
           </section>
 
-          <section className="lab-control-panel hrrn-config-panel" aria-labelledby="hrrn-config-heading">
-            <div className="lab-control-heading"><div><span className="eyebrow">TEACHING EXAMPLE / EDITABLE</span><h2 id="hrrn-config-heading">进程教学示例</h2></div><button className="secondary-command" type="button" onClick={restoreExample}><RotateCcw size={16} aria-hidden="true" />恢复 Q24 示例</button></div>
-            <label className="lab-input-field hrrn-jobs-field"><span>每行或每段一个进程：ID,到达时刻,执行时间</span><textarea aria-label="进程教学示例" rows={4} value={jobsText} onChange={(event) => updateJobs(event.target.value)} /></label>
-            <small className="hrrn-input-help">最多 {HRRN_MAX_PROCESSES} 个进程；时刻与执行时间均限制在 0–{HRRN_MAX_TIME} 范围内。算法为非抢占式，示例只用于理解公式。</small>
-            {!computation.ok && <div className="lab-error" role="alert">{computation.message}</div>}
-            {computation.ok && <Metrics trace={computation.trace} />}
+          <section className="lab-exhibit-control-card" aria-labelledby="hrrn-config-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="hrrn-config-heading">进程教学示例</h2>
+              <button className="lab-exhibit-keycap compact" type="button" onClick={restoreExample}>
+                <RotateCcw size={15} aria-hidden="true" />恢复 Q24 示例
+              </button>
+            </div>
+            <label className="lab-exhibit-field">
+              <span>每行或每段一个进程：ID,到达时刻,执行时间</span>
+              <textarea aria-label="进程教学示例" rows={4} value={jobsText} onChange={(event) => updateJobs(event.target.value)} />
+            </label>
+            <small className="lab-exhibit-help">最多 {HRRN_MAX_PROCESSES} 个进程；时刻与执行时间均限制在 0–{HRRN_MAX_TIME} 范围内。算法为非抢占式，示例只用于理解公式。</small>
+            {!computation.ok ? <div className="lab-exhibit-error" role="alert">{computation.message}</div> : null}
+            {computation.ok ? <Metrics trace={computation.trace} /> : null}
           </section>
-
-          {computation.ok && currentStep && <CurrentEvent step={currentStep} />}
-          {computation.ok && currentStep && <CandidateTable candidates={currentStep.candidates} />}
-          {computation.ok && <ScheduleTable trace={computation.trace} />}
-          {computation.ok && currentStep && <ScheduleTimeline trace={computation.trace} activeStep={currentStep} />}
-          {computation.ok && computation.trace.totalIdleTime > 0 && <p className="hrrn-idle-note">CPU 空闲 {computation.trace.totalIdleTime} 个时间单位后才有进程到达。</p>}
         </div>
-
-        {computation.ok ? <StepExplorer key={jobsText} className="hrrn-step-explorer" steps={computation.explorerSteps} announceChanges={false} onActiveIndexChange={setActiveIndex} /> : <section className="step-explorer hrrn-step-explorer hrrn-empty-trace"><Clock3 size={24} aria-hidden="true" /><strong>等待有效进程表</strong></section>}
-      </div>
-    </div>
+      )}
+      status={computation.ok && currentStep ? <CurrentEvent step={currentStep} /> : null}
+      canvas={computation.ok && currentStep ? <ScheduleTimeline trace={computation.trace} activeStep={currentStep} /> : null}
+      steps={computation.ok ? (
+        <StepExplorer
+          key={jobsText}
+          className="hrrn-step-explorer"
+          steps={computation.explorerSteps}
+          announceChanges={false}
+          onActiveIndexChange={setActiveIndex}
+        />
+      ) : (
+        <section className="lab-exhibit-steps-empty hrrn-step-explorer">
+          <Clock3 size={24} aria-hidden="true" />
+          <strong>等待有效进程表</strong>
+        </section>
+      )}
+      footer={computation.ok ? (
+        <div className="lab-exhibit-footer-stack">
+          {currentStep ? <CandidateTable candidates={currentStep.candidates} /> : null}
+          <ScheduleTable trace={computation.trace} />
+          {computation.trace.totalIdleTime > 0 ? (
+            <p className="lab-exhibit-idle-note">CPU 空闲 {computation.trace.totalIdleTime} 个时间单位后才有进程到达。</p>
+          ) : null}
+        </div>
+      ) : null}
+    />
   );
 }

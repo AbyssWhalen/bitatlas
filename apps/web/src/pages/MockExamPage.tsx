@@ -2,6 +2,8 @@ import { ArrowRight, ClipboardCheck, Clock3, FileCheck2, ShieldAlert } from 'luc
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import type { MockExam } from '@408os/domain';
+import { activeAccount } from '../app/account';
+import { SERVER_MODE } from '../app/server-mode';
 import { useStudy } from '../app/StudyContext';
 
 function errorMessage(reason: unknown, fallback: string): string {
@@ -43,6 +45,8 @@ export function MockExamPage() {
     && paperQuestions.length === 47
     && paperQuestions.every((question) => question.reviewStatus === 'verified');
   const ready = verified && paperShapeValid;
+  // Content review is an administrator tool; members are not offered a link the server would refuse.
+  const canReview = !SERVER_MODE || activeAccount?.account.role === 'admin';
 
   const start = async () => {
     if (!ready || starting) return;
@@ -60,11 +64,11 @@ export function MockExamPage() {
 
   return (
     <div className="page mock-overview-page">
-      <header className="page-header mock-page-header">
+      <header className="today-hero mock-page-header">
         <div>
-          <p className="eyebrow">2009 FIXED PAPER</p>
           <h1>整卷模考</h1>
-          <p>47 题 · 180 分钟 · 满分 150 分</p>
+          <p className="today-statement">2009 年真题 · <b>180</b> 分钟</p>
+          <p className="today-breakdown"><span>47 题</span><span>满分 150 分</span><span>{ready ? '入口已开放' : '入口暂未开放'}</span></p>
         </div>
         {ready && (
           <button className="primary-command" disabled={starting} onClick={() => void start()}>
@@ -88,7 +92,7 @@ export function MockExamPage() {
             <strong>尚未完成 47 题人工复核</strong>
             <p>当前 2009 题包状态为 {manifest?.reviewStatus ?? '未安装'}，固定整卷入口保持关闭。</p>
           </div>
-          <Link className="secondary-command" to="/review/2009">进入内容复核</Link>
+          {canReview && <Link className="secondary-command" to="/review/2009">进入内容复核</Link>}
         </section>
       )}
 
@@ -103,7 +107,7 @@ export function MockExamPage() {
 
       <section className="mock-history-section" aria-labelledby="mock-history-heading">
         <div className="section-heading-row">
-          <div><p className="eyebrow">PERSISTED SESSIONS</p><h2 id="mock-history-heading">本地模考记录</h2></div>
+          <h2 id="mock-history-heading">模考记录</h2>
           <span>{mockExams.length} 场</span>
         </div>
         {mockExams.length === 0 ? (

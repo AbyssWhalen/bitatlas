@@ -79,6 +79,14 @@ study.questions = [
 ];
 
 vi.mock('../app/StudyContext', () => ({ useStudy: () => study }));
+vi.mock('../app/useConceptRegister', () => ({
+  useConceptRegister: () => ({ concepts: [], subjects: [], todayPlan: { items: [], conceptIds: [] }, objectiveByConcept: new Map(), weeklyStudyDays: 0, loading: false, error: '' }),
+}));
+const learningPack = { concepts: knowledgePoints.map((point) => ({ ...point, level: point.parentId ? 'concept' : 'subject' })), cards: [], mappings: [] };
+vi.mock('../app/LearningContext', () => ({
+  useLearning: () => ({ pack: learningPack, error: '' }),
+  useConceptQuestions: () => study.questions,
+}));
 
 vi.mock('../components/KnowledgeGraph', () => ({
   KnowledgeGraph: ({ selectedId, onSelect }: {

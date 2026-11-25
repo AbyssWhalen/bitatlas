@@ -1,0 +1,134 @@
+/* Stage-1 migration: original cascade segment; see tools/ui/migrate-styles.mjs. */
+.binary-tree-state-panel { grid-area: state; min-width: 0; }
+.binary-tree-step-explorer { top: 16px; align-self: start; }
+.binary-tree-order-control { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); width: 100%; margin: 12px 0 10px; }
+.binary-tree-order-meaning { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.binary-tree-order-meaning > span { min-width: 0; min-height: 52px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 7px; padding: 8px 10px; border-right: 1px solid var(--line); }
+.binary-tree-order-meaning > span:last-child { border-right: 0; }
+.binary-tree-order-meaning small { display: grid; width: 20px; height: 20px; place-items: center; color: var(--bone); border-radius: 50%; background: var(--ink-strong); font: 13px/1 Consolas, monospace; }
+.binary-tree-order-meaning strong { font-size: 13px; }
+.binary-tree-order-meaning code { color: var(--blue); font-size: 13px; }
+.binary-tree-scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); background: var(--palette-hex-161d19); scrollbar-gutter: stable; }
+.binary-tree-canvas { max-width: none; height: auto; max-height: 440px; display: block; }
+.binary-tree-canvas line { stroke: var(--palette-hex-aeb7b1); stroke-width: 2; }
+.binary-tree-canvas line.active { stroke: var(--blue); stroke-width: 4; }
+.binary-tree-canvas circle { fill: var(--palette-hex-ffffff); stroke: var(--palette-hex-879189); stroke-width: 2; }
+.binary-tree-canvas g.visited circle { fill: var(--palette-hex-eef7f1); stroke: var(--palette-hex-438265); }
+.binary-tree-canvas g.active circle { fill: var(--palette-hex-edf2fb); stroke: var(--blue); stroke-width: 4; }
+.binary-tree-canvas g.visiting circle { fill: var(--palette-hex-fff4d8); stroke: var(--palette-hex-b17b14); }
+.binary-tree-canvas text { fill: var(--ink); font: 850 13px/1 Consolas, monospace; text-anchor: middle; }
+.binary-tree-runtime { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 10px; border-top: 1px solid var(--line); }
+.binary-tree-runtime > div { min-width: 0; min-height: 62px; display: grid; align-content: center; gap: 6px; padding: 10px 12px; border-right: 1px solid var(--line); }
+.binary-tree-runtime > div:last-child { border-right: 0; }
+.binary-tree-runtime small { color: var(--muted); font-size: 13px; }
+.binary-tree-runtime strong { overflow-wrap: anywhere; font: 850 13px/1.45 Consolas, monospace; }
+
+@media (max-width: 760px) {
+  .binary-tree-order-control { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .binary-tree-canvas { min-height: 220px; }
+  .binary-tree-runtime { grid-template-columns: 1fr; }
+  .binary-tree-runtime > div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .binary-tree-runtime > div:last-child { border-bottom: 0; }
+  .binary-tree-order-meaning small,
+  .binary-tree-runtime small,
+  .binary-tree-runtime strong { font-size: 13px; }
+}
+.filesystem-directory-panel { grid-area: directory; }
+.filesystem-inode-panel { grid-area: inodes; }
+.filesystem-links-step-explorer { top: 16px; align-self: start; }
+.filesystem-resolution-status { min-height: 42px; display: flex; align-items: center; margin-top: 14px; padding: 9px 11px; border-left: 3px solid var(--green); color: var(--ok-text); background: color-mix(in srgb, var(--ok-text) 8%, var(--paper)); font-size: 13px; font-weight: 750; line-height: 1.5; }
+.filesystem-resolution-status[data-dangling="true"] { color: var(--signal-text); border-left-color: var(--red); background: color-mix(in srgb, var(--signal-text) 8%, var(--paper)); }
+.filesystem-entry-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.filesystem-entry-list article { min-width: 0; min-height: 105px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: center; gap: 7px 9px; padding: 12px; border-right: 1px solid var(--line); border-bottom: 3px solid var(--green); background: var(--palette-hex-161d19); }
+.filesystem-entry-list article:last-child { border-right: 0; }
+.filesystem-entry-list article[data-entry-status="absent"] { border-bottom-color: var(--palette-hex-9da6a0); opacity: .6; }
+.filesystem-entry-list article[data-entry-status="dangling"] { border-bottom-color: var(--red); color: var(--palette-hex-de857d); background: var(--palette-hex-161d19); }
+.filesystem-entry-list article > svg { grid-row: 1 / 3; align-self: center; color: var(--palette-hex-a6aaa8); }
+.filesystem-entry-list article strong, .filesystem-entry-list article span { display: block; }
+.filesystem-entry-list article strong { overflow-wrap: anywhere; font: 850 13px/1.2 Consolas, monospace; }
+.filesystem-entry-list article span { margin-top: 3px; color: var(--muted); font-size: 13px; }
+.filesystem-entry-list article code { grid-column: 1 / -1; overflow-wrap: anywhere; font-size: 13px; }
+.filesystem-entry-list article small { grid-column: 1 / -1; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.filesystem-inode-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.filesystem-inode-list article { min-width: 0; min-height: 92px; padding: 12px; border-right: 1px solid var(--line); }
+.filesystem-inode-list article:last-child { border-right: 0; }
+.filesystem-inode-list article > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.filesystem-inode-list article code { overflow-wrap: anywhere; font-size: 13px; }
+.filesystem-inode-list article strong { font: 850 19px/1 Consolas, monospace; }
+.filesystem-inode-list article span, .filesystem-inode-list article small { display: block; }
+.filesystem-inode-list article span { margin-top: 8px; font-size: 13px; font-weight: 750; }
+.filesystem-inode-list article small { margin-top: 4px; overflow-wrap: anywhere; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.segmentation-field-panel { grid-area: fields; }
+.segmentation-address-step-explorer { top: 16px; align-self: start; }
+.segmentation-current-event small { font: 800 13px/1.35 Consolas, monospace; }
+.segmentation-field-ruler { display: flex; min-height: 94px; margin-top: 6px; border: 1px solid var(--line); background: var(--palette-hex-161d19); }
+.segmentation-field-ruler > div { min-width: 0; display: grid; place-content: center; gap: 7px; padding: 12px; text-align: center; }
+.segmentation-field-ruler strong { font-size: 13px; }
+.segmentation-field-ruler small { color: var(--muted); font: 13px/1.2 Consolas, monospace; }
+.segmentation-field-segment { color: var(--palette-hex-db8d80); border-right: 2px solid var(--palette-hex-222020); background: var(--palette-hex-ea725321); }
+.segmentation-field-offset { color: var(--palette-hex-83a4d7); background: var(--palette-hex-608cdc21); }
+.segmentation-field-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; border-block: 1px solid var(--line); }
+.segmentation-field-facts > span { min-width: 0; display: grid; gap: 5px; padding: 10px; border-right: 1px solid var(--line); }
+.segmentation-field-facts > span:last-child { border-right: 0; }
+.segmentation-field-facts small { color: var(--muted); font-size: 13px; }
+.segmentation-field-facts strong { overflow-wrap: anywhere; font: 850 14px/1.25 Consolas, monospace; }
+
+@media (max-width: 760px) {
+  .filesystem-entry-list, .filesystem-inode-list { grid-template-columns: 1fr; }
+  .filesystem-entry-list article, .filesystem-inode-list article { border-right: 0; border-bottom: 1px solid var(--line); }
+  .filesystem-entry-list article { min-height: 92px; border-left: 3px solid var(--green); border-bottom-width: 1px; }
+  .filesystem-entry-list article[data-entry-status="absent"] { border-left-color: var(--palette-hex-9da6a0); }
+  .filesystem-entry-list article[data-entry-status="dangling"] { border-left-color: var(--red); }
+  .filesystem-resolution-status,
+  .filesystem-entry-list article span,
+  .filesystem-entry-list article code,
+  .filesystem-entry-list article small,
+  .filesystem-inode-list article span,
+  .filesystem-inode-list article small { font-size: 13px; }
+}
+
+@media (max-width: 760px) {
+  .segmentation-field-ruler { min-height: 82px; }
+  .segmentation-field-ruler strong { font-size: 13px; }
+  .segmentation-field-ruler small { font-size: 13px; }
+  .segmentation-field-facts { grid-template-columns: 1fr; }
+  .segmentation-field-facts > span { border-right: 0; border-bottom: 1px solid var(--line); }
+  .segmentation-field-facts > span:last-child { border-bottom: 0; }
+  .segmentation-field-facts small { font-size: 13px; }
+  .segmentation-field-facts strong { font-size: 13px; }
+}
+.deadlock-pool-panel { grid-area: pool; }
+.deadlock-process-panel { grid-area: processes; }
+.deadlock-step-explorer { top: 16px; align-self: start; }
+.deadlock-status { min-height: 42px; display: flex; align-items: center; margin-top: 14px; padding: 9px 11px; border-left: 3px solid var(--green); color: var(--ok-text); background: color-mix(in srgb, var(--ok-text) 8%, var(--paper)); font-size: 13px; font-weight: 750; line-height: 1.5; }
+.deadlock-status[data-deadlock="true"] { color: var(--signal-text); border-left-color: var(--red); background: color-mix(in srgb, var(--signal-text) 8%, var(--paper)); }
+.deadlock-resource-track { display: grid; grid-template-columns: repeat(16, minmax(16px, 1fr)); gap: 5px; padding: 11px; border-block: 1px solid var(--line); background: var(--palette-hex-161d19); }
+.deadlock-resource-track > span { min-width: 0; height: 28px; border: 1px solid var(--palette-hex-9ba59e); border-radius: 3px; background: var(--paper); }
+.deadlock-resource-track > span.allocated { border-color: var(--palette-hex-4f5e73); box-shadow: inset 0 -3px var(--blue); background: var(--palette-hex-608cdc21); }
+.deadlock-resource-track > span.available { border-color: var(--palette-hex-576b60); box-shadow: inset 0 -3px var(--green); background: var(--palette-hex-72ca9721); }
+.deadlock-pool-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 10px; }
+.deadlock-pool-facts > span { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 11px; border-right: 1px solid var(--line); }
+.deadlock-pool-facts > span:last-child { border-right: 0; }
+.deadlock-pool-facts small { color: var(--muted); font-size: 13px; }
+.deadlock-pool-facts strong { font: 850 17px/1 Consolas, monospace; }
+.deadlock-process-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.deadlock-process-list article { min-width: 0; min-height: 64px; display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 9px 11px; border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 4px; background: var(--paper); }
+.deadlock-process-list article[data-process-status="waiting"] { border-left-color: var(--red); background: var(--palette-hex-161d19); }
+.deadlock-process-list article[data-process-status="not-participating"] { border-left-color: var(--palette-hex-9ca5a0); background: var(--surface-soft); }
+.deadlock-process-list article[data-process-status="completed"] { opacity: .72; }
+.deadlock-process-list article > strong { font: 850 13px/1 Consolas, monospace; }
+.deadlock-process-list article span, .deadlock-process-list article small { display: block; }
+.deadlock-process-list article span { font-size: 13px; font-weight: 750; }
+.deadlock-process-list article small { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.deadlock-process-list article code { max-width: 90px; overflow-wrap: anywhere; color: var(--muted); font-size: 13px; text-align: right; }
+
+@media (max-width: 760px) {
+  .deadlock-resource-track { grid-template-columns: repeat(8, minmax(16px, 1fr)); }
+  .deadlock-process-list { grid-template-columns: 1fr; }
+  .deadlock-process-list article { grid-template-columns: 36px minmax(0, 1fr); }
+  .deadlock-process-list article code { grid-column: 1 / -1; max-width: none; text-align: left; }
+  .deadlock-pool-facts small,
+  .deadlock-process-list article span,
+  .deadlock-process-list article small,
+  .deadlock-process-list article code { font-size: 13px; }
+}

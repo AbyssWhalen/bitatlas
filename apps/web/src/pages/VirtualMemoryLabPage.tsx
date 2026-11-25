@@ -22,6 +22,7 @@ import {
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -199,9 +200,9 @@ function AccessTimeline({
   onSelect: (index: number) => void;
 }) {
   return (
-    <section className="vm-timeline-section" aria-labelledby="vm-timeline-title">
-      <div className="vm-section-heading">
-        <div><span className="eyebrow">ACCESS TRACE</span><h2 id="vm-timeline-title">访问时间线</h2></div>
+    <section className="lab-exhibit-stage" aria-labelledby="vm-timeline-title">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="vm-timeline-title">访问时间线</h2></div>
         <strong>{formatNanoseconds(trace.totalTimeNs)}</strong>
       </div>
       <ol className="vm-access-timeline">
@@ -229,7 +230,7 @@ function AccessTimeline({
 function AddressBreakdown({ event, config }: { event: VirtualMemoryAccessEvent; config: VirtualMemoryConfig }) {
   const offsetDigits = Math.max(1, Math.ceil(Math.log2(config.pageSizeBytes) / 4));
   return (
-    <dl className="vm-address-breakdown" aria-label={`第 ${event.step} 次地址转换结果`} aria-live="polite">
+    <dl className="lab-exhibit-metrics cols-4 vm-address-breakdown" aria-label={`第 ${event.step} 次地址转换结果`} aria-live="polite">
       <div><dt>虚拟地址</dt><dd>{formatHex(event.virtualAddress, 4)}</dd></div>
       <div><dt>页号</dt><dd>{event.pageNumber}</dd></div>
       <div><dt>页内偏移</dt><dd>{formatHex(event.offset, offsetDigits)}</dd></div>
@@ -254,8 +255,8 @@ function EventOutcome({ event }: { event: VirtualMemoryAccessEvent }) {
 
 function MemoryStateTables({ state, event }: { state: VirtualMemoryState; event: VirtualMemoryAccessEvent }) {
   return (
-    <div className="vm-state-grid">
-      <section className="vm-state-panel" aria-labelledby="vm-tlb-title">
+    <div className="lab-exhibit-footer-stack">
+      <section className="lab-exhibit-table-card" aria-labelledby="vm-tlb-title">
         <div className="vm-state-heading"><Database size={16} aria-hidden="true" /><h3 id="vm-tlb-title">TLB 状态</h3><span>访问后</span></div>
         <div className="table-responsive">
           <table className="table table-sm vm-state-table">
@@ -272,7 +273,7 @@ function MemoryStateTables({ state, event }: { state: VirtualMemoryState; event:
         </div>
       </section>
 
-      <section className="vm-state-panel" aria-labelledby="vm-page-table-title">
+      <section className="lab-exhibit-table-card" aria-labelledby="vm-page-table-title">
         <div className="vm-state-heading"><MemoryStick size={16} aria-hidden="true" /><h3 id="vm-page-table-title">页表与 LRU</h3><span>访问后</span></div>
         <div className="table-responsive">
           <table className="table table-sm vm-state-table">
@@ -379,32 +380,29 @@ export function VirtualMemoryLabPage() {
   };
 
   return (
-    <div className="page vm-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / VIRTUAL MEMORY</span><h1>虚拟内存实验室</h1><p>逐次观察 TLB、页表、缺页处理与 LRU 置换。</p></div>
-        <button className="secondary-command" type="button" disabled={!q46Id || starting} onClick={() => void practiceQ46()}>
+    <LabExhibit
+      pageClassName="vm-lab-page"
+      subjectLabel="操作系统 · 虚拟内存"
+      title="虚拟内存实验室"
+      description="逐次观察 TLB、页表、缺页处理与 LRU 置换。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!q46Id || starting} onClick={() => void practiceQ46()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q46'}
         </button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="memory" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band">
-        <span><MemoryStick size={16} aria-hidden="true" />本地练习预设 · Q46</span>
-        <strong>{Q46_LOCAL_PRACTICE_PRESET.reviewStatus}</strong>
-        <small>参数来自待人工复核题包，仅用于过程演练。</small>
-      </div>
-
-      <div className="lab-module-heading"><MemoryStick size={18} aria-hidden="true" /><span>请求分页 · TLB · LRU</span><Play size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid vm-lab-grid">
-        <section className="lab-control-panel" aria-labelledby="vm-control-title">
-          <div className="lab-control-heading">
-            <div><span className="eyebrow">INPUT / CONFIG</span><h2 id="vm-control-title">地址序列与时间参数</h2></div>
-            <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q46 预设</button>
+      )}
+      navigation={<><LabSectionNav /><OsModuleTabs active="memory" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={<LabExhibitNotice icon={<MemoryStick size={16} aria-hidden="true" />} label="本地练习预设 · Q46" badge={Q46_LOCAL_PRACTICE_PRESET.reviewStatus} note="参数来自待人工复核题包，仅用于过程演练。" />}
+      subheading={<><MemoryStick size={18} aria-hidden="true" /><span>请求分页 · TLB · LRU</span><Play size={14} aria-hidden="true" /></>}
+      mobileOrder="canvas-first"
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="vm-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="vm-control-title">地址序列与时间参数</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q46 预设</button>
           </div>
 
-          <label className="lab-input-field full vm-address-input">
+          <label className="lab-exhibit-field">
             <span>虚拟地址序列（逗号或空格分隔，支持 0x、H 后缀和十进制）</span>
             <input
               aria-label="虚拟地址序列"
@@ -416,52 +414,48 @@ export function VirtualMemoryLabPage() {
             />
           </label>
 
-          <div className="vm-timing-grid">
-            <label className="lab-input-field"><span>TLB 查询 / ns</span><input aria-label="TLB 查询时间，纳秒" inputMode="numeric" value={timing.tlbLookupTimeNs} onChange={(event) => updateTiming('tlbLookupTimeNs', event.target.value)} /></label>
-            <label className="lab-input-field"><span>主存访问 / ns</span><input aria-label="主存访问时间，纳秒" inputMode="numeric" value={timing.memoryAccessTimeNs} onChange={(event) => updateTiming('memoryAccessTimeNs', event.target.value)} /></label>
-            <label className="lab-input-field"><span>缺页处理 / ns</span><input aria-label="缺页处理时间，纳秒" inputMode="numeric" value={timing.pageFaultServiceTimeNs} onChange={(event) => updateTiming('pageFaultServiceTimeNs', event.target.value)} /></label>
+          <div className="lab-exhibit-input-grid cols-3 lab-exhibit-field-spaced">
+            <label className="lab-exhibit-field"><span>TLB 查询 / ns</span><input aria-label="TLB 查询时间，纳秒" inputMode="numeric" value={timing.tlbLookupTimeNs} onChange={(event) => updateTiming('tlbLookupTimeNs', event.target.value)} /></label>
+            <label className="lab-exhibit-field"><span>主存访问 / ns</span><input aria-label="主存访问时间，纳秒" inputMode="numeric" value={timing.memoryAccessTimeNs} onChange={(event) => updateTiming('memoryAccessTimeNs', event.target.value)} /></label>
+            <label className="lab-exhibit-field"><span>缺页处理 / ns</span><input aria-label="缺页处理时间，纳秒" inputMode="numeric" value={timing.pageFaultServiceTimeNs} onChange={(event) => updateTiming('pageFaultServiceTimeNs', event.target.value)} /></label>
           </div>
-
-          {!simulation.ok ? <div className="lab-error" role="alert">{simulation.message}</div> : currentEvent && currentState && (
-            <>
-              <AddressBreakdown event={currentEvent} config={simulation.config} />
-              <EventOutcome event={currentEvent} />
-              <div className="vm-transfer-summary">
-                {currentEvent.pageFault ? <HardDriveDownload size={17} aria-hidden="true" /> : <Clock3 size={17} aria-hidden="true" />}
-                <div>
-                  <span>{currentEvent.pageFault ? '缺页路径' : currentEvent.tlbHit ? 'TLB 快路径' : '页表命中路径'}</span>
-                  <strong>本次 {formatNanoseconds(currentEvent.totalTimeNs)}</strong>
-                </div>
-                <code>{formatHex(currentEvent.virtualAddress)} → {formatHex(currentEvent.physicalAddress)}</code>
-              </div>
-              <MemoryStateTables state={currentState} event={currentEvent} />
-            </>
-          )}
+          {!simulation.ok && <div className="lab-exhibit-error" role="alert">{simulation.message}</div>}
         </section>
-
-        <StepExplorer key={`${currentEvent?.step ?? 0}:${addressText}:${JSON.stringify(timing)}`} steps={explorerSteps} />
-      </div>
-
-      {simulation.ok && (
-        <>
-          <AccessTimeline
-            trace={simulation.trace}
-            selectedIndex={currentIndex}
-            onSelect={(index) => {
-              setSelectedIndex(index);
-              setPlaying(false);
-            }}
-          />
+      )}
+      status={simulation.ok && currentEvent && (
+        <section className="lab-exhibit-control-card" aria-label="当前地址访问">
+          <div className="vm-transfer-summary">
+            {currentEvent.pageFault ? <HardDriveDownload size={17} aria-hidden="true" /> : <Clock3 size={17} aria-hidden="true" />}
+            <div>
+              <span>{currentEvent.pageFault ? '缺页路径' : currentEvent.tlbHit ? 'TLB 快路径' : '页表命中路径'}</span>
+              <strong>本次 {formatNanoseconds(currentEvent.totalTimeNs)}</strong>
+            </div>
+            <code>{formatHex(currentEvent.virtualAddress)} → {formatHex(currentEvent.physicalAddress)}</code>
+          </div>
+          <AddressBreakdown event={currentEvent} config={simulation.config} />
+          <EventOutcome event={currentEvent} />
           <div className="vm-trace-transport" aria-label="访问时间线控制">
             <span>访问 {currentIndex + 1} / {eventCount}</span>
             <div className="step-controls">
-              <button className="icon-command" type="button" disabled={currentIndex === 0} aria-label="上一次访问" title="上一次访问" onClick={() => { setSelectedIndex((index) => Math.max(0, index - 1)); setPlaying(false); }}><ChevronLeft size={16} aria-hidden="true" /></button>
-              <button className="icon-command" type="button" aria-label={playing ? '暂停访问时间线' : '播放访问时间线'} title={playing ? '暂停' : '播放'} onClick={togglePlayback}>{playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}</button>
-              <button className="icon-command" type="button" disabled={currentIndex >= eventCount - 1} aria-label="下一次访问" title="下一次访问" onClick={() => { setSelectedIndex((index) => Math.min(eventCount - 1, index + 1)); setPlaying(false); }}><ChevronRight size={16} aria-hidden="true" /></button>
+              <button className="lab-exhibit-keycap icon-only" type="button" disabled={currentIndex === 0} aria-label="上一次访问" title="上一次访问" onClick={() => { setSelectedIndex((index) => Math.max(0, index - 1)); setPlaying(false); }}><ChevronLeft size={16} aria-hidden="true" /></button>
+              <button className="lab-exhibit-keycap icon-only" type="button" aria-label={playing ? '暂停访问时间线' : '播放访问时间线'} title={playing ? '暂停' : '播放'} onClick={togglePlayback}>{playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}</button>
+              <button className="lab-exhibit-keycap icon-only" type="button" disabled={currentIndex >= eventCount - 1} aria-label="下一次访问" title="下一次访问" onClick={() => { setSelectedIndex((index) => Math.min(eventCount - 1, index + 1)); setPlaying(false); }}><ChevronRight size={16} aria-hidden="true" /></button>
             </div>
           </div>
-        </>
+        </section>
       )}
-    </div>
+      canvas={simulation.ok && (
+        <AccessTimeline
+          trace={simulation.trace}
+          selectedIndex={currentIndex}
+          onSelect={(index) => {
+            setSelectedIndex(index);
+            setPlaying(false);
+          }}
+        />
+      )}
+      steps={<StepExplorer key={`${currentEvent?.step ?? 0}:${addressText}:${JSON.stringify(timing)}`} steps={explorerSteps} />}
+      footer={currentState && currentEvent && <MemoryStateTables state={currentState} event={currentEvent} />}
+    />
   );
 }

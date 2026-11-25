@@ -1,0 +1,4 @@
+/* Stage-1 migration: original cascade segment; see tools/ui/migrate-styles.mjs. */
+@media (min-width: 801px) and (max-width: 1180px) {
+  .network-module-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

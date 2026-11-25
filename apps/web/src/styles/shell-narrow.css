@@ -1,0 +1,7 @@
+/* Stage-1 migration: original cascade segment; see tools/ui/migrate-styles.mjs. */
+@media (max-width: 420px) {
+  .metric-grid, .metric-grid.three, .data-summary { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .metric-grid article strong, .data-summary article strong { font-size: 22px; }
+  .primary-command, .secondary-command, .hint-command { padding-inline: 11px; }
+  .header-actions .secondary-command { display: none; }
+}

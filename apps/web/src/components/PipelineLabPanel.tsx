@@ -16,6 +16,7 @@ import {
 import { Clock3, Gauge, GitBranch, Pause, Play, RotateCcw, SkipBack, SkipForward, Waypoints } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { LabExhibitWorkspace } from './LabExhibit';
 
 const UI_MAX_INSTRUCTIONS = 16;
 const PLAY_INTERVAL_MS = 850;
@@ -300,21 +301,24 @@ function DynamicPipelineLabPanel() {
 
   if (!trace) {
     return (
-      <div className="pipeline-lab-panel">
-        <PipelineInputPanel
-          presetId={presetId}
-          programText={programText}
-          registerText={registerText}
-          memoryText={memoryText}
-          forwarding={forwarding}
-          onPreset={selectPreset}
-          onProgram={updateProgram}
-          onRegisters={updateRegisters}
-          onMemory={updateMemory}
-          onForwarding={updateForwarding}
-        />
-        <div className="lab-error" role="alert">{parsed.message}</div>
-      </div>
+      <LabExhibitWorkspace
+        className="pipeline-lab-panel"
+        controls={(
+          <PipelineInputPanel
+            presetId={presetId}
+            programText={programText}
+            registerText={registerText}
+            memoryText={memoryText}
+            forwarding={forwarding}
+            errorMessage={parsed.message}
+            onPreset={selectPreset}
+            onProgram={updateProgram}
+            onRegisters={updateRegisters}
+            onMemory={updateMemory}
+            onForwarding={updateForwarding}
+          />
+        )}
+      />
     );
   }
 
@@ -333,94 +337,112 @@ function DynamicPipelineLabPanel() {
   const lines = eventLines(currentCycle);
 
   return (
-    <div className="pipeline-lab-panel">
-      <PipelineInputPanel
-        presetId={presetId}
-        programText={programText}
-        registerText={registerText}
-        memoryText={memoryText}
-        forwarding={forwarding}
-        onPreset={selectPreset}
-        onProgram={updateProgram}
-        onRegisters={updateRegisters}
-        onMemory={updateMemory}
-        onForwarding={updateForwarding}
-      />
-
-      <section className="pipeline-timing-section" aria-labelledby="pipeline-timing-heading">
-        <div className="pipeline-transport">
-          <div><span className="eyebrow">SPACE-TIME DIAGRAM</span><h2 id="pipeline-timing-heading">流水线时空图</h2></div>
-          <div className="pipeline-cycle-status" aria-live="polite">C{safeIndex + 1} / C{trace.cycles.length}</div>
-          <div className="step-controls">
-            <button className="icon-command" onClick={() => { setPlaying(false); setActiveIndex(0); }} aria-label="复位周期" title="复位周期"><RotateCcw size={16} /></button>
-            <button className="icon-command" disabled={safeIndex === 0} onClick={() => { setPlaying(false); setActiveIndex((value) => Math.max(0, value - 1)); }} aria-label="上一个周期" title="上一个周期"><SkipBack size={16} /></button>
-            <button className="icon-command" onClick={() => {
-              if (safeIndex >= lastIndex) setActiveIndex(0);
-              setPlaying((value) => !value);
-            }} aria-label={playing ? '暂停流水线' : '播放流水线'} title={playing ? '暂停' : '播放'}>
-              {playing ? <Pause size={16} /> : <Play size={16} />}
-            </button>
-            <button className="icon-command" disabled={safeIndex >= lastIndex} onClick={() => { setPlaying(false); setActiveIndex((value) => Math.min(lastIndex, value + 1)); }} aria-label="下一个周期" title="下一个周期"><SkipForward size={16} /></button>
+    <LabExhibitWorkspace
+      className="pipeline-lab-panel"
+      controls={(
+        <PipelineInputPanel
+          presetId={presetId}
+          programText={programText}
+          registerText={registerText}
+          memoryText={memoryText}
+          forwarding={forwarding}
+          onPreset={selectPreset}
+          onProgram={updateProgram}
+          onRegisters={updateRegisters}
+          onMemory={updateMemory}
+          onForwarding={updateForwarding}
+        />
+      )}
+      status={(
+        <div className="pipeline-summary-grid" aria-label="当前流水线统计">
+          <div><span>当前周期</span><strong>{safeIndex + 1}</strong><small>/ {trace.cycles.length}</small></div>
+          <div><span>已完成</span><strong>{retiredSoFar}</strong><small>CPI {retiredSoFar ? ((safeIndex + 1) / retiredSoFar).toFixed(2) : '--'}</small></div>
+          <div><span>停顿</span><strong>{stallsSoFar}</strong><small>{forwarding ? '前递开启' : '前递关闭'}</small></div>
+          <div><span>冲刷</span><strong>{flushesSoFar}</strong><small>{trace.termination === 'max-cycles' ? '达到周期上限' : '静态不跳转'}</small></div>
+        </div>
+      )}
+      canvas={(
+        <section className="lab-exhibit-stage pipeline-timing-section" aria-labelledby="pipeline-timing-heading">
+          <div className="pipeline-transport">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="pipeline-timing-heading">流水线时空图</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <div className="pipeline-cycle-status" aria-live="polite">C{safeIndex + 1} / C{trace.cycles.length}</div>
+            <div className="step-controls">
+              <button type="button" className="icon-command" onClick={() => { setPlaying(false); setActiveIndex(0); }} aria-label="复位周期" title="复位周期"><RotateCcw size={16} aria-hidden="true" /></button>
+              <button type="button" className="icon-command" disabled={safeIndex === 0} onClick={() => { setPlaying(false); setActiveIndex((value) => Math.max(0, value - 1)); }} aria-label="上一个周期" title="上一个周期"><SkipBack size={16} aria-hidden="true" /></button>
+              <button type="button" className="icon-command" onClick={() => {
+                if (safeIndex >= lastIndex) setActiveIndex(0);
+                setPlaying((value) => !value);
+              }} aria-label={playing ? '暂停流水线' : '播放流水线'} title={playing ? '暂停' : '播放'}>
+                {playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}
+              </button>
+              <button type="button" className="icon-command" disabled={safeIndex >= lastIndex} onClick={() => { setPlaying(false); setActiveIndex((value) => Math.min(lastIndex, value + 1)); }} aria-label="下一个周期" title="下一个周期"><SkipForward size={16} aria-hidden="true" /></button>
+            </div>
           </div>
-        </div>
-        <div className="pipeline-stage-legend" aria-label="流水线阶段图例">
-          {(Object.keys(stageLabels) as PipelineStageId[]).map((stage) => <span key={stage} data-stage={stage}><strong>{stage}</strong>{stageLabels[stage]}</span>)}
-          <span data-stage="ST"><strong>ST</strong>停顿</span>
-          <span data-stage="FL"><strong>FL</strong>冲刷</span>
-        </div>
-        <div className="pipeline-chart-scroll" ref={chartScrollRef}>
-          <table className="pipeline-chart">
-            <thead><tr><th scope="col">动态指令</th>{trace.cycles.map((cycle, cycleIndex) => (
-              <th key={cycle.cycle} scope="col" className={cycleIndex === safeIndex ? 'is-active-cycle' : ''}>
-                <button
-                  data-cycle-header={cycle.cycle}
-                  aria-current={cycleIndex === safeIndex ? 'step' : undefined}
-                  onClick={() => { setPlaying(false); setActiveIndex(cycleIndex); }}
-                >C{cycle.cycle}</button>
-              </th>
-            ))}</tr></thead>
-            <tbody>{dynamicInstructions.map((instruction) => (
-              <tr key={instruction.instanceId}>
-                <th scope="row"><strong>{instructionName(instruction)}</strong><code>{instruction.canonicalAssembly}</code></th>
-                {trace.cycles.map((cycle, cycleIndex) => {
-                  const stage = cycle.stages.find((entry) => entry.instruction?.instanceId === instruction.instanceId);
-                  return <td key={cycle.cycle} className={cycleIndex === safeIndex ? 'is-active-cycle' : ''}>
-                    {stage ? <span
-                      className={`pipeline-stage-cell is-${stage.status}`}
-                      data-stage={stage.status === 'stalled' ? 'ST' : stage.status === 'flushed' ? 'FL' : stage.id}
-                      title={`${instruction.canonicalAssembly} · ${stage.id} ${stage.status}`}
-                    >{stageCellText(stage.status, stage.id)}</span> : <span className="pipeline-stage-empty">--</span>}
-                  </td>;
-                })}
-              </tr>
-            ))}</tbody>
-          </table>
-        </div>
-      </section>
 
-      <div className="pipeline-summary-grid" aria-label="当前流水线统计">
-        <div><span>当前周期</span><strong>{safeIndex + 1}</strong><small>/ {trace.cycles.length}</small></div>
-        <div><span>已完成</span><strong>{retiredSoFar}</strong><small>CPI {retiredSoFar ? ((safeIndex + 1) / retiredSoFar).toFixed(2) : '--'}</small></div>
-        <div><span>停顿</span><strong>{stallsSoFar}</strong><small>{forwarding ? '前递开启' : '前递关闭'}</small></div>
-        <div><span>冲刷</span><strong>{flushesSoFar}</strong><small>{trace.termination === 'max-cycles' ? '达到周期上限' : '静态不跳转'}</small></div>
-      </div>
+          <div className="pipeline-stage-legend" aria-label="流水线阶段图例">
+            {(Object.keys(stageLabels) as PipelineStageId[]).map((stage) => <span key={stage} data-stage={stage}><strong>{stage}</strong>{stageLabels[stage]}</span>)}
+            <span data-stage="ST"><strong>ST</strong>停顿</span>
+            <span data-stage="FL"><strong>FL</strong>冲刷</span>
+          </div>
 
-      <div className="pipeline-result-grid">
-        <section className="pipeline-event-panel" aria-labelledby="pipeline-event-heading">
-          <div className="lab-control-heading"><div><span className="eyebrow">CYCLE EVENTS</span><h2 id="pipeline-event-heading">C{currentCycle.cycle} 事件</h2></div><Waypoints size={19} /></div>
-          {lines.length ? <ul>{lines.map((line, index) => <li key={`${index}-${line}`}>{line}</li>)}</ul> : <p className="pipeline-empty-state">本周期没有冒险、访存或提交事件。</p>}
+          <div className="pipeline-chart-scroll" ref={chartScrollRef}>
+            <table className="pipeline-chart">
+              <thead><tr><th scope="col">动态指令</th>{trace.cycles.map((cycle, cycleIndex) => (
+                <th key={cycle.cycle} scope="col" className={cycleIndex === safeIndex ? 'is-active-cycle' : ''}>
+                  <button
+                    type="button"
+                    data-cycle-header={cycle.cycle}
+                    aria-current={cycleIndex === safeIndex ? 'step' : undefined}
+                    onClick={() => { setPlaying(false); setActiveIndex(cycleIndex); }}
+                  >C{cycle.cycle}</button>
+                </th>
+              ))}</tr></thead>
+              <tbody>{dynamicInstructions.map((instruction) => (
+                <tr key={instruction.instanceId}>
+                  <th scope="row"><strong>{instructionName(instruction)}</strong><code>{instruction.canonicalAssembly}</code></th>
+                  {trace.cycles.map((cycle, cycleIndex) => {
+                    const stage = cycle.stages.find((entry) => entry.instruction?.instanceId === instruction.instanceId);
+                    return <td key={cycle.cycle} className={cycleIndex === safeIndex ? 'is-active-cycle' : ''}>
+                      {stage ? <span
+                        className={`pipeline-stage-cell is-${stage.status}`}
+                        data-stage={stage.status === 'stalled' ? 'ST' : stage.status === 'flushed' ? 'FL' : stage.id}
+                        title={`${instruction.canonicalAssembly} · ${stage.id} ${stage.status}`}
+                      >{stageCellText(stage.status, stage.id)}</span> : <span className="pipeline-stage-empty">--</span>}
+                    </td>;
+                  })}
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
         </section>
-        <section className="pipeline-state-panel" aria-labelledby="pipeline-state-heading">
-          <div className="lab-control-heading"><div><span className="eyebrow">COMMITTED STATE</span><h2 id="pipeline-state-heading">已提交状态</h2></div><GitBranch size={19} /></div>
-          <div className="table-responsive"><table className="table pipeline-register-table"><thead><tr><th>寄存器</th><th>初值</th><th>当前值</th><th>最后写者</th></tr></thead><tbody>
-            {visibleRegisters.map((register) => <tr key={register}><th scope="row">x{register}</th><td><code>{formatHex(trace.initialRegisters[register] ?? 0)}</code></td><td><code>{formatHex(currentState.registers[register] ?? 0)}</code></td><td>{currentState.registerWriters.has(register) ? instructionName(currentState.registerWriters.get(register)!) : '--'}</td></tr>)}
-          </tbody></table></div>
-          {visibleMemory.length > 0 && <div className="pipeline-memory-state"><h3>数据内存</h3><div className="table-responsive"><table className="table"><thead><tr><th>地址</th><th>当前值</th><th>最后写者</th></tr></thead><tbody>
-            {visibleMemory.map(([address, value]) => <tr key={address}><th scope="row"><code>{formatHex(address)}</code></th><td><code>{formatHex(value)}</code></td><td>{currentState.memoryWriters.has(address) ? instructionName(currentState.memoryWriters.get(address)!) : '初值'}</td></tr>)}
-          </tbody></table></div></div>}
-        </section>
-      </div>
-    </div>
+      )}
+      footer={(
+        <div className="pipeline-result-grid">
+          <section className="lab-exhibit-table-card pipeline-event-panel" aria-labelledby="pipeline-event-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="pipeline-event-heading">C{currentCycle.cycle} 事件</h2>
+              <Waypoints size={18} aria-hidden="true" />
+            </div>
+            {lines.length ? <ul>{lines.map((line, index) => <li key={`${index}-${line}`}>{line}</li>)}</ul> : <p className="lab-exhibit-empty-note pipeline-empty-state">本周期没有冒险、访存或提交事件。</p>}
+          </section>
+          <section className="lab-exhibit-table-card pipeline-state-panel" aria-labelledby="pipeline-state-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="pipeline-state-heading">已提交状态</h2>
+              <GitBranch size={18} aria-hidden="true" />
+            </div>
+            <div className="table-responsive"><table className="table pipeline-register-table"><thead><tr><th scope="col">寄存器</th><th scope="col">初值</th><th scope="col">当前值</th><th scope="col">最后写者</th></tr></thead><tbody>
+              {visibleRegisters.map((register) => <tr key={register}><th scope="row">x{register}</th><td><code>{formatHex(trace.initialRegisters[register] ?? 0)}</code></td><td><code>{formatHex(currentState.registers[register] ?? 0)}</code></td><td>{currentState.registerWriters.has(register) ? instructionName(currentState.registerWriters.get(register)!) : '--'}</td></tr>)}
+            </tbody></table></div>
+            {visibleMemory.length > 0 && <div className="pipeline-memory-state"><h3>数据内存</h3><div className="table-responsive"><table className="table"><thead><tr><th scope="col">地址</th><th scope="col">当前值</th><th scope="col">最后写者</th></tr></thead><tbody>
+              {visibleMemory.map(([address, value]) => <tr key={address}><th scope="row"><code>{formatHex(address)}</code></th><td><code>{formatHex(value)}</code></td><td>{currentState.memoryWriters.has(address) ? instructionName(currentState.memoryWriters.get(address)!) : '初值'}</td></tr>)}
+            </tbody></table></div></div>}
+          </section>
+        </div>
+      )}
+    />
   );
 }
 
@@ -488,61 +510,98 @@ function PipelineStageTimingPanel() {
   };
 
   return (
-    <div className="pipeline-timing-lab">
-      <section className="lab-control-panel pipeline-timing-control" aria-labelledby="pipeline-stage-timing-heading">
-        <div className="lab-control-heading">
-          <div><span className="eyebrow">FUNCTIONAL STAGE TIMING</span><h2 id="pipeline-stage-timing-heading">功能段时延与时钟周期</h2></div>
-          <button className="secondary-command compact-command" onClick={restorePreset}><RotateCcw size={15} />恢复 Q18 参数</button>
-        </div>
-        <div className="pipeline-q18-band"><Clock3 size={17} /><strong>2009 第 18 题</strong><span>90 / 80 / 70 / 60 ns</span><small>内容状态 needs-review</small></div>
-        <div className="pipeline-timing-fields">
-          <label className="lab-input-field grow"><span>各功能段时延 / ns</span><input aria-label="各功能段时延" value={delayText} onChange={(event) => updateDelayText(event.target.value)} spellCheck={false} /></label>
-          <label className="lab-input-field"><span>流水寄存器开销 / ns</span><input aria-label="流水寄存器开销" inputMode="decimal" value={overheadText} onChange={(event) => updateOverhead(event.target.value)} /></label>
-          <label className="lab-input-field"><span>连续指令数</span><input aria-label="流水线指令数" inputMode="numeric" value={instructionCountText} onChange={(event) => updateInstructionCount(event.target.value)} /></label>
-        </div>
-        {!result.ok ? <div className="lab-error" role="alert">{timingErrorText(result.error)}</div> : analysis && (
-          <div className="pipeline-clock-result">
-            <div><span>最小时钟周期</span><strong>{compactNumber(analysis.clockPeriodNs)} ns</strong><small>由最慢功能段决定</small></div>
-            <code>T = max({analysis.stageDelaysNs.map((value) => compactNumber(value)).join(', ')}) + {compactNumber(analysis.registerOverheadNs)} = {compactNumber(analysis.clockPeriodNs)} ns</code>
+    <LabExhibitWorkspace
+      className="pipeline-timing-lab"
+      controls={(
+        <section className="lab-exhibit-control-card pipeline-timing-control" aria-labelledby="pipeline-stage-timing-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="pipeline-stage-timing-heading">功能段时延与时钟周期</h2>
+            <button type="button" className="lab-exhibit-keycap compact" onClick={restorePreset}>
+              <RotateCcw size={15} aria-hidden="true" />恢复 Q18 参数
+            </button>
           </div>
-        )}
-      </section>
-
-      {analysis && <>
-        <section className="pipeline-stage-analysis" aria-labelledby="pipeline-stage-comparison-heading">
-          <div className="pipeline-transport">
-            <div><span className="eyebrow">BOTTLENECK TRACE</span><h2 id="pipeline-stage-comparison-heading">功能段比较</h2></div>
-            <div className="pipeline-cycle-status">S{safeStage + 1} / S{analysis.stageCount}</div>
-            <div className="step-controls">
-              <button className="icon-command" onClick={resetStage} aria-label="复位功能段" title="复位功能段"><RotateCcw size={16} /></button>
-              <button className="icon-command" disabled={safeStage === 0} onClick={() => { setPlaying(false); setActiveStage((value) => Math.max(0, value - 1)); }} aria-label="上一个功能段" title="上一个功能段"><SkipBack size={16} /></button>
-              <button className="icon-command" onClick={() => {
-                if (safeStage >= lastStage) setActiveStage(0);
-                setPlaying((value) => !value);
-              }} aria-label={playing ? '暂停功能段' : '播放功能段'} title={playing ? '暂停' : '播放'}>{playing ? <Pause size={16} /> : <Play size={16} />}</button>
-              <button className="icon-command" disabled={safeStage >= lastStage} onClick={() => { setPlaying(false); setActiveStage((value) => Math.min(lastStage, value + 1)); }} aria-label="下一个功能段" title="下一个功能段"><SkipForward size={16} /></button>
+          <div className="lab-exhibit-boundary-bar warn pipeline-q18-band">
+            <strong className="pipeline-q18-label"><Clock3 size={15} aria-hidden="true" />2009 第 18 题</strong>
+            <span>90 / 80 / 70 / 60 ns</span>
+            <small>内容状态 needs-review</small>
+          </div>
+          <div className="pipeline-timing-fields">
+            <label className="lab-exhibit-field grow">
+              <span>各功能段时延 / ns</span>
+              <input aria-label="各功能段时延" value={delayText} onChange={(event) => updateDelayText(event.target.value)} spellCheck={false} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>流水寄存器开销 / ns</span>
+              <input aria-label="流水寄存器开销" inputMode="decimal" value={overheadText} onChange={(event) => updateOverhead(event.target.value)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>连续指令数</span>
+              <input aria-label="流水线指令数" inputMode="numeric" value={instructionCountText} onChange={(event) => updateInstructionCount(event.target.value)} />
+            </label>
+          </div>
+          {!result.ok ? (
+            <div className="lab-exhibit-error" role="alert">{timingErrorText(result.error)}</div>
+          ) : analysis ? (
+            <div className="pipeline-clock-result">
+              <div>
+                <span>最小时钟周期</span>
+                <strong>{compactNumber(analysis.clockPeriodNs)} ns</strong>
+                <small>由最慢功能段决定</small>
+              </div>
+              <code>T = max({analysis.stageDelaysNs.map((value) => compactNumber(value)).join(', ')}) + {compactNumber(analysis.registerOverheadNs)} = {compactNumber(analysis.clockPeriodNs)} ns</code>
             </div>
-          </div>
-          <div className="pipeline-stage-bars">
-            {analysis.stageDelaysNs.map((delay, index) => {
-              const bottleneck = analysis.bottleneckStageIndices.includes(index);
-              const width = `${Math.max(8, delay / Math.max(...analysis.stageDelaysNs) * 100)}%`;
-              return <button key={index} className={`${index === safeStage ? 'active' : ''}${bottleneck ? ' bottleneck' : ''}`} onClick={() => { setPlaying(false); setActiveStage(index); }} aria-current={index === safeStage ? 'step' : undefined}>
-                <span>功能段 S{index + 1}</span><div><i style={{ width }} /></div><strong>{compactNumber(delay)} ns</strong>{bottleneck && <small>瓶颈</small>}
-              </button>;
-            })}
-          </div>
-          <div className="pipeline-stage-current"><Gauge size={16} /><span>S{safeStage + 1}</span><strong>{compactNumber(analysis.stageDelaysNs[safeStage]!)} ns</strong><small>{analysis.bottleneckStageIndices.includes(safeStage) ? '决定时钟周期' : `余量 ${compactNumber(analysis.clockPeriodNs - analysis.stageDelaysNs[safeStage]!)} ns`}</small></div>
+          ) : null}
         </section>
-
+      )}
+      status={analysis ? (
         <div className="pipeline-timing-summary" aria-label="流水线时序结果">
           <div><span>单指令延迟</span><strong>{compactNumber(analysis.singleInstructionLatencyNs)} ns</strong><small>{analysis.stageCount} 个周期</small></div>
           <div><span>理想总周期</span><strong>{analysis.idealCycles}</strong><small>{analysis.instructionCount} 条指令</small></div>
           <div><span>理想总时间</span><strong>{compactNumber(analysis.totalTimeNs)} ns</strong><small>无停顿</small></div>
           <div><span>稳态吞吐</span><strong>{compactNumber(analysis.steadyStateThroughputInstructionsPerSecond / 1_000_000)} MIPS</strong><small>{compactNumber(analysis.speedupVsSerial)}x 串行</small></div>
         </div>
-      </>}
-    </div>
+      ) : null}
+      canvas={analysis ? (
+        <section className="lab-exhibit-stage pipeline-stage-analysis" aria-labelledby="pipeline-stage-comparison-heading">
+          <div className="pipeline-transport">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="pipeline-stage-comparison-heading">功能段比较</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <div className="pipeline-cycle-status">S{safeStage + 1} / S{analysis.stageCount}</div>
+            <div className="step-controls">
+              <button type="button" className="icon-command" onClick={resetStage} aria-label="复位功能段" title="复位功能段"><RotateCcw size={16} aria-hidden="true" /></button>
+              <button type="button" className="icon-command" disabled={safeStage === 0} onClick={() => { setPlaying(false); setActiveStage((value) => Math.max(0, value - 1)); }} aria-label="上一个功能段" title="上一个功能段"><SkipBack size={16} aria-hidden="true" /></button>
+              <button type="button" className="icon-command" onClick={() => {
+                if (safeStage >= lastStage) setActiveStage(0);
+                setPlaying((value) => !value);
+              }} aria-label={playing ? '暂停功能段' : '播放功能段'} title={playing ? '暂停' : '播放'}>{playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}</button>
+              <button type="button" className="icon-command" disabled={safeStage >= lastStage} onClick={() => { setPlaying(false); setActiveStage((value) => Math.min(lastStage, value + 1)); }} aria-label="下一个功能段" title="下一个功能段"><SkipForward size={16} aria-hidden="true" /></button>
+            </div>
+          </div>
+          <div className="pipeline-stage-bars">
+            {analysis.stageDelaysNs.map((delay, index) => {
+              const bottleneck = analysis.bottleneckStageIndices.includes(index);
+              const width = `${Math.max(8, delay / Math.max(...analysis.stageDelaysNs) * 100)}%`;
+              return (
+                <button type="button" key={index} className={`${index === safeStage ? 'active' : ''}${bottleneck ? ' bottleneck' : ''}`} onClick={() => { setPlaying(false); setActiveStage(index); }} aria-current={index === safeStage ? 'step' : undefined}>
+                  <span>功能段 S{index + 1}</span>
+                  <div><i style={{ width }} /></div>
+                  <strong>{compactNumber(delay)} ns</strong>
+                  {bottleneck ? <small>瓶颈</small> : null}
+                </button>
+              );
+            })}
+          </div>
+          <div className="pipeline-stage-current">
+            <Gauge size={16} aria-hidden="true" />
+            <span>S{safeStage + 1}</span>
+            <strong>{compactNumber(analysis.stageDelaysNs[safeStage]!)} ns</strong>
+            <small>{analysis.bottleneckStageIndices.includes(safeStage) ? '决定时钟周期' : `余量 ${compactNumber(analysis.clockPeriodNs - analysis.stageDelaysNs[safeStage]!)} ns`}</small>
+          </div>
+        </section>
+      ) : null}
+    />
   );
 }
 
@@ -552,6 +611,7 @@ function PipelineInputPanel({
   registerText,
   memoryText,
   forwarding,
+  errorMessage,
   onPreset,
   onProgram,
   onRegisters,
@@ -563,6 +623,7 @@ function PipelineInputPanel({
   registerText: string;
   memoryText: string;
   forwarding: boolean;
+  errorMessage?: string | undefined;
   onPreset: (id: PipelinePreset['id']) => void;
   onProgram: (value: string) => void;
   onRegisters: (value: string) => void;
@@ -570,25 +631,40 @@ function PipelineInputPanel({
   onForwarding: (value: boolean) => void;
 }) {
   return (
-    <section className="lab-control-panel pipeline-control-panel" aria-labelledby="pipeline-input-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">RV32I / FIVE STAGES</span><h2 id="pipeline-input-heading">RV32I 五级流水线</h2></div>
-        <label className="select-field lab-example-select"><Waypoints size={16} /><select aria-label="选择流水线例题" value={presetId} onChange={(event) => onPreset(event.target.value as PipelinePreset['id'])}>
-          {PIPELINE_PRESETS.map((preset) => <option key={preset.id} value={preset.id}>{presetCopy[preset.id].label}</option>)}
-        </select></label>
+    <section className="lab-exhibit-control-card pipeline-control-panel" aria-labelledby="pipeline-input-heading">
+      <div className="lab-exhibit-card-head">
+        <h2 id="pipeline-input-heading">RV32I 五级流水线</h2>
+        <label className="lab-exhibit-select">
+          <Waypoints size={15} aria-hidden="true" />
+          <select aria-label="选择流水线例题" value={presetId} onChange={(event) => onPreset(event.target.value as PipelinePreset['id'])}>
+            {PIPELINE_PRESETS.map((preset) => <option key={preset.id} value={preset.id}>{presetCopy[preset.id].label}</option>)}
+          </select>
+        </label>
       </div>
-      <div className="pipeline-policy-bar">
-        <span>IF / ID / EX / MEM / WB</span><span>分支在 EX 判定</span><span>静态不跳转</span>
-        <button className={forwarding ? 'pipeline-forwarding-toggle active' : 'pipeline-forwarding-toggle'} type="button" role="switch" aria-checked={forwarding} onClick={() => onForwarding(!forwarding)}>
-          <Waypoints size={14} />前递 {forwarding ? 'ON' : 'OFF'}
+      <div className="lab-exhibit-policy-bar pipeline-policy-bar">
+        <span>IF / ID / EX / MEM / WB</span>
+        <span>分支在 EX 判定</span>
+        <span>静态不跳转</span>
+        <button className={forwarding ? 'lab-exhibit-keycap compact pipeline-forwarding-toggle active' : 'lab-exhibit-keycap compact pipeline-forwarding-toggle'} type="button" role="switch" aria-checked={forwarding} onClick={() => onForwarding(!forwarding)}>
+          <Waypoints size={14} aria-hidden="true" />前递 {forwarding ? 'ON' : 'OFF'}
         </button>
       </div>
       <p className="pipeline-preset-description">{presetCopy[presetId].description}</p>
       <div className="pipeline-program-grid">
-        <label className="lab-input-field pipeline-program-input"><span>RV32I 程序 · 每行一条，最多 {UI_MAX_INSTRUCTIONS} 条</span><textarea aria-label="流水线 RV32I 程序" value={programText} onChange={(event) => onProgram(event.target.value)} spellCheck={false} /></label>
-        <label className="lab-input-field"><span>寄存器初值 · x1=0x100</span><textarea aria-label="流水线寄存器初值" value={registerText} onChange={(event) => onRegisters(event.target.value)} spellCheck={false} placeholder="x1=0x00000100" /></label>
-        <label className="lab-input-field"><span>数据内存初值 · 地址=值</span><textarea aria-label="流水线内存初值" value={memoryText} onChange={(event) => onMemory(event.target.value)} spellCheck={false} placeholder="0x00000100=7" /></label>
+        <label className="lab-exhibit-field pipeline-program-input">
+          <span>RV32I 程序 · 每行一条，最多 {UI_MAX_INSTRUCTIONS} 条</span>
+          <textarea aria-label="流水线 RV32I 程序" rows={5} value={programText} onChange={(event) => onProgram(event.target.value)} spellCheck={false} />
+        </label>
+        <label className="lab-exhibit-field">
+          <span>寄存器初值 · x1=0x100</span>
+          <textarea aria-label="流水线寄存器初值" rows={5} value={registerText} onChange={(event) => onRegisters(event.target.value)} spellCheck={false} placeholder="x1=0x00000100" />
+        </label>
+        <label className="lab-exhibit-field">
+          <span>数据内存初值 · 地址=值</span>
+          <textarea aria-label="流水线内存初值" rows={5} value={memoryText} onChange={(event) => onMemory(event.target.value)} spellCheck={false} placeholder="0x00000100=7" />
+        </label>
       </div>
+      {errorMessage ? <div className="lab-exhibit-error" role="alert">{errorMessage}</div> : null}
     </section>
   );
 }

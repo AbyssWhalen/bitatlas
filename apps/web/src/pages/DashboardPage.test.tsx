@@ -2,12 +2,29 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { act, cleanup, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { aggregateStats, overlayManualMastery, projectCurrentQuestionProgress, type Attempt, type ContentPack } from '@408os/domain';
+import { aggregateStats, buildPersistentDailyPlan, overlayManualMastery, projectCurrentQuestionProgress, type Attempt, type ContentPack, type LearningPack, type ReviewSession } from '@408os/domain';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useStudy } from '../app/StudyContext';
 import { DashboardPage } from './DashboardPage';
 
 vi.mock('../app/StudyContext', () => ({ useStudy: vi.fn() }));
+vi.mock('../app/useConceptRegister', () => ({
+  useConceptRegister: () => ({ concepts: [], subjects: [], todayPlan: { items: [], conceptIds: [] }, objectiveByConcept: new Map(), weeklyStudyDays: 0, loading: false, error: '' }),
+}));
+const assigned = new Map<string, ReturnType<typeof buildPersistentDailyPlan>>();
+let reviewRounds: ReviewSession[] = [];
+vi.mock('../app/LearningContext', async () => {
+  const { useBeijingDate } = await import('../app/useBeijingDate');
+  return {
+    useLearningCards: () => [],
+    useLearning: () => {
+      const date = useBeijingDate();
+      const current = useStudy();
+      if (!assigned.has(date) && current.questions.length) assigned.set(date, buildPersistentDailyPlan(current.questions, current.attempts, [], [], new Date().toISOString()));
+      return { plan: assigned.get(date) ?? null, loading: false, error: '', contexts: [], practices: [], rounds: reviewRounds, conflicts: [] };
+    },
+  };
+});
 
 const pack = (year: number) => JSON.parse(readFileSync(path.resolve('apps', 'web', 'public', 'content', `${year}.json`), 'utf8')) as ContentPack;
 const question2009 = pack(2009).questions[0]!;
@@ -28,6 +45,8 @@ function study(overrides: Partial<ReturnType<typeof useStudy>> = {}) {
 beforeEach(() => {
   vi.useFakeTimers();
   vi.setSystemTime(new Date('2026-10-04T23:59:40+08:00'));
+  assigned.clear();
+  reviewRounds = [];
   study();
 });
 
@@ -49,21 +68,57 @@ describe('dashboard content availability', () => {
     expect(screen.queryByText(/AI.*核对|人工复核|正式模考|Verified 题包/)).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '查看详情' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: '继续学习' })).toBeEnabled();
-    expect(screen.getByRole('button', { name: '顺序练习' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: '开始剩余 2 题' })).toBeEnabled();
   });
 
   it('does not advertise an absent pack as ready to practice', () => {
     study({ packs: [], questions: [] });
     renderDashboard();
 
-    expect(screen.getByText('本地 2009 题包未安装。')).toBeVisible();
-    expect(screen.getByRole('button', { name: '进入实验' })).toBeEnabled();
+    expect(screen.getByText(/学习包或题包不可用/)).toBeVisible();
+    expect(screen.getByRole('link', { name: '实验室' })).toHaveAttribute('href', '/lab');
     expect(screen.getByRole('button', { name: '继续学习' })).toBeDisabled();
     expect(screen.queryByText('AI 核对 47/47')).not.toBeInTheDocument();
   });
 });
 
 describe('dashboard calendar and year scope', () => {
+  it.each([false, true])('checks a completed card snapshot against its assigned version (old version: %s)', (oldVersion) => {
+    const card = (JSON.parse(readFileSync(path.resolve('apps/web/public/content/learning.json'), 'utf8')) as LearningPack).cards[0]!;
+    const now = new Date().toISOString();
+    const plan = buildPersistentDailyPlan([], [], [card], [], now);
+    assigned.set(plan.date, plan);
+    reviewRounds = [{
+      id: 'version-bound-round', dailyPlanId: plan.id, cards: [{ ...card, version: oldVersion ? card.version : 'new-version' }],
+      queue: [card.id], cursor: 1, completedCardIds: [card.id], revision: 1,
+      startedAt: now, updatedAt: now, completedAt: now,
+    }];
+    renderDashboard();
+    const tasks = within(screen.getByRole('region', { name: '今日任务' }));
+    expect(tasks.getByText(oldVersion ? '已完成' : '不可用：内容缺失、暂停或版本变化')).toBeInTheDocument();
+    expect(tasks.queryByText(oldVersion ? '不可用：内容缺失、暂停或版本变化' : '已完成')).not.toBeInTheDocument();
+  });
+
+  it.each([false, true])('keeps daily completion bound to the assigned question version (old attempt: %s)', (oldAttempt) => {
+    study({ questions: [question2009] });
+    const { rerender } = renderDashboard();
+    expect(screen.getByRole('button', { name: '开始剩余 1 题' })).toBeEnabled();
+    const updated = { ...question2009, contentVersion: '2009.2-draft.1' };
+    const attempt: Attempt = {
+      id: 'version-bound-attempt', questionId: question2009.id,
+      questionContentVersion: oldAttempt ? question2009.contentVersion : updated.contentVersion,
+      sessionId: 'version-bound-session', mode: 'practice', response: { type: 'choice', optionId: 'A' },
+      correct: true, score: 1, startedAt: '2026-10-04T10:00:00+08:00', submittedAt: '2026-10-04T10:00:01+08:00', durationMs: 1_000,
+    };
+    study({ questions: [updated], attempts: [attempt] });
+    rerender(<MemoryRouter><DashboardPage /></MemoryRouter>);
+    const tasks = within(screen.getByRole('region', { name: '今日任务' }));
+    expect(tasks.getByText(oldAttempt ? '已完成' : '不可用：内容缺失、暂停或版本变化')).toBeInTheDocument();
+    expect(tasks.queryByText(oldAttempt ? '不可用：内容缺失、暂停或版本变化' : '已完成')).not.toBeInTheDocument();
+    expect(tasks.getByRole('button', { name: '开始剩余 0 题' })).toBeDisabled();
+    expect(assigned.get('2026-10-04')?.items[0]?.contentVersion).toBe(question2009.contentVersion);
+  });
+
   it('reopens the daily plan at Beijing midnight without changing attempts or questions', () => {
     const attempt: Attempt = {
       id: 'today-attempt', questionId: question2009.id, questionContentVersion: question2009.contentVersion,
@@ -72,44 +127,41 @@ describe('dashboard calendar and year scope', () => {
     };
     study({ questions: [question2009], attempts: [attempt] });
     renderDashboard();
-    expect(screen.getByText('DAILY REVIEW / 2026-10-04')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '今日已完成' })).toBeDisabled();
+    expect(screen.getByText('2026-10-04 · DAILY PLAN')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '开始剩余 0 题' })).toBeDisabled();
 
     act(() => { vi.advanceTimersByTime(90_000); });
-    expect(screen.getByText('DAILY REVIEW / 2026-10-05')).toBeInTheDocument();
+    expect(screen.getByText('2026-10-05 · DAILY PLAN')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '开始剩余 1 题' })).toBeEnabled();
   });
 
   it.each(['visibilitychange', 'pageshow', 'focus'])('refreshes a suspended page on %s and preserves the queue within the same day', (event) => {
     renderDashboard();
-    const before = screen.getByRole('region', { name: '今日复习计划' }).textContent;
+    const before = screen.getByRole('region', { name: '今日任务' }).textContent;
     vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('visible');
     const target = event === 'visibilitychange' ? document : window;
     act(() => { target.dispatchEvent(new Event(event)); });
-    expect(screen.getByRole('region', { name: '今日复习计划' }).textContent).toBe(before);
+    expect(screen.getByRole('region', { name: '今日任务' }).textContent).toBe(before);
 
     // A sleeping tab may resume after multiple days with no timer delivery.
     vi.setSystemTime(new Date('2026-10-07T09:00:00+08:00'));
     act(() => { target.dispatchEvent(new Event(event)); });
-    expect(screen.getByText('DAILY REVIEW / 2026-10-07')).toBeInTheDocument();
+    expect(screen.getByText('2026-10-07 · DAILY PLAN')).toBeInTheDocument();
   });
 
-  it('counts mastery only for 2009 while retaining evidence-only global practice counts', () => {
+  it('counts actual practice across all years without treating manual mastery as attempted', () => {
     const currentProgress = overlayManualMastery(projectCurrentQuestionProgress([], questions), [{
       questionId: question2025.id, questionContentVersion: question2025.contentVersion,
       mastery: 'mastered', attemptCount: 0, correctCount: 0, wrongCount: 0, consecutiveCorrect: 0, lastCorrect: null,
     }], new Map(questions.map((question) => [question.id, question.contentVersion])));
     study({ currentProgress });
-    const { container, rerender } = renderDashboard();
-    const yearCard = container.querySelector('.year-band')! as HTMLElement;
-    expect(within(yearCard).getByText('已掌握', { exact: false }).textContent).toBe('0 已掌握');
-    expect(screen.getByRole('region', { name: '学习指标' })).toHaveTextContent('已练题目0 / 2');
-
-    currentProgress.set(question2009.id, { ...currentProgress.get(question2025.id)!, questionId: question2009.id, questionContentVersion: question2009.contentVersion });
+    const { rerender } = renderDashboard();
+    expect(screen.getByRole('region', { name: '学习概况' })).toHaveTextContent('已练题目0 / 2');
+    currentProgress.set(question2025.id, { ...currentProgress.get(question2025.id)!, attemptCount: 1 });
     study({ currentProgress: new Map(currentProgress) });
     rerender(<MemoryRouter><DashboardPage /></MemoryRouter>);
-    expect(within(yearCard).getByText('已掌握', { exact: false }).textContent).toBe('1 已掌握');
-    expect(screen.getByRole('region', { name: '学习指标' })).toHaveTextContent('已练题目0 / 2');
+    expect(screen.getByRole('region', { name: '学习概况' })).toHaveTextContent('已练题目1 / 2');
+    expect(screen.queryByText(/2009 全国统考|2028/)).not.toBeInTheDocument();
   });
 
   it('removes the midnight timer when leaving the dashboard', () => {

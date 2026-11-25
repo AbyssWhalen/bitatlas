@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 
@@ -226,9 +227,9 @@ function TraversalStatePanel({ computation, step }: {
   const stackLabels = visitedLabels(computation.trace, step.state.callStack);
   const prefix = visitedLabels(computation.trace, step.state.visitedNodeIds);
   return (
-    <section className="lab-control-panel binary-tree-state-panel" aria-labelledby="binary-tree-state-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">TREE / CALL STACK</span><h2 id="binary-tree-state-heading">递归遍历状态</h2></div>
+    <section className="binary-tree-state-panel lab-exhibit-stage" aria-labelledby="binary-tree-state-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2 id="binary-tree-state-heading">递归遍历状态</h2></div>
         <GitBranch size={19} aria-hidden="true" />
       </div>
       <BinaryTreeView tree={computation.tree} trace={computation.trace} step={step} />
@@ -308,77 +309,89 @@ export function BinaryTreeTraversalLabPage() {
   };
 
   return (
-    <div className="page binary-tree-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / BINARY TREE</span><h1>二叉树遍历实验室</h1><p>沿递归调用栈重放根、左子树与右子树的六种访问顺序。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ3()}>
+    <LabExhibit
+      pageClassName="binary-tree-lab-page"
+      subjectLabel="数据结构实验 · 二叉树遍历"
+      title="二叉树遍历实验室"
+      description="沿递归调用栈重放根、左子树与右子树的六种访问顺序。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ3()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q3'}
         </button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="tree-traversal" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="ds-review-band binary-tree-review-band">
-        <span><ListTree size={16} aria-hidden="true" />本地练习预设 · Q3</span>
-        <strong>{question?.reviewStatus ?? BINARY_TREE_TRAVERSAL_Q3_PRESET.reviewStatus}</strong>
-        <small>原卷树形与目标序列仍待人工复核；实验只重放递归遍历，不扩展为二叉搜索树或 Morris 遍历。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q03')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><GitBranch size={18} aria-hidden="true" /><span>2009 第 3 题 · RNL 特殊遍历</span><ListTree size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid binary-tree-lab-grid">
-        <div className="binary-tree-workbench">
-          <section className="lab-control-panel binary-tree-control-panel" aria-labelledby="binary-tree-input-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">LEVEL ORDER / ORDER</span><h2 id="binary-tree-input-heading">树结构与遍历顺序</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q3 预设</button>
-            </div>
-            <label className="lab-input-field full">
-              <span>层序结点（# 表示空结点）</span>
-              <input aria-label="层序结点" spellCheck={false} value={treeText} onChange={(event) => updateTree(event.target.value)} />
-            </label>
-            <div className="segmented-control binary-tree-order-control" aria-label="遍历顺序">
-              {traversalOrders.map((candidate) => (
-                <button key={candidate} type="button" className={order === candidate ? 'active' : ''} aria-pressed={order === candidate} onClick={() => updateOrder(candidate)}>{candidate}</button>
-              ))}
-            </div>
-            <div className="binary-tree-order-meaning" aria-label={`${order} 顺序含义`}>
-              {order.split('').map((token, index) => (
-                <span key={`${index}-${token}`}><small>{index + 1}</small><strong>{tokenLabels[token as keyof typeof tokenLabels]}</strong><code>{token}</code></span>
-              ))}
-            </div>
-            {computation.ok ? (
-              <div className="binary-tree-metrics">
-                <div><small>结点数</small><strong>{computation.trace.nodes.length}</strong></div>
-                <div><small>最大深度</small><strong>{computation.tree.maxDepth + 1}</strong></div>
-                <div aria-label="遍历结果"><small>{order} 遍历结果</small><strong>{computation.trace.result.visitedLabels.join(', ')}</strong></div>
-              </div>
-            ) : <div className="lab-error" role="alert">{computation.message}</div>}
-          </section>
-
-          {computation.ok && currentStep && (
-            <>
-              <div className="binary-tree-current-event" aria-live="polite" aria-atomic="true" aria-label="当前遍历事件">
-                <GitBranch size={18} aria-hidden="true" />
-                <div><span>当前递归事件</span><strong>{stepLabel(currentStep, computation.trace)}</strong></div>
-                <code>stack={currentStep.state.callStack.length} · visited={currentStep.state.visitedNodeIds.length}/{computation.trace.nodes.length}</code>
-              </div>
-              <TraversalStatePanel computation={computation} step={currentStep} />
-            </>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <DataStructuresModuleTabs active="tree-traversal" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<ListTree size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q3"
+          badge={question?.reviewStatus ?? BINARY_TREE_TRAVERSAL_Q3_PRESET.reviewStatus}
+          note="原卷树形与目标序列仍待人工复核；实验只重放递归遍历，不扩展为二叉搜索树或 Morris 遍历。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q03')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
           )}
+        />
+      )}
+      subheading={(
+        <>
+          <GitBranch size={18} aria-hidden="true" />
+          <span>2009 第 3 题 · RNL 特殊遍历</span>
+          <ListTree size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="binary-tree-input-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="binary-tree-input-heading">树结构与遍历顺序</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q3 预设</button>
+          </div>
+          <label className="lab-exhibit-field">
+            <span>层序结点（# 表示空结点）</span>
+            <input aria-label="层序结点" spellCheck={false} value={treeText} onChange={(event) => updateTree(event.target.value)} />
+          </label>
+          <div className="binary-tree-order-control rollout-options" aria-label="遍历顺序">
+            {traversalOrders.map((candidate) => (
+              <button key={candidate} type="button" className="lab-exhibit-keycap compact" aria-pressed={order === candidate} onClick={() => updateOrder(candidate)}>{candidate}</button>
+            ))}
+          </div>
+          <div className="binary-tree-order-meaning" aria-label={`${order} 顺序含义`}>
+            {order.split('').map((token, index) => (
+              <span key={`${index}-${token}`}><small>{index + 1}</small><strong>{tokenLabels[token as keyof typeof tokenLabels]}</strong><code>{token}</code></span>
+            ))}
+          </div>
+          {computation.ok ? (
+            <div className="lab-exhibit-metrics rollout-three-metrics">
+              <div><small>结点数</small><strong>{computation.trace.nodes.length}</strong></div>
+              <div><small>最大深度</small><strong>{computation.tree.maxDepth + 1}</strong></div>
+              <div aria-label="遍历结果"><small>{order} 遍历结果</small><strong>{computation.trace.result.visitedLabels.join(', ')}</strong></div>
+            </div>
+          ) : <div className="lab-exhibit-error" role="alert">{computation.message}</div>}
+        </section>
+      )}
+      status={computation.ok && currentStep && (
+        <div className="binary-tree-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前遍历事件">
+          <GitBranch size={18} aria-hidden="true" />
+          <div><span>当前递归事件</span><strong>{stepLabel(currentStep, computation.trace)}</strong></div>
+          <code>stack={currentStep.state.callStack.length} · visited={currentStep.state.visitedNodeIds.length}/{computation.trace.nodes.length}</code>
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={computationKey}
-            className="binary-tree-step-explorer"
-            steps={computation.explorerSteps}
-            announceChanges={false}
-            onActiveIndexChange={setActiveIndex}
-          />
-        )}
-      </div>
-    </div>
+      )}
+      canvas={computation.ok && currentStep && (
+        <TraversalStatePanel computation={computation} step={currentStep} />
+      )}
+      steps={computation.ok && (
+        <StepExplorer
+          key={computationKey}
+          className="binary-tree-step-explorer"
+          steps={computation.explorerSteps}
+          announceChanges={false}
+          onActiveIndexChange={setActiveIndex}
+        />
+      )}
+    />
   );
 }

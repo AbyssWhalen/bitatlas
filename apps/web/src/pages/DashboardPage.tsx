@@ -1,155 +1,68 @@
-import { buildDailyReviewPlan } from '@408os/domain';
-import { ArrowRight, BookOpen, CalendarCheck2, Check, CircleCheck, Clock3, Flame, Play, RotateCcw } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { SERVER_MODE } from '../app/server-mode';
 import { useStudy } from '../app/StudyContext';
-import { useBeijingDate } from '../app/useBeijingDate';
-
-const subjectMeta = {
-  'data-structures': { label: '数据结构', color: '#3ecf8e' },
-  'computer-organization': { label: '计算机组成原理', color: '#f26d54' },
-  'operating-systems': { label: '操作系统', color: '#e5b04a' },
-  'computer-networks': { label: '计算机网络', color: '#7aa5f0' },
-} as const;
+import { useLearning } from '../app/LearningContext';
+import { useAction } from '../app/useAction';
+import { useConceptRegister } from '../app/useConceptRegister';
+import { DailyTasks } from '../components/DailyTasks';
+import { STATE_LABELS, STATE_ORDER, SUBJECT_MARKS } from '../components/concept-labels';
+import { SubjectShape } from '../components/SubjectShape';
+import { questionAvailability } from '@408os/domain';
 
 export function DashboardPage() {
-  const { attempts, packs, questions, stats, currentProgress, createSession, getLatestSession } = useStudy();
+  const { questions, currentProgress, getLatestSession, createSession, assets } = useStudy();
+  const availableQuestions = questions.filter((question) => questionAvailability(question, assets).practice);
+  const { plan, loading, rounds, conflicts } = useLearning();
+  const register = useConceptRegister();
+  const hasConcepts = register.concepts.length > 0;
   const navigate = useNavigate();
-  const [startingPlan, setStartingPlan] = useState(false);
-  const [planError, setPlanError] = useState<string | null>(null);
-  const today = useBeijingDate();
-  // “已练/完成”指标保持作答证据语义（attemptCount>0）：手动掌握度只影响掌握度统计，
-  // 不把未作答的题计入已练数量与完成进度。
-  const attempted = [...currentProgress.values()].filter((entry) => entry.attemptCount > 0).length;
-  const practicedIds = useMemo(
-    () => new Set([...currentProgress.values()].filter((entry) => entry.attemptCount > 0).map((entry) => entry.questionId)),
-    [currentProgress],
-  );
+  const action = useAction();
+  const practiced = [...currentProgress.values()].filter((entry) => entry.attemptCount > 0).length;
   const wrong = [...currentProgress.values()].filter((entry) => entry.lastCorrect === false).length;
-  const questionById = useMemo(() => new Map(questions.map((question) => [question.id, question])), [questions]);
-  // 2009 是旗舰年份：总览页的复习卡片、科目分布与顺序练习都限定 2009；
-  // 其他年份通过 /questions 的年份筛选练习，日计划保持跨年份。
-  const questions2009 = useMemo(() => questions.filter((question) => question.year === 2009), [questions]);
-  const mastered2009 = questions2009.filter((question) => currentProgress.get(question.id)?.mastery === 'mastered').length;
-  const dailyPlan = useMemo(() => buildDailyReviewPlan(attempts, questions, {
-    today: new Date(`${today}T00:00:00+08:00`),
-    timeZone: 'Asia/Shanghai',
-    dailyLimit: 8,
-  }), [attempts, questions, today]);
-  const subjectCounts = useMemo(() => Object.entries(subjectMeta).map(([subject, meta]) => {
-    const subjectQuestions = questions2009.filter((question) => question.subject === subject);
-    const done = subjectQuestions.filter((question) => practicedIds.has(question.id)).length;
-    return { subject, ...meta, total: subjectQuestions.length, done };
-  }), [practicedIds, questions2009]);
-  const remainingPlanIds = dailyPlan.items.filter((item) => !item.completedToday).map((item) => item.questionId);
-  const manifest = packs.find((pack) => pack.year === 2009);
-  const hasQuestions = questions.length > 0;
-  const has2009Questions = questions2009.length > 0;
-  const choiceCount = questions2009.filter((question) => question.kind === 'single-choice').length;
-  const comprehensiveCount = questions2009.filter((question) => question.kind === 'comprehensive').length;
-
-  const startAll = async () => {
-    if (!has2009Questions) return;
-    const id = await createSession(questions2009.map((question) => question.id), 'practice');
+  const openRound = rounds.find((round) => !round.completedAt);
+  const planQuestions = plan?.items.filter((item) => item.kind === 'question').length ?? 0;
+  const planCards = (plan?.items.length ?? 0) - planQuestions;
+  const resume = async () => {
+    const latest = await getLatestSession();
+    const id = latest?.id ?? await createSession(availableQuestions.slice(0, 8).map((question) => question.id), 'practice');
     navigate(`/practice/${id}`);
   };
-
-  const resume = async () => {
-    if (!hasQuestions) return;
-    const session = await getLatestSession();
-    if (session) navigate(`/practice/${session.id}`);
-    else await startAll();
-  };
-
-  const startDailyPlan = async () => {
-    if (!remainingPlanIds.length || startingPlan) return;
-    setStartingPlan(true);
-    setPlanError(null);
-    try {
-      const id = await createSession(remainingPlanIds, 'review');
-      navigate(`/practice/${id}`);
-    } catch (reason) {
-      setPlanError(reason instanceof Error ? reason.message : '今日计划创建失败');
-      setStartingPlan(false);
-    }
-  };
-
-  return (
-    <div className="page dashboard-page">
-      <header className="page-header dashboard-header">
-        <div>
-          <span className="eyebrow">2028 备考工作台</span>
-          <h1>学习总览</h1>
-          <p>{!hasQuestions ? '本地题包未安装，当前可直接使用实验模块。' : attempted === 0 ? '从 2009 年真题建立第一条学习记录。' : `已完成 ${attempted} 道，继续处理当前薄弱项。`}</p>
-        </div>
-        <button className="primary-command" disabled={!hasQuestions} onClick={() => void resume()}><Play size={18} fill="currentColor" />继续学习</button>
-      </header>
-
-      {!manifest && <div className="review-warning">
-        <Flame size={17} />
-        <span>本地 2009 题包未安装。</span>
-        <button className="secondary-command" onClick={() => navigate('/lab')}>进入实验<ArrowRight size={16} /></button>
-      </div>}
-
-      <section className="metric-grid" aria-label="学习指标">
-        <article><BookOpen /><span>已练题目</span><strong>{attempted}<small> / {questions.length}</small></strong></article>
-        <article><CircleCheck /><span>客观正确率</span><strong>{stats.accuracy === null ? '--' : `${Math.round(stats.accuracy * 100)}%`}</strong></article>
-        <article><Clock3 /><span>累计用时</span><strong>{Math.round(stats.durationMs / 60_000)}<small> 分钟</small></strong></article>
-        <article><RotateCcw /><span>当前错题</span><strong>{wrong}</strong></article>
-      </section>
-
-      <section className="daily-plan-section" aria-labelledby="daily-plan-title">
-        <div className="section-heading daily-plan-heading">
-          <div><span className="eyebrow">DAILY REVIEW / {dailyPlan.date}</span><h2 id="daily-plan-title">今日复习计划</h2></div>
-          <div className="daily-plan-actions">
-            <span><CalendarCheck2 size={16} />{dailyPlan.completedCount} / {dailyPlan.items.length}</span>
-            <button className="primary-command" disabled={!remainingPlanIds.length || startingPlan} onClick={() => void startDailyPlan()}>
-              {remainingPlanIds.length ? <Play size={16} /> : <Check size={16} />}
-              {startingPlan ? '创建中' : remainingPlanIds.length ? `开始剩余 ${remainingPlanIds.length} 题` : '今日已完成'}
-            </button>
-          </div>
-        </div>
-        {planError && <div className="status-message error" role="alert">{planError}</div>}
-        {dailyPlan.items.length ? <div className="daily-plan-list">
-          {dailyPlan.items.map((item) => {
-            const question = questionById.get(item.questionId)!;
-            const reason = item.reason === 'overdue' ? '逾期复习' : item.reason === 'due' ? '今日到期' : '新题补充';
-            return (
-              <article key={item.questionId} className={item.completedToday ? 'completed' : ''}>
-                <span className="daily-plan-number">Q{String(question.number).padStart(2, '0')}</span>
-                <div><strong>{subjectMeta[question.subject].label}</strong><small>{item.dueOn ? `到期 ${item.dueOn}` : '按记忆间隔排入'}</small></div>
-                <span className={`daily-plan-state reason-${item.reason}`}>{item.completedToday ? '已完成' : reason}</span>
-              </article>
-            );
-          })}
-        </div> : <div className="empty-result compact-empty"><CalendarCheck2 size={22} /><p>安装题包后生成每日复习计划</p></div>}
-      </section>
-
-      <div className="dashboard-columns">
-        <section className="year-band">
-          <div className="section-heading"><div><span className="eyebrow">历年真题</span><h2>2009 全国统考</h2></div><span className="pack-status">{has2009Questions ? `${questions2009.length} 题` : '未安装'}</span></div>
-          <div className="year-progress"><span style={{ width: `${questions2009.length ? (questions2009.filter((question) => practicedIds.has(question.id)).length / questions2009.length) * 100 : 0}%` }} /></div>
-          <div className="year-facts">
-            <span><strong>{choiceCount}</strong> 单项选择</span><span><strong>{comprehensiveCount}</strong> 综合应用</span><span><strong>{mastered2009}</strong> 已掌握</span>
-          </div>
-          <div className="command-row">
-            <button className="primary-command" disabled={!has2009Questions} onClick={() => void startAll()}><Play size={17} />顺序练习</button>
-            <button className="secondary-command" onClick={() => navigate('/questions')}>筛选题目<ArrowRight size={17} /></button>
-          </div>
-        </section>
-
-        <section className="subject-progress-section">
-          <div className="section-heading"><div><span className="eyebrow">科目分布</span><h2>完成进度</h2></div></div>
-          <div className="subject-progress-list">
-            {subjectCounts.map((item) => (
-              <div key={item.subject} className="subject-progress-row">
-                <div><i style={{ background: item.color }} /><span>{item.label}</span><strong>{item.done}/{item.total}</strong></div>
-                <div className="thin-progress"><span style={{ width: `${item.total ? (item.done / item.total) * 100 : 0}%`, background: item.color }} /></div>
-              </div>
-            ))}
-          </div>
-        </section>
+  return <div className="page dashboard-page today-page">
+    <header className="today-hero">
+      <div>
+        <h1>今日学习</h1>
+        {plan?.items.length
+          ? <p className="today-statement">今天 <b>{plan.items.length}</b> 项</p>
+          : <p className="today-statement">{loading ? '正在准备今天的计划' : '今天没有排定的任务'}</p>}
+        {plan?.items.length
+          ? <p className="today-breakdown"><span>题目 {planQuestions}</span><span>记忆卡 {planCards}</span>{register.todayPlan.conceptIds.length > 0 && <span>涉及 {register.todayPlan.conceptIds.length} 个概念</span>}{hasConcepts && <span>本周已学 {register.weeklyStudyDays} 天</span>}</p>
+          : !loading && <p className="today-breakdown"><Link to="/questions">去题库选题</Link><Link to="/lab">做一个实验</Link></p>}
       </div>
-    </div>
-  );
+      <button className="secondary-command" disabled={action.busy || !availableQuestions.length} onClick={() => void action.run(resume)}>继续学习</button>
+    </header>
+    {action.error && <p className="sec-inline-alert" role="alert">{action.error}</p>}
+    <DailyTasks />
+    {hasConcepts && <section className="subject-overview" aria-labelledby="subject-overview-title">
+      <div className="subject-overview-head"><h2 id="subject-overview-title">四科概念</h2><Link to="/knowledge">打开概念寄存器 →</Link></div>
+      <ul className="subject-overview-list">{register.subjects.map((counts) => {
+        const mark = SUBJECT_MARKS[counts.subject];
+        const total = STATE_ORDER.reduce((sum, state) => sum + counts[state], 0);
+        if (!total) return null;
+        return <li key={counts.subject}><Link to={`/knowledge?subject=${counts.subject}`}>
+          <span className="subject-overview-name"><SubjectShape subject={counts.subject} />{mark.label}<span>{total} 个概念</span></span>
+          <span className="register-meter" aria-hidden="true">{STATE_ORDER.map((state) => counts[state] ? <span key={state} className={`is-${state}`} style={{ flexGrow: counts[state] }} /> : null)}</span>
+          <span className="subject-overview-counts">{STATE_ORDER.map((state) => <span key={state}>{STATE_LABELS[state]} {counts[state]}</span>)}</span>
+        </Link></li>;
+      })}</ul>
+    </section>}
+    <section className={`metric-grid${hasConcepts ? ' three' : ''}`} aria-label="学习概况">
+      <article><span>已练题目</span><strong>{practiced}<small> / {questions.length}</small></strong></article>
+      <article><span>待处理错题</span><strong>{wrong}</strong><Link to="/wrong">查看错题 →</Link></article>
+      <article><span>继续复习</span><strong>{openRound ? openRound.cards.length - openRound.completedCardIds.length : 0}<small> 张</small></strong><Link to={openRound ? `/review/cards/${openRound.id}` : '/review'}>进入复习 →</Link></article>
+      {!hasConcepts && <article><span>跨年知识</span><strong>四科</strong><Link to="/knowledge">查看概念与相关题目 →</Link></article>}
+    </section>
+    {conflicts.some((conflict) => !conflict.resolvedAt) && <p className="sec-inline-status" role="status">发现历史重复笔记，全部原文已保留。<Link to="/settings">前往合并</Link></p>}
+    <section className="study-panel today-explore"><h2>继续探索</h2><p>读懂一个概念，做几道相关真题，再通过实验验证自己的理解。</p>
+      <div className="command-row"><Link to="/questions">浏览历年真题</Link><Link to="/documents">{SERVER_MODE ? '共享资料' : '本地资料'}</Link><Link to="/lab">实验室</Link><Link to="/stats">学习统计</Link><Link to="/settings">备份与数据管理</Link></div></section>
+  </div>;
 }

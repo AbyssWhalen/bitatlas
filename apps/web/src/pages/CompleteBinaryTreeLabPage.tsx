@@ -11,6 +11,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
 import { LabSectionNav } from '../components/LabSectionNav';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 
 const CANONICAL_URL = '/lab/data-structures?module=complete-tree&preset=cn408-2009-q05';
@@ -150,56 +151,72 @@ export function CompleteBinaryTreeLabPage() {
   const isComplete = currentStep?.kind === 'complete';
 
   return (
-    <div className="page complete-tree-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / COMPLETE TREE</span><h1>完全二叉树最大结点实验室</h1><p>从指定层的叶结点数量，构造满足条件的最大规模。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ5()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q5'}</button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="complete-tree" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <div className="ds-review-band">
-        <span><ShieldAlert size={16} aria-hidden="true" />本地练习预设 · Q5</span>
-        <strong>{question?.reviewStatus ?? COMPLETE_BINARY_TREE_Q5_PRESET.reviewStatus}</strong>
-        <small>来源仍待人工复核；本页只推导最大构型，不生成或判定任意完全二叉树。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q05')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><TreePine size={18} aria-hidden="true" /><span>层容量 · 叶/内部结点分区 · 最大构型</span><Calculator size={14} aria-hidden="true" /></div>
-      <div className="complete-tree-lab-grid">
-        <div className="complete-tree-workbench">
-          <section className="lab-control-panel complete-tree-control-panel" aria-labelledby="complete-tree-control-title">
-            <div className="lab-control-heading"><div><span className="eyebrow">SOURCE CONSTRAINT</span><h2 id="complete-tree-control-title">叶结点约束</h2></div><button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q5 预设</button></div>
-            <div className="complete-tree-input-grid">
-              <label className="lab-input-field"><span>叶结点所在层 L</span><input aria-label="叶结点所在层 L" type="number" min="1" max={COMPLETE_BINARY_TREE_MAX_LEAF_LEVEL} value={initialLevel} onChange={(event) => updateCustom('leafLevel', event.target.value)} /></label>
-              <label className="lab-input-field"><span>该层叶结点数 k</span><input aria-label="该层叶结点数 k" type="number" min="1" value={initialCount} onChange={(event) => updateCustom('leafCount', event.target.value)} /></label>
-            </div>
-            <small className="complete-tree-input-boundary">支持 L=1..{COMPLETE_BINARY_TREE_MAX_LEAF_LEVEL}，且 1 ≤ k ≤ 2^(L-1)。</small>
-            {!computation.ok && <div className="lab-error" role="alert">{computation.message}</div>}
-          </section>
-
-          {currentStep && (
-            <>
-              <section className="complete-tree-current-event" aria-live="polite" aria-atomic="true" aria-label="当前推导状态"><TreePine size={18} aria-hidden="true" /><div><span>当前推导</span><strong>{stateSummary(currentStep)}</strong></div><code>{currentStep.kind}</code></section>
-              <section className="complete-tree-state-panel" aria-label="最大构型聚合图">
-                <div className="lab-control-heading"><div><span className="eyebrow">LEVEL PARTITION</span><h2>目标层容量与末层</h2></div></div>
-                <LevelPartition step={currentStep} />
-                <div className="complete-tree-metrics" aria-label="最大构型指标">
-                  <div role="group"><small>前 L 层</small><strong>{currentStep.state.nodesThroughLeafLevel ?? '--'}</strong></div>
-                  <div role="group"><small>最大高度</small><strong>{currentStep.state.maximumHeight ?? '--'}</strong></div>
-                  <div role="group"><small>L+1 层新增</small><strong>{currentStep.state.nodesAtLastLevel ?? '--'}</strong></div>
-                </div>
-              </section>
-              <section className="complete-tree-conclusion" aria-label="当前最大结点结论" data-complete={isComplete ? 'true' : 'false'}>
-                <div><small>当前结论</small><strong>{isComplete ? `最大结点数 ${currentStep.state.maximumNodeCount}` : '待推导'}</strong></div>
-                <p>{isComplete ? `${currentStep.state.nodesThroughLeafLevel} + ${currentStep.state.nodesAtLastLevel} = ${currentStep.state.maximumNodeCount}，这是当前输入的最大构型。${sourcePresetMode ? ' 来源选项 C。' : ''}` : '完成全部因果步骤后再汇总，不提前投射来源答案。'}</p>
-              </section>
-            </>
+    <LabExhibit
+      pageClassName="complete-tree-lab-page"
+      subjectLabel="数据结构实验 · 完全二叉树"
+      title="完全二叉树最大结点实验室"
+      description="从指定层的叶结点数量，构造满足条件的最大规模。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ5()}>
+          <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q5'}
+        </button>
+      )}
+      navigation={<><LabSectionNav /><DataStructuresModuleTabs active="complete-tree" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<ShieldAlert size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q5"
+          badge={question?.reviewStatus ?? COMPLETE_BINARY_TREE_Q5_PRESET.reviewStatus}
+          note="来源仍待人工复核；本页只推导最大构型，不生成或判定任意完全二叉树。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q05')}>
+              查看知识节点<ArrowRight size={14} aria-hidden="true" />
+            </button>
           )}
-        </div>
-        {computation.ok && <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="complete-tree-step-explorer" />}
-      </div>
-    </div>
+        />
+      )}
+      subheading={<><TreePine size={18} aria-hidden="true" /><span>层容量 · 叶/内部结点分区 · 最大构型</span><Calculator size={14} aria-hidden="true" /></>}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="complete-tree-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="complete-tree-control-title">叶结点约束</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q5 预设</button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-2">
+            <label className="lab-exhibit-field"><span>叶结点所在层 L</span><input aria-label="叶结点所在层 L" type="number" min="1" max={COMPLETE_BINARY_TREE_MAX_LEAF_LEVEL} value={initialLevel} onChange={(event) => updateCustom('leafLevel', event.target.value)} /></label>
+            <label className="lab-exhibit-field"><span>该层叶结点数 k</span><input aria-label="该层叶结点数 k" type="number" min="1" value={initialCount} onChange={(event) => updateCustom('leafCount', event.target.value)} /></label>
+          </div>
+          <small className="complete-tree-input-boundary">支持 L=1..{COMPLETE_BINARY_TREE_MAX_LEAF_LEVEL}，且 1 ≤ k ≤ 2^(L-1)。</small>
+          {!computation.ok && <div className="lab-exhibit-error" role="alert">{computation.message}</div>}
+        </section>
+      )}
+      status={currentStep && (
+        <section className="complete-tree-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前推导状态">
+          <TreePine size={18} aria-hidden="true" /><div><span>当前推导</span><strong>{stateSummary(currentStep)}</strong></div><code>{currentStep.kind}</code>
+        </section>
+      )}
+      canvas={currentStep && (
+        <section className="complete-tree-state-panel lab-exhibit-stage" aria-label="最大构型聚合图">
+          <div className="lab-exhibit-stage-head"><div className="lab-exhibit-stage-title"><h2>目标层容量与末层</h2></div></div>
+          <LevelPartition step={currentStep} />
+          <div className="complete-tree-metrics" aria-label="最大构型指标">
+            <div role="group"><small>前 L 层</small><strong>{currentStep.state.nodesThroughLeafLevel ?? '--'}</strong></div>
+            <div role="group"><small>最大高度</small><strong>{currentStep.state.maximumHeight ?? '--'}</strong></div>
+            <div role="group"><small>L+1 层新增</small><strong>{currentStep.state.nodesAtLastLevel ?? '--'}</strong></div>
+          </div>
+        </section>
+      )}
+      steps={computation.ok && (
+        <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="complete-tree-step-explorer" />
+      )}
+      footer={currentStep && (
+        <section className="complete-tree-conclusion" aria-label="当前最大结点结论" data-complete={isComplete ? 'true' : 'false'}>
+          <div><small>当前结论</small><strong>{isComplete ? `最大结点数 ${currentStep.state.maximumNodeCount}` : '待推导'}</strong></div>
+          <p>{isComplete ? `${currentStep.state.nodesThroughLeafLevel} + ${currentStep.state.nodesAtLastLevel} = ${currentStep.state.maximumNodeCount}，这是当前输入的最大构型。${sourcePresetMode ? ' 来源选项 C。' : ''}` : '完成全部因果步骤后再汇总，不提前投射来源答案。'}</p>
+        </section>
+      )}
+    />
   );
 }
 

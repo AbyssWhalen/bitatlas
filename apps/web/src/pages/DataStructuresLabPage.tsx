@@ -24,6 +24,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 import { StackCapacityLabPage } from './StackCapacityLabPage';
@@ -115,7 +116,8 @@ function GraphWorkbench({
   const settledNodes = new Set(step.settledNodeIds);
 
   return (
-    <div className="ds-graph-workbench">
+    <section className="lab-exhibit-stage" aria-labelledby="ds-stage-title">
+      <div className="lab-exhibit-stage-head"><div className="lab-exhibit-stage-title"><h2 id="ds-stage-title">路径与边权</h2></div><Network size={18} aria-hidden="true" /></div>
       <svg className="ds-graph" viewBox="0 0 540 260" role="img" aria-labelledby="ds-graph-title ds-graph-description">
         <title id="ds-graph-title">{preset.name} 带权无向图</title>
         <desc id="ds-graph-description">当前步骤：{step.label}</desc>
@@ -127,8 +129,8 @@ function GraphWorkbench({
           return (
             <g key={edge.id} className={`ds-edge ${onPath ? 'path' : ''} ${active ? 'active' : ''}`} data-edge-id={edge.id}>
               <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} />
-              <circle cx={(from.x + to.x) / 2} cy={(from.y + to.y) / 2} r="14" />
-              <text x={(from.x + to.x) / 2} y={(from.y + to.y) / 2 + 4}>{edge.weight}</text>
+              <circle cx={(from.x + to.x) / 2} cy={(from.y + to.y) / 2} r="18" />
+              <text x={(from.x + to.x) / 2} y={(from.y + to.y) / 2} dy=".35em">{edge.weight}</text>
             </g>
           );
         })}
@@ -144,13 +146,20 @@ function GraphWorkbench({
               transform={`translate(${point.x} ${point.y})`}
             >
               <circle r="25" />
-              <text y="4">{node.id}</text>
+              <text dy=".35em">{node.id}</text>
               <title>{nodeById.get(node.id)?.label}</title>
             </g>
           );
         })}
       </svg>
+    </section>
+  );
+}
 
+function DistanceTable({ step }: { step: ShortestPathStep }) {
+  return (
+    <section className="lab-exhibit-table-card" aria-labelledby="ds-distance-title">
+      <div className="lab-exhibit-card-head"><h2 id="ds-distance-title">当前距离与前驱</h2></div>
       <div className="table-responsive ds-distance-table">
         <table className="table">
           <thead><tr><th>顶点</th><th>当前距离</th><th>前驱</th><th>状态</th></tr></thead>
@@ -160,23 +169,23 @@ function GraphWorkbench({
                 <td><strong>{entry.nodeId}</strong></td>
                 <td><code>{entry.distance === null ? '∞' : entry.distance}</code></td>
                 <td>{entry.predecessorNodeId ?? '--'}</td>
-                <td>{settledNodes.has(entry.nodeId) ? '已确定' : entry.nodeId === step.currentNodeId ? '当前' : '候选'}</td>
+                <td>{step.settledNodeIds.includes(entry.nodeId) ? '已确定' : entry.nodeId === step.currentNodeId ? '当前' : '候选'}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }
 
 function ResultComparison({ local, dijkstra }: { local: ShortestPathTrace; dijkstra: ShortestPathTrace }) {
   const differs = local.result.distance !== dijkstra.result.distance || local.result.reached !== dijkstra.result.reached;
   return (
-    <section className="ds-comparison" aria-labelledby="ds-comparison-title">
-      <div className="ds-comparison-heading">
-        <div><span className="eyebrow">RESULT CHECK</span><h2 id="ds-comparison-title">两种策略的最终结果</h2></div>
-        <strong className={differs ? 'danger' : 'success'}>{differs ? '反例成立' : '本例一致'}</strong>
+    <section className="lab-exhibit-table-card ds-comparison" aria-labelledby="ds-comparison-title">
+      <div className="lab-exhibit-card-head">
+        <h2 id="ds-comparison-title">两种策略的最终结果</h2>
+        <strong className="lab-exhibit-badge">{differs ? '反例成立' : '本例一致'}</strong>
       </div>
       <div className="ds-result-grid">
         <article>
@@ -191,7 +200,7 @@ function ResultComparison({ local, dijkstra }: { local: ShortestPathTrace; dijks
           <code>{resultPath(dijkstra.result)}</code>
         </article>
       </div>
-      <p><AlertTriangle size={15} aria-hidden="true" />题设方法不是 Dijkstra：它比较当前边权，Dijkstra 比较从起点出发的全局暂定距离。</p>
+      <p className="lab-exhibit-table-note"><AlertTriangle size={15} aria-hidden="true" />题设方法不是 Dijkstra：它比较当前边权，Dijkstra 比较从起点出发的全局暂定距离。</p>
     </section>
   );
 }
@@ -294,30 +303,29 @@ function LinkedListLabPage() {
   };
 
   return (
-    <div className="page ds-lab-page linked-list-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / LINKED LIST</span><h1>单链表双指针实验室</h1><p>一趟扫描定位倒数第 k 个数据结点，并持续检查指针间隔。</p></div>
-        <button className="secondary-command" type="button" disabled={!q42Id || starting} onClick={() => void practiceQ42()}>
+    <LabExhibit
+      pageClassName="ds-lab-page linked-list-lab-page"
+      subjectLabel="数据结构 · 线性表"
+      title="单链表双指针实验室"
+      description="一趟扫描定位倒数第 k 个数据结点，并持续检查指针间隔。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!q42Id || starting} onClick={() => void practiceQ42()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q42'}
         </button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="linked-list" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="ds-review-band">
-        <span><ListTree size={16} aria-hidden="true" />Q42 一趟扫描双指针</span>
-        <strong>{q42?.reviewStatus ?? 'unavailable'}</strong>
-        <small>表头结点不计入数据结点；实验只重放确定性纯逻辑，不修改输入链表。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q42')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><ListTree size={18} aria-hidden="true" /><span>带表头结点的单链表 · O(n) / O(1)</span><FlaskConical size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid ds-lab-grid">
-        <section className="lab-control-panel" aria-labelledby="linked-list-control-title">
-          <div className="lab-control-heading ds-control-heading">
-            <div><span className="eyebrow">INPUT / INVARIANT</span><h2 id="linked-list-control-title">链表与目标位置</h2></div>
-            <label className="lab-input-field lab-example-select">
+      )}
+      navigation={<><LabSectionNav /><DataStructuresModuleTabs active="linked-list" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={<LabExhibitNotice icon={<ListTree size={16} aria-hidden="true" />} label="Q42 一趟扫描双指针" badge={q42?.reviewStatus ?? 'unavailable'}
+        note="表头结点不计入数据结点；实验只重放确定性纯逻辑，不修改输入链表。"
+        action={<button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q42')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>}
+      />}
+      subheading={<><ListTree size={18} aria-hidden="true" /><span>带表头结点的单链表 · O(n) / O(1)</span><FlaskConical size={14} aria-hidden="true" /></>}
+      mobileOrder="canvas-first"
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="linked-list-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="linked-list-control-title">链表与目标位置</h2>
+            <label className="lab-exhibit-field">
               <span>典型题预设</span>
               <select aria-label="单链表典型题预设" value={presetId} onChange={(event) => selectPreset(event.target.value)}>
                 {presetId === 'custom' && <option value="custom">自定义输入</option>}
@@ -325,34 +333,36 @@ function LinkedListLabPage() {
               </select>
             </label>
           </div>
-          <div className="linked-list-input-grid">
-            <label className="lab-input-field grow"><span>数据结点（逗号或空格分隔）</span><input aria-label="单链表数据结点" value={valuesText} onChange={(event) => updateValues(event.target.value)} /></label>
-            <label className="lab-input-field"><span>倒数第 k 个</span><input aria-label="倒数位置 k" inputMode="numeric" value={kText} onChange={(event) => updateK(event.target.value)} /></label>
+          <div className="lab-exhibit-input-grid cols-wide-narrow">
+            <label className="lab-exhibit-field"><span>数据结点（逗号或空格分隔）</span><input aria-label="单链表数据结点" value={valuesText} onChange={(event) => updateValues(event.target.value)} /></label>
+            <label className="lab-exhibit-field"><span>倒数第 k 个</span><input aria-label="倒数位置 k" inputMode="numeric" value={kText} onChange={(event) => updateK(event.target.value)} /></label>
           </div>
-          {computation.error && <div className="lab-error" role="alert">{computation.error}</div>}
-          {activeStep && <LinkedListWorkbench values={computation.values} step={activeStep} />}
-          {activeStep && (
-            <div className="linked-list-invariant" data-holds={activeStep.invariant.holds ? 'true' : 'false'}>
-              <span>当前不变量</span><strong>{invariantLabels[activeStep.invariant.name]}</strong><code>{activeStep.invariant.actualLead} / {activeStep.invariant.expectedLead}</code>
-            </div>
-          )}
-        </section>
-
-        {computation.trace ? (
-          <StepExplorer key={`${valuesText}:${kText}`} steps={linkedListExplorerSteps(computation.trace)} onActiveIndexChange={setActiveStepIndex} />
-        ) : (
-          <section className="step-explorer linked-list-empty-trace"><ListTree size={24} /><strong>等待有效输入</strong></section>
-        )}
-      </div>
-
-      {computation.trace && (
-        <section className="linked-list-result" aria-live="polite">
-          <div><span>查找结果</span><strong>{computation.trace.result ? `data = ${computation.trace.result.value}` : '未找到'}</strong><small>{computation.trace.result ? `数据结点 index ${computation.trace.result.index}` : `链长 ${computation.trace.length} 小于 k=${computation.trace.k}`}</small></div>
-          <div><span>时间复杂度</span><strong>O(n)</strong><small>只扫描一趟</small></div>
-          <div><span>额外空间</span><strong>{computation.trace.complexity.extraSpace}</strong><small>仅使用两个指针</small></div>
+          {computation.error && <div className="lab-exhibit-error" role="alert">{computation.error}</div>}
         </section>
       )}
-    </div>
+      status={activeStep && (
+        <div className="lab-exhibit-status-card linked-list-invariant" data-holds={activeStep.invariant.holds}>
+          <ListTree size={18} aria-hidden="true" /><div><span>当前不变量</span><strong>{invariantLabels[activeStep.invariant.name]}</strong></div>
+          <code>{activeStep.invariant.actualLead} / {activeStep.invariant.expectedLead}</code>
+        </div>
+      )}
+      canvas={activeStep && (
+        <section className="lab-exhibit-stage" aria-labelledby="linked-list-stage-title">
+          <div className="lab-exhibit-stage-head"><div className="lab-exhibit-stage-title"><h2 id="linked-list-stage-title">快慢指针位置</h2></div></div>
+          <LinkedListWorkbench values={computation.values} step={activeStep} />
+        </section>
+      )}
+      steps={computation.trace ? (
+        <StepExplorer key={`${valuesText}:${kText}`} steps={linkedListExplorerSteps(computation.trace)} onActiveIndexChange={setActiveStepIndex} />
+      ) : <section className="lab-exhibit-steps-empty"><ListTree size={24} aria-hidden="true" /><strong>等待有效输入</strong></section>}
+      footer={computation.trace && (
+        <div className="lab-exhibit-metrics rollout-three-metrics" aria-live="polite">
+          <div><small>查找结果</small><strong>{computation.trace.result ? `data = ${computation.trace.result.value}` : '未找到'}</strong><small>{computation.trace.result ? `数据结点 index ${computation.trace.result.index}` : `链长 ${computation.trace.length} 小于 k=${computation.trace.k}`}</small></div>
+          <div><small>时间复杂度</small><strong>O(n)</strong><small>只扫描一趟</small></div>
+          <div><small>额外空间</small><strong>{computation.trace.complexity.extraSpace}</strong><small>仅使用两个指针</small></div>
+        </div>
+      )}
+    />
   );
 }
 
@@ -407,30 +417,29 @@ function ShortestPathLabPage() {
   };
 
   return (
-    <div className="page ds-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / GRAPH</span><h1>最短路径实验室</h1><p>对照局部最近边策略与 Dijkstra 的全局距离更新。</p></div>
-        <button className="secondary-command" type="button" disabled={!q41Id || starting} onClick={() => void practiceQ41()}>
+    <LabExhibit
+      pageClassName="ds-lab-page shortest-path-lab-page"
+      subjectLabel="数据结构 · 图"
+      title="最短路径实验室"
+      description="对照局部最近边策略与 Dijkstra 的全局距离更新。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!q41Id || starting} onClick={() => void practiceQ41()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q41'}
         </button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="shortest-path" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="ds-review-band">
-        <span><Workflow size={16} aria-hidden="true" />Q41 等价教学反例</span>
-        <strong>{q41?.reviewStatus ?? preset.reviewStatus}</strong>
-        <small>题包与解析仍待人工复核；本图用于演示同类反例，不替代来源页原图。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q41')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><Network size={18} aria-hidden="true" /><span>带权无向图 · 非负权值</span><FlaskConical size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid ds-lab-grid">
-        <section className="lab-control-panel" aria-labelledby="ds-control-title">
-          <div className="lab-control-heading ds-control-heading">
-            <div><span className="eyebrow">PRESET / ALGORITHM</span><h2 id="ds-control-title">反例与算法</h2></div>
-            <label className="lab-input-field lab-example-select">
+      )}
+      navigation={<><LabSectionNav /><DataStructuresModuleTabs active="shortest-path" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={<LabExhibitNotice icon={<Workflow size={16} aria-hidden="true" />} label="Q41 等价教学反例" badge={q41?.reviewStatus ?? preset.reviewStatus}
+        note="题包与解析仍待人工复核；本图用于演示同类反例，不替代来源页原图。"
+        action={<button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q41')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>}
+      />}
+      subheading={<><Network size={18} aria-hidden="true" /><span>带权无向图 · 非负权值</span><FlaskConical size={14} aria-hidden="true" /></>}
+      mobileOrder="canvas-first"
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="ds-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="ds-control-title">反例与算法</h2>
+            <label className="lab-exhibit-field">
               <span>典型题预设</span>
               <select aria-label="典型题预设" value={preset.id} onChange={(event) => selectPreset(event.target.value)}>
                 {SHORTEST_PATH_PRESETS.map((candidate) => <option key={candidate.id} value={candidate.id}>{candidate.name}</option>)}
@@ -443,19 +452,24 @@ function ShortestPathLabPage() {
               <button key={candidate} type="button" className={algorithm === candidate ? 'active' : ''} aria-pressed={algorithm === candidate} onClick={() => selectAlgorithm(candidate)}>{algorithmLabels[candidate]}</button>
             ))}
           </div>
-          <p className="ds-preset-description">{preset.description}</p>
-          <GraphWorkbench preset={preset} step={activeStep} />
+          <p className="lab-exhibit-lead-copy">{preset.description}</p>
         </section>
-
+      )}
+      canvas={<GraphWorkbench preset={preset} step={activeStep} />}
+      steps={(
         <StepExplorer
           key={`${preset.id}:${algorithm}`}
           steps={explorerSteps(trace)}
           onActiveIndexChange={setActiveStepIndex}
         />
-      </div>
-
-      <ResultComparison local={localTrace} dijkstra={dijkstraTrace} />
-    </div>
+      )}
+      footer={(
+        <div className="lab-exhibit-footer-stack">
+          <DistanceTable step={activeStep} />
+          <ResultComparison local={localTrace} dijkstra={dijkstraTrace} />
+        </div>
+      )}
+    />
   );
 }
 

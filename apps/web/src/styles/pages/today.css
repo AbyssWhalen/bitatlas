@@ -1,0 +1,47 @@
+/* Stage 2 today page: plan statement, task tickets, overview. Owner: lead. Semantic tokens only. */
+
+.today-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.today-hero h1 { margin: 0 0 10px; color: var(--muted); font-size: 14px; font-weight: 700; line-height: 1.2; letter-spacing: .12em; }
+.today-statement { margin: 0; color: var(--ink-strong); font-size: clamp(28px, 3.2vw, 44px); font-weight: 800; line-height: 1.12; letter-spacing: -.01em; text-wrap: balance; }
+.today-statement b { color: var(--signal-text); font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.today-breakdown { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.today-breakdown a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-strong); text-decoration: underline; text-underline-offset: 4px; }
+
+.task-board { margin-bottom: 24px; padding: 22px 24px 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); box-shadow: none; }
+.task-board .section-heading { align-items: flex-end; margin-bottom: 12px; }
+.task-count { color: var(--ink-strong); font-family: var(--mono); font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.task-meter { height: 6px; overflow: hidden; margin-bottom: 14px; border-radius: 3px; background: var(--off); }
+.task-meter span { display: block; height: 100%; background: var(--ink-strong); }
+.task-rule { max-width: 68ch; margin-bottom: 16px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.task-board .command-row { margin-bottom: 18px; }
+
+.task-board .task-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(264px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.task-board .task-list li { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; justify-content: stretch; gap: 4px 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--bone); font-size: 14px; }
+.task-index { align-self: stretch; display: grid; place-items: center; padding-right: 12px; border-right: 1px dashed var(--muted); color: var(--muted); font-family: var(--mono); font-size: 13px; font-style: normal; font-variant-numeric: tabular-nums; }
+.task-name { min-width: 0; color: var(--ink-strong); font-size: 15px; font-weight: 650; overflow-wrap: anywhere; }
+.task-state { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.task-ticket.is-due .task-state { color: var(--warn-text); font-weight: 700; }
+.task-ticket.is-done { background: transparent; }
+.task-ticket.is-done .task-name { color: var(--muted); font-weight: 500; }
+.task-ticket.is-done .task-state { color: var(--ok-text); }
+.task-ticket.is-done .task-state::before { content: "✓ "; }
+.task-ticket.is-blocked .task-state { grid-column: 2 / -1; color: var(--signal-text); white-space: normal; overflow-wrap: anywhere; }
+
+.today-page .metric-grid article { min-height: 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); box-shadow: none; }
+.today-page .metric-grid article:hover { border-color: var(--muted); box-shadow: none; transform: none; }
+.today-page .metric-grid article span { margin: 0 0 8px; color: var(--muted); }
+.today-page .metric-grid article strong { display: block; margin-bottom: 8px; color: var(--ink-strong); font-family: inherit; font-variant-numeric: tabular-nums; }
+.today-page .metric-grid article a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-strong); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+
+.today-explore { padding-inline: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; box-shadow: none; }
+.today-explore .command-row { gap: 8px 20px; }
+.today-explore .command-row a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-strong); text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 760px) {
+  .today-hero { flex-direction: column; align-items: stretch; gap: 16px; }
+  .task-board { padding: 18px 16px; }
+  .task-board .task-list { grid-template-columns: minmax(0, 1fr); }
+  .task-board .task-list li { flex-wrap: nowrap; }
+  .task-board .command-row > button { flex: 1 1 100%; min-height: 44px; }
+  .task-state { white-space: normal; text-align: right; }
+}

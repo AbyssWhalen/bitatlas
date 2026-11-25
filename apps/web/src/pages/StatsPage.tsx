@@ -3,37 +3,45 @@ import {
   buildActivityCalendar,
   buildKnowledgeForest,
   filterCurrentAttempts,
+  summarizePracticeEvidence,
 } from '@408os/domain';
 import { ArrowRight, BarChart3, CalendarDays, CheckCircle2, Play, Target, Timer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { useBeijingDate } from '../app/useBeijingDate';
+import { useConceptQuestions, useLearning } from '../app/LearningContext';
+import { SubjectShape } from '../components/SubjectShape';
 
 const subjects = [
-  ['data-structures', '数据结构', '#3ecf8e'],
-  ['computer-organization', '组成原理', '#f26d54'],
-  ['operating-systems', '操作系统', '#e5b04a'],
-  ['computer-networks', '计算机网络', '#7aa5f0'],
+  { key: 'data-structures', label: '数据结构', barClass: 'sec-bar-ds' },
+  { key: 'computer-organization', label: '组成原理', barClass: 'sec-bar-co' },
+  { key: 'operating-systems', label: '操作系统', barClass: 'sec-bar-os' },
+  { key: 'computer-networks', label: '计算机网络', barClass: 'sec-bar-cn' },
 ] as const;
 
 export function StatsPage() {
-  const { attempts, createSession, knowledgePoints, questions, stats } = useStudy();
+  const { attempts, createSession, questions, stats } = useStudy();
+  const { pack, evidence, events } = useLearning();
+  const conceptQuestions = useConceptQuestions();
   const navigate = useNavigate();
   const [startingId, setStartingId] = useState<string | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
+  const today = useBeijingDate();
   const currentAttempts = useMemo(() => filterCurrentAttempts(attempts, questions), [attempts, questions]);
+  const evidenceStats = summarizePracticeEvidence(currentAttempts, evidence);
   const heatmap = useMemo(() => buildActivityCalendar(currentAttempts, {
-    today: new Date(),
+    today: new Date(`${today}T00:00:00+08:00`),
     timeZone: 'Asia/Shanghai',
     weeks: 12,
-  }), [currentAttempts]);
+  }), [currentAttempts, today]);
   const knowledge = useMemo(() => {
-    const forest = buildKnowledgeForest(knowledgePoints, questions);
+    const forest = buildKnowledgeForest(pack?.concepts ?? [], conceptQuestions);
     return {
       forest,
-      performance: aggregateKnowledgePerformance(attempts, questions, forest),
+      performance: aggregateKnowledgePerformance(attempts, conceptQuestions, forest),
     };
-  }, [attempts, knowledgePoints, questions]);
+  }, [attempts, pack, conceptQuestions]);
   const nodeById = useMemo(
     () => new Map(knowledge.forest.nodes.map((node) => [node.point.id, node])),
     [knowledge.forest.nodes],
@@ -62,36 +70,100 @@ export function StatsPage() {
   };
 
   return (
-    <div className="page stats-page">
-      <header className="page-header">
-        <div><span className="eyebrow">LOCAL ANALYTICS</span><h1>学习统计</h1><p>当前题面版本的作答、耗时与知识证据。</p></div>
-        <button className="secondary-command" onClick={() => navigate('/knowledge')}>知识证据图<ArrowRight size={17} /></button>
+    <div className="page stats-page sec-page sec-stats">
+      <header className="sec-header">
+        <div className="sec-header-main">
+          <h1>学习统计</h1>
+          <p className="sec-statement">
+            {stats.attempted > 0 ? (
+              <>累计有效作答 <b>{stats.attempted}</b> 次</>
+            ) : (
+              <>当前版本暂无作答记录</>
+            )}
+          </p>
+          <p className="sec-subtitle">当前题面版本的客观作答、卡片自评、有效停留与薄弱知识证据。</p>
+        </div>
+        <div className="sec-header-actions">
+          <button type="button" className="secondary-command" onClick={() => navigate('/knowledge')}>
+            <span>知识证据图</span>
+            <ArrowRight size={16} aria-hidden="true" />
+          </button>
+        </div>
       </header>
 
-      <section className="metric-grid three">
-        <article><BarChart3 /><span>有效作答</span><strong>{stats.attempted}</strong></article>
-        <article><CheckCircle2 /><span>答对题次</span><strong>{stats.correct}</strong></article>
-        <article><Timer /><span>累计用时</span><strong>{Math.round(stats.durationMs / 60_000)}<small> 分钟</small></strong></article>
+      <section className="metric-grid three sec-metric-grid" aria-label="核心指标">
+        <article>
+          <div className="sec-metric-label"><BarChart3 size={16} aria-hidden="true" /><span>有效作答</span></div>
+          <strong className="sec-mono-num">{stats.attempted}</strong>
+        </article>
+        <article>
+          <div className="sec-metric-label"><CheckCircle2 size={16} aria-hidden="true" /><span>答对题次</span></div>
+          <strong className="sec-mono-num">{stats.correct}</strong>
+        </article>
+        <article>
+          <div className="sec-metric-label"><Timer size={16} aria-hidden="true" /><span>记录用时（含旧计时）</span></div>
+          <strong><span className="sec-mono-num">{Math.round(stats.durationMs / 60_000)}</span><small> 分钟</small></strong>
+        </article>
       </section>
 
-      <div className="stats-layout">
-        <section className="subject-accuracy">
-          <div className="section-heading"><div><span className="eyebrow">ACCURACY</span><h2>科目正确率</h2></div></div>
-          {subjects.map(([key, label, color]) => {
+      <section className="study-panel sec-panel sec-evidence-panel">
+        <div className="sec-panel-head">
+          <h2>区分学习证据</h2>
+        </div>
+        <dl className="sec-evidence-grid">
+          <div>
+            <dt>无提示客观首答</dt>
+            <dd>
+              <strong className="sec-mono-num">{evidenceStats.eligible ? `${Math.round(100 * evidenceStats.correct / evidenceStats.eligible)}%` : '暂无'}</strong>
+              <span className="sec-evidence-sub sec-mono-num">（{evidenceStats.correct}/{evidenceStats.eligible}）</span>
+            </dd>
+          </div>
+          <div>
+            <dt>提示后答对</dt>
+            <dd className="sec-mono-num">{evidenceStats.hintedCorrect}/{evidenceStats.hinted}</dd>
+          </div>
+          <div>
+            <dt>主观自评 / 卡片自评</dt>
+            <dd><span className="sec-mono-num">{evidenceStats.subjective}</span> 次 / <span className="sec-mono-num">{events.length}</span> 次</dd>
+          </div>
+          <div>
+            <dt>前台有效停留</dt>
+            <dd><span className="sec-mono-num">{Math.round(evidenceStats.activeDurationMs / 60000)}</span> 分钟</dd>
+          </div>
+        </dl>
+        <p className="sec-evidence-note">
+          旧记录的过程证据未知 <span className="sec-mono-num">{evidenceStats.unknown}</span> 条；用时仅作参考，不用于推断掌握度。
+        </p>
+      </section>
+
+      <div className="stats-layout sec-stats-grid">
+        <section className="subject-accuracy sec-panel">
+          <div className="sec-panel-head">
+            <h2>科目客观作答（含辅助）</h2>
+          </div>
+          {subjects.map(({ key, label, barClass }) => {
             const value = stats.bySubject[key];
             const percent = value.accuracy === null ? 0 : Math.round(value.accuracy * 100);
             return (
-              <div className="accuracy-row" key={key}>
-                <div><span>{label}</span><strong>{value.attempted ? `${percent}%` : '--'}</strong></div>
-                <div className="accuracy-track"><span style={{ width: `${percent}%`, background: color }} /></div>
-                <small>{value.correct} / {value.attempted}</small>
+              <div className="accuracy-row sec-accuracy-row" key={key}>
+                <div className="sec-accuracy-head">
+                  <span className="sec-subject-inline"><SubjectShape subject={key} /><span>{label}</span></span>
+                  <strong className="sec-mono-num">{value.attempted ? `${percent}%` : '--'}</strong>
+                </div>
+                <div className="accuracy-track sec-accuracy-track">
+                  <span className={barClass} style={{ width: `${percent}%` }} />
+                </div>
+                <small className="sec-mono-num">{value.correct} / {value.attempted}</small>
               </div>
             );
           })}
         </section>
 
-        <section className="activity-section">
-          <div className="section-heading"><div><span className="eyebrow">LAST 12 WEEKS</span><h2>练习热力图</h2></div><CalendarDays size={20} /></div>
+        <section className="activity-section sec-panel">
+          <div className="sec-panel-head">
+            <h2>练习热力图</h2>
+            <span className="sec-muted-meta"><CalendarDays size={15} aria-hidden="true" />近 12 周</span>
+          </div>
           <div className="heatmap" aria-label="最近十二周练习热力图">
             {heatmap.weeks.flatMap((week) => week.days).map((day) => (
               <span
@@ -102,44 +174,67 @@ export function StatsPage() {
               />
             ))}
           </div>
-          <div className="heatmap-meta">
-            <span>{heatmap.startDate}</span><span>{heatmap.today}</span>
+          <div className="heatmap-meta sec-mono-num">
+            <span>{heatmap.startDate}</span>
+            <span>{heatmap.today}</span>
           </div>
-          <div className="heatmap-legend"><span>少</span>{[0, 1, 2, 3, 4].map((level) => <i key={level} data-level={level} />)}<span>多</span></div>
+          <div className="heatmap-legend">
+            <span>少</span>
+            {[0, 1, 2, 3, 4].map((level) => <i key={level} data-level={level} />)}
+            <span>多</span>
+          </div>
           {attempts.length > currentAttempts.length && (
-            <small className="version-filter-note">{attempts.length - currentAttempts.length} 条旧题面记录未计入当前统计</small>
+            <small className="version-filter-note">
+              <span className="sec-mono-num">{attempts.length - currentAttempts.length}</span> 条旧题面记录未计入当前统计
+            </small>
           )}
         </section>
       </div>
 
-      <section className="weakness-section">
-        <div className="section-heading">
-          <div><span className="eyebrow">ACTIONABLE EVIDENCE</span><h2>薄弱知识点</h2></div>
-          <div className="weakness-summary"><Target size={17} /><span>{unassessedCount} 个知识点尚未检测</span></div>
+      <section className="weakness-section sec-panel">
+        <div className="sec-panel-head">
+          <h2>薄弱知识点</h2>
+          <div className="weakness-summary">
+            <Target size={16} aria-hidden="true" />
+            <span><span className="sec-mono-num">{unassessedCount}</span> 个知识点尚未检测</span>
+          </div>
         </div>
-        {startError && <div className="status-message error" role="alert">{startError}</div>}
+        {startError && <div className="sec-inline-alert" role="alert">{startError}</div>}
         {weakPoints.length ? (
-          <div className="weakness-list">
+          <div className="weakness-list sec-weakness-list">
             {weakPoints.map((entry) => {
               const node = nodeById.get(entry.knowledgePointId)!;
               const score = Math.round((entry.performance ?? 0) * 100);
+              const subjectInfo = subjects.find((item) => item.key === entry.subject);
               return (
                 <article key={entry.knowledgePointId}>
                   <div>
-                    <span className={`subject-tag subject-${entry.subject}`}>{subjects.find(([key]) => key === entry.subject)?.[1]}</span>
+                    <span className={`subject-tag subject-${entry.subject} sec-subject-chip`}>
+                      <SubjectShape subject={entry.subject} />
+                      <span>{subjectInfo?.label}</span>
+                    </span>
                     <strong>{node.point.name}</strong>
-                    <small>{entry.evidenceAttemptIds.length} 条证据 · {entry.assessedQuestionCount}/{entry.totalQuestionCount} 题已检测</small>
+                    <small>
+                      <span className="sec-mono-num">{entry.evidenceAttemptIds.length}</span> 条证据 · <span className="sec-mono-num">{entry.assessedQuestionCount}/{entry.totalQuestionCount}</span> 题已检测
+                    </small>
                   </div>
-                  <div className="weakness-score"><strong>{score}%</strong><span>当前表现</span></div>
-                  <button className="secondary-command compact-command" disabled={startingId !== null} onClick={() => void startWeakPoint(entry.knowledgePointId)}>
-                    <Play size={15} />{startingId === entry.knowledgePointId ? '创建中' : '专项练习'}
+                  <div className="weakness-score">
+                    <strong className="sec-mono-num">{score}%</strong>
+                    <span>当前表现</span>
+                  </div>
+                  <button type="button" className="secondary-command compact-command" disabled={startingId !== null} onClick={() => void startWeakPoint(entry.knowledgePointId)}>
+                    <Play size={15} aria-hidden="true" />
+                    <span>{startingId === entry.knowledgePointId ? '创建中' : '专项练习'}</span>
                   </button>
                 </article>
               );
             })}
           </div>
         ) : (
-          <div className="empty-result compact-empty"><CheckCircle2 size={22} /><p>当前没有低于 80% 的已检测知识点</p></div>
+          <div className="empty-result compact-empty">
+            <CheckCircle2 size={22} aria-hidden="true" />
+            <p>当前没有低于 80% 的已检测知识点</p>
+          </div>
         )}
       </section>
     </div>

@@ -1,0 +1,36 @@
+/* Stage-1 migration: original cascade segment; see tools/ui/migrate-styles.mjs. */
+.document-list { display: grid; gap: 10px; }
+.document-row { min-width: 0; min-height: 92px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; align-items: center; gap: 15px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper); box-shadow: none; transition: border-color .16s var(--ease), box-shadow .16s var(--ease); }
+.document-row:hover { border-color: var(--line); box-shadow: none; }
+.document-file-icon { width: 25px; height: 25px; color: var(--ink-strong); }
+.document-info { min-width: 0; }
+.document-info > strong { display: block; overflow: hidden; margin-bottom: 7px; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.document-info > span { color: var(--muted); font-size: 13px; }
+.document-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; }
+.document-name-field { display: grid; gap: 4px; }
+.document-name-field span { color: var(--muted); font-size: 13px; font-weight: 700; }
+.document-name-field input { width: 100%; min-width: 0; height: 36px; padding: 0 9px; border: 1px solid var(--line); border-radius: 6px; transition: border-color .16s var(--ease), box-shadow .16s var(--ease); }
+.document-name-field input:focus { border-color: var(--signal-text); box-shadow: none; outline: 0; }
+.document-empty-state { min-height: 260px; display: grid; place-content: center; justify-items: center; gap: 12px; border-block: 1px solid var(--line); color: var(--muted); }
+.document-empty-state h2 { font-size: 14px; }
+
+.pdf-reader-page { min-width: 0; min-height: 100vh; display: grid; grid-template-rows: auto auto minmax(0, 1fr); background: var(--paper); }
+.pdf-reader-header { position: sticky; z-index: 12; top: 0; min-width: 0; min-height: 82px; display: grid; grid-template-columns: auto minmax(180px, 1fr) auto auto; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 92.16%, transparent); backdrop-filter: none; box-shadow: none; }
+.pdf-reader-header > div { min-width: 0; }
+.pdf-reader-header h1 { overflow: hidden; margin: 0; font-size: 16px; text-overflow: ellipsis; white-space: nowrap; }
+.pdf-reader-header .eyebrow { margin-bottom: 3px; }
+.pdf-reader-position, .pdf-zoom-controls { display: flex; align-items: center; gap: 7px; }
+.pdf-reader-position input { width: 52px; height: 34px; padding: 0 5px; border: 1px solid var(--line); border-radius: 6px; text-align: center; transition: border-color .16s var(--ease), box-shadow .16s var(--ease); }
+.pdf-reader-position input:focus { border-color: var(--signal-text); box-shadow: none; outline: 0; }
+.pdf-reader-position > span, .pdf-zoom-controls > span { min-width: 45px; color: var(--muted); font: 13px/1 Consolas, monospace; text-align: center; }
+.pdf-zoom-controls .secondary-command.selected { color: var(--ink-strong); border-color: var(--line); background: color-mix(in srgb, var(--signal-text) 8%, transparent); }
+.pdf-position-error { padding: 8px 18px; color: var(--signal-text); border-bottom: 1px solid var(--signal-text); background: color-mix(in srgb, var(--signal-text) 12.94%, transparent); font-size: 13px; }
+.pdf-reader-stage { min-width: 0; min-height: calc(100vh - 82px); overflow: auto; padding: 24px; }
+.pdf-page-canvas { position: relative; width: min(100%, 1100px); min-height: 420px; margin: 0 auto; }
+.pdf-page-canvas canvas { display: block; max-width: none; margin: 0 auto; background: var(--paper); box-shadow: none; }
+.pdf-canvas-status { position: absolute; z-index: 2; inset: 18px auto auto 50%; min-width: 150px; display: flex; align-items: center; justify-content: center; gap: 8px; transform: translateX(-50%); padding: 9px 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 9px; background: color-mix(in srgb, var(--paper-2) 92.16%, transparent); box-shadow: none; font-size: 13px; }
+.pdf-canvas-status.error { color: var(--signal-text); border-color: var(--signal-text); background: color-mix(in srgb, var(--signal-text) 12.94%, transparent); }
+.storage-facts span { color: var(--muted); }
+.storage-facts strong { font-family: Consolas, monospace; font-size: 13px; }
+.warning-text { color: var(--warn-text); }
+.success-text { color: var(--ok-text); }

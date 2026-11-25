@@ -1,5 +1,7 @@
 import { parseContentPack, validateContentPack } from '@408os/content-schema';
 import { ContentPackDowngradeError, createStorage } from '@408os/storage';
+import { SERVER_MODE } from './server-mode';
+import { api } from './api';
 
 export const CONTENT_ASSET_CACHE_NAME = '408os-content-assets-v2';
 export const CONTENT_PACK_CACHE_NAME = '408os-content-packs-v2';
@@ -30,7 +32,44 @@ export function isLocalContentUnavailableError(reason: unknown): reason is Local
     || (reason instanceof Error && reason.name === 'LocalContentUnavailableError');
 }
 
-export const storage = createStorage();
+export let storage = createStorage();
+export function activateAccountStorage(accountId: string) {
+  if (!/^[a-f0-9-]{36}$/.test(accountId)) throw new Error('账号标识无效。');
+  if (storage.userDatabase.accountId === accountId && storage.userDatabase.isOpen()) return;
+  storage.userDatabase.close(); storage.contentDatabase.close();
+  storage = createStorage({ accountId, user: `408-user:${accountId}`, content: `408-content:${accountId}` });
+}
+export async function installServerContent() {
+  const target = storage;
+  const accountId = target.userDatabase.accountId;
+  try {
+    const catalog = await api<Array<{ id: string; kind: string; digest: string }>>('/content', undefined, 'GET', accountId);
+    const installed = new Map((await target.contentRepository.listPacks()).map((pack) => [pack.id, pack.sha256]));
+    const pending = catalog.filter((entry) => entry.kind === 'questions' && installed.get(entry.id) !== entry.digest);
+    const { accountCache } = await import('./account-cache');
+    let cursor = 0;
+    let failed = false;
+    const results = await Promise.allSettled(Array.from({ length: Math.min(3, pending.length) }, async () => {
+      while (!failed && storage === target && cursor < pending.length) {
+        const item = pending[cursor++]!;
+        try {
+          const input = await api(`/content/${encodeURIComponent(item.id)}`, undefined, 'GET', accountId);
+          if (storage !== target) return;
+          await accountCache.installPack(item.id, new TextEncoder().encode(JSON.stringify(input)).byteLength, () => {
+            if (storage !== target) throw new Error('账号已切换，旧题包安装已停止。');
+            return target.contentRepository.installPack(input, false);
+          });
+        } catch (error) { failed = true; throw error; }
+      }
+    }));
+    const failure = results.find((result) => result.status === 'rejected');
+    if (failure?.status === 'rejected') throw failure.reason;
+  } catch (error) {
+    if (storage !== target) return;
+    if (!(error instanceof TypeError) || !(await target.contentRepository.listPacks()).length) throw error;
+  }
+}
+export { SERVER_MODE };
 
 interface LocalContentPack {
   manifest?: {
@@ -140,18 +179,16 @@ export async function cacheInstalledPackAssets(
 
   try {
     const cache = await cacheStorage.open(CONTENT_ASSET_CACHE_NAME);
-    const replacements: Array<{ asset: CacheableAsset; response: Response }> = [];
-
     for (const asset of assets) {
       const cached = await cache.match(asset.path);
       if (cached && (!refresh || await responseMatchesSha256(cached, asset.sha256))) continue;
 
       const response = await fetcher(validationRequestPath(asset.path, asset.sha256), { cache: 'no-store' });
       if (!response.ok || !await responseMatchesSha256(response, asset.sha256)) return false;
-      replacements.push({ asset, response });
+      // Commit each validated image, so a later failure does not throw away
+      // successful downloads. Verified activation still uses a private staging cache.
+      await cache.put(asset.path, response);
     }
-
-    for (const { asset, response } of replacements) await cache.put(asset.path, response);
     return true;
   } catch {
     return false;
@@ -186,9 +223,32 @@ export function scheduleInstalledPackAssetCaching(
 ): void {
   schedule(() => {
     assetWarmChain = assetWarmChain
-      .then(async () => { await cacheInstalledPackAssets(pack, refresh, cacheStorage, fetcher); })
+      .then(async () => {
+        const complete = await cacheInstalledPackAssets(pack, refresh, cacheStorage, fetcher);
+        window.dispatchEvent(new CustomEvent('bitatlas-offline-progress', { detail: { year: pack.manifest?.year, complete } }));
+      })
       .catch(() => undefined);
   }, CONTENT_ASSET_WARM_DELAY_MS);
+}
+
+export async function offlineAssetStatus() {
+  const [packs, assets] = await Promise.all([storage.contentRepository.listPacks(), storage.contentRepository.listAssets()]);
+  const cache = defaultCacheStorage() ? await defaultCacheStorage()!.open(CONTENT_ASSET_CACHE_NAME) : undefined;
+  return Promise.all(packs.map(async (manifest) => {
+    const items = assets.filter((asset) => asset.path.startsWith(`/content/${manifest.id}/`));
+    let cached = 0;
+    for (const asset of items) if (cache && await cache.match(asset.path)) cached++;
+    return { year: manifest.year, total: items.length, cached };
+  }));
+}
+export async function repairOfflineAssets() {
+  const [packs, assets] = await Promise.all([storage.contentRepository.listPacks(), storage.contentRepository.listAssets()]);
+  const failed: number[] = [];
+  for (const manifest of packs) {
+    const complete = await cacheInstalledPackAssets({ manifest, assets: assets.filter((asset) => asset.path.startsWith(`/content/${manifest.id}/`)) }, true);
+    if (!complete) failed.push(manifest.year);
+  }
+  if (failed.length) throw new Error(`以下年份的图片尚未补齐：${failed.join('、')}。已通过校验的下载已保存，可以稍后重试。`);
 }
 
 async function cachedPackResponse(
@@ -236,7 +296,9 @@ async function installResponse(
     && installedManifest.id === pack.manifest?.id
     && installedManifest.sha256 === pack.manifest?.sha256;
   if (unchanged && installedManifest) {
-    // 字节一致（sha256 相同）且首次安装已通过校验：跳过重复重写，避免每次启动都全量重装 2009。
+    const validation = validateContentPack(pack);
+    if (!validation.success) throw verifiedPackValidationError(validation.issues);
+    // The claimed digest is not proof: validate the response before caching it.
     return { status: 'installed', manifest: installedManifest, pack };
   }
   if (verifiedDowngradeBlocked(installed, pack)) return { status: 'kept-verified' };
@@ -449,6 +511,10 @@ export async function installExtraContent(
       const unchanged = installedManifest != null
         && installedManifest.id === pack.manifest?.id
         && installedManifest.sha256 === pack.manifest?.sha256;
+      if (unchanged) {
+        const validation = validateContentPack(pack);
+        if (!validation.success) throw verifiedPackValidationError(validation.issues);
+      }
       if (!unchanged) {
         // sha256 相同即字节相同（reviewStatus 是 manifest 的一部分），降级只可能发生在内容变化路径。
         if (verifiedDowngradeBlocked(installed, pack)) continue;
@@ -457,8 +523,8 @@ export async function installExtraContent(
         installedYears.push(entry.year);
       }
       await cacheInstalledPackDocument(packPath, cacheResponse, cacheStorage);
-      // 未变化的题包不重复预热资产：refresh 会重新下载并校验全部来源页图（17 套约 78MB）。
-      if (!unchanged) scheduleInstalledPackAssetCaching(pack, true, schedule, cacheStorage, fetcher);
+      // Retry interrupted warming on every startup; unchanged packs fetch only missing assets.
+      scheduleInstalledPackAssetCaching(pack, !unchanged, schedule, cacheStorage, fetcher);
     } catch (reason) {
       if (reason instanceof ContentPackDowngradeError) continue;
       issues.push(`${entry.year}: ${reason instanceof Error ? reason.message : '安装失败'}`);

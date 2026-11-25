@@ -17,6 +17,7 @@ import {
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -218,21 +219,21 @@ function DiskTrackFigure({
         <title>{policyLabels[trace.policy]} 磁头移动轨迹</title>
         <desc>横轴为磁道号，折线按事件顺序显示已执行的磁头移动。</desc>
         <line x1="54" y1={axisY} x2="646" y2={axisY} stroke="var(--line)" strokeWidth="2" />
-        <text x="54" y={axisY + 19} fill="var(--muted)" fontSize="11" textAnchor="middle">{minimum}</text>
-        <text x="646" y={axisY + 19} fill="var(--muted)" fontSize="11" textAnchor="middle">{maximum}</text>
+        <text x="54" y={axisY + 20} fill="var(--muted)" fontSize="13" textAnchor="middle">{minimum}</text>
+        <text x="646" y={axisY + 20} fill="var(--muted)" fontSize="13" textAnchor="middle">{maximum}</text>
         {requests.map((request) => (
           <g key={request.id} transform={`translate(${toX(request.track)} ${axisY})`}>
-            <circle r="4" fill="var(--surface)" stroke="var(--muted)" strokeWidth="1.5" />
+            <circle r="4" fill="var(--paper)" stroke="var(--muted)" strokeWidth="1.5" />
             <title>请求 {request.arrivalOrder + 1}：磁道 {request.track}</title>
           </g>
         ))}
         {visiblePoints.length > 1 && (
-          <polyline points={pathPoints} fill="none" stroke="var(--red)" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+          <polyline points={pathPoints} fill="none" stroke="var(--signal-text)" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
         )}
         {visiblePoints.map((point, index) => (
           <g key={`${point.eventIndex}:${point.track}`} transform={`translate(${toX(point.track)} ${34 + index * 18})`}>
-            <circle r={point === currentPoint ? 6 : 4} fill={point === currentPoint ? 'var(--red)' : 'var(--surface)'} stroke="var(--red)" strokeWidth="2" />
-            <text x="10" y="4" fill="var(--ink)" fontSize="11">{point.label}</text>
+            <circle r={point === currentPoint ? 6 : 4} fill={point === currentPoint ? 'var(--signal-text)' : 'var(--paper)'} stroke="var(--signal-text)" strokeWidth="2" />
+            <text x="10" y="4" fill="var(--ink-strong)" fontSize="13">{point.label}</text>
           </g>
         ))}
       </svg>
@@ -242,10 +243,10 @@ function DiskTrackFigure({
 
 function TraceComparison({ scan, look }: { scan: DiskScheduleTrace; look: DiskScheduleTrace }) {
   return (
-    <section className="ds-comparison" aria-labelledby="disk-comparison-title">
-      <div className="ds-comparison-heading">
-        <div><span className="eyebrow">SCAN / LOOK</span><h2 id="disk-comparison-title">同一请求序列对照</h2></div>
-        <GitCompareArrows size={20} aria-hidden="true" />
+    <section className="lab-exhibit-table-card ds-comparison" aria-labelledby="disk-comparison-title">
+      <div className="lab-exhibit-card-head">
+        <h2 id="disk-comparison-title">同一请求序列对照</h2>
+        <GitCompareArrows size={18} aria-hidden="true" />
       </div>
       <div className="table-responsive">
         <table className="table">
@@ -262,7 +263,7 @@ function TraceComparison({ scan, look }: { scan: DiskScheduleTrace; look: DiskSc
           </tbody>
         </table>
       </div>
-      <p><ArrowDownUp size={15} aria-hidden="true" />SCAN 必须继续移动到物理端点后反向；LOOK 在当前方向的最后一个请求处反向。Q29 未给物理端点，因此 SCAN 的总移动量不能唯一确定。</p>
+      <p className="lab-exhibit-table-note"><ArrowDownUp size={15} aria-hidden="true" />SCAN 必须继续移动到物理端点后反向；LOOK 在当前方向的最后一个请求处反向。Q29 未给物理端点，因此 SCAN 的总移动量不能唯一确定。</p>
     </section>
   );
 }
@@ -339,29 +340,45 @@ export function DiskSchedulingLabPage() {
   };
 
   return (
-    <div className="page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / DISK SCHEDULING</span><h1>磁盘调度实验室</h1><p>逐步重放磁头移动，并辨认 SCAN 与 LOOK 的反向边界。</p></div>
-        <button className="secondary-command" type="button" disabled={!q29 || starting} onClick={() => void practiceQ29()}>
+    <LabExhibit
+      pageClassName="disk-scheduling-lab-page"
+      subjectLabel="操作系统实验 · 磁盘调度"
+      title="磁盘调度实验室"
+      description="逐步重放磁头移动，并辨认 SCAN 与 LOOK 的反向边界。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!q29 || starting} onClick={() => void practiceQ29()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q29'}
         </button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="disk" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band">
-        <span><Disc3 size={16} aria-hidden="true" />Q29 SCAN 调度预设</span>
-        <strong>{q29?.reviewStatus ?? DISK_Q29_PRESET.reviewStatus}</strong>
-        <small>题设只确定服务次序，未给出的物理磁道上界不会被实验室臆造。</small>
-      </div>
-
-      <div className="lab-module-heading"><Disc3 size={18} aria-hidden="true" /><span>SCAN / LOOK · 非负整数磁道</span><GitCompareArrows size={14} aria-hidden="true" /></div>
-      <div className="lab-panel-grid ds-lab-grid">
-        <section className="lab-control-panel" aria-labelledby="disk-control-title">
-          <div className="lab-control-heading">
-            <div><span className="eyebrow">INPUT / CONFIG</span><h2 id="disk-control-title">请求序列与磁头状态</h2></div>
-            <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q29 预设</button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="disk" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<Disc3 size={16} aria-hidden="true" />}
+          label="Q29 SCAN 调度预设"
+          badge={q29?.reviewStatus ?? DISK_Q29_PRESET.reviewStatus}
+          note="题设只确定服务次序，未给出的物理磁道上界不会被实验室臆造。"
+        />
+      )}
+      subheading={(
+        <>
+          <Disc3 size={18} aria-hidden="true" />
+          <span>SCAN / LOOK · 非负整数磁道</span>
+          <GitCompareArrows size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="disk-control-title">
+          <div className="lab-exhibit-card-head">
+            <h2 id="disk-control-title">请求序列与磁头状态</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}>
+              <RotateCcw size={15} aria-hidden="true" />恢复 Q29 预设
+            </button>
           </div>
 
           <div className="segmented-control disk-policy-switch" aria-label="当前重放算法">
@@ -376,52 +393,90 @@ export function DiskSchedulingLabPage() {
             ))}
           </div>
 
-          <label className="lab-input-field full">
+          <label className="lab-exhibit-field">
             <span>待访问磁道（按到达顺序，逗号或空格分隔）</span>
             <input aria-label="待访问磁道" value={tracksText} onChange={(event) => updateParam('tracks', event.target.value)} spellCheck={false} />
           </label>
-          <div className="vm-timing-grid">
-            <label className="lab-input-field"><span>初始磁头位置</span><input aria-label="初始磁头位置" inputMode="numeric" value={initialTrackText} onChange={(event) => updateParam('head', event.target.value)} /></label>
-            <label className="lab-input-field"><span>初始移动方向</span><select aria-label="初始移动方向" value={direction} onChange={(event) => updateParam('direction', event.target.value)}><option value="increasing">磁道号增大</option><option value="decreasing">磁道号减小</option></select></label>
-            <label className="pipeline-forwarding-toggle"><input aria-label="使用物理磁道边界" type="checkbox" checked={hasBounds} onChange={(event) => updateParam('bounds', event.target.checked ? '1' : '0')} />使用物理边界</label>
+
+          <div className="lab-exhibit-input-grid cols-3 lab-exhibit-field-spaced">
+            <label className="lab-exhibit-field">
+              <span>初始磁头位置</span>
+              <input aria-label="初始磁头位置" inputMode="numeric" value={initialTrackText} onChange={(event) => updateParam('head', event.target.value)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>初始移动方向</span>
+              <select aria-label="初始移动方向" value={direction} onChange={(event) => updateParam('direction', event.target.value)}>
+                <option value="increasing">磁道号增大</option>
+                <option value="decreasing">磁道号减小</option>
+              </select>
+            </label>
+            <label className="lab-exhibit-toggle">
+              <input aria-label="使用物理磁道边界" type="checkbox" checked={hasBounds} onChange={(event) => updateParam('bounds', event.target.checked ? '1' : '0')} />
+              <span>使用物理边界</span>
+            </label>
           </div>
-          {hasBounds && (
-            <div className="vm-timing-grid">
-              <label className="lab-input-field"><span>最小磁道</span><input aria-label="最小磁道" inputMode="numeric" value={minTrackText} onChange={(event) => updateParam('min', event.target.value)} /></label>
-              <label className="lab-input-field"><span>最大磁道</span><input aria-label="最大磁道" inputMode="numeric" value={maxTrackText} onChange={(event) => updateParam('max', event.target.value)} /></label>
+
+          {hasBounds ? (
+            <div className="lab-exhibit-input-grid cols-2 lab-exhibit-field-spaced">
+              <label className="lab-exhibit-field">
+                <span>最小磁道</span>
+                <input aria-label="最小磁道" inputMode="numeric" value={minTrackText} onChange={(event) => updateParam('min', event.target.value)} />
+              </label>
+              <label className="lab-exhibit-field">
+                <span>最大磁道</span>
+                <input aria-label="最大磁道" inputMode="numeric" value={maxTrackText} onChange={(event) => updateParam('max', event.target.value)} />
+              </label>
             </div>
-          )}
+          ) : null}
 
-          {!simulation.ok ? <div className="lab-error" role="alert">{simulation.message}</div> : policy === 'c-scan' && !activeTrace ? (
-            <div className="lab-error" role="alert">C-SCAN 必须知道物理磁道边界；请启用“使用物理边界”并填写实际范围。</div>
-          ) : activeTrace && (
-            <>
-              <dl className="vm-address-breakdown" aria-live="polite">
-                <div><dt>当前算法</dt><dd>{policyLabels[policy]}</dd></div>
-                <div><dt>当前事件</dt><dd>{Math.min(activeEventIndex + 1, activeTrace.events.length)} / {activeTrace.events.length}</dd></div>
-                <div><dt>反向位置</dt><dd>{reversePosition(activeTrace)}</dd></div>
-                <div><dt>总移动量</dt><dd>{movementLabel(activeTrace)}</dd></div>
-              </dl>
-              <DiskTrackFigure trace={activeTrace} requests={simulation.requests} activeEventIndex={activeEventIndex} />
-            </>
-          )}
+          {!simulation.ok ? (
+            <div className="lab-exhibit-error" role="alert">{simulation.message}</div>
+          ) : policy === 'c-scan' && !activeTrace ? (
+            <div className="lab-exhibit-error" role="alert">C-SCAN 必须知道物理磁道边界；请启用“使用物理边界”并填写实际范围。</div>
+          ) : null}
         </section>
-
-        {activeTrace ? (
-          <StepExplorer
-            key={`${policy}:${tracksText}:${initialTrackText}:${direction}:${hasBounds}:${minTrackText}:${maxTrackText}`}
-            steps={activeTrace.events.map(eventStep)}
-            onActiveIndexChange={setActiveEventIndex}
-          />
-        ) : (
-          <section className="step-explorer"><Disc3 size={24} aria-hidden="true" /><strong>等待有效输入</strong></section>
-        )}
-      </div>
-
-      {simulation.ok && <TraceComparison scan={simulation.scan} look={simulation.look} />}
-      {activeEvent?.kind === 'reach-boundary' && activeEvent.track === null && (
-        <div className="status-message" role="status">当前 SCAN 步骤到达未知物理端点：服务顺序仍确定，但该段移动距离不可计算。</div>
       )}
-    </div>
+      canvas={simulation.ok && activeTrace ? (
+        <section className="lab-exhibit-stage" aria-labelledby="disk-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="disk-stage-heading">{policyLabels[policy]} 磁头调度轨迹</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
+            </div>
+            <Disc3 size={18} aria-hidden="true" />
+          </div>
+          <dl className="lab-exhibit-canvas-metrics vm-address-breakdown" aria-live="polite">
+            <div><dt>当前算法</dt><dd>{policyLabels[policy]}</dd></div>
+            <div><dt>当前事件</dt><dd>{Math.min(activeEventIndex + 1, activeTrace.events.length)} / {activeTrace.events.length}</dd></div>
+            <div><dt>反向位置</dt><dd>{reversePosition(activeTrace)}</dd></div>
+            <div><dt>总移动量</dt><dd>{movementLabel(activeTrace)}</dd></div>
+          </dl>
+          <DiskTrackFigure trace={activeTrace} requests={simulation.requests} activeEventIndex={activeEventIndex} />
+        </section>
+      ) : null}
+      steps={activeTrace ? (
+        <StepExplorer
+          key={`${policy}:${tracksText}:${initialTrackText}:${direction}:${hasBounds}:${minTrackText}:${maxTrackText}`}
+          steps={activeTrace.events.map(eventStep)}
+          onActiveIndexChange={setActiveEventIndex}
+        />
+      ) : (
+        <section className="lab-exhibit-steps-empty">
+          <Disc3 size={24} aria-hidden="true" />
+          <strong>等待有效输入</strong>
+        </section>
+      )}
+      footer={simulation.ok ? (
+        <div className="lab-exhibit-footer-stack">
+          {activeEvent?.kind === 'reach-boundary' && activeEvent.track === null ? (
+            <div className="lab-exhibit-boundary-bar warn" role="status">
+              <strong>端点未知</strong>
+              <span>当前 SCAN 步骤到达未知物理端点：服务顺序仍确定，但该段移动距离不可计算。</span>
+            </div>
+          ) : null}
+          <TraceComparison scan={simulation.scan} look={simulation.look} />
+        </div>
+      ) : null}
+    />
   );
 }

@@ -8,8 +8,11 @@ import { PDF_JS_CACHE_NAME } from './src/app/pdf-cache';
 
 const pdfJsRoot = normalizePath(fileURLToPath(new URL('../../node_modules/pdfjs-dist', import.meta.url)));
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  publicDir: mode === 'server' ? false : 'public',
+  server: { proxy: { '/api': 'http://127.0.0.1:4310' } },
   build: {
+    outDir: mode === 'server' ? 'dist-server' : 'dist',
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -43,6 +46,7 @@ export default defineConfig({
     react(),
     viteStaticCopy({
       targets: [
+        ...(mode === 'server' ? [{ src: 'public/favicon.svg', dest: '.', rename: { stripBase: true as const } }, { src: 'public/pwa-*.png', dest: '.', rename: { stripBase: true as const } }] : []),
         { src: `${pdfJsRoot}/cmaps/*`, dest: 'pdfjs/cmaps', rename: { stripBase: true } },
         { src: `${pdfJsRoot}/standard_fonts/*`, dest: 'pdfjs/standard_fonts', rename: { stripBase: true } },
         { src: `${pdfJsRoot}/wasm/*`, dest: 'pdfjs/wasm', rename: { stripBase: true } },
@@ -78,6 +82,7 @@ export default defineConfig({
         clientsClaim: true,
         globPatterns: ['**/*.{js,mjs,css,html,svg,png,woff2,json}'],
         globIgnores: ['**/content/**/*', '**/assets/pdf.worker.*.mjs', '**/pdfjs/**/*'],
+        navigateFallbackDenylist: [/^\/api\//, /^\/content\//],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => /^\/assets\/pdf\.worker\..+\.mjs$/.test(url.pathname),
@@ -89,22 +94,22 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: { cacheName: PDF_JS_CACHE_NAME },
           },
-          {
-            urlPattern: ({ url }) => url.search === '' && /^\/content\/[^/]+\.json$/.test(url.pathname),
-            handler: async ({ request }) => {
+          ...(mode === 'server' ? [] : [{
+            urlPattern: ({ url }: { url: URL }) => url.search === '' && /^\/content\/[^/]+\.json$/.test(url.pathname),
+            handler: async ({ request }: { request: Request }) => {
               const cache = await caches.open('408os-content-packs-v2');
               return await cache.match(request) ?? fetch(request);
             },
           },
           {
-            urlPattern: ({ url }) => url.search === '' && /^\/content\/.+\.(?:png|jpe?g|pdf)$/.test(url.pathname),
-            handler: async ({ request }) => {
+            urlPattern: ({ url }: { url: URL }) => url.search === '' && /^\/content\/.+\.(?:png|jpe?g|pdf)$/.test(url.pathname),
+            handler: async ({ request }: { request: Request }) => {
               const cache = await caches.open('408os-content-assets-v2');
               return await cache.match(request) ?? fetch(request);
             },
-          },
+          }]),
         ],
       },
     }),
   ],
-});
+}));

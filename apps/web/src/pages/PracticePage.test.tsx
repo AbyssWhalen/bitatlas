@@ -1,4 +1,4 @@
-import { LEGACY_CONTENT_VERSION, type Question, type StudySession, type UserResponse } from '@408os/domain';
+import { LEGACY_CONTENT_VERSION, type PracticeEvidence, type Question, type StudySession, type UserResponse } from '@408os/domain';
 import { StudySessionConflictError } from '@408os/storage';
 import '@testing-library/jest-dom/vitest';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -16,6 +16,14 @@ const study = vi.hoisted(() => ({
   setMastery: vi.fn(),
   toggleCollection: vi.fn(),
   saveNote: vi.fn(),
+}));
+const proofs = vi.hoisted(() => new Map<string, PracticeEvidence>());
+vi.mock('../app/storage', () => ({
+  storage: { reviewRepository: {
+    getPracticeEvidence: vi.fn(async (sid: string, qid: string) => proofs.get(JSON.stringify([sid, qid]))),
+    checkpointPracticeTime: vi.fn(async (sid: string, qid: string) => proofs.get(JSON.stringify([sid, qid]))),
+    savePracticeEvidence: vi.fn(async (value: PracticeEvidence) => { proofs.set(value.id, value); return value; }),
+  } },
 }));
 
 vi.mock('../app/StudyContext', () => ({
@@ -170,6 +178,7 @@ describe('PracticePage recovery and response persistence', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    proofs.clear();
     study.getSession.mockResolvedValue(session);
     study.saveResponse.mockImplementation(async (
       current: StudySession,
@@ -273,6 +282,7 @@ describe('PracticePage recovery and response persistence', () => {
       comprehensiveQuestion,
       expect.objectContaining({ type: 'comprehensive', selfScore }),
       expect.any(Number),
+      expect.objectContaining({ evidenceFromStart: false, firstResponse: expect.objectContaining({ text: '测试作答' }), answerRevealedAt: expect.any(String) }),
     ));
   });
 
@@ -568,5 +578,126 @@ describe('PracticePage recovery and response persistence', () => {
       secondQuestion.id,
       { type: 'choice', optionId: 'B' },
     );
+  });
+
+  it('supports A–D selection, guards Enter from double-firing submit+next, and ignores editable/IME/modifier shortcuts', async () => {
+    const twoQuestionSession: StudySession = {
+      ...session,
+      id: 'session-two',
+      questionIds: [question.id, secondQuestion.id],
+      questionContentVersions: {
+        [question.id]: question.contentVersion,
+        [secondQuestion.id]: secondQuestion.contentVersion,
+      },
+    };
+    study.getSession.mockResolvedValueOnce(twoQuestionSession);
+    study.submitResponse.mockImplementationOnce(async (current: StudySession) => ({
+      ...current,
+      submittedQuestionIds: [...current.submittedQuestionIds, question.id],
+      updatedAt: '2026-08-07T00:00:02.000Z',
+    }));
+    study.moveSession.mockImplementationOnce(async (current: StudySession, index: number) => ({
+      ...current,
+      currentIndex: index,
+      updatedAt: '2026-08-07T00:00:03.000Z',
+    }));
+
+    const { container } = renderPractice({ initialSessionId: twoQuestionSession.id });
+    expect(await screen.findByText('测试题干')).toBeVisible();
+
+    // Shortcuts inside note textarea or with modifiers / IME must be ignored
+    const noteArea = screen.getByPlaceholderText('记录易错点');
+    fireEvent.keyDown(noteArea, { key: 'a' });
+    fireEvent.keyDown(window, { key: 'a', ctrlKey: true });
+    fireEvent.keyDown(window, { key: 'a', isComposing: true });
+    expect(study.saveResponse).not.toHaveBeenCalled();
+
+    // Press 'a' selects option A and displays non-color '已选' state
+    fireEvent.keyDown(window, { key: 'a' });
+    const options = container.querySelectorAll<HTMLButtonElement>('.option-list > button');
+    await waitFor(() => expect(options[0]).toHaveAttribute('aria-pressed', 'true'));
+    expect(options[0]).toHaveTextContent('已选');
+
+    // Enter submits without advancing on held/repeated Enter
+    fireEvent.keyDown(window, { key: 'Enter', repeat: false });
+    await waitFor(() => expect(study.submitResponse).toHaveBeenCalledTimes(1));
+    expect(await screen.findByText('回答错误')).toBeVisible();
+    expect(options[0]).toHaveTextContent('所选有误');
+    expect(options[1]).toHaveTextContent('正确');
+
+    // Held repeat Enter or second keyDown before keyUp MUST NOT trigger moveSession
+    fireEvent.keyDown(window, { key: 'Enter', repeat: true });
+    fireEvent.keyDown(window, { key: 'Enter', repeat: false });
+    expect(study.moveSession).not.toHaveBeenCalled();
+
+    // Release Enter, then a fresh Enter advances to question 2
+    fireEvent.keyUp(window, { key: 'Enter' });
+    fireEvent.keyDown(window, { key: 'Enter', repeat: false });
+    await waitFor(() => expect(study.moveSession).toHaveBeenCalledWith(expect.anything(), 1));
+    expect(await screen.findByText('第二个会话题干')).toBeVisible();
+  });
+
+  it('expands mistake reason chips in place after a wrong answer and saves via reviewRepository', async () => {
+    const user = userEvent.setup();
+    study.submitResponse.mockImplementationOnce(async (current: StudySession) => ({
+      ...current,
+      submittedQuestionIds: [question.id],
+      updatedAt: '2026-08-07T00:00:02.000Z',
+    }));
+    const { container } = renderPractice();
+    expect(await screen.findByText('测试题干')).toBeVisible();
+
+    await user.click(container.querySelectorAll<HTMLButtonElement>('.option-list > button')[0]!);
+    await waitFor(() => expect(screen.getByRole('button', { name: '提交答案' })).toBeEnabled());
+    await user.click(screen.getByRole('button', { name: '提交答案' }));
+
+    expect(await screen.findByText('回答错误')).toBeVisible();
+    for (const label of ['概念', '方法', '计算', '审题', '其他']) {
+      expect(screen.getByRole('button', { name: label })).toBeVisible();
+    }
+
+    await user.click(screen.getByRole('button', { name: '概念' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: '概念' })).toHaveAttribute('aria-pressed', 'true'));
+    expect(proofs.get(JSON.stringify([session.id, question.id]))?.mistakeReason).toBe('concept');
+    expect(screen.getByText('已保存')).toBeVisible();
+  });
+
+  it('allows skipping the inline mistake reason prompt without writing to storage', async () => {
+    const user = userEvent.setup();
+    study.submitResponse.mockImplementationOnce(async (current: StudySession) => ({
+      ...current,
+      submittedQuestionIds: [question.id],
+      updatedAt: '2026-08-07T00:00:02.000Z',
+    }));
+    const { container } = renderPractice();
+    expect(await screen.findByText('测试题干')).toBeVisible();
+
+    await user.click(container.querySelectorAll<HTMLButtonElement>('.option-list > button')[0]!);
+    await waitFor(() => expect(screen.getByRole('button', { name: '提交答案' })).toBeEnabled());
+    await user.click(screen.getByRole('button', { name: '提交答案' }));
+    expect(await screen.findByText('回答错误')).toBeVisible();
+
+    await user.click(screen.getByRole('button', { name: '跳过' }));
+    expect(screen.getByText('已跳过错因记录')).toBeVisible();
+    expect(screen.getByRole('button', { name: '补充错因' })).toBeVisible();
+    expect(proofs.size).toBe(0);
+  });
+
+  it('opens an image zoom lightbox when a source page image is clicked and closes it before the source dialog on Escape', async () => {
+    const user = userEvent.setup();
+    renderPractice();
+    expect(await screen.findByText('测试题干')).toBeVisible();
+
+    await user.click(screen.getByRole('button', { name: /原卷第/ }));
+    const sourceImg = screen.getByAltText('2009 真题第 1 页') as HTMLImageElement;
+    sourceImg.setAttribute('src', 'data:image/gif;base64,R0lGODlhAQABAAAAACw=');
+
+    await user.click(sourceImg);
+    const lightbox = screen.getByRole('dialog', { name: '放大查看图片' });
+    expect(lightbox).toBeVisible();
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('dialog', { name: '放大查看图片' })).not.toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: '来源页' })).toBeVisible();
   });
 });

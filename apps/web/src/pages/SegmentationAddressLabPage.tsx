@@ -10,6 +10,7 @@ import { ArrowRight, Binary, BookOpenCheck, MemoryStick, RotateCcw } from 'lucid
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { OsModuleTabs } from '../components/OsModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -103,7 +104,7 @@ function fieldWidth(bits: number, total: number): string {
 
 function CurrentStep({ step, trace }: { step: SegmentationAddressStep; trace: SegmentationAddressTrace }) {
   return (
-    <section className="segmentation-current-event" aria-live="polite" aria-atomic="true" aria-label="当前分段地址推导步骤">
+    <section className="segmentation-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前分段地址推导步骤">
       <Binary size={18} aria-hidden="true" />
       <div><span>当前推导步骤</span><strong>{stepLabels[step.kind]}</strong><small>{stepValue(step)}</small></div>
       <code>{step.kind === 'complete' ? `${formatBytes(trace.result.maxSegmentLengthBytes)} B` : '等待下一步'}</code>
@@ -114,10 +115,13 @@ function CurrentStep({ step, trace }: { step: SegmentationAddressStep; trace: Se
 function AddressFieldDiagram({ trace }: { trace: SegmentationAddressTrace }) {
   const { addressBits, segmentBits, offsetBits } = trace.result;
   return (
-    <section className="lab-control-panel segmentation-field-panel" aria-labelledby="segmentation-field-heading">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">ADDRESS FORMAT / FIELDS</span><h2 id="segmentation-field-heading">地址字段拆分</h2></div>
-        <MemoryStick size={19} aria-hidden="true" />
+    <section className="segmentation-field-panel lab-exhibit-stage" aria-labelledby="segmentation-field-heading">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title">
+          <h2 id="segmentation-field-heading">地址字段拆分</h2>
+          <span className="lab-exhibit-stage-tag">实验画布</span>
+        </div>
+        <MemoryStick size={18} aria-hidden="true" />
       </div>
       <div className="segmentation-field-ruler" role="img" aria-label={`${addressBits} 位地址由 ${segmentBits} 位段号和 ${offsetBits} 位段内位移组成`}>
         <div className="segmentation-field-segment" style={{ width: fieldWidth(segmentBits, addressBits) }} aria-hidden="true" />
@@ -180,46 +184,96 @@ export function SegmentationAddressLabPage() {
   };
 
   return (
-    <div className="page segmentation-address-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">OS LAB / SEGMENTATION</span><h1>分段地址字段实验室</h1><p>把逻辑地址中的段号与段内位移拆开，直接看出最大段长的位数依据。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ27()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q27'}</button>
-      </header>
-      <LabSectionNav />
-      <OsModuleTabs active="segmentation-address" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-
-      <div className="vm-review-band segmentation-review-band">
-        <span><Binary size={16} aria-hidden="true" />本地练习预设 · Q27</span>
-        <strong>{question?.reviewStatus ?? SEGMENTATION_Q27_PRESET.reviewStatus}</strong>
-        <small>原题只提供地址总宽与段号宽度；页面只推导段内位移和最大段长，不模拟段表、物理地址或保护机制。</small>
-        <button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=operating-systems&node=topic-2009-q27')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
-      </div>
-
-      <div className="lab-module-heading"><Binary size={18} aria-hidden="true" /><span>2009 第 27 题 · 32 位分段地址</span></div>
-      <div className="lab-panel-grid segmentation-address-lab-grid">
-        <div className="segmentation-address-workbench">
-          <section className="lab-control-panel segmentation-address-control" aria-labelledby="segmentation-address-control-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONFIG / ADDRESS WIDTH</span><h2 id="segmentation-address-control-heading">地址参数</h2></div>
-              <button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q27 预设</button>
+    <LabExhibit
+      pageClassName="segmentation-address-lab-page"
+      subjectLabel="操作系统实验 · 分段存储"
+      title="分段地址字段实验室"
+      description="把逻辑地址中的段号与段内位移拆开，直接看出最大段长的位数依据。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ27()}>
+          <BookOpenCheck size={17} aria-hidden="true" />
+          {starting ? '创建中' : '练习 2009 · Q27'}
+        </button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <OsModuleTabs active="segmentation-address" />
+        </>
+      )}
+      alert={startError ? <div className="lab-exhibit-inline-alert" role="alert">{startError}</div> : null}
+      notice={(
+        <LabExhibitNotice
+          icon={<Binary size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q27"
+          badge={question?.reviewStatus ?? SEGMENTATION_Q27_PRESET.reviewStatus}
+          note="原题只提供地址总宽与段号宽度；页面只推导段内位移和最大段长，不模拟段表、物理地址或保护机制。"
+          action={(
+            <button
+              className="lab-exhibit-keycap compact"
+              type="button"
+              onClick={() => navigate('/knowledge?subject=operating-systems&node=topic-2009-q27')}
+            >
+              查看知识节点
+              <ArrowRight size={14} aria-hidden="true" />
+            </button>
+          )}
+        />
+      )}
+      subheading={(
+        <>
+          <Binary size={18} aria-hidden="true" />
+          <span>2009 第 27 题 · 32 位分段地址</span>
+        </>
+      )}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="segmentation-address-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="segmentation-address-control-heading">地址参数</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}>
+              <RotateCcw size={15} aria-hidden="true" />
+              恢复 Q27 预设
+            </button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-2">
+            <label className="lab-exhibit-field">
+              <span>地址总位数</span>
+              <input aria-label="地址总位数" type="number" min="2" max={SEGMENTATION_MAX_ADDRESS_BITS} step="1" value={draft.addressBits} onChange={(event) => updateUrl(event.target.value, draft.segmentBits)} />
+            </label>
+            <label className="lab-exhibit-field">
+              <span>段号位数</span>
+              <input aria-label="段号位数" type="number" min="1" value={draft.segmentBits} onChange={(event) => updateUrl(draft.addressBits, event.target.value)} />
+            </label>
+          </div>
+          {!computation.ok ? (
+            <div className="lab-exhibit-error" role="alert">{computation.message}</div>
+          ) : (
+            <div className="lab-exhibit-equation" aria-label="最大段长公式">
+              <code>段内位移 = {computation.trace.result.addressBits} - {computation.trace.result.segmentBits}</code>
+              <ArrowRight size={18} aria-hidden="true" />
+              <code>{computation.trace.result.offsetBits} bit</code>
+              <ArrowRight size={18} aria-hidden="true" />
+              <strong>{formatPowerOfTwo(computation.trace.result.maxSegmentLengthBytes)} B</strong>
             </div>
-            <div className="segmentation-address-input-grid">
-              <label className="lab-input-field"><span>地址总位数</span><input aria-label="地址总位数" type="number" min="2" max={SEGMENTATION_MAX_ADDRESS_BITS} step="1" value={draft.addressBits} onChange={(event) => updateUrl(event.target.value, draft.segmentBits)} /></label>
-              <label className="lab-input-field"><span>段号位数</span><input aria-label="段号位数" type="number" min="1" value={draft.segmentBits} onChange={(event) => updateUrl(draft.addressBits, event.target.value)} /></label>
-            </div>
-            {!computation.ok ? <div className="lab-error" role="alert">{computation.message}</div> : (
-              <div className="segmentation-address-equation" aria-label="最大段长公式">
-                <code>段内位移 = {computation.trace.result.addressBits} - {computation.trace.result.segmentBits}</code><ArrowRight size={18} aria-hidden="true" /><code>{computation.trace.result.offsetBits} bit</code><ArrowRight size={18} aria-hidden="true" /><strong>{formatPowerOfTwo(computation.trace.result.maxSegmentLengthBytes)} B</strong>
-              </div>
-            )}
-          </section>
-
-          {computation.ok && currentStep && <CurrentStep step={currentStep} trace={computation.trace} />}
-          {computation.ok && <AddressFieldDiagram trace={computation.trace} />}
-        </div>
-        {computation.ok ? <StepExplorer key={computationKey} steps={computation.explorerSteps} onActiveIndexChange={setActiveIndex} announceChanges={false} className="segmentation-address-step-explorer" /> : <section className="step-explorer segmentation-address-step-explorer segmentation-address-empty"><Binary size={24} aria-hidden="true" /><strong>等待有效地址参数</strong></section>}
-      </div>
-    </div>
+          )}
+        </section>
+      )}
+      status={computation.ok && currentStep ? <CurrentStep step={currentStep} trace={computation.trace} /> : null}
+      canvas={computation.ok ? <AddressFieldDiagram trace={computation.trace} /> : null}
+      steps={computation.ok ? (
+        <StepExplorer
+          key={computationKey}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+          announceChanges={false}
+          className="segmentation-address-step-explorer"
+        />
+      ) : (
+        <section className="lab-exhibit-steps-empty">
+          <Binary size={24} aria-hidden="true" />
+          <strong>等待有效地址参数</strong>
+        </section>
+      )}
+    />
   );
 }

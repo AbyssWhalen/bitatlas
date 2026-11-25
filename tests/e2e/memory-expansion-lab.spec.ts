@@ -119,18 +119,18 @@ test('replays Q15 memory expansion with URL, practice, and knowledge recovery', 
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
     && url.searchParams.get('subject') === 'computer-organization'
-    && url.searchParams.get('node') === 'topic-2009-q15'
+    && url.searchParams.get('node') === 'co.memory.ram'
   ));
   await expect(page.getByRole('button', { name: '打开对应实验' })).toHaveAttribute('title', '存储器芯片扩展');
   await page.getByRole('button', { name: '打开对应实验' }).click();
   await expect(page).toHaveURL(/\/lab\?module=memory-expansion&preset=cn408-2009-q15$/u);
   await page.goBack();
-  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=topic-2009-q15$/u);
+  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=co\.memory\.ram$/u);
   await page.goBack();
   await expect(page).toHaveURL(customUrl);
   await expect(page.getByLabel('主存总容量 B')).toHaveValue('24576');
   await page.goForward();
-  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=topic-2009-q15$/u);
+  await expect(page).toHaveURL(/\/knowledge\?subject=computer-organization&node=co\.memory\.ram$/u);
   await page.getByRole('button', { name: '打开对应实验' }).click();
 
   await expectNoPageOverflow(page);

@@ -11,17 +11,27 @@ import {
   Timer,
   TriangleAlert,
 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   getMockExamRemainingMs,
   type Question,
+  type Subject,
   type UserResponse,
 } from '@408os/domain';
 import { MockExamConflictError, type MockExamBundle } from '@408os/storage';
 import { createSerialWriteQueue } from '../app/serial-write-queue';
 import { useStudy } from '../app/StudyContext';
 import { LazyContentRenderer } from '../components/LazyContentRenderer';
+import { ReadingImageLightbox, type LightboxImage } from '../components/ReadingImageLightbox';
+import { SubjectShape } from '../components/SubjectShape';
+
+const subjectLabels: Record<Subject, string> = {
+  'data-structures': '数据结构',
+  'computer-organization': '组成原理',
+  'operating-systems': '操作系统',
+  'computer-networks': '计算机网络',
+};
 
 function errorMessage(reason: unknown, fallback: string): string {
   return reason instanceof Error && reason.message ? reason.message : fallback;
@@ -62,13 +72,13 @@ function contentVersionIssue(bundle: MockExamBundle, questionsById: ReadonlyMap<
 function MockExamFailure({ message, retry }: { message: string; retry?: () => void }) {
   const navigate = useNavigate();
   return (
-    <section className="fatal-state" role="alert">
+    <section className="fatal-state rl-fatal" role="alert">
       <TriangleAlert size={28} aria-hidden="true" />
       <h1>无法恢复模考</h1>
       <p>{message}</p>
       <div className="command-row">
-        {retry && <button className="primary-command" onClick={retry}><RotateCcw size={16} aria-hidden="true" />重新读取</button>}
-        <button className="secondary-command" onClick={() => navigate('/mock')}>返回模考</button>
+        {retry && <button type="button" className="primary-command rl-primary-btn" onClick={retry}><RotateCcw size={16} aria-hidden="true" />重新读取</button>}
+        <button type="button" className="secondary-command rl-secondary-btn" onClick={() => navigate('/mock')}>返回模考</button>
       </div>
     </section>
   );
@@ -97,6 +107,8 @@ export function MockExamSessionPage() {
   const [selfScoreDraft, setSelfScoreDraft] = useState('0');
   const [checkedRubricIds, setCheckedRubricIds] = useState<string[]>([]);
   const [syncConflict, setSyncConflict] = useState<ExternalExamUpdate | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
+  const lightboxTriggerRef = useRef<HTMLElement | null>(null);
   const bundleRef = useRef<MockExamBundle | null>(null);
   const currentIndexRef = useRef(0);
   const draftsRef = useRef<Record<string, UserResponse>>({});
@@ -440,12 +452,27 @@ export function MockExamSessionPage() {
     questionStartedAtRef.current = currentTimeMs();
   };
 
+  const closeLightbox = useCallback(() => {
+    setLightboxImage(null);
+  }, []);
+
+  const handleImageClickDelegation = useCallback((event: MouseEvent<HTMLElement>) => {
+    const target = event.target;
+    if (!(target instanceof HTMLImageElement)) return;
+    const src = target.currentSrc || target.getAttribute('src');
+    if (!src) return;
+    lightboxTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setLightboxImage({ src, alt: target.alt || '题目图示' });
+  }, []);
+
+  const getLightboxRestoreTarget = useCallback(() => lightboxTriggerRef.current, []);
+
   if (!examId) return <MockExamFailure message="当前地址没有持久化模考编号。" />;
   if (resolvedLoadKey !== loadKey) {
-    return <div className="practice-loading"><span className="loader" /><p>恢复持久化模考</p></div>;
+    return <div className="practice-loading rl-loading"><span className="loader" /><p>恢复持久化模考</p></div>;
   }
   if (loadError && loadErrorKey === loadKey) return <MockExamFailure message={loadError} retry={() => setLoadRevision((value) => value + 1)} />;
-  if (!bundle) return <div className="practice-loading"><span className="loader" /><p>恢复持久化模考</p></div>;
+  if (!bundle) return <div className="practice-loading rl-loading"><span className="loader" /><p>恢复持久化模考</p></div>;
   if (versionIssue) return <MockExamFailure message={`${versionIssue} 已阻止继续答题和计分。`} />;
   if (!currentSnapshot || !currentQuestion) return <MockExamFailure message="模考当前位置无效，已阻止继续答题。" />;
 
@@ -462,36 +489,48 @@ export function MockExamSessionPage() {
   const pendingResponse = pendingSelfScoreQuestion
     ? bundle.session.responses[pendingSelfScoreQuestion.id]
     : undefined;
+  const currentSubjectLabel = currentQuestion.subject ? subjectLabels[currentQuestion.subject] : null;
 
   return (
-    <div className="practice-shell mock-exam-shell">
-      <header className="practice-topbar mock-exam-topbar">
-        <button className="icon-command" onClick={() => navigate('/mock')} title="退出模考" aria-label="退出模考"><ArrowLeft size={19} /></button>
-        <div>
-          <span>{bundle.exam.status === 'in-progress' ? `剩余 ${formatRemaining(remainingMs)}` : '本地持久化记录'}</span>
+    <div className="practice-shell rl-practice mock-exam-shell">
+      <header className="practice-topbar rl-topbar mock-exam-topbar">
+        <button type="button" className="icon-command rl-icon-btn" onClick={() => navigate('/mock')} title="退出模考" aria-label="退出模考"><ArrowLeft size={19} aria-hidden="true" /></button>
+        <div className="rl-topbar-meta mock-topbar-meta">
+          <span className={bundle.exam.status === 'in-progress' ? 'mock-timer' : undefined}>
+            {bundle.exam.status === 'in-progress' ? `剩余 ${formatRemaining(remainingMs)}` : '本地持久化记录'}
+          </span>
           <h1>2009 整卷模考</h1>
         </div>
-        <div className="practice-progress" aria-label={`答题进度 ${answeredCount} / ${bundle.exam.blueprint.questions.length}`}>
+        <div className="practice-progress rl-progress" aria-label={`答题进度 ${answeredCount} / ${bundle.exam.blueprint.questions.length}`}>
           <span style={{ width: `${(answeredCount / bundle.exam.blueprint.questions.length) * 100}%` }} />
         </div>
         {bundle.exam.status === 'in-progress' ? (
-          <button className="primary-command compact-command" disabled={interactionBlocked} onClick={() => void submitExam('manual')} aria-label="提交整卷">
-            <Flag size={16} aria-hidden="true" />提交整卷
+          <button
+            type="button"
+            className="secondary-command compact-command rl-secondary-btn mock-submit-btn"
+            disabled={interactionBlocked}
+            onClick={() => void submitExam('manual')}
+            aria-label="提交整卷"
+          >
+            <Flag size={15} aria-hidden="true" />
+            <span>提交整卷</span>
           </button>
         ) : (
           <span className={`mock-status-pill ${bundle.exam.status}`}>{bundle.exam.status === 'completed' ? '自评完成' : '已交卷'}</span>
         )}
       </header>
 
-      <aside className="question-palette" aria-label="模考答题卡">
-        <div className="palette-heading"><span>答题卡</span><strong>{answeredCount}/{bundle.exam.blueprint.questions.length}</strong></div>
-        <div className="palette-grid">
+      <aside className="question-palette rl-palette mock-palette" aria-label="模考答题卡">
+        <div className="palette-heading rl-palette-heading"><span>答题卡</span><strong>{answeredCount}/{bundle.exam.blueprint.questions.length}</strong></div>
+        <div className="palette-grid rl-palette-grid">
           {bundle.exam.blueprint.questions.map((snapshot, index) => {
             const answered = Boolean(drafts[snapshot.id] ?? bundle.session.responses[snapshot.id]);
             return (
               <button
                 key={snapshot.id}
-                className={`${index === currentIndex ? 'current' : ''} ${answered ? 'done' : ''}`}
+                type="button"
+                className={`${index === currentIndex ? 'current' : ''} ${answered ? 'done' : ''}`.trim()}
+                aria-current={index === currentIndex ? 'step' : undefined}
                 disabled={interactionBlocked}
                 onClick={() => void goTo(index)}
                 title={`第 ${snapshot.number} 题`}
@@ -502,97 +541,115 @@ export function MockExamSessionPage() {
             );
           })}
         </div>
-        <div className="palette-legend"><span><i className="done" />已作答</span><span><i className="mock-pending" />未作答</span></div>
+        <div className="palette-legend rl-palette-legend"><span><i className="done" />已作答</span><span><i className="mock-pending" />未作答</span></div>
       </aside>
 
-      <main className="question-workspace mock-question-workspace">
-        {bundle.exam.status === 'submitted' && <div className="mock-result-banner"><ClipboardCheck size={18} aria-hidden="true" /><strong>交卷完成，等待综合题自评</strong></div>}
-        {bundle.exam.status === 'completed' && <div className="mock-result-banner complete"><Check size={18} aria-hidden="true" /><strong>模考与综合题自评均已完成</strong></div>}
-        {syncConflict && (
-          <div className="review-warning mock-sync-conflict" role="alert">
-            <RefreshCw size={17} aria-hidden="true" />
-            <span>{syncConflict.kind === 'updated'
-              ? '另一标签页已更新此模考。当前未保存输入仍保留，但已停止写入。'
-              : '此模考已在另一标签页被删除或由备份替换。'}</span>
-            <button className="secondary-command compact-command" type="button" onClick={loadLatestExternal}>
-              {syncConflict.kind === 'updated' ? '加载最新记录' : '返回模考'}
-            </button>
-          </div>
-        )}
-        {actionError && <div className="review-warning" role="alert"><TriangleAlert size={17} aria-hidden="true" /><span>{actionError}</span></div>}
-        {saveNotice && !actionError && <div className="mock-save-notice" role="status"><Check size={15} aria-hidden="true" />{saveNotice}</div>}
+      <main className="question-workspace rl-workspace mock-question-workspace">
+        <div className="rl-reading-col mock-reading-col" onClick={handleImageClickDelegation}>
+          {bundle.exam.status === 'submitted' && <div className="mock-result-banner"><ClipboardCheck size={18} aria-hidden="true" /><strong>交卷完成，等待综合题自评</strong></div>}
+          {bundle.exam.status === 'completed' && <div className="mock-result-banner complete"><Check size={18} aria-hidden="true" /><strong>模考与综合题自评均已完成</strong></div>}
+          {syncConflict && (
+            <div className="review-warning rl-banner mock-sync-conflict" role="alert">
+              <RefreshCw size={17} aria-hidden="true" />
+              <span>{syncConflict.kind === 'updated'
+                ? '另一标签页已更新此模考。当前未保存输入仍保留，但已停止写入。'
+                : '此模考已在另一标签页被删除或由备份替换。'}</span>
+              <button className="secondary-command compact-command rl-secondary-btn" type="button" onClick={loadLatestExternal}>
+                {syncConflict.kind === 'updated' ? '加载最新记录' : '返回模考'}
+              </button>
+            </div>
+          )}
+          {actionError && <div className="review-warning rl-banner" role="alert"><TriangleAlert size={17} aria-hidden="true" /><span>{actionError}</span></div>}
+          {saveNotice && !actionError && <div className="mock-save-notice" role="status"><Check size={15} aria-hidden="true" /><span>{saveNotice}</span></div>}
 
-        <div className="question-title-row">
-          <div className="question-badges">
-            <span>{currentSnapshot.kind === 'single-choice' ? '单项选择' : '综合应用'}</span>
-            <span>{currentSnapshot.maxScore} 分</span>
-            {readOnly && <span className="draft-badge">答案已冻结</span>}
+          <div className="question-title-row rl-question-header">
+            <div className="question-badges rl-badges">
+              {currentQuestion.subject && currentSubjectLabel && (
+                <span className="rl-subject-badge"><SubjectShape subject={currentQuestion.subject} /><span>{currentSubjectLabel}</span></span>
+              )}
+              <span>{currentSnapshot.kind === 'single-choice' ? '单项选择' : '综合应用'}</span>
+              <span className="sec-mono-num">{currentSnapshot.maxScore} 分</span>
+              {readOnly && <span className="draft-badge">答案已冻结</span>}
+            </div>
+            <span className="mock-question-position">{currentIndex + 1} / {bundle.exam.blueprint.questions.length}</span>
           </div>
-          <span className="mock-question-position">{currentIndex + 1} / {bundle.exam.blueprint.questions.length}</span>
-        </div>
 
-        <div className="question-body">
-          <span className="question-index">{currentQuestion.number}</span>
-          <LazyContentRenderer blocks={currentQuestion.stem} />
-        </div>
+          <section className="question-body rl-stem rl-reading">
+            <span className="question-index rl-question-num">{String(currentQuestion.number).padStart(2, '0')}</span>
+            <div className="rl-stem-content">
+              <LazyContentRenderer blocks={currentQuestion.stem} />
+            </div>
+          </section>
 
-        {currentQuestion.kind === 'single-choice' && currentQuestion.options ? (
-          <div className="option-list mock-option-list">
-            {currentQuestion.options.map((option) => {
-              const selected = currentResponse?.type === 'choice' && currentResponse.optionId === option.id;
-              return (
-                <button
-                  key={option.id}
-                  className={selected ? 'selected' : ''}
-                  disabled={readOnly || Boolean(busy)}
-                  onClick={() => updateDraft(currentQuestion.id, { type: 'choice', optionId: option.id })}
-                  aria-label={`选择 ${option.id}`}
-                  aria-pressed={selected}
-                >
-                  <span>{option.id}</span>
-                  <LazyContentRenderer blocks={option.content} compact />
-                  {selected ? <Check size={16} aria-hidden="true" /> : <i aria-hidden="true" />}
-                </button>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="comprehensive-response">
-            <label htmlFor={`mock-response-${currentQuestion.id}`}>作答内容</label>
-            <textarea
-              id={`mock-response-${currentQuestion.id}`}
-              value={comprehensiveResponse.text}
-              disabled={readOnly || Boolean(busy)}
-              onChange={(event) => updateDraft(currentQuestion.id, {
-                type: 'comprehensive',
-                text: event.target.value,
-                checkedRubricIds: [],
+          {currentQuestion.kind === 'single-choice' && currentQuestion.options ? (
+            <div className="option-list rl-options mock-option-list" role="group" aria-label="答案选项">
+              {currentQuestion.options.map((option) => {
+                const selected = currentResponse?.type === 'choice' && currentResponse.optionId === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className={selected ? 'rl-option selected' : 'rl-option'}
+                    disabled={readOnly || Boolean(busy)}
+                    onClick={() => updateDraft(currentQuestion.id, { type: 'choice', optionId: option.id })}
+                    aria-label={`选择 ${option.id}`}
+                    aria-pressed={selected}
+                  >
+                    <span className="rl-option-key" aria-hidden="true">{option.id}</span>
+                    <div className="rl-option-body rl-reading">
+                      <LazyContentRenderer blocks={option.content} compact />
+                    </div>
+                    <div className="rl-option-state">
+                      {selected && (
+                        <span className="rl-state-tag is-selected">
+                          <Check size={15} aria-hidden="true" />
+                          <span>已选</span>
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
               })}
-            />
-          </div>
-        )}
+            </div>
+          ) : (
+            <div className="comprehensive-response rl-comprehensive">
+              <label htmlFor={`mock-response-${currentQuestion.id}`}>作答内容</label>
+              <textarea
+                id={`mock-response-${currentQuestion.id}`}
+                value={comprehensiveResponse.text}
+                disabled={readOnly || Boolean(busy)}
+                placeholder="在此撰写综合题解题步骤与关键推导"
+                onChange={(event) => updateDraft(currentQuestion.id, {
+                  type: 'comprehensive',
+                  text: event.target.value,
+                  checkedRubricIds: [],
+                })}
+              />
+            </div>
+          )}
 
-        {bundle.exam.status === 'in-progress' && (
-          <div className="answer-actions mock-answer-actions">
-            <span>{currentResponse ? '当前题已有草稿' : '当前题尚未作答'}</span>
-            <button className="primary-command" disabled={!currentResponse || interactionBlocked} onClick={() => void handleSave()}>
-              <Save size={16} aria-hidden="true" />{busy === 'save' ? '正在保存' : '保存当前草稿'}
-            </button>
-          </div>
-        )}
+          {bundle.exam.status === 'in-progress' && (
+            <div className="answer-actions rl-actions mock-answer-actions">
+              <span className="mock-draft-status">{currentResponse ? '当前题已有草稿' : '当前题尚未作答'}</span>
+              <button type="button" className="primary-command rl-primary-btn" disabled={!currentResponse || interactionBlocked} onClick={() => void handleSave()}>
+                <Save size={16} aria-hidden="true" />{busy === 'save' ? '正在保存' : '保存当前草稿'}
+              </button>
+            </div>
+          )}
 
-        <nav className="question-navigation" aria-label="模考试题导航">
-          <button className="secondary-command" disabled={currentIndex === 0 || interactionBlocked} onClick={() => void goTo(currentIndex - 1)}><ChevronLeft size={16} aria-hidden="true" />上一题</button>
-          <span>第 {currentQuestion.number} 题</span>
-          <button className="secondary-command" disabled={currentIndex === bundle.exam.blueprint.questions.length - 1 || interactionBlocked} onClick={() => void goTo(currentIndex + 1)}>下一题<ChevronRight size={16} aria-hidden="true" /></button>
-        </nav>
+          <nav className="question-navigation rl-nav-footer" aria-label="模考试题导航">
+            <button type="button" className="secondary-command rl-secondary-btn" disabled={currentIndex === 0 || interactionBlocked} onClick={() => void goTo(currentIndex - 1)}><ChevronLeft size={16} aria-hidden="true" />上一题</button>
+            <span className="rl-nav-count">第 {currentQuestion.number} 题</span>
+            <button type="button" className="secondary-command rl-secondary-btn" disabled={currentIndex === bundle.exam.blueprint.questions.length - 1 || interactionBlocked} onClick={() => void goTo(currentIndex + 1)}>下一题<ChevronRight size={16} aria-hidden="true" /></button>
+          </nav>
+        </div>
       </main>
 
-      <aside className="study-tools mock-exam-tools">
-        <section>
-          <div className="tool-heading"><Timer size={16} aria-hidden="true" /><h2>考试状态</h2></div>
+      <aside className="study-tools rl-tools mock-exam-tools" aria-label="考试状态与自评">
+        <section className="rl-tool-section">
+          <div className="tool-heading rl-tool-heading"><Timer size={16} aria-hidden="true" /><h2>考试状态</h2></div>
           <dl className="mock-score-facts">
-            <div><dt>已作答</dt><dd>{answeredCount} / 47</dd></div>
+            <div><dt>已作答</dt><dd>{answeredCount} / {bundle.exam.blueprint.questions.length}</dd></div>
             <div><dt>客观题</dt><dd>{score ? `${score.objectiveScore} / ${bundle.exam.blueprint.objectiveMaxScore}` : '交卷后计分'}</dd></div>
             <div><dt>综合题</dt><dd>{score ? `${score.comprehensiveScore} / ${bundle.exam.blueprint.comprehensiveMaxScore}` : '交卷后自评'}</dd></div>
             <div><dt>总分</dt><dd>{score ? `${score.totalScore} / ${bundle.exam.blueprint.totalMaxScore}` : `-- / ${bundle.exam.blueprint.totalMaxScore}`}</dd></div>
@@ -600,8 +657,8 @@ export function MockExamSessionPage() {
         </section>
 
         {pendingSelfScoreQuestion && pendingSnapshot && (
-          <section className="mock-self-score-panel">
-            <div className="tool-heading"><ClipboardCheck size={16} aria-hidden="true" /><h2>第 {pendingSelfScoreQuestion.number} 题自评</h2></div>
+          <section className="rl-tool-section mock-self-score-panel">
+            <div className="tool-heading rl-tool-heading"><ClipboardCheck size={16} aria-hidden="true" /><h2>第 {pendingSelfScoreQuestion.number} 题自评</h2></div>
             {pendingResponse?.type === 'comprehensive' && pendingResponse.text ? <blockquote>{pendingResponse.text}</blockquote> : <p className="mock-unanswered-note">本题交卷时未填写作答。</p>}
             {pendingSelfScoreQuestion.answer.type === 'comprehensive' && (
               <div className="mock-rubric-list">
@@ -623,7 +680,7 @@ export function MockExamSessionPage() {
                 ))}
               </div>
             )}
-            <label className="score-field mock-score-field">
+            <label className="score-field rl-score-field mock-score-field">
               <span>综合题自评分</span>
               <input
                 aria-label="综合题自评分"
@@ -638,22 +695,28 @@ export function MockExamSessionPage() {
                   setSelfScoreDraft(event.target.value);
                 }}
               />
-              <span>/ {pendingSnapshot.maxScore}</span>
+              <span className="sec-mono-num">/ {pendingSnapshot.maxScore}</span>
             </label>
-            <button className="primary-command" disabled={interactionBlocked} onClick={() => void handleSelfScore()}>
+            <button type="button" className="primary-command rl-primary-btn" disabled={interactionBlocked} onClick={() => void handleSelfScore()}>
               <Save size={16} aria-hidden="true" />{busy === 'score' ? '正在保存自评' : '保存本题自评'}
             </button>
           </section>
         )}
 
         {bundle.exam.status === 'completed' && (
-          <section className="mock-complete-summary">
-            <div className="tool-heading"><Check size={16} aria-hidden="true" /><h2>最终成绩</h2></div>
+          <section className="rl-tool-section mock-complete-summary">
+            <div className="tool-heading rl-tool-heading"><Check size={16} aria-hidden="true" /><h2>最终成绩</h2></div>
             <strong>{score?.totalScore ?? 0}<small> / {bundle.exam.blueprint.totalMaxScore}</small></strong>
-            <button className="secondary-command" onClick={() => navigate('/mock')}>返回模考记录</button>
+            <button type="button" className="secondary-command rl-secondary-btn" onClick={() => navigate('/mock')}>返回模考记录</button>
           </section>
         )}
       </aside>
+
+      <ReadingImageLightbox
+        image={lightboxImage}
+        onClose={closeLightbox}
+        getRestoreFocusTarget={getLightboxRestoreTarget}
+      />
     </div>
   );
 }

@@ -81,12 +81,13 @@ async function downloadBuffer(download: Download): Promise<Buffer> {
   return Buffer.concat(chunks);
 }
 
-function visibleNavLink(page: Page, href: string) {
-  return page.locator(`a[href="${href}"]:visible`).first();
+async function followNav(page: Page, href: string) {
+  if (!await page.locator(`a[href="${href}"]:visible`).count()) await page.getByRole('link', { name: '更多', exact: true }).or(page.getByRole('button', { name: '更多', exact: true })).click();
+  await page.locator(`a[href="${href}"]:visible`).first().click();
 }
 
 test('loads all 47 questions and exposes both ends of the 2009 paper', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
 
   await expect(page.getByRole('heading', { name: '真题浏览' })).toBeVisible();
   await expect(page.locator('.result-summary strong')).toHaveText('47');
@@ -101,7 +102,7 @@ test('loads all 47 questions and exposes both ends of the 2009 paper', async ({ 
 });
 
 test('shows the practiced pack year in the practice topbar for non-2009 packs', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
 
   await expect(page.locator('.question-list .question-row')).toHaveCount(47);
   // F5 回归：练习页顶栏年份必须跟随当前题包，跨年份练习不再误标 2009。
@@ -114,7 +115,7 @@ test('shows the practiced pack year in the practice topbar for non-2009 packs', 
 });
 
 test('traps focus inside the practice source dialog and restores it on Escape', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
   await expect(page.locator('.practice-topbar strong')).toContainText('第 1 题');
 
@@ -140,9 +141,9 @@ test('traps focus inside the practice source dialog and restores it on Escape', 
 
 test('builds a stable eight-question daily plan from current content', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: '今日复习计划' })).toBeVisible();
-  await expect(page.locator('.daily-plan-list article')).toHaveCount(8);
-  await expect(page.locator('.daily-plan-list article').first()).toContainText('Q01');
+  await expect(page.getByRole('heading', { name: '今日任务' })).toBeVisible();
+  await expect(page.locator('.daily-plan-section li').filter({ hasText: /第 \d+ 题/ })).toHaveCount(8);
+  await expect(page.locator('.daily-plan-section li').filter({ hasText: /第 \d+ 题/ }).first()).toContainText('第 1 题');
   await expect(page.getByRole('button', { name: '开始剩余 8 题' })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 
@@ -156,15 +157,15 @@ test('opens the 2009 knowledge evidence map and starts a focused practice sessio
 
   await expect(page.getByRole('heading', { name: '知识证据图' })).toBeVisible();
   await expect(page.locator('.knowledge-graph-canvas')).toBeVisible();
-  await expect(page.locator('.knowledge-topic-list button')).toHaveCount(12);
-  await expect(page.locator('.knowledge-coverage')).toContainText('已检测 0 / 12');
-  await expect(page.locator('.mobile-nav a')).toHaveCount(8);
+  await expect(page.locator('.knowledge-topic-list button')).toHaveCount(28);
+  await expect(page.locator('.knowledge-coverage')).toContainText('已检测 0 / 28');
+  await expect(page.locator('.mobile-nav a')).toHaveCount(5);
 
-  await page.locator('.knowledge-topic-list button').first().click();
-  await expect(page.locator('.knowledge-detail-panel h2')).toContainText('栈和队列');
-  await page.getByRole('button', { name: '专项练习 1 题' }).click();
+  await page.locator('.knowledge-topic-list').getByRole('button', { name: /^队列与循环队列/ }).click();
+  await expect(page.locator('.knowledge-detail-panel h2')).toContainText('队列与循环队列');
+  await page.getByRole('button', { name: '专项练习 7 题' }).click();
   await expect(page.locator('.practice-topbar strong')).toContainText('第 1 题');
-  await expect(page.locator('.palette-heading strong')).toHaveText('0/1');
+  await expect(page.locator('.palette-heading strong')).toHaveText('0/7');
 });
 
 test('restores canonical knowledge selections across reload and history navigation', async ({ page }) => {
@@ -174,13 +175,13 @@ test('restores canonical knowledge selections across reload and history navigati
 
   await page.goto('/knowledge?subject=computer-organization&node=topic-2009-q15');
   await expect(page.getByRole('heading', { name: '知识证据图' })).toBeVisible();
-  await expect(detail.getByRole('heading', { name: '考查存储器的扩展' })).toBeVisible();
+  await expect(detail.getByRole('heading', { name: '主存芯片与地址译码' })).toBeVisible();
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
-    && url.search === '?subject=computer-organization&node=topic-2009-q15'
+    && url.search === '?subject=computer-organization&node=co.memory.ram'
   ));
   await expectPressedPartition(subjectGroup, '组成原理');
-  await expectPressedPartition(topics, /考查存储器的扩展/u);
+  await expectPressedPartition(topics, /主存芯片与地址译码/u);
 
   await subjectGroup.getByRole('button', { name: '操作系统', exact: true }).click();
   await expect(detail.getByRole('heading', { name: '操作系统' })).toBeVisible();
@@ -190,22 +191,22 @@ test('restores canonical knowledge selections across reload and history navigati
   await expectPressedPartition(subjectGroup, '操作系统');
   await expectPressedPartition(topics);
 
-  await topics.getByRole('button', { name: /考查磁盘的调度算法/u }).click();
-  await expect(detail.getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+  await topics.getByRole('button', { name: /磁盘调度与访问时间/u }).click();
+  await expect(detail.getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
-    && url.search === '?subject=operating-systems&node=topic-2009-q29'
+    && url.search === '?subject=operating-systems&node=os.files.disk'
   ));
-  await expectPressedPartition(topics, /考查磁盘的调度算法/u);
+  await expectPressedPartition(topics, /磁盘调度与访问时间/u);
 
   await page.reload();
-  await expect(detail.getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+  await expect(detail.getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
-    && url.search === '?subject=operating-systems&node=topic-2009-q29'
+    && url.search === '?subject=operating-systems&node=os.files.disk'
   ));
   await expectPressedPartition(subjectGroup, '操作系统');
-  await expectPressedPartition(topics, /考查磁盘的调度算法/u);
+  await expectPressedPartition(topics, /磁盘调度与访问时间/u);
 
   await page.goBack();
   await expect(detail.getByRole('heading', { name: '操作系统' })).toBeVisible();
@@ -216,13 +217,13 @@ test('restores canonical knowledge selections across reload and history navigati
   await expectPressedPartition(topics);
 
   await page.goForward();
-  await expect(detail.getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+  await expect(detail.getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
-    && url.search === '?subject=operating-systems&node=topic-2009-q29'
+    && url.search === '?subject=operating-systems&node=os.files.disk'
   ));
   await expectPressedPartition(subjectGroup, '操作系统');
-  await expectPressedPartition(topics, /考查磁盘的调度算法/u);
+  await expectPressedPartition(topics, /磁盘调度与访问时间/u);
 });
 
 test('returns to the current knowledge subject overview from the keyboard', async ({ page }) => {
@@ -231,7 +232,7 @@ test('returns to the current knowledge subject overview from the keyboard', asyn
   const topics = page.locator('.knowledge-topic-list');
 
   await page.goto('/knowledge?subject=operating-systems&node=topic-2009-q29');
-  await expect(detail.getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+  await expect(detail.getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
 
   const overview = page.getByRole('button', {
     name: '操作系统科目总览',
@@ -239,7 +240,7 @@ test('returns to the current knowledge subject overview from the keyboard', asyn
   });
   await expect(overview).toHaveAttribute('aria-pressed', 'false');
   await expectPressedPartition(subjectGroup, '操作系统');
-  await expectPressedPartition(topics, /考查磁盘的调度算法/u);
+  await expectPressedPartition(topics, /磁盘调度与访问时间/u);
 
   await overview.focus();
   await expect(overview).toBeFocused();
@@ -257,11 +258,11 @@ test('returns to the current knowledge subject overview from the keyboard', asyn
   await page.goBack();
   await expect(page).toHaveURL((url) => (
     url.pathname === '/knowledge'
-    && url.search === '?subject=operating-systems&node=topic-2009-q29'
+    && url.search === '?subject=operating-systems&node=os.files.disk'
   ));
-  await expect(detail.getByRole('heading', { name: '考查磁盘的调度算法' })).toBeVisible();
+  await expect(detail.getByRole('heading', { name: '磁盘调度与访问时间' })).toBeVisible();
   await expect(overview).toHaveAttribute('aria-pressed', 'false');
-  await expectPressedPartition(topics, /考查磁盘的调度算法/u);
+  await expectPressedPartition(topics, /磁盘调度与访问时间/u);
 
   await page.goForward();
   await expect(page).toHaveURL((url) => (
@@ -321,7 +322,7 @@ test('encodes and decodes RV32I instructions with strict field evidence', async 
 });
 
 test('persists a response, note and bookmark through review, stats and backup restore', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
   await expect(page.locator('.practice-topbar strong')).toContainText('第 1 题');
 
@@ -370,20 +371,20 @@ test('persists a response, note and bookmark through review, stats and backup re
   await expect(answerStatus).toBeFocused();
   await expect(page.locator('.palette-heading strong')).toHaveText('1/1');
 
-  await visibleNavLink(page, '/wrong').click();
+  await followNav(page, '/wrong');
   await expect(page.getByRole('heading', { name: '错题重练' })).toBeVisible();
   await expect(page.locator('.wrong-list .question-row')).toHaveCount(1);
   await expect(page.locator('.wrong-list .question-row')).toContainText('错误 1 次');
   await expect(page.locator('.wrong-list .question-row')).toContainText('打印机');
 
-  await visibleNavLink(page, '/stats').click();
+  await followNav(page, '/stats');
   await expect(page.getByRole('heading', { name: '学习统计' })).toBeVisible();
   await expect(page.locator('.metric-grid article').nth(0)).toContainText('有效作答1');
   await expect(page.locator('.metric-grid article').nth(1)).toContainText('答对题次0');
   await expect(page.locator('.accuracy-row').first()).toContainText('0 / 1');
   await expect(page.locator('.heatmap span[data-level="1"]')).toHaveCount(1);
 
-  await visibleNavLink(page, '/settings').click();
+  await followNav(page, '/settings');
   await expect(page.getByRole('heading', { name: '数据管理' })).toBeVisible();
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: '导出备份' }).click();
@@ -395,7 +396,7 @@ test('persists a response, note and bookmark through review, stats and backup re
     schemaVersion: number;
     data: Record<'attempts' | 'sessions' | 'progresses' | 'legacyProgresses' | 'notes' | 'collections' | 'settings' | 'mockExams', unknown[]>;
   };
-  expect(backup.schemaVersion).toBe(3);
+  expect(backup.schemaVersion).toBe(4);
   expect(backup.data.attempts).toHaveLength(1);
   expect(backup.data.sessions).toHaveLength(1);
   expect(backup.data.progresses).toHaveLength(1);
@@ -422,7 +423,7 @@ test('persists a response, note and bookmark through review, stats and backup re
 
 test('validates and persists a comprehensive practice self score', async ({ page }, testInfo) => {
   const questionId = 'cn408-2009-q41';
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await page.getByRole('button', { name: '开始第 41 题', exact: true }).click();
   await expect(page.locator('.practice-topbar strong')).toContainText('第 41 题');
 
@@ -455,6 +456,9 @@ test('validates and persists a comprehensive practice self score', async ({ page
       };
     });
     expect(mobileViewportContract).toEqual({ appMinHeight: '0px', practiceMinHeight: '100%' });
+    // Reading-size content scrolls inside main-area; the actions now follow the
+    // score in document flow instead of floating over it.
+    await page.locator('.answer-actions').scrollIntoViewIfNeeded();
     const [scoreBox, errorBox, actionsBox, mobileNavBox] = await Promise.all([
       selfScore.boundingBox(),
       page.getByRole('alert').boundingBox(),
@@ -511,7 +515,7 @@ test('validates and persists a comprehensive practice self score', async ({ page
 });
 
 test('protects a practice session across tabs and keeps a remotely completed session read-only', async ({ page }, testInfo) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await page.getByRole('button', { name: '开始第 1 题', exact: true }).click();
   await expect(page.locator('.practice-topbar strong')).toContainText('第 1 题');
   const sessionPath = new URL(page.url()).pathname;
@@ -538,7 +542,7 @@ test('protects a practice session across tabs and keeps a remotely completed ses
     await expect(peer.locator('.answer-status')).toContainText('回答错误');
 
     await page.getByRole('button', { name: '结束', exact: true }).click();
-    await expect(page.getByRole('heading', { name: '学习统计' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '本轮总结' })).toBeVisible();
 
     await peer.getByRole('button', { name: '结束', exact: true }).click();
     await expect(peer.getByRole('alert')).toContainText('另一标签页已更新此练习');
@@ -646,7 +650,7 @@ test('imports a v1 backup into versioned stores without guessing legacy progress
 });
 
 test('blocks recovery of legacy or mismatched session snapshots', async ({ page }) => {
-  await page.goto('/questions');
+  await page.goto('/questions?year=2009');
   await expect(page.getByRole('heading', { name: '真题浏览' })).toBeVisible();
   const baseSession = {
     mode: 'practice',

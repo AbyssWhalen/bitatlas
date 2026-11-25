@@ -4,9 +4,10 @@ import {
   type IoOverheadConfig,
   type IoOverheadError,
 } from '@408os/cpu-core';
-import { RotateCcw } from 'lucide-react';
+import { Activity, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { LabExhibitWorkspace } from './LabExhibit';
 import { StepExplorer, type ExplorerStep } from './StepExplorer';
 
 type ConfigKey = keyof IoOverheadConfig;
@@ -120,80 +121,109 @@ export function IoOverheadLabPanel() {
   };
 
   return (
-    <div className="lab-panel-grid io-overhead-lab-layout">
-      <section className="lab-control-panel" aria-labelledby="io-overhead-heading">
-        <div className="lab-control-heading">
-          <div>
-            <span className="eyebrow">2009 Q43 / I/O OVERHEAD</span>
+    <LabExhibitWorkspace
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="io-overhead-heading">
+          <div className="lab-exhibit-card-head">
             <h2 id="io-overhead-heading">中断与 DMA CPU 开销</h2>
-          </div>
-          <div className="lab-field-row">
-            <span className="review-status-tag">{IO_OVERHEAD_Q43_PRESET.reviewStatus}</span>
-            <button
-              type="button"
-              className="icon-command"
-              onClick={restorePreset}
-              title="恢复 Q43 预设"
-              aria-label="恢复 Q43 预设"
-            >
-              <RotateCcw size={16} aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <div className="io-overhead-config-grid">
-          {INPUTS.map((input) => (
-            <label className="lab-input-field" key={input.param}>
-              <span>{input.label}</span>
-              <input
-                type="number"
-                aria-label={input.label}
-                min={input.min}
-                step={input.step}
-                value={rawValues[input.param]}
-                onChange={(event) => updateInput(input.param, event.target.value)}
-              />
-            </label>
-          ))}
-        </div>
-
-        <div className="io-overhead-boundary">
-          <strong>题设边界</strong>
-          <span>1 MB = 1,000,000 B</span>
-          <small>DMA 与 CPU 无访存冲突</small>
-        </div>
-
-        {errorMessage ? (
-          <div className="lab-error" role="alert">{errorMessage}</div>
-        ) : trace && (
-          <>
-            <div className="io-overhead-metrics">
-              <div>
-                <small>中断方式 CPU 占用</small>
-                <strong aria-label="中断方式 CPU 占用">{percent(trace.result.interrupt.utilizationPercent)}</strong>
-                {!trace.result.interrupt.sustainable && <span>不可持续</span>}
-              </div>
-              <div>
-                <small>DMA 方式 CPU 占用</small>
-                <strong aria-label="DMA 方式 CPU 占用">{percent(trace.result.dma.utilizationPercent)}</strong>
-                {!trace.result.dma.sustainable && <span>不可持续</span>}
-              </div>
-              <div>
-                <small>CPU 开销相对降低</small>
-                <strong aria-label="CPU 开销相对降低">{percent(trace.result.relativeCpuReductionPercent)}</strong>
-                <span>相对中断方式</span>
-              </div>
+            <div className="lab-exhibit-card-actions">
+              <span className="lab-exhibit-badge">{IO_OVERHEAD_Q43_PRESET.reviewStatus}</span>
+              <button
+                type="button"
+                className="lab-exhibit-keycap compact icon-only"
+                onClick={restorePreset}
+                title="恢复 Q43 预设"
+                aria-label="恢复 Q43 预设"
+              >
+                <RotateCcw size={15} aria-hidden="true" />
+              </button>
             </div>
+          </div>
 
-            <div className="io-overhead-current-event" aria-live="polite" aria-label="当前推导事件">
-              <strong>{activeStep?.label}</strong>
-              <span>{activeStep?.value}</span>
+          <div className="lab-exhibit-input-grid cols-3">
+            {INPUTS.map((input) => (
+              <label className="lab-exhibit-field" key={input.param}>
+                <span>{input.label}</span>
+                <input
+                  type="number"
+                  aria-label={input.label}
+                  min={input.min}
+                  step={input.step}
+                  value={rawValues[input.param]}
+                  onChange={(event) => updateInput(input.param, event.target.value)}
+                />
+              </label>
+            ))}
+          </div>
+
+          <div className="lab-exhibit-boundary-bar warn">
+            <strong>题设边界</strong>
+            <span>1 MB = 1,000,000 B</span>
+            <small>DMA 与 CPU 无访存冲突</small>
+          </div>
+
+          {errorMessage ? <div className="lab-exhibit-error" role="alert">{errorMessage}</div> : null}
+        </section>
+      )}
+      status={trace ? (
+        <div className="lab-exhibit-status-card compact-status io-overhead-current-event" aria-live="polite" aria-label="当前推导事件">
+          <strong>{activeStep?.label}</strong>
+          <span>{activeStep?.value}</span>
+        </div>
+      ) : null}
+      canvas={trace ? (
+        <section className="lab-exhibit-stage" aria-labelledby="io-overhead-stage-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title">
+              <h2 id="io-overhead-stage-heading">中断与 DMA 占用对比</h2>
+              <span className="lab-exhibit-stage-tag">实验画布</span>
             </div>
-          </>
-        )}
-      </section>
+            <Activity size={18} aria-hidden="true" />
+          </div>
 
-      {trace && (
+          <div className="io-bars" aria-hidden="true">
+            <div className={`io-bar-row${trace.result.interrupt.sustainable ? '' : ' overload'}`}>
+              <span>中断方式</span>
+              <div className="io-bar-track">
+                <div
+                  className="io-bar-fill interrupt"
+                  style={{ width: `${Math.min(100, Math.max(0, trace.result.interrupt.utilizationPercent))}%` }}
+                />
+              </div>
+              <code>{percent(trace.result.interrupt.utilizationPercent)}</code>
+            </div>
+            <div className={`io-bar-row${trace.result.dma.sustainable ? '' : ' overload'}`}>
+              <span>DMA 方式</span>
+              <div className="io-bar-track">
+                <div
+                  className="io-bar-fill dma"
+                  style={{ width: `${Math.min(100, Math.max(0, trace.result.dma.utilizationPercent))}%` }}
+                />
+              </div>
+              <code>{percent(trace.result.dma.utilizationPercent)}</code>
+            </div>
+          </div>
+
+          <div className="io-overhead-metrics">
+            <div>
+              <small>中断方式 CPU 占用</small>
+              <strong aria-label="中断方式 CPU 占用">{percent(trace.result.interrupt.utilizationPercent)}</strong>
+              {!trace.result.interrupt.sustainable && <span>不可持续</span>}
+            </div>
+            <div>
+              <small>DMA 方式 CPU 占用</small>
+              <strong aria-label="DMA 方式 CPU 占用">{percent(trace.result.dma.utilizationPercent)}</strong>
+              {!trace.result.dma.sustainable && <span>不可持续</span>}
+            </div>
+            <div>
+              <small>CPU 开销相对降低</small>
+              <strong aria-label="CPU 开销相对降低">{percent(trace.result.relativeCpuReductionPercent)}</strong>
+              <span>相对中断方式</span>
+            </div>
+          </div>
+        </section>
+      ) : null}
+      steps={trace ? (
         <StepExplorer
           key={INPUTS.map((input) => rawValues[input.param]).join(':')}
           className="io-overhead-step-explorer"
@@ -201,7 +231,7 @@ export function IoOverheadLabPanel() {
           onActiveIndexChange={setActiveStepIndex}
           announceChanges={false}
         />
-      )}
-    </div>
+      ) : null}
+    />
   );
 }

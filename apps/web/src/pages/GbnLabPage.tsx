@@ -11,6 +11,7 @@ import { BookOpenCheck, CircleDot, Inbox, RadioTower, RotateCcw, Send, TimerRese
 import { useCallback, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { NetworkModuleTabs } from '../components/NetworkModuleTabs';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
@@ -225,26 +226,21 @@ function sequenceClassName(sequenceNumber: number, state: GbnState, windowSize: 
   return classes.join(' ');
 }
 
-function GbnStateView({ state, sequenceSpace, windowSize, activeStep }: {
+function GbnStateView({ state, sequenceSpace, windowSize }: {
   state: GbnState;
   sequenceSpace: number;
   windowSize: number;
-  activeStep: GbnTraceStep | undefined;
 }) {
+  const sequenceNumbers = Array.from({ length: sequenceSpace }, (_, index) => index);
   return (
-    <section className="lab-control-panel gbn-state-panel" aria-label="GBN 步骤状态">
-      <div className="lab-control-heading">
-        <div><span className="eyebrow">LIVE STATE</span><h2>当前协议状态</h2></div>
+    <section className="lab-exhibit-stage gbn-state-panel" aria-label="GBN 步骤状态">
+      <div className="lab-exhibit-stage-head">
+        <div className="lab-exhibit-stage-title"><h2>当前协议状态</h2></div>
         <CircleDot size={19} aria-hidden="true" />
       </div>
-      <div className="gbn-state-facts">
-        <span><small>base</small><strong>{state.base}</strong></span>
-        <span><small>nextSeq</small><strong>{state.nextSeq}</strong></span>
-        <span><small>receiverExpected</small><strong>{state.receiverExpected}</strong></span>
-        <span><small>timerOwner</small><strong>{state.timerOwner ?? 'OFF'}</strong></span>
-      </div>
-      <div className="gbn-sequence-space" aria-label="发送端序号空间">
-        {Array.from({ length: sequenceSpace }, (_, sequenceNumber) => (
+      <h3>发送窗口</h3>
+      <div className="gbn-sequence-space" role="group" aria-label="发送端序号空间">
+        {sequenceNumbers.map((sequenceNumber) => (
           <span
             key={sequenceNumber}
             data-gbn-sequence={sequenceNumber}
@@ -256,22 +252,36 @@ function GbnStateView({ state, sequenceSpace, windowSize, activeStep }: {
         ))}
       </div>
       <div className="gbn-legend" aria-label="序号状态图例">
-        <span className="gbn-base">base</span>
-        <span className="gbn-next-seq">nextSeq</span>
-        <span className="gbn-receiver-expected">接收方期待</span>
-        <span className="gbn-timer-owner">计时器</span>
+        <span className="gbn-window-slot">窗口内</span>
+        <span className="gbn-base">base = {state.base}</span>
+        <span className="gbn-next-seq">nextSeq = {state.nextSeq}</span>
+        <span className="gbn-timer-owner">timerOwner = {state.timerOwner ?? 'OFF'}</span>
       </div>
-      <div className="gbn-current-event" aria-live="polite">
-        {activeStep ? (
-          <>
-            <strong>{eventLabel(activeStep)}</strong>
-            <span>累计确认：{sequenceList(activeStep.event.acknowledgedSequenceNumbers)}</span>
-            <span>本步发送：{sequenceList(activeStep.event.transmittedSequenceNumbers)}</span>
-            <span>生成 ACK：{activeStep.event.generatedAckNumber ?? '无'}</span>
-          </>
-        ) : <strong>尚未执行动作</strong>}
+      <h3>接收窗口 <code>receiverExpected = {state.receiverExpected}</code></h3>
+      <div className="gbn-sequence-space gbn-receiver-row" role="img" aria-label={`接收方期待序号 ${state.receiverExpected}`}>
+        {sequenceNumbers.map((sequenceNumber) => (
+          <span key={sequenceNumber} className={`gbn-sequence-slot${sequenceNumber === state.receiverExpected ? ' gbn-expected-slot' : ''}`}>
+            <strong>{sequenceNumber}</strong>
+            {sequenceNumber === state.receiverExpected && <small>期待</small>}
+          </span>
+        ))}
       </div>
     </section>
+  );
+}
+
+function GbnCurrentEvent({ activeStep }: { activeStep: GbnTraceStep | undefined }) {
+  return (
+    <div className="gbn-current-event lab-exhibit-control-card" aria-live="polite">
+      {activeStep ? (
+        <>
+          <strong>{eventLabel(activeStep)}</strong>
+          <span>累计确认：{sequenceList(activeStep.event.acknowledgedSequenceNumbers)}</span>
+          <span>本步发送：{sequenceList(activeStep.event.transmittedSequenceNumbers)}</span>
+          <span>生成 ACK：{activeStep.event.generatedAckNumber ?? '无'}</span>
+        </>
+      ) : <strong>尚未执行动作</strong>}
+    </div>
   );
 }
 
@@ -369,99 +379,81 @@ export function GbnLabPage() {
   };
 
   return (
-    <div className="page cpu-lab-page network-lab-page gbn-lab-page">
-      <header className="page-header">
-        <div>
-          <span className="eyebrow">NETWORK LAB / GO-BACK-N</span>
-          <h1>Go-Back-N 实验室</h1>
-          <p>逐事件观察发送窗口、累计确认、超时回退与模序号回绕。</p>
-        </div>
-        <button type="button" className="secondary-command" disabled={!questionId || starting} onClick={() => void practiceQ35()}>
+    <LabExhibit
+      pageClassName="network-lab-page gbn-lab-page"
+      subjectLabel="计算机网络 · 可靠传输"
+      title="Go-Back-N 实验室"
+      description="逐事件观察发送窗口、累计确认、超时回退与模序号回绕。"
+      headerAction={(
+        <button type="button" className="lab-exhibit-keycap" disabled={!questionId || starting} onClick={() => void practiceQ35()}>
           <BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q35'}
         </button>
-      </header>
-
-      <LabSectionNav />
-      <NetworkModuleTabs active="gbn" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <p className="network-review-note gbn-review-note">
-        <strong>needs-review</strong> · 当前为可复算的本地协议预设，不称为官方答案。
-      </p>
-
-      <div className="lab-module-heading gbn-module-heading">
-        <RadioTower size={18} aria-hidden="true" />
-        <span>2009 第 35 题 · 后退 N 帧协议</span>
-        <Send size={14} aria-hidden="true" />
-      </div>
-
-      <div className="lab-panel-grid gbn-lab-grid">
-        <div className="gbn-workbench">
-          <section className="lab-control-panel gbn-control-panel" aria-labelledby="gbn-input-heading">
-            <div className="lab-control-heading">
-              <div><span className="eyebrow">CONFIG / SCRIPT</span><h2 id="gbn-input-heading">协议配置与动作</h2></div>
-              <button type="button" className="secondary-command" onClick={restorePreset}>
-                <RotateCcw size={16} aria-hidden="true" />恢复 Q35 预设
-              </button>
-            </div>
-            <div className="lab-field-row gbn-config-fields">
-              <label className="lab-input-field" htmlFor="gbn-sequence-space">
-                <span>序号空间</span>
-                <input id="gbn-sequence-space" aria-label="序号空间" inputMode="numeric" value={sequenceSpaceText} onChange={(event) => patchDraft({ sequenceSpace: event.target.value })} />
-              </label>
-              <label className="lab-input-field" htmlFor="gbn-window-size">
-                <span>发送窗口大小</span>
-                <input id="gbn-window-size" aria-label="发送窗口大小" inputMode="numeric" value={windowSizeText} onChange={(event) => patchDraft({ windowSize: event.target.value })} />
-              </label>
-            </div>
-            <label className="lab-input-field full gbn-script-field" htmlFor="gbn-action-script">
-              <span>动作脚本</span>
-              <textarea id="gbn-action-script" aria-label="GBN 动作脚本" rows={12} spellCheck={false} value={script} onChange={(event) => patchDraft({ script: event.target.value })} />
+      )}
+      navigation={<><LabSectionNav /><NetworkModuleTabs active="gbn" /></>}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={<LabExhibitNotice icon={<RadioTower size={16} aria-hidden="true" />} label="Q35 协议预设" badge="needs-review" note="当前为可复算的本地协议预设，不称为官方答案。" />}
+      subheading={<><RadioTower size={18} aria-hidden="true" /><span>2009 第 35 题 · 后退 N 帧协议</span><Send size={14} aria-hidden="true" /></>}
+      controls={(
+        <section className="lab-exhibit-control-card" aria-labelledby="gbn-input-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="gbn-input-heading">协议配置与动作</h2>
+            <button type="button" className="lab-exhibit-keycap compact" onClick={restorePreset}>
+              <RotateCcw size={16} aria-hidden="true" />恢复 Q35 预设
+            </button>
+          </div>
+          <div className="lab-exhibit-input-grid cols-2">
+            <label className="lab-exhibit-field" htmlFor="gbn-sequence-space">
+              <span>序号空间</span>
+              <input id="gbn-sequence-space" aria-label="序号空间" inputMode="numeric" value={sequenceSpaceText} onChange={(event) => patchDraft({ sequenceSpace: event.target.value })} />
             </label>
-            {computation.ok
-              ? <div className="gbn-script-status" role="status"><Inbox size={16} aria-hidden="true" />{computation.trace.steps.length} 条动作 · {computation.explorerSteps.length} 个状态</div>
-              : <div className="lab-error gbn-error" role="alert">{computation.message}</div>}
+            <label className="lab-exhibit-field" htmlFor="gbn-window-size">
+              <span>发送窗口大小</span>
+              <input id="gbn-window-size" aria-label="发送窗口大小" inputMode="numeric" value={windowSizeText} onChange={(event) => patchDraft({ windowSize: event.target.value })} />
+            </label>
+          </div>
+          <label className="lab-exhibit-field lab-exhibit-field-spaced" htmlFor="gbn-action-script">
+            <span>动作脚本</span>
+            <textarea id="gbn-action-script" aria-label="GBN 动作脚本" rows={6} spellCheck={false} value={script} onChange={(event) => patchDraft({ script: event.target.value })} />
+          </label>
+          {computation.ok
+            ? <div className="gbn-script-status" role="status"><Inbox size={16} aria-hidden="true" />{computation.trace.steps.length} 条动作 · {computation.explorerSteps.length} 个状态</div>
+            : <div className="lab-exhibit-error" role="alert">{computation.message}</div>}
+        </section>
+      )}
+      status={computation.ok && <GbnCurrentEvent activeStep={activeStep} />}
+      canvas={computation.ok && currentState && (
+        <GbnStateView state={currentState} sequenceSpace={computation.trace.config.sequenceSpace} windowSize={computation.trace.config.windowSize} />
+      )}
+      steps={computation.ok && (
+        <StepExplorer
+          key={`${sequenceSpaceText}:${windowSizeText}:${script}`}
+          steps={computation.explorerSteps}
+          onActiveIndexChange={setActiveIndex}
+        />
+      )}
+      footer={computation.ok && currentState && (
+        <div className="lab-exhibit-footer-stack">
+          <section className="lab-exhibit-note-card gbn-ack-panel" aria-labelledby="gbn-ack-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="gbn-ack-heading">累计确认语义</h2>
+              <RadioTower size={19} aria-hidden="true" />
+            </div>
+            <p><strong>ACK n = 接收方最后按序收到的帧 n。</strong></p>
+            <p>它不是“下一个期望编号”；下一个期望编号单独显示为 <code>receiverExpected</code>。</p>
           </section>
 
-          {computation.ok && currentState && (
-            <>
-              <section className="lab-control-panel gbn-ack-panel" aria-labelledby="gbn-ack-heading">
-                <div className="lab-control-heading">
-                  <div><span className="eyebrow">CUMULATIVE ACK</span><h2 id="gbn-ack-heading">累计确认语义</h2></div>
-                  <RadioTower size={19} aria-hidden="true" />
-                </div>
-                <p><strong>ACK n = 接收方最后按序收到的帧 n。</strong></p>
-                <p>它不是“下一个期望编号”；下一个期望编号单独显示为 <code>receiverExpected</code>。</p>
-              </section>
-
-              <GbnStateView
-                state={currentState}
-                sequenceSpace={computation.trace.config.sequenceSpace}
-                windowSize={computation.trace.config.windowSize}
-                activeStep={activeStep}
-              />
-
-              <section className="lab-control-panel gbn-result-panel" aria-labelledby="gbn-result-heading">
-                <div className="lab-control-heading">
-                  <div><span className="eyebrow">TRACE RESULT</span><h2 id="gbn-result-heading">脚本结果</h2></div>
-                  <TimerReset size={19} aria-hidden="true" />
-                </div>
-                <div className="gbn-result-flow">
-                  <span><small>累计 ACK</small><strong>{acknowledgedThrough3 ? 'ACK 3' : '未出现 ACK 3'}</strong><code>{sequenceList(acknowledgedThrough3?.event.acknowledgedSequenceNumbers ?? [])}</code></span>
-                  <span><small>最后一次超时重传</small><strong>{lastTimeout?.event.outcome === 'retransmitted' ? 'Go-Back-N' : '无重传'}</strong><code>{sequenceList(lastTimeout?.event.transmittedSequenceNumbers ?? [])}</code></span>
-                </div>
-              </section>
-            </>
-          )}
+          <section className="lab-exhibit-table-card gbn-result-panel" aria-labelledby="gbn-result-heading">
+            <div className="lab-exhibit-card-head">
+              <h2 id="gbn-result-heading">脚本结果</h2>
+              <TimerReset size={19} aria-hidden="true" />
+            </div>
+            <div className="gbn-result-flow">
+              <span><small>累计 ACK</small><strong>{acknowledgedThrough3 ? 'ACK 3' : '未出现 ACK 3'}</strong><code>{sequenceList(acknowledgedThrough3?.event.acknowledgedSequenceNumbers ?? [])}</code></span>
+              <span><small>最后一次超时重传</small><strong>{lastTimeout?.event.outcome === 'retransmitted' ? 'Go-Back-N' : '无重传'}</strong><code>{sequenceList(lastTimeout?.event.transmittedSequenceNumbers ?? [])}</code></span>
+            </div>
+          </section>
         </div>
-
-        {computation.ok && (
-          <StepExplorer
-            key={`${sequenceSpaceText}:${windowSizeText}:${script}`}
-            steps={computation.explorerSteps}
-            onActiveIndexChange={setActiveIndex}
-          />
-        )}
-      </div>
-    </div>
+      )}
+    />
   );
 }

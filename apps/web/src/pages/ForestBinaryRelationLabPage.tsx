@@ -12,6 +12,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudy } from '../app/StudyContext';
 import { DataStructuresModuleTabs } from '../components/DataStructuresModuleTabs';
+import { LabExhibit, LabExhibitNotice } from '../components/LabExhibit';
 import { LabSectionNav } from '../components/LabSectionNav';
 import { StepExplorer, type ExplorerStep } from '../components/StepExplorer';
 
@@ -83,7 +84,7 @@ function BinaryRelationView({ trace, step }: { trace: ForestBinaryCaseTrace; ste
           return (
             <g key={node.id} className={`forest-binary-node ${node.id === 'p' ? 'context' : ''}`} transform={`translate(${point.x} ${point.y})`}>
               <circle r="25" />
-              <text y="4">{node.id}</text>
+              <text dy=".35em">{node.id}</text>
               <title>{node.id === 'p' ? '上层上下文结点' : `结点 ${node.id}`}</title>
             </g>
           );
@@ -179,36 +180,83 @@ export function ForestBinaryRelationLabPage() {
   };
 
   return (
-    <div className="page forest-binary-lab-page">
-      <header className="page-header">
-        <div><span className="eyebrow">DATA STRUCTURES LAB / FOREST ↔ BINARY TREE</span><h1>森林与二叉树转换实验室</h1><p>用左孩子右兄弟规则逐边解码 Q6 的四种路径，核对题干中的关系命题。</p></div>
-        <button className="secondary-command" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ6()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q6'}</button>
-      </header>
-      <LabSectionNav />
-      <DataStructuresModuleTabs active="forest-conversion" />
-      {startError && <div className="status-message error" role="alert">{startError}</div>}
-      <div className="ds-review-band forest-binary-review-band"><span><Workflow size={16} aria-hidden="true" />本地练习预设 · Q6</span><strong>{question?.reviewStatus ?? FOREST_BINARY_RELATION_Q6_PRESET.reviewStatus}</strong><small>题包与来源解析仍待人工复核；实验只证明四条局部路径，不提升审核状态。</small><button className="secondary-command compact-command" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q06')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button></div>
-      <div className="lab-module-heading"><GitFork size={18} aria-hidden="true" /><span>左孩子右兄弟 · 四案例闭集 · 关系判定</span><Workflow size={14} aria-hidden="true" /></div>
-
-      {!computation.ok ? (
-        <section className="lab-error forest-binary-invalid" role="alert"><strong>无法解码当前路径</strong><p>{computation.message}</p><button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q6 预设</button></section>
+    <LabExhibit
+      pageClassName="forest-binary-lab-page"
+      subjectLabel="数据结构实验 · 森林与二叉树"
+      title="森林与二叉树转换实验室"
+      description="用左孩子右兄弟规则逐边解码 Q6 的四种路径，核对题干中的关系命题。"
+      headerAction={(
+        <button className="lab-exhibit-keycap" type="button" disabled={!question?.id || starting} onClick={() => void practiceQ6()}><BookOpenCheck size={17} aria-hidden="true" />{starting ? '创建中' : '练习 2009 · Q6'}</button>
+      )}
+      navigation={(
+        <>
+          <LabSectionNav />
+          <DataStructuresModuleTabs active="forest-conversion" />
+        </>
+      )}
+      alert={startError && <div className="lab-exhibit-inline-alert" role="alert">{startError}</div>}
+      notice={(
+        <LabExhibitNotice
+          icon={<Workflow size={16} aria-hidden="true" />}
+          label="本地练习预设 · Q6"
+          badge={question?.reviewStatus ?? FOREST_BINARY_RELATION_Q6_PRESET.reviewStatus}
+          note="题包与来源解析仍待人工复核；实验只证明四条局部路径，不提升审核状态。"
+          action={(
+            <button className="lab-exhibit-keycap compact" type="button" onClick={() => navigate('/knowledge?subject=data-structures&node=topic-2009-q06')}>查看知识节点<ArrowRight size={14} aria-hidden="true" /></button>
+          )}
+        />
+      )}
+      subheading={(
+        <>
+          <GitFork size={18} aria-hidden="true" />
+          <span>左孩子右兄弟 · 四案例闭集 · 关系判定</span>
+          <Workflow size={14} aria-hidden="true" />
+        </>
+      )}
+      controls={!computation.ok ? (
+        <section className="lab-exhibit-error forest-binary-invalid" role="alert"><strong>无法解码当前路径</strong><p>{computation.message}</p><button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q6 预设</button></section>
       ) : currentStep && (
-        <div className="lab-panel-grid forest-binary-lab-grid">
-          <div className="forest-binary-workbench">
-            <section className="lab-control-panel forest-binary-control-panel" aria-labelledby="forest-binary-control-heading">
-              <div className="lab-control-heading"><div><span className="eyebrow">PATH / RELATION</span><h2 id="forest-binary-control-heading">选择二叉路径</h2></div><button className="secondary-command" type="button" onClick={restorePreset}><RotateCcw size={16} aria-hidden="true" />恢复 Q6 预设</button></div>
-              <div className="segmented-control forest-binary-path-control" aria-label="二叉路径">
-                {paths.map((path) => <button key={path} type="button" className={path === computation.path ? 'active' : ''} aria-pressed={path === computation.path} onClick={() => selectPath(path)}>{path}</button>)}
-              </div>
-              <p className="forest-binary-path-explanation">路径从 <code>u</code> 出发，经过 <code>k</code> 到达 <code>v</code>；每个字母只描述二叉树中的一条边。</p>
-              <div className="forest-binary-result-metrics" aria-label="当前关系"><div><small>当前关系</small><strong>{currentStep.state.relation === null ? '待判定' : relationLabels[currentStep.state.relation]}</strong></div><div><small>匹配题干命题</small><strong>{currentStep.state.relation === null ? '待判定' : currentStep.state.matchingStatementIds.join('、') || '无'}</strong></div><div><small>四案例总览</small><strong>I、II 可能 · III 不成立 · 选 B</strong></div></div>
-            </section>
-            <div className="forest-binary-current-event" aria-live="polite" aria-atomic="true" aria-label="当前证明步骤"><Workflow size={18} aria-hidden="true" /><div><span>当前证明步骤</span><strong>{edgeText(currentStep)}</strong></div><code>path={computation.path} · decoded={currentStep.state.decodedLinks.length}/2</code></div>
-            <section className="lab-control-panel forest-binary-state-panel" aria-labelledby="forest-binary-state-heading"><div className="lab-control-heading"><div><span className="eyebrow">DUAL VIEW / LC-RS</span><h2 id="forest-binary-state-heading">两种表示同步对照</h2></div><GitFork size={19} aria-hidden="true" /></div><div className="forest-binary-dual-view"><BinaryRelationView trace={computation.trace} step={currentStep} /><ForestRelationView trace={computation.trace} step={currentStep} /></div><Statements selected={computation.analysis.result.possibleStatementIds} /></section>
+        <section className="lab-exhibit-control-card" aria-labelledby="forest-binary-control-heading">
+          <div className="lab-exhibit-card-head">
+            <h2 id="forest-binary-control-heading">选择二叉路径</h2>
+            <button className="lab-exhibit-keycap compact" type="button" onClick={restorePreset}>
+              <RotateCcw size={16} aria-hidden="true" />恢复 Q6 预设
+            </button>
           </div>
-          <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="forest-binary-step-explorer" />
+          <div className="forest-binary-path-control rollout-options" aria-label="二叉路径">
+            {paths.map((path) => <button key={path} type="button" className="lab-exhibit-keycap compact" aria-pressed={path === computation.path} onClick={() => selectPath(path)}>{path}</button>)}
+          </div>
+          <p className="forest-binary-path-explanation">路径从 <code>u</code> 出发，经过 <code>k</code> 到达 <code>v</code>；每个字母只描述二叉树中的一条边。</p>
+          <div className="lab-exhibit-metrics rollout-three-metrics" aria-label="当前关系">
+            <div><small>当前关系</small><strong>{currentStep.state.relation === null ? '待判定' : relationLabels[currentStep.state.relation]}</strong></div>
+            <div><small>匹配题干命题</small><strong>{currentStep.state.relation === null ? '待判定' : currentStep.state.matchingStatementIds.join('、') || '无'}</strong></div>
+            <div><small>四案例总览</small><strong>I、II 可能 · III 不成立 · 选 B</strong></div>
+          </div>
+        </section>
+      )}
+      status={computation.ok && currentStep && (
+        <div className="forest-binary-current-event lab-exhibit-status-card" aria-live="polite" aria-atomic="true" aria-label="当前证明步骤">
+          <Workflow size={18} aria-hidden="true" />
+          <div><span>当前证明步骤</span><strong>{edgeText(currentStep)}</strong></div>
+          <code>path={computation.path} · decoded={currentStep.state.decodedLinks.length}/2</code>
         </div>
       )}
-    </div>
+      canvas={computation.ok && currentStep && (
+        <section className="forest-binary-state-panel lab-exhibit-stage" aria-labelledby="forest-binary-state-heading">
+          <div className="lab-exhibit-stage-head">
+            <div className="lab-exhibit-stage-title"><h2 id="forest-binary-state-heading">两种表示同步对照</h2></div>
+            <GitFork size={19} aria-hidden="true" />
+          </div>
+          <div className="forest-binary-dual-view">
+            <BinaryRelationView trace={computation.trace} step={currentStep} />
+            <ForestRelationView trace={computation.trace} step={currentStep} />
+          </div>
+          <Statements selected={computation.analysis.result.possibleStatementIds} />
+        </section>
+      )}
+      steps={computation.ok && currentStep && (
+        <StepExplorer key={computationKey} steps={explorerSteps(computation.trace)} onActiveIndexChange={setActiveIndex} announceChanges={false} className="forest-binary-step-explorer" />
+      )}
+    />
   );
 }

@@ -114,7 +114,7 @@ test('keeps the official paper closed until human review and persists a verified
   await expect(page.getByRole('heading', { name: '整卷模考' })).toBeVisible();
   await expect(page.getByRole('alert')).toContainText('尚未完成 47 题人工复核');
   await expect(page.getByRole('button', { name: /开始.*模考/ })).toHaveCount(0);
-  await expect(page.locator('.mobile-nav a')).toHaveCount(8);
+  await expect(page.locator('.mobile-nav a')).toHaveCount(5);
   await capture(page, testInfo, 'mock-landing');
 
   const examId = `mock-e2e-${testInfo.project.name}`;
