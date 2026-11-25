@@ -700,3 +700,46 @@ UI 侧的交接文档。根目录 `HANDOFF.md` / `notes.md` 仍由 Codex 维护�
 - **三视口 E2E（1 worker，端口 4361 独立预览 `dist-local`）**：`study-flow`、`visual`、`learning-loop`、`learning-reliability`、`mock-exam`、`cpu-extended-labs`、`protocol-labs` 共 7 份 spec，1440 / 1366 / 390 各 41/41，合计 **123/123 通过**（6.0 分钟，0 失败、0 跳过、0 flaky，既有测试文件零改动）。
 - **真实 Chrome 多维矩阵（端口 4362）**：覆盖 1440 与 390、白昼与夜班、18px 与 24px 共 **13 组视图**（判错闭环卡、2009 Q4 选图与局部裁剪灯箱、2024 Q12 缺解析内联原卷入口、练习去实验再返回、总结页折叠与接今日卡片、手机题头原卷/笔记入口），`chrome-matrix-audit.json` 实测横溢 **0**、小于 24px 触控目标 **0**、低于 4.5:1 对比度 **0**。
 - **未完成项**：无（归属拿铁的 P3、P4 第 1/3 点、P6、GBN 与知识页手机抽屉按分工未触碰）。
+
+
+#### 学习体验 P3 / P6 与四科新题轮询收尾（2026-11-25，拿铁）
+
+- **P3 完成**：WrongPage 增加四科及错因过滤，与年份交叉筛选；主按钮显示“开始重练 N 题”，零结果禁用并提供清除筛选。按当前题面版本和最新保存时间读取 evidence，清空的错因不会回退到旧标签；旧题面记录不串入。错因笔记及个人笔记各自提供单行摘录与原文展开。只读使用 evidence / notes，没有新增存储。
+- **P6 第 1 点前半完成**：StatsPage 薄弱知识点改读 useConceptRegister，仅列 practicing 且 objectiveByConcept 为 needs-review 的叶概念（最多 5 项），显示“练习中 / 有客观错答待复习 / 已练 m/n 题”。未知过程、辅助作答和旧题面不能冒充客观错题。加载/错误单独显示；无概念百分比。题目层正确率、核心 metric-grid 文案/顺序与热力图保留。
+- **四科轮询完成**：每次新生成的清单中，新题固定按 DS→CO→OS→CN 循环；各科内部按 year、number、id 升序，各科跨年队列延续；某科耗尽即跳过，由其余科补位。到期题仍先取，每日上限不变，无随机性，输入重排不改变输出。现有持久化读取逻辑不改；新增 storage 回归从旧 year/number 排序清单开始，关闭重开后换题面输入仍逐字段保留，次日才采用轮询。新增测试文件已获组长同意。
+- **两项尾巴完成**：verify-live-wave12.spec.ts 两处异步 waitForFunction 改 expect.poll(page.evaluate(...))。本地 Chrome 从实际工具文件抽取两段谓词，缓存命中与 SW 激活各做延迟满足/永不满足：延迟均读取 4 次后成功（207/189ms），永不满足均读取 11 次后超时（641/619ms），4/4 行为符合预期；未访问线上。content-quality-backlog.md 只在 locator 精度节追加 46 题一致及 2024/2025 总表 answers-1.jpg、印刷页 84/85 的复核结论，保留历史与审核边界。
+
+**验证与证据**（独立目录：`output/playwright/next-phase-impl-latte/`）：
+
+- `npx vitest run packages/domain/src packages/storage/src/review-plan.test.ts packages/storage/src/learning-repository.test.ts apps/web/src/pages/SecondaryPages.test.tsx`：12 文件 **83/83**。`npm run typecheck`：7 workspace 通过。全仓 `npm run lint` 及随后改动 TS/TSX 定向 ESLint 均 0；新 diagnostics.css 原始色值/--palette-* 扫描 0。
+- `npm run build -w @408os/web -- --outDir=output/playwright/next-phase-impl-latte/build-local`：生产构建通过。`npx playwright test --config output/playwright/next-phase-impl-latte/playwright.config.ts`：4349，实际 **1 worker**，1440/1366/390 各 **39/39**，指定 5 个文件（两份 study-flow、visual、learning-loop、learning-reliability）共 **117/117**，0 failed/skipped/flaky。不是全仓默认 E2E，也没有进行 8 worker 压力检查。
+- 4351 真实 Chrome：三道题经 UI 作错并保存错因/个人笔记，验证交叉筛选、数量、空态、重置、原文展开和统计四态；1440/390 × 白昼/夜班共 **8 页面状态、20 截图**。新增文字最低对比度 **5.8745:1**，新增过滤按钮与摘录展开目标最小 **36px**，文档横溢 0、pageerror 0；JSON 记录 actualTheme 并与期望主题逐项相等。截图：`wrong-{1440,390}-{day,night}.png`、`wrong-filtered-*.png`、`wrong-note-expanded-*.png`、`stats-*.png`、`stats-concepts-*.png`。已直接查看桌面、手机、夜班概念列表与笔记展开截图。
+- **既有断言变更仅 2 条**：review-plan.test.ts“keeps the selected queue stable during the day”里的 before/after ID 数组都从 [q1,q2,q3] 改为 [q1,q3,q2]；q1 仍是到期项，q3 是下一道数据结构新题，q2 是组成原理。两条都保持完整顺序严格相等断言；完成数与到期原因断言原样保留。没有修改/删除/降低既有 E2E 断言；SecondaryPages 原有断言保留并新增版本、缺证、错因和状态覆盖。
+- 调试经过如实保留在交接：初次定向单测 40 通过/1 失败，原因为新增存储测试的题包文件路径；改成自包含四科 fixture。初次 typecheck 发现数组索引收窄、Testing Library 的 exact 参数和存储测试 node:fs 类型问题，均修正。初次从根脚本透传 outDir 被嵌套 npm 吞掉，改为直接 workspace build 后成功。截图脚本的主题按钮挂载竞态通过等待按钮可见并严格断言 data-theme / actualTheme 修正，最终 20 图为修正后证据。E2E 单次完整运行通过，无重跑。
+- 没有修改 schema、存储实现、题包或其他成员的产品文件；只在 styles.css 末尾追加 diagnostics.css 导入。根 HANDOFF 检查点已发组长维护；未提交、推送、部署或安装依赖。未完成项：无（本任务分配范围）。
+
+<a id="next-phase-batch-2"></a>
+
+#### 下一阶段体验改进第二批：知识页抽屉与筛选、GBN 手机画布、模考出口与今日首尾闭环（2026-11-25，摩卡）
+
+基于[《下一阶段学习体验改进方案》](./next-phase-proposal-2026-11-25.md)（P4、P6、搁置项表及组长裁定分工），仅修改呈现与交互层，未触碰 `apps/web/src/app/`、`packages/`、`main.tsx`、`index.html`、`tests/` 及归属拿铁的 `WrongPage.tsx` / `StatsPage.tsx`；严格遵守概念状态零百分比、AI 内容不标已审核与纯语义令牌约束。
+
+| 模块 | 关键实现与设计取舍 |
+|---|---|
+| **知识页手机半屏抽屉** | `KnowledgePage.tsx` + `register.css`：`<=760px` 下用户点击寄存器概念格、知识点行或非根图节点时，`.knowledge-detail-panel.is-drawer-open` 以底部半屏抽屉（`max-height: 76dvh`）原地滑出，不触发页面纵向滚跳；桌面 `>760px` 保持左图右详情双栏不变，直接访问 URL 或刷新保持文档流呈现。抽屉打开时挂载全屏 `.knowledge-drawer-backdrop` 拦截背景点击防误触（点击遮罩直接关闭而不误点底层格），焦点自动移入顶部关闭按钮，内部 `Tab` / `Shift+Tab` 循环约束，按 `Escape`、点关闭按钮或点遮罩均收起抽屉并将焦点无滚跳返还至触发按钮（`preventScroll: true`），关掉即可紧接着点隔壁格。抽屉不设 `aria-modal="true"` 或全局 `inert`，避免 Chromium 无障碍树裁剪同页“科目总览”与知识点按钮，完整兼容键盘与视觉回归契约。 |
+| **GBN 手机紧凑画布** | `GbnLabPage.tsx` + `lab-exhibit-rollout.css`：鉴于 GBN 接收窗口恒为 1，将接收端原 32 格序列框替换为单行 `.gbn-receiver-bar`（保留 `role="img"`、`aria-label="接收方期待序号 ..."` 与 `.gbn-expected-slot strong` 契约，并写明仅按序接收当前序号、乱序帧丢弃并重发最近按序累计确认）；`<=760px` 下发送端 `.gbn-sequence-space` 改为 8 列紧凑位格（隐藏冗余文字小签，完整保留 `[data-gbn-sequence]` 与 `.gbn-window-slot` / `.gbn-in-flight` / `.gbn-base` / `.gbn-next-seq` / `.gbn-timer-owner` 全部状态类与色条标记）。390px 视口下 32 序号状态面板总高实测降至 **387px**（发送端 8×4 网格 **148px**、接收条 **75px**，较原约 1,273px 缩短约 **70%**）。 |
+| **P6 第 2 点：寄存器过滤与专项题量** | `ConceptRegister.tsx` 头部新增“全部 / 练习中 / 待巩固 / 未开始”四枚过滤芯片（显示整数计数，严格零百分比；筛选非“全部”时手机端自动展开匹配科目行，空匹配展示明确提示）。`KnowledgePage.tsx` 发起专项练习前先将节点可用题按**当前错题优先 → 未做题次之 → 已做对题最后**确定性排序，再提供 `5 题 / 10 题 / 全部 (N)` 分段选择（默认选中 `全部 (N)` 以保持一键全练体验，题数不足 5/10 时对应档位自动置灰），仍走普通 `createSession(targetPracticeIds, 'review')`，不冒充计时组卷。 |
+| **P6 第 1 点后半：知识页卡片口径对齐** | 原 `KnowledgePage` 同时按 `card.conceptIds` **或** `card.sources.some(questionIds)` 匹配，导致同一道综合真题衍生的其他概念卡片串入当前叶概念（上方 `cardCount` 写 2 张、下方 `selectedCards` 写 6 张）。现统一改为：`effectiveCards(pack?.cards ?? [], personal ?? [])` → 校验 `card.sources.every(s => versionByQuestionId.get(s.questionId) === s.questionContentVersion)`（排除旧题面版本失效卡，与 `useConceptRegister` 及 `ReviewPage` 完全同源）→ 按 `card.conceptIds.some(id => selectedSubtreeIds.has(id))` 匹配当前概念或章节/科目子树（`Set` 去重）。叶概念下与寄存器 `cardCount` 及 `/review?concept=` 严格 1:1 相等，章节/科目节点下聚合子树有效卡片且不重复计数。 |
+| **P6 第 3 点：模考未开放出口** | `MockExamPage.tsx` + `secondary.css`：当 2009 正式整卷未满足 47 题人工 `verified` 门槛或试卷结构不完整时，在告警卡操作区对所有身份（含普通 `member` 与管理员）展示次按钮 `去题库按年份顺序自测 →`（指向最新已装年份 `/questions?year=<latestYear>`，无题包时回退 `/questions`）；管理员原有的 `进入内容复核` 与 2009 正式模考人工复核门槛保持不变。 |
+| **P4 第 1、3 点及第 2 点后半** | `DashboardPage.tsx`：正常题包可用模式下，仅当存在未完结且不属于当前 `dailyPlanId` 的独立练习会话或独立卡片轮次时，首屏才渲染 `继续上次未完练习`（无题包公开代码模式保留置灰 `继续学习` 以兼容既有空题包契约）；`practiced === 0` 的新成员首屏附简短起步与自选题库指引。`DailyTasks.tsx`：当 `total > 0` 且当日计划题目与卡片全部完成时，将两颗置灰 `0` 按钮替换为 `✓ 今日计划已全部完成` 横幅——有待巩固错题时提供 `复盘待处理错题（N）` 跳转 `/wrong`，并统一说明概念“稳定”状态需经跨日复习间隔（`≥ 3 天`）验证后才会点亮（因题面版本不匹配等原因被阻塞的 `0` 题仍保留原置灰按钮与阻塞提示）。新增共享纯函数 `components/card-label.ts`（`buildConceptNameMap`、`formatCardLabel`、`formatCardRoundSummaryLabel`），由 `DailyTasks` 与 `CardReviewPage` 复用，彻底消除 `CardReviewPage` 本轮总结列表暴露 `card-cn-01` 等内部 ID（同轮多卡归属同一概念时追加首条题源定位符区分）。 |
+
+**既有单测断言调整逐条说明（仅 `DashboardPage.test.tsx` 3 处，强度不降，E2E 测试文件零改动）：**
+1. `DashboardPage.test.tsx` 首屏默认态用例：原断言新用户（`practiced === 0`、无未完独立会话）首屏存在可点的 `继续学习`；按 P4 第 1 点新契约改为断言首屏不渲染 `继续学习` / `继续上次未完练习`、展示新成员起步指引且 `开始剩余 2 题` 可用，并新增独立用例专门断言存在未完非今日会话时 `继续上次未完练习` 可点并精确续接。
+2. `DashboardPage.test.tsx` 题目版本绑定用例：当 `oldAttempt` 版本匹配使当日唯一计划项真正完成时，由原断言置灰 `开始剩余 0 题` 改为断言渲染 `今日计划已全部完成` 且移除冗余 `开始剩余` 按钮；版本不匹配阻塞分支仍严格保留 `expect(... '开始剩余 0 题').toBeDisabled()`。
+3. `DashboardPage.test.tsx` 北京时间跨午夜用例：午夜前唯一计划题答错完结后，由原断言置灰 `开始剩余 0 题` 改为同时断言 `今日计划已全部完成` 与 `复盘待处理错题（1）`（`href="/wrong"`），跨午夜刷新后 `开始剩余 1 题` 恢复可点的断言原样保留。
+
+**验证与证据（全部独立输出至 `output/playwright/opus-ui-2026-11-22/next-phase-impl-2/`）：**
+- **静态、语义令牌与单测**：本批改动与新增的 14 份 TS/TSX 文件 `eslint --max-warnings=0` **0 错误、0 警告**；4 份改动样式文件（`register.css`、`today.css`、`lab-exhibit-rollout.css`、`secondary.css`）原始色值与 `--palette-*` 扫描 **0 命中**；全仓 `npm run typecheck` **7/7 workspace 通过**；定向 Vitest **7 文件 55/55 通过**（`ConceptRegister` 7、`KnowledgePage` 15、`GbnLabPage` 10、`MockExamPage` 3、`DashboardPage` 14、`CardReviewPage` 4、`ReviewPage` 2）。
+- **三视口单并发 E2E（端口 4361 独立预览 `dist-local`）**：初次运行暴露 `chromium-390` 下抽屉 `aria-modal`/`inert` 遮蔽同页科目总览与知识点列表按钮的 2 处失败；修正为背景遮罩防误触 + 抽屉内 Tab 循环后，单次完整重跑 `study-flow`、`visual`、`learning-reliability`、`learning-loop`、`code-only-mode`、`mock-exam`、`protocol-labs`、`system-labs` 共 8 份 spec，1440 / 1366 / 390 各 42/42，合计 **126/126 通过**（**1 worker**，7.5 分钟，0 失败、0 跳过、0 flaky）。
+- **真实 Chrome 多维矩阵（端口 4362）**：覆盖 1440 与 390、白昼与夜班、18px 与 24px 共 **18 组视图**（今日新成员首屏、模考未开放出口、未完独立会话续接、记忆卡总结中文概念名、今日计划全完成横幅、寄存器四态筛选、知识页题量分段与卡片口径对齐、知识页 390px 底部抽屉遮罩防误触与 Esc 焦点返还、GBN 32 序号紧凑画布），`chrome-matrix-audit.json` 实测最大横溢 **0**、小于 24px 触控目标 **0**、低于 4.5:1 对比度 **0**。已人工目视核验关键桌面/手机与昼/夜截图。
+- **未完成项**：无（未运行 `npm install`，未提交、推送或部署，预览端口已全部关闭）。

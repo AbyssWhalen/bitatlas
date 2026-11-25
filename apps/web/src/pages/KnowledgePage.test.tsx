@@ -61,6 +61,7 @@ const knowledgePoints: KnowledgePoint[] = [
 const study = vi.hoisted(() => ({
   attempts: [],
   createSession: vi.fn(async () => 'knowledge-session'),
+  currentProgress: new Map<string, { lastCorrect: boolean | null; attemptCount: number }>(),
   knowledgePoints: [] as KnowledgePoint[],
   packs: [] as ContentPackManifest[],
   questions: [] as Question[],
@@ -82,7 +83,20 @@ vi.mock('../app/StudyContext', () => ({ useStudy: () => study }));
 vi.mock('../app/useConceptRegister', () => ({
   useConceptRegister: () => ({ concepts: [], subjects: [], todayPlan: { items: [], conceptIds: [] }, objectiveByConcept: new Map(), weeklyStudyDays: 0, loading: false, error: '' }),
 }));
-const learningPack = { concepts: knowledgePoints.map((point) => ({ ...point, level: point.parentId ? 'concept' : 'subject' })), cards: [], mappings: [] };
+const learningPack = {
+  concepts: knowledgePoints.map((point) => ({ ...point, level: point.parentId ? 'concept' : 'subject' })),
+  cards: [] as Array<{
+    id: string;
+    version: string;
+    subject: Subject;
+    conceptIds: string[];
+    front: Array<{ type: 'text'; text: string }>;
+    back: Array<{ type: 'text'; text: string }>;
+    sources: Array<{ questionId: string; questionContentVersion: string; documentSha256: string; pages: number[]; locator: string }>;
+    reviewStatus: 'needs-review';
+  }>,
+  mappings: [],
+};
 vi.mock('../app/LearningContext', () => ({
   useLearning: () => ({ pack: learningPack, error: '' }),
   useConceptQuestions: () => study.questions,
@@ -137,6 +151,8 @@ describe('KnowledgePage URL state', () => {
     cleanup();
     vi.clearAllMocks();
     graph.onSelects.length = 0;
+    study.currentProgress = new Map();
+    learningPack.cards = [];
   });
 
   it.each([
@@ -324,5 +340,85 @@ describe('KnowledgePage URL state', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '测试后退' }));
     await waitFor(() => expectSelection('操作系统根节点', 'subject-operating-systems'));
+  });
+
+  it('aligns selectedCards strictly with conceptIds, orders wrong/unattempted first, and supports 5-question quota', async () => {
+    const originalQuestions = study.questions;
+    const dsQuestions = Array.from({ length: 7 }, (_, idx) =>
+      question(`cn408-2009-q0${idx + 1}`, idx + 1, 'data-structures', ['subject-data-structures', 'topic-ds']),
+    );
+    study.questions = [...dsQuestions, originalQuestions[1]!];
+    study.currentProgress = new Map([
+      ['cn408-2009-q01', { lastCorrect: true, attemptCount: 2 }],
+      ['cn408-2009-q05', { lastCorrect: false, attemptCount: 1 }],
+    ]);
+    learningPack.cards = [
+      {
+        id: 'card-ds-1',
+        version: '1.0',
+        subject: 'data-structures',
+        conceptIds: ['topic-ds'],
+        front: [{ type: 'text', text: 'Q' }],
+        back: [{ type: 'text', text: 'A' }],
+        sources: [{ questionId: 'cn408-2009-q01', questionContentVersion: '2009.1', documentSha256: 'a'.repeat(64), pages: [1], locator: 'Q1' }],
+        reviewStatus: 'needs-review',
+      },
+      {
+        id: 'card-other-concept-same-source',
+        version: '1.0',
+        subject: 'operating-systems',
+        conceptIds: ['topic-os'],
+        front: [{ type: 'text', text: 'Other' }],
+        back: [{ type: 'text', text: 'Other' }],
+        sources: [{ questionId: 'cn408-2009-q01', questionContentVersion: '2009.1', documentSha256: 'a'.repeat(64), pages: [1], locator: 'Q1' }],
+        reviewStatus: 'needs-review',
+      },
+    ];
+
+    try {
+      renderPage('/knowledge?subject=data-structures&node=topic-ds');
+      expect(screen.getByRole('heading', { name: '相关记忆卡（1）' })).toBeVisible();
+
+      // Switch quota to 5 questions and verify wrong (q05) comes first and already-right (q01) is pushed last
+      fireEvent.click(screen.getByRole('button', { name: '5 题' }));
+      fireEvent.click(screen.getByRole('button', { name: '专项练习 5 题' }));
+      await waitFor(() => expect(study.createSession).toHaveBeenCalledWith(
+        ['cn408-2009-q05', 'cn408-2009-q02', 'cn408-2009-q03', 'cn408-2009-q04', 'cn408-2009-q06'],
+        'review',
+      ));
+    } finally {
+      study.questions = originalQuestions;
+    }
+  });
+
+  it('opens the detail panel as a keyboard-closable dialog drawer below 760px and restores focus', async () => {
+    const user = userEvent.setup();
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+      matches: query === '(max-width: 760px)',
+      media: query,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    try {
+      renderPage('/knowledge?subject=data-structures');
+      const topicBtn = screen.getByRole('button', { name: /^DS 叶节点/u });
+      await user.click(topicBtn);
+
+      const drawer = screen.getByRole('dialog', { name: 'DS 叶节点详情' });
+      expect(drawer).toBeVisible();
+      expect(screen.getByRole('button', { name: '关闭概念详情' })).toHaveFocus();
+
+      await user.keyboard('{Escape}');
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      await waitFor(() => expect(topicBtn).toHaveFocus());
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
   });
 });

@@ -10,9 +10,9 @@ import { SubjectShape } from '../components/SubjectShape';
 import { questionAvailability } from '@408os/domain';
 
 export function DashboardPage() {
-  const { questions, currentProgress, getLatestSession, createSession, assets } = useStudy();
+  const { questions, currentProgress, assets } = useStudy();
   const availableQuestions = questions.filter((question) => questionAvailability(question, assets).practice);
-  const { plan, loading, rounds, conflicts } = useLearning();
+  const { plan, loading, practices = [], contexts = [], rounds = [], conflicts = [] } = useLearning();
   const register = useConceptRegister();
   const hasConcepts = register.concepts.length > 0;
   const navigate = useNavigate();
@@ -22,11 +22,31 @@ export function DashboardPage() {
   const openRound = rounds.find((round) => !round.completedAt);
   const planQuestions = plan?.items.filter((item) => item.kind === 'question').length ?? 0;
   const planCards = (plan?.items.length ?? 0) - planQuestions;
-  const resume = async () => {
-    const latest = await getLatestSession();
-    const id = latest?.id ?? await createSession(availableQuestions.slice(0, 8).map((question) => question.id), 'practice');
-    navigate(`/practice/${id}`);
+
+  const contextBySession = new Map(contexts.map((ctx) => [ctx.sessionId, ctx]));
+  const openStandalonePractice = [...practices]
+    .filter((session) => {
+      if (session.completedAt || session.mode === 'mock' || !session.questionIds.length) return false;
+      const ctx = contextBySession.get(session.id);
+      return !ctx?.dailyPlanId || ctx.dailyPlanId !== plan?.id;
+    })
+    .sort((left, right) => Date.parse(right.updatedAt) - Date.parse(left.updatedAt))[0];
+
+  const openStandaloneRound = rounds.find(
+    (round) => !round.completedAt && (!round.dailyPlanId || round.dailyPlanId !== plan?.id),
+  );
+  const hasStandaloneContinuation = Boolean(openStandalonePractice || openStandaloneRound);
+
+  const resumeStandalone = async () => {
+    if (openStandalonePractice) {
+      navigate(`/practice/${openStandalonePractice.id}`);
+      return;
+    }
+    if (openStandaloneRound) {
+      navigate(`/review/cards/${openStandaloneRound.id}`);
+    }
   };
+
   return <div className="page dashboard-page today-page">
     <header className="today-hero">
       <div>
@@ -37,8 +57,24 @@ export function DashboardPage() {
         {plan?.items.length
           ? <p className="today-breakdown"><span>题目 {planQuestions}</span><span>记忆卡 {planCards}</span>{register.todayPlan.conceptIds.length > 0 && <span>涉及 {register.todayPlan.conceptIds.length} 个概念</span>}{hasConcepts && <span>本周已学 {register.weeklyStudyDays} 天</span>}</p>
           : !loading && <p className="today-breakdown"><Link to="/questions">去题库选题</Link><Link to="/lab">做一个实验</Link></p>}
+        {practiced === 0 && availableQuestions.length > 0 && !loading && (
+          <p className="today-newbie-guide">
+            首次学习可先从下方今日任务起步；想按科目或年份自选，随时可前往<Link to="/questions">题库</Link>。
+          </p>
+        )}
       </div>
-      <button className="secondary-command" disabled={action.busy || !availableQuestions.length} onClick={() => void action.run(resume)}>继续学习</button>
+      {!availableQuestions.length && !loading ? (
+        <button className="secondary-command" disabled>继续学习</button>
+      ) : hasStandaloneContinuation ? (
+        <button
+          type="button"
+          className="secondary-command"
+          disabled={action.busy}
+          onClick={() => void action.run(resumeStandalone)}
+        >
+          继续上次未完练习
+        </button>
+      ) : null}
     </header>
     {action.error && <p className="sec-inline-alert" role="alert">{action.error}</p>}
     <DailyTasks />

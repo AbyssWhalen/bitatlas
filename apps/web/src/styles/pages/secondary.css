@@ -3016,3 +3016,38 @@
     color: var(--paper);
   }
 }
+
+/* Batch 2: MockExam readiness exit actions & CardReviewPage summary title */
+.mock-overview-page .mock-readiness-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.mock-overview-page .mock-readiness-actions a.secondary-command {
+  min-height: 36px;
+  padding: 0 12px;
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.rl-summary-card-title {
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .mock-overview-page .mock-readiness-actions {
+    width: 100%;
+    margin-left: 29px;
+  }
+
+  .mock-overview-page .mock-readiness-actions a.secondary-command {
+    width: 100%;
+    margin-left: 0;
+  }
+}

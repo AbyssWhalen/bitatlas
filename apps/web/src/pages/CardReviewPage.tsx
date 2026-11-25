@@ -6,6 +6,7 @@ import { storage } from '../app/storage';
 import { useAction } from '../app/useAction';
 import { useActiveTime } from '../app/useActiveTime';
 import { LazyContentRenderer } from '../components/LazyContentRenderer';
+import { buildConceptNameMap, formatCardLabel, formatCardRoundSummaryLabel } from '../components/card-label';
 import { ReadingImageLightbox, type LightboxImage } from '../components/ReadingImageLightbox';
 import { isInteractiveTarget, shouldIgnoreReadingShortcut } from '../components/readingKeyboard';
 
@@ -21,7 +22,7 @@ export function CardReviewPage() {
 }
 
 function CardRound({ id }: { id: string }) {
-  const { rounds, events, error, loading } = useLearning();
+  const { rounds, events, pack, error, loading } = useLearning();
   const persisted = rounds.find((round) => round.id === id);
   const [latest, setLatest] = useState<ReviewSession | null>(null);
   const round = latest && latest.id === id && latest.revision > (persisted?.revision ?? -1) ? latest : persisted;
@@ -130,6 +131,12 @@ function CardRound({ id }: { id: string }) {
   const retryTomorrow = new Set(roundEvents.filter((event) => event.rating < 1).map((event) => event.cardId));
   const schedules = replayCardSchedule(events);
   const progressPercent = round.cards.length ? Math.round((round.completedCardIds.length / round.cards.length) * 100) : 0;
+  const conceptNames = buildConceptNameMap(pack?.concepts);
+  const baseLabelCounts = new Map<string, number>();
+  for (const item of round.cards) {
+    const base = formatCardLabel(item, conceptNames);
+    baseLabelCounts.set(base, (baseLabelCounts.get(base) ?? 0) + 1);
+  }
 
   return (
     <div className="page card-review-page rl-card-page">
@@ -160,9 +167,15 @@ function CardRound({ id }: { id: string }) {
                 const firstLabel = firstRating === 1 ? '记得' : firstRating === 0.5 ? '模糊' : '忘记';
                 const firstClass = firstRating === 1 ? 'rl-status-ok' : firstRating === 0.5 ? 'rl-status-warn' : 'rl-status-wrong';
                 const due = schedules.find((state) => state.cardId === item.id && state.cardVersion === item.version)?.dueOn;
+                const baseLabel = formatCardLabel(item, conceptNames);
+                const cardTitle = formatCardRoundSummaryLabel(
+                  item,
+                  conceptNames,
+                  (baseLabelCounts.get(baseLabel) ?? 0) > 1,
+                );
                 return (
                   <li key={item.id}>
-                    <span className="rl-summary-card-id">{item.id}</span>
+                    <span className="rl-summary-card-title">{cardTitle}</span>
                     <span>
                       ：首次 <strong className={firstClass}>{firstLabel}</strong>；共 {ratings.length} 次；下次 {due ?? '等待保存记录'}
                     </span>

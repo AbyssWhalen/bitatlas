@@ -3415,3 +3415,13 @@ npm run typecheck *> output/verification/stage-4-data-2026-11-24/typecheck-1.log
 - E2E使用独立config、`BITATLAS_UI_E2E_BUILD=build-local-2`，run/project分别3-1440、3-1366、3-390；`npx playwright test --config=tools/verification/ui-theme.playwright.config.ts --project=stage2-3-{width}-chromium-{width}`。7文件各40/40，共120/120，每批实际1worker、0skip/flaky；汇总e2e-3-summary.json。不是全仓默认E2E。
 - 保留所有失败：首轮E2E81通过/6旧导航定位失败/33无结果且进程已消失；组长裁定并修两份followNav为精确link/button，目标页断言未改。后续输出保护worker重载误触发7启动失败/33未执行，修复后新目录跑通。attempt-3对比度21失败已修；attempt-4因固定浏览器日期与跨午夜server日期不同而失败，只给测试server既有now注入口同步固定时间，attempt-5成功。
 - 维护者要求今晚暂停：当时已启动的390批次和attempt-5自然结束后停止，不再开启修复/验证批次；任务保持in_progress。00:28本任务Node/Chrome树全部退出、4349/4351无监听，pause-process-check.json留证。新secondary.css导入在构建后加入，本次通过不覆盖它；明天先等恢复、由owner修16 lint并核对新层，再决定复验。旧侧栏清理和未指派的数据接口不做。报告、opus-handoff和根HANDOFF已同步；未提交/推送/部署/安装依赖或删除证据。
+
+
+# 2026-11-25 拿铁：错题诊断、统计四态与每日新题轮询
+
+- 完成 WrongPage 科目/错因/年份组合筛选、动态重练数、当前版本最新错因与两种笔记原文展开；StatsPage 用 useConceptRegister 客观错答叶概念替换概念百分比，保留题目层统计；仅新增 diagnostics.css 和 styles.css 的一行导入。
+- 新题固定 DS→CO→OS→CN 轮询，各科按 year/number/id 升序，跨年延续队列、耗尽跳过；到期优先、限额和旧清单原样读取合同不改。新增 storage/review-plan.test.ts 经组长批准，验证旧排序清单重开、换版输入均不重算，次日才采用新规则。
+- 实际命令：npx vitest run packages/domain/src packages/storage/src/review-plan.test.ts packages/storage/src/learning-repository.test.ts apps/web/src/pages/SecondaryPages.test.tsx（12 文件 83/83）；npm run lint（0）、改动文件定向 ESLint（0）；npm run typecheck（7 workspace 全过）；npm run build -w @408os/web -- --outDir=output/playwright/next-phase-impl-latte/build-local（通过）；npx playwright test --config output/playwright/next-phase-impl-latte/playwright.config.ts（117/117，1440/1366/390 各 39，1 worker，0 skipped/flaky，非默认全量/非 8 worker 压力检查）。
+- 浏览器 node output/playwright/next-phase-impl-latte/browser-audit.mjs：4351 本地 Chrome，8 个昼夜页面状态、20 截图，新增文字最低 5.8745:1、目标最小 36px、横溢/pageerror 0。node output/playwright/next-phase-impl-latte/poll-regression.mjs：实际旧工具两段 expect.poll 谓词各做延迟/永不满足，4/4，证明不会 Promise 提前放行；不访问线上。
+- 只追加 content-quality-backlog 的 locator 节：46 题一致；2024/2025 总表在 answers-1.jpg，印刷页 84/85，不改题包及审核状态。既有断言仅 review-plan 的 before/after 两个完整 ID 顺序从 [q1,q2,q3] 改为 [q1,q3,q2]，强度相同；E2E 零删改。
+- 初次单测 fixture 路径、类型参数/索引与 node:fs 测试类型、根 npm 参数透传构建错误均已修正；截图主题挂载竞态通过等待按钮并断言实际 data-theme 修正，最终截图全部有主题实值证据。没有通过降低断言或重跑 E2E 掩盖失败。详细结果及截图清单见 opus-handoff 本次新增小节与 output/playwright/next-phase-impl-latte/。本轮范围无未完成项；无提交/推送/部署/依赖安装；不改其他成员文件或存储 schema，根 HANDOFF 由组长维护。

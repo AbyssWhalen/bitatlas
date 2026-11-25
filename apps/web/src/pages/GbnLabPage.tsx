@@ -258,13 +258,14 @@ function GbnStateView({ state, sequenceSpace, windowSize }: {
         <span className="gbn-timer-owner">timerOwner = {state.timerOwner ?? 'OFF'}</span>
       </div>
       <h3>接收窗口 <code>receiverExpected = {state.receiverExpected}</code></h3>
-      <div className="gbn-sequence-space gbn-receiver-row" role="img" aria-label={`接收方期待序号 ${state.receiverExpected}`}>
-        {sequenceNumbers.map((sequenceNumber) => (
-          <span key={sequenceNumber} className={`gbn-sequence-slot${sequenceNumber === state.receiverExpected ? ' gbn-expected-slot' : ''}`}>
-            <strong>{sequenceNumber}</strong>
-            {sequenceNumber === state.receiverExpected && <small>期待</small>}
-          </span>
-        ))}
+      <div className="gbn-receiver-bar" role="img" aria-label={`接收方期待序号 ${state.receiverExpected}`}>
+        <span className="gbn-sequence-slot gbn-expected-slot">
+          <strong>{state.receiverExpected}</strong>
+          <small>期待</small>
+        </span>
+        <span className="gbn-receiver-desc">
+          接收窗口恒为 1：仅按序接收序号 <code>{state.receiverExpected}</code>，其余乱序帧直接丢弃并重发最近按序累计确认。
+        </span>
       </div>
     </section>
   );

@@ -168,4 +168,14 @@ describe('GbnLabPage', () => {
     expect(screen.getByLabelText('current search')).toHaveTextContent('script=send');
     expect(screen.getByLabelText('current search')).not.toHaveTextContent('preset=');
   });
+
+  it('renders a single-row receiver expected indicator for 32 sequence numbers while keeping 32 sender slots', () => {
+    renderPage('/lab/network?module=gbn&sequenceSpace=32&windowSize=7&script=send');
+
+    expect(document.querySelectorAll('[data-gbn-sequence]')).toHaveLength(32);
+    const receiver = screen.getByRole('img', { name: '接收方期待序号 0' });
+    expect(receiver).toHaveClass('gbn-receiver-bar');
+    expect(receiver.querySelectorAll('.gbn-sequence-slot')).toHaveLength(1);
+    expect(receiver.querySelector('.gbn-expected-slot strong')).toHaveTextContent(/^0$/u);
+  });
 });

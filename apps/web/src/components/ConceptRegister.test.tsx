@@ -96,4 +96,23 @@ describe('ConceptRegister', () => {
     expect(screen.getByRole('button', { name: '收起数据结构概念格' })).toHaveAttribute('aria-expanded', 'true');
     expect(screen.getByRole('button', { name: '展开操作系统概念格' })).toHaveAttribute('aria-expanded', 'false');
   });
+
+  it('filters register cells by state without outputting percentages and shows empty message when none match', () => {
+    renderRegister({
+      concepts: [
+        row('ds.a', 'data-structures', 'unstarted', { attemptedQuestions: 0 }),
+        row('ds.b', 'data-structures', 'practicing'),
+      ],
+    });
+    const filterGroup = screen.getByRole('group', { name: '概念状态筛选' });
+    expect(filterGroup).not.toHaveTextContent('%');
+
+    fireEvent.click(within(filterGroup).getByRole('button', { name: /^练习中/u }));
+    const ds = within(screen.getByRole('group', { name: '数据结构概念' }));
+    expect(ds.getAllByRole('button')).toHaveLength(1);
+    expect(ds.getByRole('button', { name: /^概念 ds\.b/u })).toBeInTheDocument();
+
+    fireEvent.click(within(filterGroup).getByRole('button', { name: /^待巩固/u }));
+    expect(screen.getByText('当前没有处于“待巩固”状态的概念。')).toBeInTheDocument();
+  });
 });

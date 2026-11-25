@@ -210,6 +210,9 @@ describe('CardReviewPage reading layer and keyboard flow', () => {
 
     expect(screen.getByRole('heading', { name: '本轮复习总结' })).toBeVisible();
     expect(screen.getByText(/1 张出现过“忘记”或“模糊”/)).toBeVisible();
+    expect(screen.queryByText('card-queue')).not.toBeInTheDocument();
+    expect(screen.queryByText('card-cache')).not.toBeInTheDocument();
+    expect(screen.getByText(/记忆卡 · 循环队列判满/)).toBeVisible();
     expect(screen.getByRole('link', { name: '回到今日任务 →' })).toBeVisible();
   });
 });

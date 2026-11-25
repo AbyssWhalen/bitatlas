@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { act, cleanup, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { aggregateStats, buildPersistentDailyPlan, overlayManualMastery, projectCurrentQuestionProgress, type Attempt, type ContentPack, type LearningPack, type ReviewSession } from '@408os/domain';
+import { aggregateStats, buildPersistentDailyPlan, overlayManualMastery, projectCurrentQuestionProgress, type Attempt, type ContentPack, type LearningPack, type ReviewSession, type StudySession } from '@408os/domain';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useStudy } from '../app/StudyContext';
 import { DashboardPage } from './DashboardPage';
@@ -13,6 +13,8 @@ vi.mock('../app/useConceptRegister', () => ({
 }));
 const assigned = new Map<string, ReturnType<typeof buildPersistentDailyPlan>>();
 let reviewRounds: ReviewSession[] = [];
+let studyPractices: StudySession[] = [];
+let sessionContexts: Array<{ sessionId: string; dailyPlanId?: string }> = [];
 vi.mock('../app/LearningContext', async () => {
   const { useBeijingDate } = await import('../app/useBeijingDate');
   return {
@@ -21,7 +23,7 @@ vi.mock('../app/LearningContext', async () => {
       const date = useBeijingDate();
       const current = useStudy();
       if (!assigned.has(date) && current.questions.length) assigned.set(date, buildPersistentDailyPlan(current.questions, current.attempts, [], [], new Date().toISOString()));
-      return { plan: assigned.get(date) ?? null, loading: false, error: '', contexts: [], practices: [], rounds: reviewRounds, conflicts: [] };
+      return { plan: assigned.get(date) ?? null, loading: false, error: '', contexts: sessionContexts, practices: studyPractices, rounds: reviewRounds, conflicts: [] };
     },
   };
 });
@@ -47,6 +49,8 @@ beforeEach(() => {
   vi.setSystemTime(new Date('2026-10-04T23:59:40+08:00'));
   assigned.clear();
   reviewRounds = [];
+  studyPractices = [];
+  sessionContexts = [];
   study();
 });
 
@@ -67,8 +71,25 @@ describe('dashboard content availability', () => {
 
     expect(screen.queryByText(/AI.*核对|人工复核|正式模考|Verified 题包/)).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '查看详情' })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '继续学习' })).toBeEnabled();
+    expect(screen.queryByRole('button', { name: /继续学习|继续上次未完练习/ })).not.toBeInTheDocument();
+    expect(screen.getByText(/首次学习可先从下方今日任务起步/)).toBeVisible();
     expect(screen.getByRole('button', { name: '开始剩余 2 题' })).toBeEnabled();
+  });
+
+  it('shows 继续上次未完练习 only when an unfinished non-daily-plan session exists', () => {
+    studyPractices = [{
+      id: 'standalone-open',
+      mode: 'practice',
+      questionIds: [question2009.id],
+      questionContentVersions: { [question2009.id]: question2009.contentVersion },
+      currentIndex: 0,
+      responses: {},
+      submittedQuestionIds: [],
+      startedAt: '2026-10-04T10:00:00+08:00',
+      updatedAt: '2026-10-04T10:05:00+08:00',
+    }];
+    renderDashboard();
+    expect(screen.getByRole('button', { name: '继续上次未完练习' })).toBeEnabled();
   });
 
   it('does not advertise an absent pack as ready to practice', () => {
@@ -115,7 +136,12 @@ describe('dashboard calendar and year scope', () => {
     const tasks = within(screen.getByRole('region', { name: '今日任务' }));
     expect(tasks.getByText(oldAttempt ? '已完成' : '不可用：内容缺失、暂停或版本变化')).toBeInTheDocument();
     expect(tasks.queryByText(oldAttempt ? '不可用：内容缺失、暂停或版本变化' : '已完成')).not.toBeInTheDocument();
-    expect(tasks.getByRole('button', { name: '开始剩余 0 题' })).toBeDisabled();
+    if (oldAttempt) {
+      expect(tasks.getByText('今日计划已全部完成')).toBeVisible();
+      expect(tasks.queryByRole('button', { name: /开始剩余/ })).not.toBeInTheDocument();
+    } else {
+      expect(tasks.getByRole('button', { name: '开始剩余 0 题' })).toBeDisabled();
+    }
     expect(assigned.get('2026-10-04')?.items[0]?.contentVersion).toBe(question2009.contentVersion);
   });
 
@@ -128,7 +154,8 @@ describe('dashboard calendar and year scope', () => {
     study({ questions: [question2009], attempts: [attempt] });
     renderDashboard();
     expect(screen.getByText('2026-10-04 · DAILY PLAN')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '开始剩余 0 题' })).toBeDisabled();
+    expect(screen.getByText('今日计划已全部完成')).toBeVisible();
+    expect(screen.getByRole('link', { name: '复盘待处理错题（1）' })).toHaveAttribute('href', '/wrong');
 
     act(() => { vi.advanceTimersByTime(90_000); });
     expect(screen.getByText('2026-10-05 · DAILY PLAN')).toBeInTheDocument();

@@ -32,6 +32,7 @@ describe('MockExamPage', () => {
     expect(screen.getByRole('heading', { name: '整卷模考' })).toBeVisible();
     expect(screen.getByRole('alert')).toHaveTextContent('尚未完成 47 题人工复核');
     expect(screen.queryByRole('button', { name: /开始.*模考/ })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '去题库按年份顺序自测 →' })).toHaveAttribute('href', '/questions?year=2009');
   });
 
   it('starts only an explicitly verified fixed paper and navigates to its persisted exam', async () => {

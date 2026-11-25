@@ -103,3 +103,154 @@ button.bit:hover { border-color: var(--ink-strong); box-shadow: 0 0 0 2px var(--
 .knowledge-page .concept-article details { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 .knowledge-page .concept-article details summary { display: inline-flex; align-items: center; min-height: 28px; color: var(--muted); font-weight: 600; cursor: pointer; }
 .knowledge-page .concept-article details li a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-strong); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Batch 2: Register state filter chips, practice quota selector, and <=760px detail bottom drawer */
+.register-head-main { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; min-width: 0; }
+.register-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.register-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bone);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.register-filter-chip:hover:not(.is-active) {
+  border-color: var(--ink-strong);
+  background: var(--paper-2);
+  color: var(--ink-strong);
+}
+.register-filter-chip.is-active {
+  border-color: var(--ink-strong);
+  background: var(--ink-strong);
+  color: var(--paper);
+}
+.register-filter-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+.register-empty-filter {
+  margin: 4px 0 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: var(--bone);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.knowledge-quota-bar { margin: 0 0 12px; }
+.knowledge-quota-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.knowledge-page .knowledge-quota-control {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bone);
+  overflow: hidden;
+  box-shadow: none;
+}
+.knowledge-page .knowledge-quota-control button {
+  min-height: 36px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.knowledge-page .knowledge-quota-control button:last-child { border-right: 0; }
+.knowledge-page .knowledge-quota-control button:hover:not(:disabled):not(.active) {
+  background: var(--paper-2);
+  color: var(--ink-strong);
+}
+.knowledge-page .knowledge-quota-control button.active {
+  background: var(--ink-strong);
+  color: var(--paper);
+  font-weight: 700;
+}
+.knowledge-page .knowledge-quota-control button:disabled {
+  background: var(--off);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.knowledge-drawer-backdrop,
+.knowledge-drawer-bar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .knowledge-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: color-mix(in srgb, var(--ink-strong) 44%, transparent);
+  }
+
+  .knowledge-page .knowledge-detail-panel.is-drawer-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 95;
+    max-height: 76dvh;
+    overflow-y: auto;
+    padding: 0 18px 28px;
+    border: 1px solid var(--ink-strong);
+    border-bottom: 0;
+    border-radius: 14px 14px 0 0;
+    background: var(--paper);
+    box-shadow: none;
+  }
+
+  .knowledge-page .knowledge-detail-panel.is-drawer-open .knowledge-drawer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: 36px 1fr 36px;
+    align-items: center;
+    margin: 0 -18px 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .knowledge-drawer-grab {
+    grid-column: 2;
+    justify-self: center;
+    width: 40px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--muted);
+  }
+
+  .knowledge-drawer-close {
+    grid-column: 3;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    flex: 0 0 36px;
+  }
+}

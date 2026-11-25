@@ -37,11 +37,65 @@
 .today-explore .command-row { gap: 8px 20px; }
 .today-explore .command-row a { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-strong); text-decoration: underline; text-underline-offset: 4px; }
 
+.today-newbie-guide {
+  margin: 10px 0 0;
+  max-width: 62ch;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.today-newbie-guide a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  margin-left: 2px;
+  color: var(--ink-strong);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.task-complete-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ok-text);
+  border-radius: 6px;
+  background: var(--bone);
+}
+.task-complete-copy { min-width: 0; flex: 1 1 260px; }
+.task-complete-copy strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ok-text);
+  font-size: 15px;
+  font-weight: 700;
+}
+.task-complete-copy p {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.task-complete-banner a.secondary-command {
+  min-height: 38px;
+  color: var(--ink-strong);
+  font-weight: 650;
+  text-decoration: none;
+}
+
 @media (max-width: 760px) {
   .today-hero { flex-direction: column; align-items: stretch; gap: 16px; }
   .task-board { padding: 18px 16px; }
   .task-board .task-list { grid-template-columns: minmax(0, 1fr); }
   .task-board .task-list li { flex-wrap: nowrap; }
   .task-board .command-row > button { flex: 1 1 100%; min-height: 44px; }
+  .task-complete-banner a.secondary-command { width: 100%; min-height: 42px; }
   .task-state { white-space: normal; text-align: right; }
 }

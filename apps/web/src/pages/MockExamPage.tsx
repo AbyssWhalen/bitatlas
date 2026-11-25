@@ -47,6 +47,8 @@ export function MockExamPage() {
   const ready = verified && paperShapeValid;
   // Content review is an administrator tool; members are not offered a link the server would refuse.
   const canReview = !SERVER_MODE || activeAccount?.account.role === 'admin';
+  const latestPackYear = packs.length > 0 ? Math.max(...packs.map((pack) => pack.year)) : null;
+  const selfTestQuestionsHref = latestPackYear ? `/questions?year=${latestPackYear}` : '/questions';
 
   const start = async () => {
     if (!ready || starting) return;
@@ -92,14 +94,22 @@ export function MockExamPage() {
             <strong>尚未完成 47 题人工复核</strong>
             <p>当前 2009 题包状态为 {manifest?.reviewStatus ?? '未安装'}，固定整卷入口保持关闭。</p>
           </div>
-          {canReview && <Link className="secondary-command" to="/review/2009">进入内容复核</Link>}
+          <div className="mock-readiness-actions">
+            <Link className="secondary-command" to={selfTestQuestionsHref}>去题库按年份顺序自测 →</Link>
+            {canReview && <Link className="secondary-command" to="/review/2009">进入内容复核</Link>}
+          </div>
         </section>
       )}
 
       {verified && !paperShapeValid && (
-        <section className="review-warning" role="alert">
+        <section className="review-warning mock-readiness-warning" role="alert">
           <ShieldAlert size={20} aria-hidden="true" />
-          <span>当前题包声明 {manifest?.questionCount ?? 0} 题、实际载入 {paperQuestions.length} 题，且每道题都必须已 verified，未满足固定整卷的 47 题契约。创建入口保持关闭。</span>
+          <div>
+            <span>当前题包声明 {manifest?.questionCount ?? 0} 题、实际载入 {paperQuestions.length} 题，且每道题都必须已 verified，未满足固定整卷的 47 题契约。创建入口保持关闭。</span>
+          </div>
+          <div className="mock-readiness-actions">
+            <Link className="secondary-command" to={selfTestQuestionsHref}>去题库按年份顺序自测 →</Link>
+          </div>
         </section>
       )}
 
